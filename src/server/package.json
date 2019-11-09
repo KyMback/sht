@@ -1,0 +1,8 @@
+{
+    "scripts": {
+      "migr:add": "dotnet ef migrations add -p src/Database/SHT.Database.EF.Migrations/SHT.Database.EF.Migrations.csproj",
+      "db:update": "dotnet run -p src/Database/SHT.Database.EF.Migrations/SHT.Database.EF.Migrations.csproj -- update",
+      "db:update:recreate": "npm run db:update -- --recreate"
+    }
+  }
+  

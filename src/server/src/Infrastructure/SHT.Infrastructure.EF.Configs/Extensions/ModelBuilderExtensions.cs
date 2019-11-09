@@ -2,7 +2,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using MoreLinq.Extensions;
 
-namespace SHT.Infrastructure.DataAccess.EF.Extensions
+namespace SHT.Infrastructure.EF.Configs.Extensions
 {
     internal static class ModelBuilderExtensions
     {

@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "server": "npm run --prefix src/server",
+    "migr:add": "npm run server -- migr:add",
+    "db:update": "npm run server -- db:update",
+    "db:update:recreate": "npm run server -- db:update:recreate"
+  }
+}

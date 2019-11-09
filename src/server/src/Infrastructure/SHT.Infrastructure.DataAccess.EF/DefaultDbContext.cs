@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SHT.Infrastructure.Common.Options;
 using SHT.Infrastructure.DataAccess.Abstractions;
-using SHT.Infrastructure.DataAccess.EF.Extensions;
 using SHT.Infrastructure.EF.Configs;
 
 namespace SHT.Infrastructure.DataAccess.EF
@@ -85,10 +84,7 @@ namespace SHT.Infrastructure.DataAccess.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder
-                .ApplyConfigurationsFromAssembly(typeof(BaseModelConfig<>).Assembly)
-                .UseDefaultDeleteBehavior(DeleteBehavior.Restrict);
-
+            ModelsConfigsApplier.Configure(modelBuilder);
             base.OnModelCreating(modelBuilder);
         }
 
