@@ -1,0 +1,6 @@
+<Project>
+    <PropertyGroup>
+        <LangVersion>8</LangVersion>
+        <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    </PropertyGroup>
+</Project>

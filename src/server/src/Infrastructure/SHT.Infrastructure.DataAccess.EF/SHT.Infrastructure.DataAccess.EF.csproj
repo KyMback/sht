@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <SolutionDir Condition="'$(SolutionDir)'==''">../../</SolutionDir>
+    </PropertyGroup>
+    <Import Project="$(SolutionDir)/common/Common.props" />
+    <Import Project="$(SolutionDir)/common/CodeAnalysis/CodeAnalysis.props"/>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.0.0" />
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\SHT.Infrastructure.Common\SHT.Infrastructure.Common.csproj" />
+      <ProjectReference Include="..\SHT.Infrastructure.DataAccess.Abstractions\SHT.Infrastructure.DataAccess.Abstractions.csproj" />
+      <ProjectReference Include="..\SHT.Infrastructure.EF.Configs\SHT.Infrastructure.EF.Configs.csproj" />
+    </ItemGroup>
+
+</Project>

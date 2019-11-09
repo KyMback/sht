@@ -1,0 +1,374 @@
+2019-11-09 13:59:20.989 [INF] [][][] Starting application
+2019-11-09 13:59:21.224 [INF] [][][Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5000
+2019-11-09 13:59:34.600 [INF] [0HLR50FJTVDJC:00000001][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/  
+2019-11-09 13:59:34.619 [ERR] [0HLR50FJTVDJC:00000001][{ Id: 13, Name: "ApplicationError" }][Microsoft.AspNetCore.Server.Kestrel] Connection id "0HLR50FJTVDJC", Request id "0HLR50FJTVDJC:00000001": An unhandled exception was thrown by the application.
+Autofac.Core.Registration.ComponentNotRegisteredException: The requested service 'SHT.Api.Web.Middleware.SpaRoutingMiddleware' has not been registered. To avoid this exception, either register a component to provide the service, check for service registration using IsRegistered(), or use the ResolveOptional() method to resolve an optional dependency.
+   at Autofac.ResolutionExtensions.ResolveService(IComponentContext context, Service service, IEnumerable`1 parameters)
+   at Autofac.ResolutionExtensions.Resolve(IComponentContext context, Type serviceType, IEnumerable`1 parameters)
+   at Autofac.ResolutionExtensions.Resolve(IComponentContext context, Type serviceType)
+   at Autofac.Extensions.DependencyInjection.AutofacServiceProvider.GetRequiredService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.AspNetCore.Http.MiddlewareFactory.Create(Type middlewareType)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass5_1.<<UseMiddlewareInterface>b__1>d.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at CorrelationId.CorrelationIdMiddleware.Invoke(HttpContext context, ICorrelationContextFactory correlationContextFactory)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)
+2019-11-09 13:59:34.644 [INF] [0HLR50FJTVDJC:00000001][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 45.7013ms 500 
+2019-11-09 14:02:56.900 [INF] [][][] Starting application
+2019-11-09 14:02:57.119 [INF] [][][Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5000
+2019-11-09 14:05:12.884 [INF] [][][] Starting application
+2019-11-09 14:05:13.146 [INF] [][][Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5000
+2019-11-09 14:06:08.661 [INF] [][][] Starting application
+2019-11-09 14:06:08.914 [INF] [][][Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5000
+2019-11-09 14:12:20.076 [INF] [][][] Starting application
+2019-11-09 14:12:20.446 [INF] [][][Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5000
+2019-11-09 14:12:21.967 [INF] [0HLR50MOK286J:00000001][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/  
+2019-11-09 14:12:21.992 [ERR] [0HLR50MOK286J:00000001][{ Id: 13, Name: "ApplicationError" }][Microsoft.AspNetCore.Server.Kestrel] Connection id "0HLR50MOK286J", Request id "0HLR50MOK286J:00000001": An unhandled exception was thrown by the application.
+Autofac.Core.Registration.ComponentNotRegisteredException: The requested service 'SHT.Api.Web.Middleware.SpaRoutingMiddleware' has not been registered. To avoid this exception, either register a component to provide the service, check for service registration using IsRegistered(), or use the ResolveOptional() method to resolve an optional dependency.
+   at Autofac.ResolutionExtensions.ResolveService(IComponentContext context, Service service, IEnumerable`1 parameters)
+   at Autofac.ResolutionExtensions.Resolve(IComponentContext context, Type serviceType, IEnumerable`1 parameters)
+   at Autofac.ResolutionExtensions.Resolve(IComponentContext context, Type serviceType)
+   at Autofac.Extensions.DependencyInjection.AutofacServiceProvider.GetRequiredService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.AspNetCore.Http.MiddlewareFactory.Create(Type middlewareType)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass5_1.<<UseMiddlewareInterface>b__1>d.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at CorrelationId.CorrelationIdMiddleware.Invoke(HttpContext context, ICorrelationContextFactory correlationContextFactory)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)
+2019-11-09 14:12:22.029 [INF] [0HLR50MOK286J:00000001][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 63.232600000000005ms 500 
+2019-11-09 14:17:16.901 [INF] [][][] Starting application
+2019-11-09 14:17:17.169 [INF] [][][Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5000
+2019-11-09 14:17:18.612 [INF] [0HLR50PH15A39:00000001][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/  
+2019-11-09 14:17:18.638 [ERR] [0HLR50PH15A39:00000001][{ Id: 13, Name: "ApplicationError" }][Microsoft.AspNetCore.Server.Kestrel] Connection id "0HLR50PH15A39", Request id "0HLR50PH15A39:00000001": An unhandled exception was thrown by the application.
+Autofac.Core.Registration.ComponentNotRegisteredException: The requested service 'SHT.Api.Web.Middleware.SpaRoutingMiddleware' has not been registered. To avoid this exception, either register a component to provide the service, check for service registration using IsRegistered(), or use the ResolveOptional() method to resolve an optional dependency.
+   at Autofac.ResolutionExtensions.ResolveService(IComponentContext context, Service service, IEnumerable`1 parameters)
+   at Autofac.ResolutionExtensions.Resolve(IComponentContext context, Type serviceType, IEnumerable`1 parameters)
+   at Autofac.ResolutionExtensions.Resolve(IComponentContext context, Type serviceType)
+   at Autofac.Extensions.DependencyInjection.AutofacServiceProvider.GetRequiredService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.AspNetCore.Http.MiddlewareFactory.Create(Type middlewareType)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass5_1.<<UseMiddlewareInterface>b__1>d.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at CorrelationId.CorrelationIdMiddleware.Invoke(HttpContext context, ICorrelationContextFactory correlationContextFactory)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)
+2019-11-09 14:17:18.672 [INF] [0HLR50PH15A39:00000001][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 61.8072ms 500 
+2019-11-09 14:17:55.393 [INF] [][][] Starting application
+2019-11-09 14:17:58.684 [INF] [][][Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5000
+2019-11-09 14:18:16.623 [INF] [][][] Starting application
+2019-11-09 14:18:17.045 [INF] [][][Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5000
+2019-11-09 14:18:26.175 [INF] [0HLR50Q55BOI0:00000001][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/  
+2019-11-09 14:18:26.217 [ERR] [0HLR50Q55BOI0:00000001][{ Id: 13, Name: "ApplicationError" }][Microsoft.AspNetCore.Server.Kestrel] Connection id "0HLR50Q55BOI0", Request id "0HLR50Q55BOI0:00000001": An unhandled exception was thrown by the application.
+Autofac.Core.Registration.ComponentNotRegisteredException: The requested service 'SHT.Api.Web.Middleware.SpaRoutingMiddleware' has not been registered. To avoid this exception, either register a component to provide the service, check for service registration using IsRegistered(), or use the ResolveOptional() method to resolve an optional dependency.
+   at Autofac.ResolutionExtensions.ResolveService(IComponentContext context, Service service, IEnumerable`1 parameters)
+   at Autofac.ResolutionExtensions.Resolve(IComponentContext context, Type serviceType, IEnumerable`1 parameters)
+   at Autofac.ResolutionExtensions.Resolve(IComponentContext context, Type serviceType)
+   at Autofac.Extensions.DependencyInjection.AutofacServiceProvider.GetRequiredService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.AspNetCore.Http.MiddlewareFactory.Create(Type middlewareType)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.<>c__DisplayClass5_1.<<UseMiddlewareInterface>b__1>d.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+   at CorrelationId.CorrelationIdMiddleware.Invoke(HttpContext context, ICorrelationContextFactory correlationContextFactory)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)
+2019-11-09 14:18:26.296 [INF] [0HLR50Q55BOI0:00000001][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 122.5022ms 500 
+2019-11-09 14:20:38.998 [INF] [][][] Starting application
+2019-11-09 14:20:39.289 [INF] [][][Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5000
+2019-11-09 14:20:41.017 [INF] [0HLR50RDBECRH:00000001][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/  
+2019-11-09 14:20:41.090 [INF] [0HLR50RDBECRH:00000001][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 75.50150000000001ms 404 
+2019-11-09 14:20:46.303 [INF] [0HLR50RDBECRH:00000002][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger  
+2019-11-09 14:20:46.310 [INF] [0HLR50RDBECRH:00000002][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 6.8708ms 301 
+2019-11-09 14:20:46.321 [INF] [0HLR50RDBECRH:00000003][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/index.html  
+2019-11-09 14:20:46.450 [INF] [0HLR50RDBECRH:00000003][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 129.0804ms 200 text/html;charset=utf-8
+2019-11-09 14:20:46.484 [INF] [0HLR50RDBECRH:00000004][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/swagger-ui.css  
+2019-11-09 14:20:46.484 [INF] [0HLR50RDBECRI:00000001][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/swagger-ui-bundle.js  
+2019-11-09 14:20:46.486 [INF] [0HLR50RDBECRJ:00000001][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/swagger-ui-standalone-preset.js  
+2019-11-09 14:20:46.512 [INF] [0HLR50RDBECRJ:00000001][{ Id: 2, Name: "FileServed" }][Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2019-11-09 14:20:46.513 [INF] [0HLR50RDBECRH:00000004][{ Id: 2, Name: "FileServed" }][Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2019-11-09 14:20:46.521 [INF] [0HLR50RDBECRJ:00000001][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 34.631ms 200 application/javascript
+2019-11-09 14:20:46.517 [INF] [0HLR50RDBECRI:00000001][{ Id: 2, Name: "FileServed" }][Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2019-11-09 14:20:46.521 [INF] [0HLR50RDBECRH:00000004][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 37.2456ms 200 text/css
+2019-11-09 14:20:46.528 [INF] [0HLR50RDBECRI:00000001][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 43.7363ms 200 application/javascript
+2019-11-09 14:20:46.848 [INF] [0HLR50RDBECRI:00000002][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/v1.0.0/swagger.json  
+2019-11-09 14:20:46.876 [INF] [0HLR50RDBECRJ:00000002][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/favicon-32x32.png  
+2019-11-09 14:20:46.877 [INF] [0HLR50RDBECRI:00000002][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 29.4261ms 200 application/json;charset=utf-8
+2019-11-09 14:20:46.881 [INF] [0HLR50RDBECRJ:00000002][{ Id: 2, Name: "FileServed" }][Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2019-11-09 14:20:46.884 [INF] [0HLR50RDBECRJ:00000002][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 8.0983ms 200 image/png
+2019-11-09 15:37:28.794 [INF] [][][] Starting application
+2019-11-09 15:37:29.076 [INF] [][][Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5000
+2019-11-09 15:37:42.743 [INF] [][][] Starting application
+2019-11-09 15:37:42.967 [INF] [][][Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5000
+2019-11-09 15:38:38.043 [INF] [][][] Starting application
+2019-11-09 15:38:38.344 [INF] [][][Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5000
+2019-11-09 15:38:41.669 [INF] [0HLR52709DJ36:00000001][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/  
+2019-11-09 15:38:41.752 [INF] [0HLR52709DJ36:00000001][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 86.2578ms 404 
+2019-11-09 15:38:45.114 [INF] [0HLR52709DJ36:00000002][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger  
+2019-11-09 15:38:45.121 [INF] [0HLR52709DJ36:00000002][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 7.092300000000001ms 301 
+2019-11-09 15:38:45.127 [INF] [0HLR52709DJ36:00000003][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/index.html  
+2019-11-09 15:38:45.254 [INF] [0HLR52709DJ36:00000003][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 126.82770000000001ms 200 text/html;charset=utf-8
+2019-11-09 15:38:45.282 [INF] [0HLR52709DJ36:00000004][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/swagger-ui.css  
+2019-11-09 15:38:45.283 [INF] [0HLR52709DJ37:00000001][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/swagger-ui-bundle.js  
+2019-11-09 15:38:45.286 [INF] [0HLR52709DJ38:00000001][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/swagger-ui-standalone-preset.js  
+2019-11-09 15:38:45.306 [INF] [0HLR52709DJ36:00000004][{ Id: 2, Name: "FileServed" }][Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2019-11-09 15:38:45.306 [INF] [0HLR52709DJ38:00000001][{ Id: 2, Name: "FileServed" }][Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2019-11-09 15:38:45.306 [INF] [0HLR52709DJ37:00000001][{ Id: 2, Name: "FileServed" }][Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2019-11-09 15:38:45.313 [INF] [0HLR52709DJ38:00000001][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 27.299100000000003ms 200 application/javascript
+2019-11-09 15:38:45.313 [INF] [0HLR52709DJ36:00000004][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 30.8698ms 200 text/css
+2019-11-09 15:38:45.314 [INF] [0HLR52709DJ37:00000001][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 30.645000000000003ms 200 application/javascript
+2019-11-09 15:38:45.623 [INF] [0HLR52709DJ37:00000002][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/v1.0.0/swagger.json  
+2019-11-09 15:38:45.731 [INF] [0HLR52709DJ37:00000002][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 107.78320000000001ms 200 application/json;charset=utf-8
+2019-11-09 15:38:55.403 [INF] [0HLR52709DJ37:00000003][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/test?testStr=erqewq  
+2019-11-09 15:38:55.421 [INF] [0HLR52709DJ37:00000003][{ Name: "ExecutingEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executing endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:38:55.473 [INF] [0HLR52709DJ37:00000003][{ Id: 3, Name: "ControllerActionExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Route matched with {action = "GetData", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[SHT.Application.TestData] GetData(System.String) on controller SHT.Api.Web.Controllers.TestController (SHT.Api.Web).
+2019-11-09 15:38:55.489 [INF] [0HLR52709DJ37:00000003][{ Id: 2, Name: "ActionExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) in 6.0975ms
+2019-11-09 15:38:55.497 [INF] [0HLR52709DJ37:00000003][{ Id: 1, Name: "ExecutedEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executed endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:38:55.500 [ERR] [0HLR52709DJ37:00000003][][SHT.Api.Web.Middleware.ExceptionHandlingMiddleware] Error ID: 9b97e8ee-f5e0-42d6-ae5f-5d737d6d049b
+Autofac.Core.DependencyResolutionException: An exception was thrown while activating SHT.Api.Web.Controllers.TestController -> MediatR.Mediator.
+ ---> Autofac.Core.DependencyResolutionException: None of the constructors found with 'Autofac.Core.Activators.Reflection.DefaultConstructorFinder' on type 'MediatR.Mediator' can be invoked with the available services and parameters:
+Cannot resolve parameter 'MediatR.ServiceFactory serviceFactory' of constructor 'Void .ctor(MediatR.ServiceFactory)'.
+   at Autofac.Core.Activators.Reflection.ReflectionActivator.GetValidConstructorBindings(IComponentContext context, IEnumerable`1 parameters)
+   at Autofac.Core.Activators.Reflection.ReflectionActivator.ActivateInstance(IComponentContext context, IEnumerable`1 parameters)
+   at Autofac.Core.Resolving.InstanceLookup.Activate(IEnumerable`1 parameters, Object& decoratorTarget)
+   --- End of inner exception stack trace ---
+   at Autofac.Core.Resolving.InstanceLookup.Activate(IEnumerable`1 parameters, Object& decoratorTarget)
+   at Autofac.Core.Resolving.InstanceLookup.Execute()
+   at Autofac.Core.Resolving.ResolveOperation.GetOrCreateInstance(ISharingLifetimeScope currentOperationScope, IComponentRegistration registration, IEnumerable`1 parameters)
+   at Autofac.Core.Resolving.ResolveOperation.ResolveComponent(IComponentRegistration registration, IEnumerable`1 parameters)
+   at Autofac.Core.Resolving.ResolveOperation.Execute(IComponentRegistration registration, IEnumerable`1 parameters)
+   at Autofac.Core.Lifetime.LifetimeScope.ResolveComponent(IComponentRegistration registration, IEnumerable`1 parameters)
+   at Autofac.ResolutionExtensions.TryResolveService(IComponentContext context, Service service, IEnumerable`1 parameters, Object& instance)
+   at Autofac.ResolutionExtensions.ResolveService(IComponentContext context, Service service, IEnumerable`1 parameters)
+   at Autofac.ResolutionExtensions.Resolve(IComponentContext context, Type serviceType, IEnumerable`1 parameters)
+   at Autofac.ResolutionExtensions.Resolve(IComponentContext context, Type serviceType)
+   at Autofac.Extensions.DependencyInjection.AutofacServiceProvider.GetRequiredService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.AspNetCore.Mvc.Controllers.ServiceBasedControllerActivator.Create(ControllerContext actionContext)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass5_0.<CreateControllerFactory>g__CreateController|0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at SHT.Api.Web.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in D:\Programming\GitHub\CogniSpect\StudentHardTest\src\server\SHT\src\Api\SHT.Api.Web\Middleware\ExceptionHandlingMiddleware.cs:line 37
+2019-11-09 15:38:55.555 [INF] [0HLR52709DJ37:00000003][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 152.0499ms 500 
+2019-11-09 15:44:29.532 [INF] [][][] Starting application
+2019-11-09 15:44:29.765 [INF] [][][Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5000
+2019-11-09 15:44:42.351 [INF] [0HLR52ABPAOG0:00000001][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/test?testStr=test  
+2019-11-09 15:44:42.434 [INF] [0HLR52ABPAOG0:00000001][{ Name: "ExecutingEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executing endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:42.476 [INF] [0HLR52ABPAOG0:00000001][{ Id: 3, Name: "ControllerActionExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Route matched with {action = "GetData", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[SHT.Application.TestData] GetData(System.String) on controller SHT.Api.Web.Controllers.TestController (SHT.Api.Web).
+2019-11-09 15:44:42.501 [INF] [0HLR52ABPAOG0:00000001][{ Id: 1, Name: "ActionMethodExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executing action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) - Validation state: "Valid"
+2019-11-09 15:44:42.564 [INF] [0HLR52ABPAOG0:00000001][{ Id: 2, Name: "ActionMethodExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 53.2327ms.
+2019-11-09 15:44:42.573 [INF] [0HLR52ABPAOG0:00000001][{ Id: 1, Name: "ObjectResultExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor] Executing ObjectResult, writing value of type 'SHT.Application.TestData'.
+2019-11-09 15:44:42.594 [INF] [0HLR52ABPAOG0:00000001][{ Id: 2, Name: "ActionExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) in 102.2604ms
+2019-11-09 15:44:42.598 [INF] [0HLR52ABPAOG0:00000001][{ Id: 1, Name: "ExecutedEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executed endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:42.600 [INF] [0HLR52ABPAOG0:00000001][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 251.51360000000003ms 200 application/json; charset=utf-8
+2019-11-09 15:44:50.273 [INF] [0HLR52ABPAOG0:00000002][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/test?testStr=test  
+2019-11-09 15:44:50.279 [INF] [0HLR52ABPAOG0:00000002][{ Name: "ExecutingEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executing endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:50.283 [INF] [0HLR52ABPAOG0:00000002][{ Id: 3, Name: "ControllerActionExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Route matched with {action = "GetData", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[SHT.Application.TestData] GetData(System.String) on controller SHT.Api.Web.Controllers.TestController (SHT.Api.Web).
+2019-11-09 15:44:50.291 [INF] [0HLR52ABPAOG0:00000002][{ Id: 1, Name: "ActionMethodExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executing action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) - Validation state: "Valid"
+2019-11-09 15:44:50.296 [INF] [0HLR52ABPAOG0:00000002][{ Id: 2, Name: "ActionMethodExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 0.6299ms.
+2019-11-09 15:44:50.300 [INF] [0HLR52ABPAOG0:00000002][{ Id: 1, Name: "ObjectResultExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor] Executing ObjectResult, writing value of type 'SHT.Application.TestData'.
+2019-11-09 15:44:50.305 [INF] [0HLR52ABPAOG0:00000002][{ Id: 2, Name: "ActionExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) in 15.7942ms
+2019-11-09 15:44:50.307 [INF] [0HLR52ABPAOG0:00000002][{ Id: 1, Name: "ExecutedEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executed endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:50.309 [INF] [0HLR52ABPAOG0:00000002][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 36.0246ms 200 application/json; charset=utf-8
+2019-11-09 15:44:51.507 [INF] [0HLR52ABPAOG0:00000003][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/test?testStr=test  
+2019-11-09 15:44:51.515 [INF] [0HLR52ABPAOG0:00000003][{ Name: "ExecutingEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executing endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:51.519 [INF] [0HLR52ABPAOG0:00000003][{ Id: 3, Name: "ControllerActionExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Route matched with {action = "GetData", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[SHT.Application.TestData] GetData(System.String) on controller SHT.Api.Web.Controllers.TestController (SHT.Api.Web).
+2019-11-09 15:44:51.524 [INF] [0HLR52ABPAOG0:00000003][{ Id: 1, Name: "ActionMethodExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executing action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) - Validation state: "Valid"
+2019-11-09 15:44:51.526 [INF] [0HLR52ABPAOG0:00000003][{ Id: 2, Name: "ActionMethodExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 0.3106ms.
+2019-11-09 15:44:51.529 [INF] [0HLR52ABPAOG0:00000003][{ Id: 1, Name: "ObjectResultExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor] Executing ObjectResult, writing value of type 'SHT.Application.TestData'.
+2019-11-09 15:44:51.530 [INF] [0HLR52ABPAOG0:00000003][{ Id: 2, Name: "ActionExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) in 8.257900000000001ms
+2019-11-09 15:44:51.534 [INF] [0HLR52ABPAOG0:00000003][{ Id: 1, Name: "ExecutedEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executed endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:51.539 [INF] [0HLR52ABPAOG0:00000003][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 33.1813ms 200 application/json; charset=utf-8
+2019-11-09 15:44:52.230 [INF] [0HLR52ABPAOG0:00000004][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/test?testStr=test  
+2019-11-09 15:44:52.235 [INF] [0HLR52ABPAOG0:00000004][{ Name: "ExecutingEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executing endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:52.239 [INF] [0HLR52ABPAOG0:00000004][{ Id: 3, Name: "ControllerActionExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Route matched with {action = "GetData", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[SHT.Application.TestData] GetData(System.String) on controller SHT.Api.Web.Controllers.TestController (SHT.Api.Web).
+2019-11-09 15:44:52.243 [INF] [0HLR52ABPAOG0:00000004][{ Id: 1, Name: "ActionMethodExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executing action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) - Validation state: "Valid"
+2019-11-09 15:44:52.245 [INF] [0HLR52ABPAOG0:00000004][{ Id: 2, Name: "ActionMethodExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 0.3055ms.
+2019-11-09 15:44:52.252 [INF] [0HLR52ABPAOG0:00000004][{ Id: 1, Name: "ObjectResultExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor] Executing ObjectResult, writing value of type 'SHT.Application.TestData'.
+2019-11-09 15:44:52.257 [INF] [0HLR52ABPAOG0:00000004][{ Id: 2, Name: "ActionExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) in 15.488700000000001ms
+2019-11-09 15:44:52.261 [INF] [0HLR52ABPAOG0:00000004][{ Id: 1, Name: "ExecutedEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executed endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:52.262 [INF] [0HLR52ABPAOG0:00000004][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 32.688ms 200 application/json; charset=utf-8
+2019-11-09 15:44:52.821 [INF] [0HLR52ABPAOG0:00000005][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/test?testStr=test  
+2019-11-09 15:44:52.827 [INF] [0HLR52ABPAOG0:00000005][{ Name: "ExecutingEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executing endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:52.831 [INF] [0HLR52ABPAOG0:00000005][{ Id: 3, Name: "ControllerActionExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Route matched with {action = "GetData", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[SHT.Application.TestData] GetData(System.String) on controller SHT.Api.Web.Controllers.TestController (SHT.Api.Web).
+2019-11-09 15:44:52.840 [INF] [0HLR52ABPAOG0:00000005][{ Id: 1, Name: "ActionMethodExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executing action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) - Validation state: "Valid"
+2019-11-09 15:44:52.844 [INF] [0HLR52ABPAOG0:00000005][{ Id: 2, Name: "ActionMethodExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 0.5864ms.
+2019-11-09 15:44:52.849 [INF] [0HLR52ABPAOG0:00000005][{ Id: 1, Name: "ObjectResultExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor] Executing ObjectResult, writing value of type 'SHT.Application.TestData'.
+2019-11-09 15:44:52.854 [INF] [0HLR52ABPAOG0:00000005][{ Id: 2, Name: "ActionExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) in 17.54ms
+2019-11-09 15:44:52.856 [INF] [0HLR52ABPAOG0:00000005][{ Id: 1, Name: "ExecutedEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executed endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:52.859 [INF] [0HLR52ABPAOG0:00000005][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 37.6526ms 200 application/json; charset=utf-8
+2019-11-09 15:44:53.311 [INF] [0HLR52ABPAOG0:00000006][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/test?testStr=test  
+2019-11-09 15:44:53.316 [INF] [0HLR52ABPAOG0:00000006][{ Name: "ExecutingEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executing endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:53.320 [INF] [0HLR52ABPAOG0:00000006][{ Id: 3, Name: "ControllerActionExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Route matched with {action = "GetData", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[SHT.Application.TestData] GetData(System.String) on controller SHT.Api.Web.Controllers.TestController (SHT.Api.Web).
+2019-11-09 15:44:53.326 [INF] [0HLR52ABPAOG0:00000006][{ Id: 1, Name: "ActionMethodExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executing action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) - Validation state: "Valid"
+2019-11-09 15:44:53.327 [INF] [0HLR52ABPAOG0:00000006][{ Id: 2, Name: "ActionMethodExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 0.2711ms.
+2019-11-09 15:44:53.329 [INF] [0HLR52ABPAOG0:00000006][{ Id: 1, Name: "ObjectResultExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor] Executing ObjectResult, writing value of type 'SHT.Application.TestData'.
+2019-11-09 15:44:53.332 [INF] [0HLR52ABPAOG0:00000006][{ Id: 2, Name: "ActionExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) in 7.056500000000001ms
+2019-11-09 15:44:53.336 [INF] [0HLR52ABPAOG0:00000006][{ Id: 1, Name: "ExecutedEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executed endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:53.338 [INF] [0HLR52ABPAOG0:00000006][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 27.2211ms 200 application/json; charset=utf-8
+2019-11-09 15:44:53.803 [INF] [0HLR52ABPAOG0:00000007][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/test?testStr=test  
+2019-11-09 15:44:53.807 [INF] [0HLR52ABPAOG0:00000007][{ Name: "ExecutingEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executing endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:53.812 [INF] [0HLR52ABPAOG0:00000007][{ Id: 3, Name: "ControllerActionExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Route matched with {action = "GetData", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[SHT.Application.TestData] GetData(System.String) on controller SHT.Api.Web.Controllers.TestController (SHT.Api.Web).
+2019-11-09 15:44:53.823 [INF] [0HLR52ABPAOG0:00000007][{ Id: 1, Name: "ActionMethodExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executing action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) - Validation state: "Valid"
+2019-11-09 15:44:53.828 [INF] [0HLR52ABPAOG0:00000007][{ Id: 2, Name: "ActionMethodExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 0.5418000000000001ms.
+2019-11-09 15:44:53.832 [INF] [0HLR52ABPAOG0:00000007][{ Id: 1, Name: "ObjectResultExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor] Executing ObjectResult, writing value of type 'SHT.Application.TestData'.
+2019-11-09 15:44:53.836 [INF] [0HLR52ABPAOG0:00000007][{ Id: 2, Name: "ActionExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) in 16.408ms
+2019-11-09 15:44:53.839 [INF] [0HLR52ABPAOG0:00000007][{ Id: 1, Name: "ExecutedEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executed endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:53.844 [INF] [0HLR52ABPAOG0:00000007][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 40.782700000000006ms 200 application/json; charset=utf-8
+2019-11-09 15:44:54.361 [INF] [0HLR52ABPAOG0:00000008][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/test?testStr=test  
+2019-11-09 15:44:54.364 [INF] [0HLR52ABPAOG0:00000008][{ Name: "ExecutingEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executing endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:54.367 [INF] [0HLR52ABPAOG0:00000008][{ Id: 3, Name: "ControllerActionExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Route matched with {action = "GetData", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[SHT.Application.TestData] GetData(System.String) on controller SHT.Api.Web.Controllers.TestController (SHT.Api.Web).
+2019-11-09 15:44:54.375 [INF] [0HLR52ABPAOG0:00000008][{ Id: 1, Name: "ActionMethodExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executing action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) - Validation state: "Valid"
+2019-11-09 15:44:54.377 [INF] [0HLR52ABPAOG0:00000008][{ Id: 2, Name: "ActionMethodExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 0.29660000000000003ms.
+2019-11-09 15:44:54.383 [INF] [0HLR52ABPAOG0:00000008][{ Id: 1, Name: "ObjectResultExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor] Executing ObjectResult, writing value of type 'SHT.Application.TestData'.
+2019-11-09 15:44:54.388 [INF] [0HLR52ABPAOG0:00000008][{ Id: 2, Name: "ActionExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) in 13.9778ms
+2019-11-09 15:44:54.392 [INF] [0HLR52ABPAOG0:00000008][{ Id: 1, Name: "ExecutedEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executed endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:54.394 [INF] [0HLR52ABPAOG0:00000008][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 33.258ms 200 application/json; charset=utf-8
+2019-11-09 15:44:54.875 [INF] [0HLR52ABPAOG0:00000009][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/test?testStr=test  
+2019-11-09 15:44:54.879 [INF] [0HLR52ABPAOG0:00000009][{ Name: "ExecutingEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executing endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:54.882 [INF] [0HLR52ABPAOG0:00000009][{ Id: 3, Name: "ControllerActionExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Route matched with {action = "GetData", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[SHT.Application.TestData] GetData(System.String) on controller SHT.Api.Web.Controllers.TestController (SHT.Api.Web).
+2019-11-09 15:44:54.890 [INF] [0HLR52ABPAOG0:00000009][{ Id: 1, Name: "ActionMethodExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executing action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) - Validation state: "Valid"
+2019-11-09 15:44:54.892 [INF] [0HLR52ABPAOG0:00000009][{ Id: 2, Name: "ActionMethodExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 0.338ms.
+2019-11-09 15:44:54.895 [INF] [0HLR52ABPAOG0:00000009][{ Id: 1, Name: "ObjectResultExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor] Executing ObjectResult, writing value of type 'SHT.Application.TestData'.
+2019-11-09 15:44:54.897 [INF] [0HLR52ABPAOG0:00000009][{ Id: 2, Name: "ActionExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) in 8.8961ms
+2019-11-09 15:44:54.899 [INF] [0HLR52ABPAOG0:00000009][{ Id: 1, Name: "ExecutedEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executed endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:54.901 [INF] [0HLR52ABPAOG0:00000009][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 25.8706ms 200 application/json; charset=utf-8
+2019-11-09 15:44:55.381 [INF] [0HLR52ABPAOG0:0000000A][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/test?testStr=test  
+2019-11-09 15:44:55.385 [INF] [0HLR52ABPAOG0:0000000A][{ Name: "ExecutingEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executing endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:55.387 [INF] [0HLR52ABPAOG0:0000000A][{ Id: 3, Name: "ControllerActionExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Route matched with {action = "GetData", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[SHT.Application.TestData] GetData(System.String) on controller SHT.Api.Web.Controllers.TestController (SHT.Api.Web).
+2019-11-09 15:44:55.394 [INF] [0HLR52ABPAOG0:0000000A][{ Id: 1, Name: "ActionMethodExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executing action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) - Validation state: "Valid"
+2019-11-09 15:44:55.399 [INF] [0HLR52ABPAOG0:0000000A][{ Id: 2, Name: "ActionMethodExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 0.3416ms.
+2019-11-09 15:44:55.403 [INF] [0HLR52ABPAOG0:0000000A][{ Id: 1, Name: "ObjectResultExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor] Executing ObjectResult, writing value of type 'SHT.Application.TestData'.
+2019-11-09 15:44:55.406 [INF] [0HLR52ABPAOG0:0000000A][{ Id: 2, Name: "ActionExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) in 13.6522ms
+2019-11-09 15:44:55.409 [INF] [0HLR52ABPAOG0:0000000A][{ Id: 1, Name: "ExecutedEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executed endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:55.410 [INF] [0HLR52ABPAOG0:0000000A][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 29.725900000000003ms 200 application/json; charset=utf-8
+2019-11-09 15:44:57.709 [INF] [0HLR52ABPAOG0:0000000B][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/test?testStr=test  
+2019-11-09 15:44:57.715 [INF] [0HLR52ABPAOG0:0000000B][{ Name: "ExecutingEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executing endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:57.718 [INF] [0HLR52ABPAOG0:0000000B][{ Id: 3, Name: "ControllerActionExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Route matched with {action = "GetData", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[SHT.Application.TestData] GetData(System.String) on controller SHT.Api.Web.Controllers.TestController (SHT.Api.Web).
+2019-11-09 15:44:57.722 [INF] [0HLR52ABPAOG0:0000000B][{ Id: 1, Name: "ActionMethodExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executing action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) - Validation state: "Valid"
+2019-11-09 15:44:57.724 [INF] [0HLR52ABPAOG0:0000000B][{ Id: 2, Name: "ActionMethodExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 0.33190000000000003ms.
+2019-11-09 15:44:57.726 [INF] [0HLR52ABPAOG0:0000000B][{ Id: 1, Name: "ObjectResultExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor] Executing ObjectResult, writing value of type 'SHT.Application.TestData'.
+2019-11-09 15:44:57.729 [INF] [0HLR52ABPAOG0:0000000B][{ Id: 2, Name: "ActionExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) in 8.3437ms
+2019-11-09 15:44:57.730 [INF] [0HLR52ABPAOG0:0000000B][{ Id: 1, Name: "ExecutedEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executed endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:57.732 [INF] [0HLR52ABPAOG0:0000000B][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 23.4613ms 200 application/json; charset=utf-8
+2019-11-09 15:44:57.870 [INF] [0HLR52ABPAOG0:0000000C][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/test?testStr=test  
+2019-11-09 15:44:57.874 [INF] [0HLR52ABPAOG0:0000000C][{ Name: "ExecutingEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executing endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:57.878 [INF] [0HLR52ABPAOG0:0000000C][{ Id: 3, Name: "ControllerActionExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Route matched with {action = "GetData", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[SHT.Application.TestData] GetData(System.String) on controller SHT.Api.Web.Controllers.TestController (SHT.Api.Web).
+2019-11-09 15:44:57.884 [INF] [0HLR52ABPAOG0:0000000C][{ Id: 1, Name: "ActionMethodExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executing action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) - Validation state: "Valid"
+2019-11-09 15:44:57.886 [INF] [0HLR52ABPAOG0:0000000C][{ Id: 2, Name: "ActionMethodExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 0.1572ms.
+2019-11-09 15:44:57.889 [INF] [0HLR52ABPAOG0:0000000C][{ Id: 1, Name: "ObjectResultExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor] Executing ObjectResult, writing value of type 'SHT.Application.TestData'.
+2019-11-09 15:44:57.893 [INF] [0HLR52ABPAOG0:0000000C][{ Id: 2, Name: "ActionExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) in 9.7963ms
+2019-11-09 15:44:57.896 [INF] [0HLR52ABPAOG0:0000000C][{ Id: 1, Name: "ExecutedEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executed endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:57.897 [INF] [0HLR52ABPAOG0:0000000C][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 26.7464ms 200 application/json; charset=utf-8
+2019-11-09 15:44:58.025 [INF] [0HLR52ABPAOG0:0000000D][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/test?testStr=test  
+2019-11-09 15:44:58.029 [INF] [0HLR52ABPAOG0:0000000D][{ Name: "ExecutingEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executing endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:58.031 [INF] [0HLR52ABPAOG0:0000000D][{ Id: 3, Name: "ControllerActionExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Route matched with {action = "GetData", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[SHT.Application.TestData] GetData(System.String) on controller SHT.Api.Web.Controllers.TestController (SHT.Api.Web).
+2019-11-09 15:44:58.040 [INF] [0HLR52ABPAOG0:0000000D][{ Id: 1, Name: "ActionMethodExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executing action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) - Validation state: "Valid"
+2019-11-09 15:44:58.044 [INF] [0HLR52ABPAOG0:0000000D][{ Id: 2, Name: "ActionMethodExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 0.4243ms.
+2019-11-09 15:44:58.050 [INF] [0HLR52ABPAOG0:0000000D][{ Id: 1, Name: "ObjectResultExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor] Executing ObjectResult, writing value of type 'SHT.Application.TestData'.
+2019-11-09 15:44:58.052 [INF] [0HLR52ABPAOG0:0000000D][{ Id: 2, Name: "ActionExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) in 14.991900000000001ms
+2019-11-09 15:44:58.055 [INF] [0HLR52ABPAOG0:0000000D][{ Id: 1, Name: "ExecutedEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executed endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:58.058 [INF] [0HLR52ABPAOG0:0000000D][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 32.6525ms 200 application/json; charset=utf-8
+2019-11-09 15:44:58.186 [INF] [0HLR52ABPAOG0:0000000E][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/test?testStr=test  
+2019-11-09 15:44:58.191 [INF] [0HLR52ABPAOG0:0000000E][{ Name: "ExecutingEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executing endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:58.195 [INF] [0HLR52ABPAOG0:0000000E][{ Id: 3, Name: "ControllerActionExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Route matched with {action = "GetData", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[SHT.Application.TestData] GetData(System.String) on controller SHT.Api.Web.Controllers.TestController (SHT.Api.Web).
+2019-11-09 15:44:58.200 [INF] [0HLR52ABPAOG0:0000000E][{ Id: 1, Name: "ActionMethodExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executing action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) - Validation state: "Valid"
+2019-11-09 15:44:58.202 [INF] [0HLR52ABPAOG0:0000000E][{ Id: 2, Name: "ActionMethodExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 0.2803ms.
+2019-11-09 15:44:58.204 [INF] [0HLR52ABPAOG0:0000000E][{ Id: 1, Name: "ObjectResultExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor] Executing ObjectResult, writing value of type 'SHT.Application.TestData'.
+2019-11-09 15:44:58.208 [INF] [0HLR52ABPAOG0:0000000E][{ Id: 2, Name: "ActionExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) in 8.4724ms
+2019-11-09 15:44:58.211 [INF] [0HLR52ABPAOG0:0000000E][{ Id: 1, Name: "ExecutedEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executed endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:58.212 [INF] [0HLR52ABPAOG0:0000000E][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 26.239900000000002ms 200 application/json; charset=utf-8
+2019-11-09 15:44:58.357 [INF] [0HLR52ABPAOG0:0000000F][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/test?testStr=test  
+2019-11-09 15:44:58.360 [INF] [0HLR52ABPAOG0:0000000F][{ Name: "ExecutingEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executing endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:58.364 [INF] [0HLR52ABPAOG0:0000000F][{ Id: 3, Name: "ControllerActionExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Route matched with {action = "GetData", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[SHT.Application.TestData] GetData(System.String) on controller SHT.Api.Web.Controllers.TestController (SHT.Api.Web).
+2019-11-09 15:44:58.378 [INF] [0HLR52ABPAOG0:0000000F][{ Id: 1, Name: "ActionMethodExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executing action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) - Validation state: "Valid"
+2019-11-09 15:44:58.384 [INF] [0HLR52ABPAOG0:0000000F][{ Id: 2, Name: "ActionMethodExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 0.30160000000000003ms.
+2019-11-09 15:44:58.390 [INF] [0HLR52ABPAOG0:0000000F][{ Id: 1, Name: "ObjectResultExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor] Executing ObjectResult, writing value of type 'SHT.Application.TestData'.
+2019-11-09 15:44:58.395 [INF] [0HLR52ABPAOG0:0000000F][{ Id: 2, Name: "ActionExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) in 19.855800000000002ms
+2019-11-09 15:44:58.400 [INF] [0HLR52ABPAOG0:0000000F][{ Id: 1, Name: "ExecutedEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executed endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:58.404 [INF] [0HLR52ABPAOG0:0000000F][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 46.9665ms 200 application/json; charset=utf-8
+2019-11-09 15:44:58.495 [INF] [0HLR52ABPAOG0:00000010][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/test?testStr=test  
+2019-11-09 15:44:58.497 [INF] [0HLR52ABPAOG0:00000010][{ Name: "ExecutingEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executing endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:58.499 [INF] [0HLR52ABPAOG0:00000010][{ Id: 3, Name: "ControllerActionExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Route matched with {action = "GetData", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[SHT.Application.TestData] GetData(System.String) on controller SHT.Api.Web.Controllers.TestController (SHT.Api.Web).
+2019-11-09 15:44:58.505 [INF] [0HLR52ABPAOG0:00000010][{ Id: 1, Name: "ActionMethodExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executing action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) - Validation state: "Valid"
+2019-11-09 15:44:58.509 [INF] [0HLR52ABPAOG0:00000010][{ Id: 2, Name: "ActionMethodExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 0.30160000000000003ms.
+2019-11-09 15:44:58.513 [INF] [0HLR52ABPAOG0:00000010][{ Id: 1, Name: "ObjectResultExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor] Executing ObjectResult, writing value of type 'SHT.Application.TestData'.
+2019-11-09 15:44:58.515 [INF] [0HLR52ABPAOG0:00000010][{ Id: 2, Name: "ActionExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) in 11.0366ms
+2019-11-09 15:44:58.517 [INF] [0HLR52ABPAOG0:00000010][{ Id: 1, Name: "ExecutedEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executed endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:58.519 [INF] [0HLR52ABPAOG0:00000010][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 24.088800000000003ms 200 application/json; charset=utf-8
+2019-11-09 15:44:58.651 [INF] [0HLR52ABPAOG0:00000011][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/test?testStr=test  
+2019-11-09 15:44:58.655 [INF] [0HLR52ABPAOG0:00000011][{ Name: "ExecutingEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executing endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:58.657 [INF] [0HLR52ABPAOG0:00000011][{ Id: 3, Name: "ControllerActionExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Route matched with {action = "GetData", controller = "Test"}. Executing controller action with signature System.Threading.Tasks.Task`1[SHT.Application.TestData] GetData(System.String) on controller SHT.Api.Web.Controllers.TestController (SHT.Api.Web).
+2019-11-09 15:44:58.665 [INF] [0HLR52ABPAOG0:00000011][{ Id: 1, Name: "ActionMethodExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executing action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) - Validation state: "Valid"
+2019-11-09 15:44:58.667 [INF] [0HLR52ABPAOG0:00000011][{ Id: 2, Name: "ActionMethodExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action method SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 0.2044ms.
+2019-11-09 15:44:58.670 [INF] [0HLR52ABPAOG0:00000011][{ Id: 1, Name: "ObjectResultExecuting" }][Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor] Executing ObjectResult, writing value of type 'SHT.Application.TestData'.
+2019-11-09 15:44:58.674 [INF] [0HLR52ABPAOG0:00000011][{ Id: 2, Name: "ActionExecuted" }][Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker] Executed action SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web) in 10.2123ms
+2019-11-09 15:44:58.677 [INF] [0HLR52ABPAOG0:00000011][{ Id: 1, Name: "ExecutedEndpoint" }][Microsoft.AspNetCore.Routing.EndpointMiddleware] Executed endpoint 'SHT.Api.Web.Controllers.TestController.GetData (SHT.Api.Web)'
+2019-11-09 15:44:58.680 [INF] [0HLR52ABPAOG0:00000011][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 28.628400000000003ms 200 application/json; charset=utf-8
+2019-11-09 15:47:13.329 [INF] [][][] Starting application
+2019-11-09 15:47:13.573 [INF] [][][Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5000
+2019-11-09 15:47:17.864 [INF] [0HLR52BQ4DF57:00000001][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/index.html  
+2019-11-09 15:47:18.051 [INF] [0HLR52BQ4DF57:00000001][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 188.49ms 200 text/html;charset=utf-8
+2019-11-09 15:47:18.329 [INF] [0HLR52BQ4DF57:00000002][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/v1.0.0/swagger.json  
+2019-11-09 15:47:18.332 [INF] [0HLR52BQ4DF58:00000001][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/favicon-32x32.png  
+2019-11-09 15:47:18.343 [INF] [0HLR52BQ4DF58:00000001][{ Id: 2, Name: "FileServed" }][Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2019-11-09 15:47:18.346 [INF] [0HLR52BQ4DF58:00000001][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 13.8717ms 200 image/png
+2019-11-09 15:47:18.427 [INF] [0HLR52BQ4DF57:00000002][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 97.71650000000001ms 200 application/json;charset=utf-8
+2019-11-09 15:48:57.595 [INF] [][][] Starting application
+2019-11-09 15:48:57.919 [INF] [][][Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5000
+2019-11-09 15:48:59.998 [INF] [0HLR52COIBA0A:00000001][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/index.html  
+2019-11-09 15:49:00.266 [INF] [0HLR52COIBA0A:00000001][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 270.8498ms 200 text/html;charset=utf-8
+2019-11-09 15:49:00.620 [INF] [0HLR52COIBA0A:00000002][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/v1.0.0/swagger.json  
+2019-11-09 15:49:00.621 [INF] [0HLR52COIBA0B:00000001][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/favicon-32x32.png  
+2019-11-09 15:49:00.638 [INF] [0HLR52COIBA0B:00000001][{ Id: 2, Name: "FileServed" }][Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2019-11-09 15:49:00.645 [INF] [0HLR52COIBA0B:00000001][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 23.7862ms 200 image/png
+2019-11-09 15:49:00.776 [INF] [0HLR52COIBA0A:00000002][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 157.0504ms 200 application/json;charset=utf-8
+2019-11-09 15:51:53.336 [INF] [][][] Starting application
+2019-11-09 15:51:53.629 [INF] [][][Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5000
+2019-11-09 15:52:37.646 [INF] [][][] Starting application
+2019-11-09 15:52:37.903 [INF] [][][Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5000
+2019-11-09 15:52:55.658 [INF] [][][] Starting application
+2019-11-09 15:52:55.951 [INF] [][][Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5000
+2019-11-09 15:52:58.282 [INF] [0HLR52EVIMJUO:00000001][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/index.html  
+2019-11-09 15:52:58.565 [INF] [0HLR52EVIMJUO:00000001][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 286.79920000000004ms 200 text/html;charset=utf-8
+2019-11-09 15:52:58.959 [INF] [0HLR52EVIMJUP:00000001][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/favicon-32x32.png  
+2019-11-09 15:52:58.972 [INF] [0HLR52EVIMJUO:00000002][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/v1.0.0/swagger.json  
+2019-11-09 15:52:58.973 [INF] [0HLR52EVIMJUP:00000001][{ Id: 2, Name: "FileServed" }][Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2019-11-09 15:52:58.975 [INF] [0HLR52EVIMJUP:00000001][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 17.0237ms 200 image/png
+2019-11-09 15:52:59.077 [INF] [0HLR52EVIMJUO:00000002][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 104.884ms 200 application/json;charset=utf-8
+2019-11-09 15:53:27.193 [INF] [][][] Starting application
+2019-11-09 15:53:27.442 [INF] [][][Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5000
+2019-11-09 15:53:29.138 [INF] [0HLR52F8P574E:00000001][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/index.html  
+2019-11-09 15:53:29.354 [INF] [0HLR52F8P574E:00000001][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 218.0875ms 200 text/html;charset=utf-8
+2019-11-09 15:53:29.679 [INF] [0HLR52F8P574F:00000001][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/favicon-32x32.png  
+2019-11-09 15:53:29.679 [INF] [0HLR52F8P574E:00000002][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/v1.0.0/swagger.json  
+2019-11-09 15:53:29.693 [INF] [0HLR52F8P574F:00000001][{ Id: 2, Name: "FileServed" }][Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2019-11-09 15:53:29.695 [INF] [0HLR52F8P574F:00000001][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 16.6232ms 200 image/png
+2019-11-09 15:53:29.780 [INF] [0HLR52F8P574E:00000002][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 101.1547ms 200 application/json;charset=utf-8
+2019-11-09 16:01:16.024 [INF] [0HLR52F8P574G:00000001][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/index.html  
+2019-11-09 16:01:16.031 [INF] [0HLR52F8P574G:00000001][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 6.7271ms 200 text/html;charset=utf-8
+2019-11-09 16:01:16.380 [INF] [0HLR52F8P574G:00000002][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/v1.0.0/swagger.json  
+2019-11-09 16:01:16.392 [INF] [0HLR52F8P574G:00000002][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 12.3467ms 200 application/json;charset=utf-8
+2019-11-09 16:05:12.170 [INF] [][][] Starting application
+2019-11-09 16:05:12.419 [INF] [][][Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5000
+2019-11-09 16:05:13.406 [INF] [0HLR52LQLJ08Q:00000001][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/index.html  
+2019-11-09 16:05:13.616 [INF] [0HLR52LQLJ08Q:00000001][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 214.8402ms 200 text/html;charset=utf-8
+2019-11-09 16:05:13.941 [INF] [0HLR52LQLJ08Q:00000002][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/v1.0.0/swagger.json  
+2019-11-09 16:05:13.943 [INF] [0HLR52LQLJ08R:00000001][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/favicon-32x32.png  
+2019-11-09 16:05:13.953 [INF] [0HLR52LQLJ08R:00000001][{ Id: 2, Name: "FileServed" }][Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2019-11-09 16:05:13.956 [INF] [0HLR52LQLJ08R:00000001][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 13.161700000000002ms 200 image/png
+2019-11-09 16:05:14.077 [INF] [0HLR52LQLJ08Q:00000002][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 136.3376ms 200 application/json;charset=utf-8
+2019-11-09 16:06:35.464 [INF] [][][] Starting application
+2019-11-09 16:06:35.730 [INF] [][][Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5000
+2019-11-09 16:06:37.627 [INF] [0HLR52MJON6FC:00000001][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/  
+2019-11-09 16:06:37.722 [INF] [0HLR52MJON6FC:00000001][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 97.6076ms 404 
+2019-11-09 16:06:42.744 [INF] [0HLR52MJON6FC:00000002][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger  
+2019-11-09 16:06:42.750 [INF] [0HLR52MJON6FC:00000002][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 5.829400000000001ms 301 
+2019-11-09 16:06:42.759 [INF] [0HLR52MJON6FC:00000003][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/index.html  
+2019-11-09 16:06:42.928 [INF] [0HLR52MJON6FC:00000003][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 168.5182ms 200 text/html;charset=utf-8
+2019-11-09 16:06:43.214 [INF] [0HLR52MJON6FC:00000004][{ Id: 1 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request starting HTTP/1.1 GET http://localhost:5000/swagger/v1.0.0/swagger.json  
+2019-11-09 16:06:43.238 [INF] [0HLR52MJON6FC:00000004][{ Id: 2 }][Microsoft.AspNetCore.Hosting.Diagnostics] Request finished in 23.4598ms 200 application/json;charset=utf-8
