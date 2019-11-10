@@ -41,7 +41,7 @@ namespace SHT.Api.Web
                                 // Configuring Limits from appsettings.json is not supported. So we manually copy them from config.
                                 // See https://github.com/aspnet/KestrelHttpServer/issues/2216
                                 var kestrelOptions =
-                                    builderContext.Configuration.GetSection<KestrelServerOptions>(
+                                    builderContext.Configuration.GetTypedSection<KestrelServerOptions>(
                                         nameof(ApplicationOptions.Kestrel));
                                 foreach (var property in typeof(KestrelServerLimits).GetProperties()
                                     .Where(p => p.CanWrite))

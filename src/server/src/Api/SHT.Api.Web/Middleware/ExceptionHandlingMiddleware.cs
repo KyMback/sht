@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using SHT.Api.Web.Constants;
+using SHT.Domain.Services.Exceptions;
 using SHT.Infrastructure.Common.Exceptions;
 
 namespace SHT.Api.Web.Middleware
@@ -63,6 +64,37 @@ namespace SHT.Api.Web.Middleware
             }
         }
 
+        private void HandleException(HttpContext context, Exception exception)
+        {
+            _logger.LogError(exception, $"Error ID: {context.TraceIdentifier}");
+
+            switch (exception)
+            {
+                case CodedException businessException:
+                    SetBusinessExceptionError(context, StatusCodes.Status400BadRequest, businessException);
+                    break;
+                default:
+                    if (ExceptionsDataMap.TryGetValue(exception.GetType(), out var codes))
+                    {
+                        SetError(context, codes.statusCode, codes.errorCode);
+                    }
+                    else
+                    {
+                        SetError(context, StatusCodes.Status500InternalServerError, ErrorCode.UnhandledException);
+                    }
+
+                    break;
+            }
+        }
+
+        private void SetBusinessExceptionError(HttpContext context, int statusCode, CodedException exception)
+        {
+            SetError(context, statusCode, exception.Code);
+            context.Response.Headers[HttpHeaders.ErrorPayload] = exception.Payload != null
+                ? JsonConvert.SerializeObject(exception.Payload, Formatting.None)
+                : string.Empty;
+        }
+
         private void SetError(HttpContext context, int statusCode, ErrorCode code)
         {
             var errorId = context.TraceIdentifier;
@@ -70,34 +102,6 @@ namespace SHT.Api.Web.Middleware
             context.Response.StatusCode = statusCode;
             context.Response.Headers[HttpHeaders.ErrorCode] = code.ToString("d");
             context.Response.Headers[HttpHeaders.ErrorId] = errorId;
-        }
-
-        private void HandleException(HttpContext context, Exception exception)
-        {
-            _logger.LogError(exception, $"Error ID: {context.TraceIdentifier}");
-
-            switch (exception)
-            {
-                case DbUpdateConcurrencyException _:
-                    var (errorCode, statusCode) = ExceptionsDataMap[exception.GetType()];
-                    SetError(context, statusCode, errorCode);
-                    break;
-                case BusinessException businessException:
-                    SetBusinessExceptionError(context, businessException);
-                    break;
-                default:
-                    SetError(context, StatusCodes.Status500InternalServerError, ErrorCode.UnhandledException);
-                    break;
-            }
-        }
-
-        private void SetBusinessExceptionError(HttpContext context, BusinessException exception)
-        {
-            var (errorCode, statusCode) = ExceptionsDataMap[exception.GetType()];
-            SetError(context, statusCode, errorCode);
-            context.Response.Headers[HttpHeaders.ErrorPayload] = exception.Payload != null
-                ? JsonConvert.SerializeObject(exception.Payload, Formatting.None)
-                : string.Empty;
         }
     }
 }

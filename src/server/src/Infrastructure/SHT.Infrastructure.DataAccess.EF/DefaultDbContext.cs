@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SHT.Infrastructure.Common.Options;
@@ -53,9 +55,23 @@ namespace SHT.Infrastructure.DataAccess.EF
             return Query(queryParameters).SingleAsync();
         }
 
+        Task<TData> IUnitOfWork.GetSingle<TEntity, TData>(
+            IQueryParameters<TEntity> queryParameters,
+            Expression<Func<TEntity, TData>> selector)
+        {
+            return Query(queryParameters).Select(selector).SingleAsync();
+        }
+
         Task<TEntity> IUnitOfWork.GetSingleOrDefault<TEntity>(IQueryParameters<TEntity> queryParameters)
         {
             return Query(queryParameters).SingleOrDefaultAsync();
+        }
+
+        Task<TData> IUnitOfWork.GetSingleOrDefault<TEntity, TData>(
+            IQueryParameters<TEntity> queryParameters,
+            Expression<Func<TEntity, TData>> selector)
+        {
+            return Query(queryParameters).Select(selector).SingleOrDefaultAsync();
         }
 
         async Task<IReadOnlyCollection<TEntity>> IUnitOfWork.GetAll<TEntity>(IQueryParameters<TEntity> queryParameters)

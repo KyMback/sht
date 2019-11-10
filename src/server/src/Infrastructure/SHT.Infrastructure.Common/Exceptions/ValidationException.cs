@@ -1,11 +1,13 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SHT.Infrastructure.Common.Exceptions
 {
-    public class ValidationException : BusinessException
+    public class ValidationException : Exception
     {
         public ValidationException(IEnumerable<string> errorList)
-            : base(default, default, errorList)
+            : base(errorList.Aggregate(string.Empty, (s, s1) => string.Concat(s, " ", s1)))
         {
         }
 
@@ -18,7 +20,7 @@ namespace SHT.Infrastructure.Common.Exceptions
         {
         }
 
-        public ValidationException(string message, System.Exception innerException)
+        public ValidationException(string message, Exception innerException)
             : base(message, innerException)
         {
         }

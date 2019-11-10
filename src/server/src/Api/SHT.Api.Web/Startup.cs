@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using SHT.Api.Web.Constants;
 using SHT.Api.Web.Extensions;
 using SHT.Api.Web.Middleware;
+using SHT.Api.Web.Security;
 using SHT.Application;
 using SHT.Domain.Services;
 using SHT.Infrastructure.Common.Extensions;
@@ -30,6 +31,7 @@ namespace SHT.Api.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services
+                .AddCustomSecurity(_configuration)
                 .AddCustomOptions(_configuration)
                 .AddCorrelationIdFluent()
                 .AddCustomRouting()
@@ -37,7 +39,8 @@ namespace SHT.Api.Web
                 .AddHttpContextAccessor()
                 .AddMvcCore()
                 .AddCustomMvcOptions()
-                .AddCustomJsonOptions(_hostingEnvironment)
+                .AddCustomDefaultAuthorizationFilter()
+                .AddCustomJsonOptions()
                 .AddCustomCors()
                 .AddControllersAsServices()
                 .AddApiExplorer();
@@ -62,6 +65,8 @@ namespace SHT.Api.Web
                 .UseMiddleware<SpaRoutingMiddleware>()
                 .UseCors(CorsPolicyNames.AllowAny)
                 .UseIf(!_hostingEnvironment.IsDevelopment(), x => x.UseHsts())
+                .UseAuthentication()
+                .UseAuthorization()
                 .UseStaticFiles()
                 .UseRouting()
                 .UseDefaultFiles()

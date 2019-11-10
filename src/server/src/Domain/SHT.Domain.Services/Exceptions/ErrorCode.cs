@@ -1,4 +1,4 @@
-namespace SHT.Api.Web.Constants
+namespace SHT.Domain.Services.Exceptions
 {
     public enum ErrorCode
     {
@@ -8,5 +8,6 @@ namespace SHT.Api.Web.Constants
         RouteNotFound = 3,
         ConcurrentModification = 4,
         DataIsInvalid = 5,
+        LoginIsNotUniq = 6,
     }
 }

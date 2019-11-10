@@ -1,41 +1,26 @@
-using Microsoft.AspNetCore.Hosting;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
 using SHT.Api.Web.Constants;
+using SHT.Api.Web.Security.Constants;
 
 namespace SHT.Api.Web.Extensions
 {
     internal static class MvcCoreBuilderExtensions
     {
-        public static IMvcCoreBuilder AddCustomJsonOptions(
-            this IMvcCoreBuilder builder,
-            IWebHostEnvironment hostingEnvironment)
+        public static IMvcCoreBuilder AddCustomJsonOptions(this IMvcCoreBuilder builder)
         {
-            return builder.AddNewtonsoftJson(
-                options =>
-                {
-                    if (hostingEnvironment.IsDevelopment())
-                    {
-                        // Pretty print the JSON in development for easier debugging.
-                        options.SerializerSettings.Formatting = Formatting.Indented;
-                    }
-
-                    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-
-                    // Parse dates as DateTimeOffset values by default. You should prefer using DateTimeOffset over
-                    // DateTime everywhere. Not doing so can cause problems with time-zones.
-                    options.SerializerSettings.DateParseHandling = DateParseHandling.DateTimeOffset;
-
-                    // Output enumeration values as strings in JSON.
-                    options.SerializerSettings.Converters.Add(new StringEnumConverter());
-
-                    // Output dates in host local timezone.
-                    options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Local;
-                });
+            return builder.AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                options.JsonSerializerOptions.AllowTrailingCommas = true;
+                options.JsonSerializerOptions.ReadCommentHandling = JsonCommentHandling.Skip;
+                options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+            });
         }
 
         public static IMvcCoreBuilder AddCustomCors(this IMvcCoreBuilder builder)
@@ -66,6 +51,18 @@ namespace SHT.Api.Web.Extensions
                     // Returns a 406 Not Acceptable if the MIME type in the Accept HTTP header is not valid.
                     options.ReturnHttpNotAcceptable = true;
                 });
+        }
+
+        public static IMvcCoreBuilder AddCustomDefaultAuthorizationFilter(this IMvcCoreBuilder builder)
+        {
+            return builder.AddMvcOptions(options =>
+            {
+                AuthorizationPolicy policy = new AuthorizationPolicyBuilder(AuthenticationDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser()
+                    .Build();
+
+                options.Filters.Add(new AuthorizeFilter(policy));
+            });
         }
     }
 }

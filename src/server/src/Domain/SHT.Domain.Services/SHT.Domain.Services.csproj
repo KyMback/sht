@@ -5,7 +5,7 @@
         <SolutionDir Condition="'$(SolutionDir)'==''">../../../</SolutionDir>
     </PropertyGroup>
     <Import Project="$(SolutionDir)/common/Common.props" />
-    <Import Project="$(SolutionDir)/common/CodeAnalysis/CodeAnalysis.props"/>
+    <Import Project="$(SolutionDir)/common/CodeAnalysis/CodeAnalysis.props" />
     
     <ItemGroup>
       <ProjectReference Include="..\..\Infrastructure\SHT.Infrastructure.Common\SHT.Infrastructure.Common.csproj" />

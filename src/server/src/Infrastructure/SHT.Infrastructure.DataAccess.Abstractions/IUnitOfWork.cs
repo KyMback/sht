@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 
@@ -24,8 +26,20 @@ namespace SHT.Infrastructure.DataAccess.Abstractions
         Task<TEntity> GetSingle<TEntity>([NotNull] IQueryParameters<TEntity> queryParameters)
             where TEntity : class;
 
+        [ItemNotNull]
+        Task<TData> GetSingle<TEntity, TData>(
+            [NotNull] IQueryParameters<TEntity> queryParameters,
+            Expression<Func<TEntity, TData>> selector)
+            where TEntity : class;
+
         [ItemCanBeNull]
         Task<TEntity> GetSingleOrDefault<TEntity>([NotNull] IQueryParameters<TEntity> queryParameters)
+            where TEntity : class;
+
+        [ItemNotNull]
+        Task<TData> GetSingleOrDefault<TEntity, TData>(
+            [NotNull] IQueryParameters<TEntity> queryParameters,
+            Expression<Func<TEntity, TData>> selector)
             where TEntity : class;
 
         [ItemNotNull]

@@ -1,6 +1,7 @@
 using Autofac;
 using Microsoft.AspNetCore.Http;
 using SHT.Api.Web.Middleware;
+using SHT.Api.Web.Security;
 using SHT.Api.Web.Services;
 using SHT.Infrastructure.Common.Extensions;
 
@@ -13,7 +14,8 @@ namespace SHT.Api.Web
             RegisterMiddleware(builder);
 
             builder
-                .AddSingleAsImplementedInterfaces<WebSafeInjectionResolver>();
+                .AddSingleAsImplementedInterfaces<WebSafeInjectionResolver>()
+                .AddScopedAsImplementedInterfaces<WebAuthenticationService>();
         }
 
         private void RegisterMiddleware(ContainerBuilder builder)

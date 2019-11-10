@@ -1,6 +1,8 @@
+using System;
+
 namespace SHT.Infrastructure.Common.Exceptions
 {
-    public class UnauthorizedException : BusinessException
+    public class UnauthorizedException : Exception
     {
         public UnauthorizedException(string message)
             : base(message)
@@ -11,7 +13,7 @@ namespace SHT.Infrastructure.Common.Exceptions
         {
         }
 
-        public UnauthorizedException(string message, System.Exception innerException)
+        public UnauthorizedException(string message, Exception innerException)
             : base(message, innerException)
         {
         }

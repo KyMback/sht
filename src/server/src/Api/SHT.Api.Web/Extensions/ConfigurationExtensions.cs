@@ -4,7 +4,7 @@ namespace SHT.Api.Web.Extensions
 {
     internal static class ConfigurationExtensions
     {
-        public static T GetSection<T>(this IConfiguration configuration, string key = null)
+        public static T GetTypedSection<T>(this IConfiguration configuration, string key = null)
             where T : new()
         {
             if (key == null)
