@@ -3,13 +3,16 @@ using SHT.Domain.Models;
 
 namespace SHT.Infrastructure.EF.Configs.Configs
 {
-    internal abstract class BaseEntityConfig<TEntity> : BaseModelConfig<TEntity>
+    public abstract class BaseEntityConfig<TEntity> : BaseModelConfig<TEntity>
         where TEntity : BaseEntity
     {
-        public override void Configure(EntityTypeBuilder<TEntity> builder)
+        public sealed override void Configure(EntityTypeBuilder<TEntity> builder)
         {
             builder.HasKey(e => e.Id);
             builder.Ignore(e => e.IsNew);
+            ConfigureEntity(builder);
         }
+
+        protected abstract void ConfigureEntity(EntityTypeBuilder<TEntity> builder);
     }
 }

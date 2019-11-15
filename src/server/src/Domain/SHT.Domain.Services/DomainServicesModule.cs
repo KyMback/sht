@@ -1,4 +1,5 @@
 using Autofac;
+using SHT.Domain.Services.Tests;
 using SHT.Domain.Services.Users;
 using SHT.Infrastructure.Common.Extensions;
 
@@ -8,7 +9,9 @@ namespace SHT.Domain.Services
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.AddScopedAsImplementedInterfaces<RegistrationValidationService>();
+            builder
+                .AddScopedAsImplementedInterfaces<TestSessionService>()
+                .AddScopedAsImplementedInterfaces<RegistrationValidationService>();
         }
     }
 }

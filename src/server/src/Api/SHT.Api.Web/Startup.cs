@@ -31,15 +31,16 @@ namespace SHT.Api.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddCustomSecurity(_configuration)
+                .AddDataProtection()
+                .Services
+                .AddCustomSecurity()
                 .AddCustomOptions(_configuration)
                 .AddCorrelationIdFluent()
-                .AddCustomRouting()
+                .AddRouting()
                 .AddCustomSwagger()
                 .AddHttpContextAccessor()
                 .AddMvcCore()
                 .AddCustomMvcOptions()
-                .AddCustomDefaultAuthorizationFilter()
                 .AddCustomJsonOptions()
                 .AddCustomCors()
                 .AddControllersAsServices()

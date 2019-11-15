@@ -56,7 +56,7 @@
         <Rule Id="SA1625" Action="None"/>
         <!-- SA1629: Documentation text should end with a period-->
         <Rule Id="SA1629" Action="None"/>
-        <!-- SA1629 :Use trailing commas in multi line initializers-->
+        <!-- SA1629: Use trailing commas in multi line initializers-->
         <Rule Id="SA1413" Action="None"/>
     </Rules>
 

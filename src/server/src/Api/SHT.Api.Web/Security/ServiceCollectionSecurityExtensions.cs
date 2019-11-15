@@ -1,31 +1,22 @@
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.DependencyInjection;
-using SHT.Api.Web.Extensions;
 using SHT.Api.Web.Security.Constants;
-using SHT.Api.Web.Security.Options;
 using SHT.Domain.Models.Users;
 
 namespace SHT.Api.Web.Security
 {
     internal static class ServiceCollectionSecurityExtensions
     {
-        public static IServiceCollection AddCustomSecurity(
-            this IServiceCollection serviceCollection,
-            IConfiguration configuration)
+        public static IServiceCollection AddCustomSecurity(this IServiceCollection serviceCollection)
         {
             serviceCollection
-                .AddIdentityCore<User>(options =>
-                {
-                    var cfg = configuration.GetTypedSection<AuthOptions>("AuthOptions").PasswordOptions;
-                    options.Password.RequireLowercase = cfg.RequireLowercase;
-                    options.Password.RequireUppercase = cfg.RequireUppercase;
-                    options.Password.RequireNonAlphanumeric = cfg.RequireNonAlphanumeric;
-                    options.Password.RequiredLength = cfg.RequiredLength;
-                })
+                .AddIdentityCore<User>()
                 .AddUserStore<UserStore>()
                 .AddUserManager<UserManager<User>>()
                 .AddSignInManager<SignInManager<User>>();
@@ -44,7 +35,7 @@ namespace SHT.Api.Web.Security
                             CustomClaimTypes.UserType,
                             UserType.Student.ToString("G")));
                 })
-                .AddAuthentication(options => options.DefaultScheme = AuthenticationDefaults.AuthenticationScheme)
+                .AddAuthentication()
                 .AddCookie(AuthenticationDefaults.AuthenticationScheme, options =>
                 {
                     options.Cookie.Name = AuthenticationCookieDefaults.CookieName;
@@ -64,7 +55,17 @@ namespace SHT.Api.Web.Security
                     };
                 });
 
-            serviceCollection.AddScoped<IUserClaimsPrincipalFactory<User>, CustomUserClaimsPrincipalFactory>();
+            serviceCollection
+                .AddScoped<IUserClaimsPrincipalFactory<User>, CustomUserClaimsPrincipalFactory>()
+                .Configure<MvcOptions>(options =>
+                {
+                    AuthorizationPolicy policy =
+                        new AuthorizationPolicyBuilder(AuthenticationDefaults.AuthenticationScheme)
+                            .RequireAuthenticatedUser()
+                            .Build();
+
+                    options.Filters.Add(new AuthorizeFilter(policy));
+                });
 
             return serviceCollection;
         }

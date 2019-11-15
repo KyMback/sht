@@ -2,6 +2,9 @@ using System;
 using System.IO;
 using System.Reflection;
 using CorrelationId;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -9,6 +12,7 @@ using Microsoft.OpenApi.Models;
 using SHT.Api.Web.OperationFilters;
 using SHT.Api.Web.Services;
 using SHT.Infrastructure.Common.Localization.Options;
+using SHT.Infrastructure.Common.Options;
 using SHT.Resources;
 
 namespace SHT.Api.Web.Extensions
@@ -27,16 +31,18 @@ namespace SHT.Api.Web.Extensions
         {
             services
                 .Configure<ApplicationOptions>(configuration)
+                .Configure<IdentityOptions>(configuration.GetSection(nameof(IdentityOptions)))
+                .Configure<RouteOptions>(configuration.GetSection(nameof(RouteOptions)))
+                .Configure<MvcOptions>(configuration.GetSection(nameof(MvcOptions)))
+                .Configure<JsonOptions>(configuration.GetSection(nameof(JsonOptions)))
+                .Configure<LocalizationOptions>(configuration.GetSection(nameof(LocalizationOptions)))
+                .Configure<ConnectionsOptions>(configuration.GetSection(nameof(ConnectionsOptions)))
+                .Configure<LocalizationOptions>(CreateLocalizationOptions)
                 .AddSingleton(x => x.GetRequiredService<IOptions<ApplicationOptions>>().Value)
-                .AddSingleton(x => x.GetRequiredService<ApplicationOptions>().ConnectionsOptions)
-                .AddSingleton(x => CreateLocalizationOptions(configuration));
+                .AddSingleton(x => x.GetRequiredService<IOptions<ConnectionsOptions>>().Value)
+                .AddSingleton(x => x.GetRequiredService<IOptions<LocalizationOptions>>().Value);
 
             return services;
-        }
-
-        public static IServiceCollection AddCustomRouting(this IServiceCollection services)
-        {
-            return services.AddRouting(options => { options.LowercaseUrls = true; });
         }
 
         public static IServiceCollection AddCustomSwagger(this IServiceCollection services)
@@ -65,17 +71,11 @@ namespace SHT.Api.Web.Extensions
                 });
         }
 
-        private static LocalizationOptions CreateLocalizationOptions(
-            IConfiguration configuration)
+        private static void CreateLocalizationOptions(LocalizationOptions options)
         {
-            return new LocalizationOptions
+            options.Sources = new[]
             {
-                SupportedCultures = configuration.GetSection("LocalizationOptions:SupportedCultures").Get<string[]>(),
-                DefaultCulture = configuration.GetValue<string>("LocalizationOptions:DefaultCulture"),
-                Sources = new[]
-                {
-                    new LocalizationSource(ResourceMap.GetLocalizationsRootPath(), LocalizationSourceType.Common),
-                },
+                new LocalizationSource(ResourceMap.GetLocalizationsRootPath(), LocalizationSourceType.Common),
             };
         }
     }

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RuleSet Name="SHT" Description="Code analysis rules specific for project" ToolsVersion="10.0">
+
+    <Include Path="allrules.ruleset" Action="Default"/>
+
+    <!-- https://docs.microsoft.com/en-us/visualstudio/code-quality/code-analysis-for-managed-code-warnings -->
+    <!-- https://github.com/dotnet/roslyn-analyzers -->
+    <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
+        <!--CA1812: Avoid uninstantiated internal classes. https://github.com/dotnet/roslyn-analyzers/issues/1160 -->
+        <Rule Id="CA1812" Action="None"/>
+        <!--CA2007: Do not directly await a Task-->
+        <Rule Id="CA2007" Action="None"/>
+        <!--CA1028: Enum Storage should be Int32-->
+        <Rule Id="CA1028" Action="None"/>
+        <!-- CA1716: Identifiers should not match keywords-->
+        <Rule Id="CA1716" Action="None"/>
+        <!-- CA1822: Member {name} does not access instance data and can be marked as static (Shared in VisualBasic) -->
+        <Rule Id="CA1822" Action="None"/>
+        <!--CA1062: Validate arguments of public methods-->
+        <Rule Id="CA1062" Action="None"/>
+        <!--CA1031: Do not catch general exception types-->
+        <Rule Id="CA1031" Action="None"/>
+        <!--CA2227: Collection properties should be read only-->
+        <Rule Id="CA2227" Action="None"/>
+        <!--CA1303: Do not pass literals as localized parameters-->
+        <Rule Id="CA1303" Action="None"/>
+        <!--CA1034: Nested types should not be visible-->
+        <Rule Id="CA1034" Action="None"/>
+        <!--CA1707: Identifiers should not contain underscores-->
+        <Rule Id="CA1707" Action="None"/>
+    </Rules>
+
+    <Rules AnalyzerId="Microsoft.CodeAnalysis.CSharp" RuleNamespace="Microsoft.CodeAnalysis.CSharp">
+        <!--CS1591: XML comment has cref attribute that could not be resolved (disabled until https://github.com/dotnet/roslyn/issues/29070 not fixed)-->
+        <Rule Id="CS1574" Action="None"/>
+        <!--CS1591: Missing XML comment for publicly visible type or member-->
+        <Rule Id="CS1591" Action="None"/>
+    </Rules>
+
+    <!-- https://github.com/DotNetAnalyzers/StyleCopAnalyzers/tree/master/documentation -->
+    <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
+        <!--SA1101PrefixLocalCallsWithThis-->
+        <Rule Id="SA1101" Action="None"/>
+        <!--SA1309FieldNamesMustNotBeginWithUnderscore-->
+        <Rule Id="SA1309" Action="None"/>
+        <!--SA1633FileMustHaveHeader-->
+        <Rule Id="SA1633" Action="None"/>
+        <!--SA1005SingleLineCommentsMustBeginWithSingleSpace-->
+        <Rule Id="SA1005" Action="None"/>
+        <!--SA1515SingleLineCommentMustBePrecededByBlankLine-->
+        <Rule Id="SA1515" Action="None"/>
+        <!-- SA1600: SA1600ElementsMustBeDocumented -->
+        <Rule Id="SA1600" Action="None"/>
+        <!-- SA1601: Partial elements must be documented -->
+        <Rule Id="SA1601" Action="None"/>
+        <!-- SA1625: Element documentation should not be copied and pasted -->
+        <Rule Id="SA1625" Action="None"/>
+        <!-- SA1629: Documentation text should end with a period-->
+        <Rule Id="SA1629" Action="None"/>
+    </Rules>
+
+</RuleSet>

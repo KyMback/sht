@@ -20,21 +20,21 @@ namespace SHT.Api.Web.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("/signIn")]
-        public Task SignIn(SignInDataDto data)
+        [HttpPost("signIn")]
+        public Task<SignInResponse> SignIn(SignInDataRequest request)
         {
-            return _mediator.Send(SignInCommand.Command(data));
+            return _mediator.Send(request);
         }
 
         [AllowAnonymous]
-        [HttpPost("/signUp")]
+        [HttpPost("signUp")]
         public Task SignUp(RegistrationDataDto commandData)
         {
             return _mediator.Send(RegisterCommand.Command(commandData));
         }
 
         [AllowAnonymous]
-        [HttpGet("/context")]
+        [HttpGet("context")]
         public Task<UserContextDto> GetContext([FromQuery] Guid id)
         {
             return _mediator.Send(new GetContextQuery.Query
@@ -43,7 +43,7 @@ namespace SHT.Api.Web.Controllers
             });
         }
 
-        [HttpGet("/signOut")]
+        [HttpGet("signOut")]
         public Task SignOut()
         {
             return _mediator.Send(new SignOutCommand.Command());

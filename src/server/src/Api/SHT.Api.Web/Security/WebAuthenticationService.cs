@@ -18,9 +18,10 @@ namespace SHT.Api.Web.Security
             _userManager = userManager;
         }
 
-        public Task SignIn(LoginData data)
+        public async Task<bool> SignIn(LoginData data)
         {
-            return _signInManager.PasswordSignInAsync(data.Login, data.Password, true, false);
+            var result = await _signInManager.PasswordSignInAsync(data.Login, data.Password, true, false);
+            return result.Succeeded;
         }
 
         public Task SignOut()

@@ -39,13 +39,13 @@ namespace SHT.Api.Web.Security
         public Task<User> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            return _unitOfWork.GetSingleOrDefault(new UsersQueryParameters(login: normalizedUserName));
+            return _unitOfWork.GetSingleOrDefault(new UsersQueryParameters(normalizedUserName: normalizedUserName));
         }
 
         public Task<string> GetNormalizedUserNameAsync(User user, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            return Task.FromResult(user.Login);
+            return Task.FromResult(user.Login.ToUpperInvariant());
         }
 
         public Task<string> GetUserIdAsync(User user, CancellationToken cancellationToken)

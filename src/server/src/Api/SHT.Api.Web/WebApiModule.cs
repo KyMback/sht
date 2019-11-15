@@ -15,6 +15,7 @@ namespace SHT.Api.Web
 
             builder
                 .AddSingleAsImplementedInterfaces<WebSafeInjectionResolver>()
+                .AddSingleAsImplementedInterfaces<WebExecutionContextAccessor>()
                 .AddScopedAsImplementedInterfaces<WebAuthenticationService>();
         }
 

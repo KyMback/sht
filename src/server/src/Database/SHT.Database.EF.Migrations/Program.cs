@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Threading.Tasks;
 using CommandLine;
 using Microsoft.EntityFrameworkCore;
 using SHT.Database.EF.Migrations.CommandLineOptions;
+using SHT.Database.EF.Migrations.Seeds;
 
 namespace SHT.Database.EF.Migrations
 {
@@ -9,12 +11,12 @@ namespace SHT.Database.EF.Migrations
     {
         private static void Main(string[] args)
         {
-            Parser.Default.ParseArguments<UpdateOptions>(args).WithParsed(Update);
+            Parser.Default.ParseArguments<UpdateOptions>(args).WithParsed(opt => Update(opt).GetAwaiter().GetResult());
         }
 
-        private static void Update(UpdateOptions options)
+        private static async Task Update(UpdateOptions options)
         {
-            using MigrationDbContext dbContext =
+            await using MigrationDbContext dbContext =
                 new MigrationDbContextDesignTimeFactory().CreateDbContext(Array.Empty<string>());
             if (options.Recreate)
             {
@@ -24,8 +26,15 @@ namespace SHT.Database.EF.Migrations
             }
 
             Console.WriteLine("Apply migrations...");
-            dbContext.Database.Migrate();
+            await dbContext.Database.MigrateAsync();
             Console.WriteLine("Migrations successfully applied");
+
+            if (options.Recreate && options.WithDevSeeds)
+            {
+                Console.WriteLine("Apply dev seeds...");
+                await SeedsInitializer.Initialize(dbContext);
+                Console.WriteLine("Dev seeds successfully applied");
+            }
         }
     }
 }

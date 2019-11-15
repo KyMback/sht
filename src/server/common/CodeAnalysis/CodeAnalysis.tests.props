@@ -1,0 +1,17 @@
+<Project>
+    <PropertyGroup Label="Code Analysis tests settings">
+        <CodeAnalysisCulture>en-US</CodeAnalysisCulture>
+        <CodeAnalysisRuleSet>$(SolutionDir)\common\CodeAnalysis\CodeAnalysis.tests.ruleset</CodeAnalysisRuleSet>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+
+    <ItemGroup Label="Code Analysis Package References">
+        <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.7" />
+        <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <AdditionalFiles Include="$(SolutionDir)\common\CodeAnalysis\stylecop.json" />
+    </ItemGroup>
+
+</Project>

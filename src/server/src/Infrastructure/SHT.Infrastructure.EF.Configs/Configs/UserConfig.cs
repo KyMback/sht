@@ -7,10 +7,8 @@ namespace SHT.Infrastructure.EF.Configs.Configs
     [UsedImplicitly]
     internal class UserConfig : BaseEntityConfig<User>
     {
-        public override void Configure(EntityTypeBuilder<User> builder)
+        protected override void ConfigureEntity(EntityTypeBuilder<User> builder)
         {
-            base.Configure(builder);
-
             builder.Property(e => e.Login).HasMaxLength(LengthConstants.MediumLength).IsRequired();
             builder.Property(e => e.Password).HasMaxLength(LengthConstants.MediumLength).IsRequired();
 

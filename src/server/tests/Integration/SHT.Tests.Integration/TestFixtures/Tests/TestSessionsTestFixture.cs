@@ -1,0 +1,45 @@
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
+using AutoFixture.Xunit2;
+using FluentAssertions;
+using SHT.Application.Core;
+using SHT.Application.Tests.TestSessions.Create;
+using SHT.Domain.Models.Tests.Students;
+using SHT.Tests.Integration.Extensions;
+using Xunit;
+
+namespace SHT.Tests.Integration.TestFixtures.Tests
+{
+    public class TestSessionsTestFixture : BaseTestFixture
+    {
+        private readonly Uri _endpoint = "api/test-session".ToRelativeUri();
+
+        public TestSessionsTestFixture(SHTWebApiFactory factory)
+            : base(factory)
+        {
+        }
+
+        [Theory]
+        [AutoData]
+        public async Task TestSession_Creation_Succeeded(string name)
+        {
+            // Configure
+            var data = new CreateTestSessionDto
+            {
+                Name = name,
+            };
+
+            // Act
+            HttpResponseMessage result = await PostAuth(_endpoint, data);
+
+            // Assert
+            result.EnsureSuccessStatusCode();
+            var response = await FromResponseMessage<CreatedEntityResponse>(result);
+            var testSession = await GetFromDbById<TestSession>(response.Id);
+            testSession.Should().NotBeNull();
+            testSession.Name.Should().Be(name);
+            testSession.State.Should().Be(TestSessionStates.Pending);
+        }
+    }
+}
