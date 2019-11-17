@@ -8,5 +8,7 @@ namespace SHT.Application.Users.Accounts.GetContext
         public Guid? Id { get; set; }
 
         public UserType? UserType { get; set; }
+
+        public bool IsAuthenticated { get; set; }
     }
 }

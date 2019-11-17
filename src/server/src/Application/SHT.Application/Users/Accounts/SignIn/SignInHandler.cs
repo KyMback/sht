@@ -7,7 +7,7 @@ using SHT.Domain.Services.Users;
 namespace SHT.Application.Users.Accounts.SignIn
 {
     [UsedImplicitly]
-    internal class SignInHandler : IRequestHandler<SignInDataRequest, SignInResponse>
+    internal class SignInHandler : IRequestHandler<SignInRequest, SignInResponse>
     {
         private readonly IAuthenticationService _authenticationService;
 
@@ -16,12 +16,12 @@ namespace SHT.Application.Users.Accounts.SignIn
             _authenticationService = authenticationService;
         }
 
-        public async Task<SignInResponse> Handle(SignInDataRequest request, CancellationToken cancellationToken)
+        public async Task<SignInResponse> Handle(SignInRequest request, CancellationToken cancellationToken)
         {
             var result = await _authenticationService.SignIn(new LoginData
             {
-                Login = request.Login,
-                Password = request.Password,
+                Login = request.DataDto.Login,
+                Password = request.DataDto.Password,
             });
 
             return new SignInResponse

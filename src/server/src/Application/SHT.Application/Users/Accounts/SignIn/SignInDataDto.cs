@@ -1,8 +1,6 @@
-using MediatR;
-
 namespace SHT.Application.Users.Accounts.SignIn
 {
-    public class SignInDataRequest : IRequest<SignInResponse>
+    public class SignInDataDto
     {
         public string Login { get; set; }
 

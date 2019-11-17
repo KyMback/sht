@@ -36,7 +36,7 @@ namespace SHT.Infrastructure.DataAccess.Abstractions
         Task<TEntity> GetSingleOrDefault<TEntity>([NotNull] IQueryParameters<TEntity> queryParameters)
             where TEntity : class;
 
-        [ItemNotNull]
+        [ItemCanBeNull]
         Task<TData> GetSingleOrDefault<TEntity, TData>(
             [NotNull] IQueryParameters<TEntity> queryParameters,
             Expression<Func<TEntity, TData>> selector)

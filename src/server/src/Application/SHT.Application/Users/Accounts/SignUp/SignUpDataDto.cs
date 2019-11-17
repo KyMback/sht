@@ -1,8 +1,8 @@
 using SHT.Domain.Models.Users;
 
-namespace SHT.Application.Users.Accounts.Register
+namespace SHT.Application.Users.Accounts.SignUp
 {
-    public class RegistrationDataDto
+    public class SignUpDataDto
     {
         public string Login { get; set; }
 

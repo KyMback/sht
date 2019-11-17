@@ -46,7 +46,7 @@ namespace SHT.Tests.Integration.TestFixtures
         protected Task<TModel> GetFromDbById<TModel>(Guid id)
             where TModel : class
         {
-            return AppDbUtils.GetById<TModel>(Factory, id);
+            return AppDbUtils.GetSingleOrDefault<TModel>(Factory, id);
         }
 
         protected Task<TModel> AddToDb<TModel>(TModel model)
