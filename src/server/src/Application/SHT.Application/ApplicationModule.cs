@@ -2,6 +2,7 @@ using Autofac;
 using MediatR;
 using MediatR.Pipeline;
 using SHT.Application.Core;
+using SHT.Application.StateMachineConfigs.Core;
 using SHT.Infrastructure.Common.Extensions;
 
 namespace SHT.Application
@@ -11,7 +12,25 @@ namespace SHT.Application
         protected override void Load(ContainerBuilder builder)
         {
             RegisterMediator(builder);
-            base.Load(builder);
+            RegisterStateMachine(builder);
+        }
+
+        private void RegisterStateMachine(ContainerBuilder builder)
+        {
+            builder
+                .RegisterGeneric(typeof(StateManager<>))
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
+            builder
+                .RegisterAssemblyTypes(ThisAssembly)
+                .AsClosedTypesOf(typeof(IStateConfigurationContainer<>))
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterAssemblyTypes(ThisAssembly)
+                .AsClosedTypesOf(typeof(IStateTransitionHandler<>))
+                .AsImplementedInterfaces()
+                .SingleInstance();
         }
 
         private void RegisterMediator(ContainerBuilder builder)

@@ -43,6 +43,17 @@ namespace SHT.Tests.Integration.TestFixtures
             return await AuthorizedClient.PostAsync(path, content);
         }
 
+        protected async Task<HttpResponseMessage> PutAuth(Uri path, object body)
+        {
+            using var content = HttpUtils.ToJsonStringContent(body);
+            return await AuthorizedClient.PutAsync(path, content);
+        }
+
+        protected async Task<HttpResponseMessage> GetAuth(Uri path)
+        {
+            return await AuthorizedClient.GetAsync(path);
+        }
+
         protected Task<TModel> GetFromDbById<TModel>(Guid id)
             where TModel : class
         {

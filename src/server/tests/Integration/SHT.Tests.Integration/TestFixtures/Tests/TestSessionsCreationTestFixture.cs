@@ -11,11 +11,11 @@ using Xunit;
 
 namespace SHT.Tests.Integration.TestFixtures.Tests
 {
-    public class TestSessionsTestFixture : BaseTestFixture
+    public class TestSessionsCreationTestFixture : BaseTestFixture
     {
         private readonly Uri _endpoint = "api/test-session".ToRelativeUri();
 
-        public TestSessionsTestFixture(SHTWebApiFactory factory)
+        public TestSessionsCreationTestFixture(SHTWebApiFactory factory)
             : base(factory)
         {
         }

@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using SHT.Domain.Models.Common;
 
 namespace SHT.Domain.Models.Tests.Students
 {
-    public class TestSession : BaseEntity
+    public class TestSession : BaseEntity, IHasState
     {
         public string Name { get; set; }
 
