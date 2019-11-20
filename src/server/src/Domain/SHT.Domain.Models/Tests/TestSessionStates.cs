@@ -1,4 +1,4 @@
-namespace SHT.Domain.Models.Tests.Students
+namespace SHT.Domain.Models.Tests
 {
     public static class TestSessionStates
     {

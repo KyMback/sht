@@ -7,10 +7,6 @@ namespace SHT.Domain.Services.Tests
     {
         public string Name { get; set; }
 
-        public IReadOnlyCollection<Guid> StudentsIds { get; set; }
-
         public IReadOnlyCollection<Guid> TestVariantsIds { get; set; }
-
-        public Guid InstructorId { get; set; }
     }
 }

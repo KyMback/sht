@@ -1,7 +1,6 @@
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SHT.Domain.Models.Tests;
-using SHT.Domain.Models.Tests.Students;
 
 namespace SHT.Infrastructure.EF.Configs.Configs.Tests.Students
 {

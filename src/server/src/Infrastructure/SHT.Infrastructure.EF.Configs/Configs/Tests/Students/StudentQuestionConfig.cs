@@ -12,7 +12,7 @@ namespace SHT.Infrastructure.EF.Configs.Configs.Tests.Students
             builder.Property(e => e.Text).HasMaxLength(LengthConstants.LargeLength).IsRequired();
             builder.Property(e => e.Answer).HasMaxLength(LengthConstants.LargeLength).IsRequired();
             builder.Property(e => e.State).HasMaxLength(LengthConstants.MediumLength).IsRequired();
-            builder.HasOne<StudentTestVariant>().WithMany().HasForeignKey(e => e.StudentTestVariantId);
+            builder.HasOne<StudentTestSession>().WithMany(e => e.Questions).HasForeignKey(e => e.StudentTestSessionId);
         }
     }
 }

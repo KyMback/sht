@@ -3,7 +3,7 @@ using SHT.Domain.Models.Common;
 
 namespace SHT.Application.StateMachineConfigs.Core
 {
-    internal class StateConfigurationsBuilder<TEntity> : IStateConfigurationsBuilder<TEntity>
+    internal class StateConfigurationBuilder<TEntity> : IStateConfigurationBuilder<TEntity>
         where TEntity : class, IHasState
     {
         public IList<StateConfiguration<TEntity>> Configurations { get; set; } =

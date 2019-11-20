@@ -19,12 +19,16 @@ namespace SHT.Tests.Integration.TestFixtures
 
         protected SHTWebApiFactory Factory { get; }
 
-        protected HttpClient AuthorizedClient { get; private set; }
+        protected HttpClient AuthorizedInstructor { get; private set; }
 
-        public Task InitializeAsync()
+        protected HttpClient AuthorizedStudent { get; private set; }
+
+        public async Task InitializeAsync()
         {
-            AuthorizedClient = Factory.CreateClient();
-            return AuthorizedClient.AuthorizeDefaultUser();
+            AuthorizedInstructor = Factory.CreateClient();
+            AuthorizedStudent = Factory.CreateClient();
+            await AuthorizedInstructor.AuthorizeDefaultInstructor();
+            await AuthorizedStudent.AuthorizeDefaultStudent();
         }
 
         public Task DisposeAsync()
@@ -37,21 +41,26 @@ namespace SHT.Tests.Integration.TestFixtures
             return HttpUtils.FromJson<TData>(message);
         }
 
-        protected async Task<HttpResponseMessage> PostAuth(Uri path, object body)
+        protected async Task<HttpResponseMessage> InstructorPostAuth(Uri path, object body)
         {
             using var content = HttpUtils.ToJsonStringContent(body);
-            return await AuthorizedClient.PostAsync(path, content);
+            return await AuthorizedInstructor.PostAsync(path, content);
         }
 
-        protected async Task<HttpResponseMessage> PutAuth(Uri path, object body)
+        protected async Task<HttpResponseMessage> InstructorPutAuth(Uri path, object body)
         {
             using var content = HttpUtils.ToJsonStringContent(body);
-            return await AuthorizedClient.PutAsync(path, content);
+            return await AuthorizedInstructor.PutAsync(path, content);
         }
 
-        protected async Task<HttpResponseMessage> GetAuth(Uri path)
+        protected async Task<HttpResponseMessage> InstructorGetAuth(Uri path)
         {
-            return await AuthorizedClient.GetAsync(path);
+            return await AuthorizedInstructor.GetAsync(path);
+        }
+
+        protected async Task<HttpResponseMessage> StudentGetAuth(Uri path)
+        {
+            return await AuthorizedStudent.GetAsync(path);
         }
 
         protected Task<TModel> GetFromDbById<TModel>(Guid id)

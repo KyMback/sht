@@ -30,8 +30,7 @@ namespace SHT.Database.EF.Migrations.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "User");
+            throw new NotImplementedException();
         }
     }
 }

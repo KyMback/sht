@@ -21,18 +21,21 @@ namespace SHT.Api.Web.Controllers
             _mediator = mediator;
         }
 
+        [AuthorizeInstructorsOnly]
         [HttpPost]
         public Task<CreatedEntityResponse> Create(CreateTestSessionDto data)
         {
             return _mediator.Send(new CreateTestSessionRequest(data));
         }
 
+        [AuthorizeInstructorsOnly]
         [HttpPut("state")]
         public Task StateTransition(TestSessionStateTransitionRequest request)
         {
             return _mediator.Send(request);
         }
 
+        [AuthorizeInstructorsOnly]
         [HttpGet("state/{id}")]
         public Task<IReadOnlyCollection<string>> GetStateTransitions([FromRoute] Guid id)
         {

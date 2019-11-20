@@ -46,6 +46,12 @@ namespace SHT.Infrastructure.DataAccess.Abstractions
         Task<IReadOnlyCollection<TEntity>> GetAll<TEntity>([NotNull] IQueryParameters<TEntity> queryParameters)
             where TEntity : class;
 
+        [ItemNotNull]
+        Task<IReadOnlyCollection<TData>> GetAll<TEntity, TData>(
+            [NotNull] IQueryParameters<TEntity> queryParameters,
+            Expression<Func<TEntity, TData>> selector)
+            where TEntity : class;
+
         Task<bool> Any<TEntity>([NotNull] IQueryParameters<TEntity> queryParameters)
             where TEntity : class;
 

@@ -23,7 +23,7 @@ namespace SHT.Tests.Integration.TestFixtures.Account
         public async Task User_SignIn_CorrectCredentials_Success()
         {
             // Act
-            var response = await _httpClient.AuthorizeDefaultUser();
+            var response = await _httpClient.AuthorizeDefaultInstructor();
 
             // Assert
             response.EnsureSuccessStatusCode();
@@ -48,7 +48,7 @@ namespace SHT.Tests.Integration.TestFixtures.Account
         public async Task AuthenticatedUser_GetContext_Success()
         {
             // Act
-            await _httpClient.AuthorizeDefaultUser();
+            await _httpClient.AuthorizeDefaultInstructor();
             var response = await _httpClient.GetAsync("api/account/context".ToRelativeUri());
 
             // Assert

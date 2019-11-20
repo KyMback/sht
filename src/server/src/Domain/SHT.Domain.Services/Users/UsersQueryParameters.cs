@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using SHT.Domain.Models.Users;
 using SHT.Domain.Services.Common;
 
@@ -15,6 +17,8 @@ namespace SHT.Domain.Services.Users
 
         public Guid? Id { get; set; }
 
+        public IEnumerable<Guid> Ids { get; set; }
+
         public string Login { get; set; }
 
         public string NormalizedLogin { get; set; }
@@ -26,6 +30,7 @@ namespace SHT.Domain.Services.Users
 #pragma warning disable CA1304 // Specify CultureInfo
             FilterIfHasValue(NormalizedLogin, account => account.Login.ToUpper() == NormalizedLogin);
 #pragma warning restore CA1304 // Specify CultureInfo
+            FilterIfHasValue(Ids, user => Ids.Contains(user.Id));
         }
     }
 }

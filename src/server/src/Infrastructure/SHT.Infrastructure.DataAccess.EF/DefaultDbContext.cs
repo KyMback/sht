@@ -10,22 +10,31 @@ using SHT.Infrastructure.EF.Configs;
 
 namespace SHT.Infrastructure.DataAccess.EF
 {
-    public class DefaultDbContext : DbContext, Abstractions.IQueryProvider, IUnitOfWork
+    public class DefaultDbContext : DbContext, Abstractions.IQueryProvider, IUnitOfWork, IEntitiesTracker
     {
         private readonly ConnectionsOptions _connectionsOptions;
+        private readonly Lazy<IEnumerable<IBeforeCommitHandler>> _beforeCommitHandlers;
 
-        public DefaultDbContext(ConnectionsOptions connectionsOptions)
+        public DefaultDbContext(
+            ConnectionsOptions connectionsOptions,
+            Lazy<IEnumerable<IBeforeCommitHandler>> beforeCommitHandlers)
         {
             _connectionsOptions = connectionsOptions;
+            _beforeCommitHandlers = beforeCommitHandlers;
         }
 
         public IQueryable<TEntity> Queryable<TEntity>()
             where TEntity : class =>
             Set<TEntity>().AsQueryable();
 
-        public Task Commit()
+        public async Task Commit()
         {
-            return SaveChangesAsync();
+            foreach (var beforeCommitHandler in _beforeCommitHandlers.Value)
+            {
+                await beforeCommitHandler.Handle(this);
+            }
+
+            await SaveChangesAsync();
         }
 
         async Task<TEntity> IUnitOfWork.Add<TEntity>(TEntity entity)
@@ -79,6 +88,14 @@ namespace SHT.Infrastructure.DataAccess.EF
             return await Query(queryParameters).ToArrayAsync();
         }
 
+        public async Task<IReadOnlyCollection<TData>> GetAll<TEntity, TData>(
+            IQueryParameters<TEntity> queryParameters,
+            Expression<Func<TEntity, TData>> selector)
+            where TEntity : class
+        {
+            return await Query(queryParameters).Select(selector).ToArrayAsync();
+        }
+
         Task<bool> IUnitOfWork.Any<TEntity>(IQueryParameters<TEntity> queryParameters)
         {
             return Query(queryParameters).AnyAsync();
@@ -87,6 +104,19 @@ namespace SHT.Infrastructure.DataAccess.EF
         Task<long> IUnitOfWork.Count<TEntity>(IQueryParameters<TEntity> queryParameters)
         {
             return Query(queryParameters).LongCountAsync();
+        }
+
+        IEnumerable<TEntity> IEntitiesTracker.GetTrackedEntities<TEntity>(TrackedEntityStates states)
+        {
+            return ChangeTracker
+                .Entries()
+                .Where(e => e.Entity is TEntity)
+                .Where(e =>
+                    (states.HasFlag(TrackedEntityStates.Added) && e.State == EntityState.Added) ||
+                    (states.HasFlag(TrackedEntityStates.Modified) && e.State == EntityState.Modified) ||
+                    (states.HasFlag(TrackedEntityStates.Deleted) && e.State == EntityState.Deleted))
+                .Select(e => (TEntity)e.Entity)
+                .ToArray();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

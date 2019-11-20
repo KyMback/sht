@@ -1,6 +1,6 @@
 using System;
 
-namespace SHT.Domain.Models.Tests.Students
+namespace SHT.Domain.Models.Tests
 {
     public class TestSessionTestVariant : BaseEntity
     {

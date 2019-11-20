@@ -1,7 +1,9 @@
 using Autofac;
 using SHT.Domain.Services.Tests;
+using SHT.Domain.Services.Tests.Student;
 using SHT.Domain.Services.Users;
 using SHT.Infrastructure.Common.Extensions;
+using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Domain.Services
 {
@@ -10,8 +12,16 @@ namespace SHT.Domain.Services
         protected override void Load(ContainerBuilder builder)
         {
             builder
+                .RegisterFluentValidators(ThisAssembly)
                 .AddScopedAsImplementedInterfaces<TestSessionService>()
+                .AddScopedAsImplementedInterfaces<StudentTestSessionService>()
                 .AddScopedAsImplementedInterfaces<RegistrationValidationService>();
+
+            builder
+                .RegisterAssemblyTypes(ThisAssembly)
+                .AssignableTo<IBeforeCommitHandler>()
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
         }
     }
 }

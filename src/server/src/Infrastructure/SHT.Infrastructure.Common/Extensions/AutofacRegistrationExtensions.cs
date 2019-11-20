@@ -12,6 +12,7 @@ namespace SHT.Infrastructure.Common.Extensions
             builder.RegisterAssemblyTypes(assembly)
                 .AsClosedTypesOf(typeof(IValidator<>))
                 .AsImplementedInterfaces()
+                .AsSelf()
                 .SingleInstance();
 
             return builder;

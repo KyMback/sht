@@ -8,7 +8,6 @@ namespace SHT.Application.Tests.TestSessions.Create
     {
         public CreateTestSessionValidator()
         {
-            RuleFor(e => e.Data).NotNull();
             RuleFor(e => e.Data.Name).NotEmpty();
         }
     }

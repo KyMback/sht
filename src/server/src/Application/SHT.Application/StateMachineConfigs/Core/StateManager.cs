@@ -24,7 +24,7 @@ namespace SHT.Application.StateMachineConfigs.Core
                 () => _entity.State,
                 state => _entity.State = state,
                 FiringMode.Immediate);
-            var builder = new StateConfigurationsBuilder<TEntity>();
+            var builder = new StateConfigurationBuilder<TEntity>();
             stateConfigurationContainer.Configure(builder);
 
             foreach (StateConfiguration<TEntity> cfg in builder.Configurations)

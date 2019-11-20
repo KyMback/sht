@@ -11,6 +11,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\Common\SHT.Common\SHT.Common.csproj" />
       <ProjectReference Include="..\..\Infrastructure\SHT.Infrastructure.EF.Configs\SHT.Infrastructure.EF.Configs.csproj" />
+      <ProjectReference Include="..\SHT.Database.Defaults\SHT.Database.Defaults.csproj" />
     </ItemGroup>
 
     <ItemGroup>

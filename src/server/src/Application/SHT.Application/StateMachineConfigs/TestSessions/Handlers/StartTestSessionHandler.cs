@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using SHT.Application.StateMachineConfigs.Core;
-using SHT.Domain.Models.Tests.Students;
+using SHT.Domain.Models.Tests;
 
 namespace SHT.Application.StateMachineConfigs.TestSessions.Handlers
 {

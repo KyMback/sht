@@ -5,6 +5,6 @@ namespace SHT.Application.StateMachineConfigs.Core
     public interface IStateConfigurationContainer<TEntity>
         where TEntity : class, IHasState
     {
-        void Configure(IStateConfigurationsBuilder<TEntity> builder);
+        void Configure(IStateConfigurationBuilder<TEntity> builder);
     }
 }

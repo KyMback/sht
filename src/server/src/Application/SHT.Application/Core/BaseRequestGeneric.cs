@@ -1,15 +1,17 @@
+using JetBrains.Annotations;
 using MediatR;
 
 namespace SHT.Application.Core
 {
 #pragma warning disable SA1649
-    public abstract class BaseCommand<TData, TResponse> : IRequest<TResponse>
+    public abstract class BaseRequest<TData, TResponse> : IRequest<TResponse>
     {
-        public BaseCommand(TData dataDto)
+        public BaseRequest(TData dataDto)
         {
             DataDto = dataDto;
         }
 
+        [NotNull]
         public TData DataDto { get; set; }
     }
 #pragma warning restore SA1649

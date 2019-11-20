@@ -5,7 +5,7 @@ using AutoFixture.Xunit2;
 using FluentAssertions;
 using SHT.Application.Core;
 using SHT.Application.Tests.TestSessions.Create;
-using SHT.Domain.Models.Tests.Students;
+using SHT.Domain.Models.Tests;
 using SHT.Tests.Integration.Extensions;
 using Xunit;
 
@@ -31,7 +31,7 @@ namespace SHT.Tests.Integration.TestFixtures.Tests
             };
 
             // Act
-            HttpResponseMessage result = await PostAuth(_endpoint, data);
+            HttpResponseMessage result = await InstructorPostAuth(_endpoint, data);
 
             // Assert
             result.EnsureSuccessStatusCode();

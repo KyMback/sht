@@ -16,6 +16,6 @@ namespace SHT.Domain.Models.Tests.Students
 
         public string State { get; set; }
 
-        public Guid StudentTestVariantId { get; set; }
+        public Guid StudentTestSessionId { get; set; }
     }
 }

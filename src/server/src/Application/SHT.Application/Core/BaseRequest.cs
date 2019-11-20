@@ -1,14 +1,16 @@
+using JetBrains.Annotations;
 using MediatR;
 
 namespace SHT.Application.Core
 {
-    public abstract class BaseCommand<TData> : IRequest
+    public abstract class BaseRequest<TData> : IRequest
     {
-        public BaseCommand(TData data)
+        public BaseRequest(TData data)
         {
             Data = data;
         }
 
+        [NotNull]
         public TData Data { get; set; }
     }
 }

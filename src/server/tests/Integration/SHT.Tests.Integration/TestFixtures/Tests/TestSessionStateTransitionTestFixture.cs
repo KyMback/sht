@@ -7,6 +7,7 @@ using SHT.Application.Core;
 using SHT.Application.StateMachineConfigs.TestSessions;
 using SHT.Application.Tests.TestSessions.Create;
 using SHT.Application.Tests.TestSessions.StateTransition;
+using SHT.Domain.Models.Tests;
 using SHT.Tests.Integration.Extensions;
 using Xunit;
 
@@ -33,8 +34,8 @@ namespace SHT.Tests.Integration.TestFixtures.Tests
 
             // Act
             var createdEntityResponse = await FromResponseMessage<CreatedEntityResponse>(
-                await PostAuth("api/test-session".ToRelativeUri(), data));
-            var response = await PutAuth(_endpoint, new TestSessionStateTransitionRequest
+                await InstructorPostAuth("api/test-session".ToRelativeUri(), data));
+            var response = await InstructorPutAuth(_endpoint, new TestSessionStateTransitionRequest
             {
                 Trigger = TestSessionTriggers.StartTest,
                 TestSessionId = createdEntityResponse.Id,
@@ -42,6 +43,8 @@ namespace SHT.Tests.Integration.TestFixtures.Tests
 
             // Assert
             response.EnsureSuccessStatusCode();
+            var testSession = await GetFromDbById<TestSession>(createdEntityResponse.Id);
+            testSession.State.Should().Be(TestSessionStates.Started);
         }
 
         [Theory]
@@ -56,8 +59,8 @@ namespace SHT.Tests.Integration.TestFixtures.Tests
 
             // Act
             var createdEntityResponse = await FromResponseMessage<CreatedEntityResponse>(
-                await PostAuth("api/test-session".ToRelativeUri(), data));
-            var response = await GetAuth($"api/test-session/state/{createdEntityResponse.Id}".ToRelativeUri());
+                await InstructorPostAuth("api/test-session".ToRelativeUri(), data));
+            var response = await InstructorGetAuth($"api/test-session/state/{createdEntityResponse.Id}".ToRelativeUri());
 
             // Assert
             response.EnsureSuccessStatusCode();

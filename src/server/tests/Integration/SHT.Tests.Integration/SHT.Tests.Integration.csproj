@@ -18,6 +18,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\..\src\Api\SHT.Api.Web\SHT.Api.Web.csproj" />
+        <ProjectReference Include="..\..\..\src\Database\SHT.Database.Defaults\SHT.Database.Defaults.csproj" />
     </ItemGroup>
 
     <ItemGroup>
