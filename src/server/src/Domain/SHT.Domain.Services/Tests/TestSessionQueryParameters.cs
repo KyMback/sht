@@ -13,9 +13,12 @@ namespace SHT.Domain.Services.Tests
 
         public Guid? Id { get; set; }
 
+        public string State { get; set; }
+
         protected override void AddFilters()
         {
             FilterIfHasValue(Id, session => session.Id == Id.Value);
+            FilterIfHasValue(State, session => session.State == State);
         }
     }
 }

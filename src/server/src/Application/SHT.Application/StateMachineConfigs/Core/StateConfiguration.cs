@@ -15,6 +15,8 @@ namespace SHT.Application.StateMachineConfigs.Core
 
         public IList<Type> Handlers { get; set; } = new List<Type>();
 
+        public IList<Type> Guards { get; set; } = new List<Type>();
+
         public IStateConfiguration<TEntity> From(string state)
         {
             FromState = state;
@@ -30,6 +32,13 @@ namespace SHT.Application.StateMachineConfigs.Core
         public IStateConfiguration<TEntity> To(string state)
         {
             ToState = state;
+            return this;
+        }
+
+        public IStateConfiguration<TEntity> WithGuard<TGuard>()
+            where TGuard : IStateTransitionGuard<TEntity>
+        {
+            Guards.Add(typeof(TGuard));
             return this;
         }
 

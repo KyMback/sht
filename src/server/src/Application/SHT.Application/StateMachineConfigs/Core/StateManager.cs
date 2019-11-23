@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,7 +34,7 @@ namespace SHT.Application.StateMachineConfigs.Core
 
                 _stateMachine
                     .Configure(cfg.FromState)
-                    .Permit(cfg.Trigger, cfg.ToState);
+                    .PermitIf(trigger.Trigger, cfg.ToState, () => CheckGuards(cfg.Guards).GetAwaiter().GetResult());
 
                 _stateMachine
                     .Configure(cfg.ToState)
@@ -56,6 +57,19 @@ namespace SHT.Application.StateMachineConfigs.Core
         {
             _entity = entity;
             return Task.FromResult<IReadOnlyCollection<string>>(_stateMachine.GetPermittedTriggers().ToArray());
+        }
+
+        private async Task<bool> CheckGuards(IEnumerable<Type> guards)
+        {
+            foreach (Type guard in guards)
+            {
+                if (!await ((IStateTransitionGuard<TEntity>)_safeInjectionResolver.Resolve(guard)).Check(_entity))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         private async Task OnStartTransition(

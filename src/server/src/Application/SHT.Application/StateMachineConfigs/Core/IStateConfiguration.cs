@@ -11,6 +11,9 @@ namespace SHT.Application.StateMachineConfigs.Core
 
         IStateConfiguration<TEntity> To(string state);
 
+        IStateConfiguration<TEntity> WithGuard<TGuard>()
+            where TGuard : IStateTransitionGuard<TEntity>;
+
         IStateConfiguration<TEntity> Use<THandler>()
             where THandler : IStateTransitionHandler<TEntity>;
     }

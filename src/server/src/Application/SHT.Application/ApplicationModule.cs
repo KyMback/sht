@@ -31,7 +31,13 @@ namespace SHT.Application
                 .RegisterAssemblyTypes(ThisAssembly)
                 .AsClosedTypesOf(typeof(IStateTransitionHandler<>))
                 .AsImplementedInterfaces()
-                .SingleInstance();
+                .InstancePerLifetimeScope();
+
+            builder
+                .RegisterAssemblyTypes(ThisAssembly)
+                .AsClosedTypesOf(typeof(IStateTransitionGuard<>))
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
         }
 
         private void RegisterMediator(ContainerBuilder builder)
