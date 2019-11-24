@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SHT.Database.EF.Migrations;
@@ -9,9 +10,10 @@ using SHT.Database.EF.Migrations;
 namespace SHT.Database.EF.Migrations.Migrations
 {
     [DbContext(typeof(MigrationDbContext))]
-    partial class MigrationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191123201010_ChangedTypeOfVariantNumber")]
+    partial class ChangedTypeOfVariantNumber
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,10 +55,11 @@ namespace SHT.Database.EF.Migrations.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Answer")
+                        .IsRequired()
                         .HasColumnType("character varying(4000)")
                         .HasMaxLength(4000);
 
-                    b.Property<double?>("Grade")
+                    b.Property<double>("Grade")
                         .HasColumnType("double precision");
 
                     b.Property<int>("Number")
@@ -208,7 +211,7 @@ namespace SHT.Database.EF.Migrations.Migrations
             modelBuilder.Entity("SHT.Domain.Models.Tests.Question", b =>
                 {
                     b.HasOne("SHT.Domain.Models.Tests.TestVariant", null)
-                        .WithMany("Questions")
+                        .WithMany()
                         .HasForeignKey("TestVariantId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -249,14 +252,14 @@ namespace SHT.Database.EF.Migrations.Migrations
 
             modelBuilder.Entity("SHT.Domain.Models.Tests.TestSessionTestVariant", b =>
                 {
-                    b.HasOne("SHT.Domain.Models.Tests.TestSession", "TestSession")
+                    b.HasOne("SHT.Domain.Models.Tests.TestSession", null)
                         .WithMany("TestSessionTestVariants")
                         .HasForeignKey("TestSessionId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("SHT.Domain.Models.Tests.TestVariant", "TestVariant")
-                        .WithMany("TestSessionTestVariants")
+                    b.HasOne("SHT.Domain.Models.Tests.TestVariant", null)
+                        .WithMany()
                         .HasForeignKey("TestVariantId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();

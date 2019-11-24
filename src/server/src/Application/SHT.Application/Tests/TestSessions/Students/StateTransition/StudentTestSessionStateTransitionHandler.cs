@@ -28,7 +28,7 @@ namespace SHT.Application.Tests.TestSessions.Students.StateTransition
                 IsReadOnly = false,
             };
             StudentTestSession session = await _unitOfWork.GetSingle(queryParameters);
-            await _stateManager.Process(session, request.Trigger);
+            await _stateManager.Process(session, request.Trigger, request.SerializedData);
             await _unitOfWork.Update(session);
             await _unitOfWork.Commit();
 

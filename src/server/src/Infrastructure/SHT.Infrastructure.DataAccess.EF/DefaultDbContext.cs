@@ -138,6 +138,11 @@ namespace SHT.Infrastructure.DataAccess.EF
             where TEntity : class
         {
             var queryable = queryParameters.ToQuery(this);
+            foreach (var expression in queryParameters.Included)
+            {
+                queryable = queryable.Include(expression);
+            }
+
             return queryParameters.IsReadOnly ? queryable.AsNoTracking() : queryable.AsTracking();
         }
     }

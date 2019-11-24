@@ -7,5 +7,7 @@ namespace SHT.Domain.Services.Tests.Student
     public interface IStudentTestSessionService
     {
         Task<IReadOnlyCollection<StudentTestSession>> Create(params StudentTestSessionCreationData[] sessions);
+
+        Task Start(StudentTestSession studentTestSession, string variant);
     }
 }

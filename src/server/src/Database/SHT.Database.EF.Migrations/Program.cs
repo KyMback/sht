@@ -11,13 +11,13 @@ namespace SHT.Database.EF.Migrations
     {
         private static void Main(string[] args)
         {
-            Parser.Default.ParseArguments<UpdateOptions>(args).WithParsed(opt => Update(opt).GetAwaiter().GetResult());
+            Parser.Default.ParseArguments<UpdateOptions>(args)
+                .WithParsed(opt => Update(opt, args).GetAwaiter().GetResult());
         }
 
-        private static async Task Update(UpdateOptions options)
+        private static async Task Update(UpdateOptions options, string[] args)
         {
-            await using MigrationDbContext dbContext =
-                new MigrationDbContextDesignTimeFactory().CreateDbContext(Array.Empty<string>());
+            await using MigrationDbContext dbContext = new MigrationDbContextDesignTimeFactory().CreateDbContext(args);
             if (options.Recreate)
             {
                 Console.WriteLine("Dropping db...");
@@ -32,7 +32,7 @@ namespace SHT.Database.EF.Migrations
             if (options.Recreate && options.WithDevSeeds)
             {
                 Console.WriteLine("Apply dev seeds...");
-                await SeedsInitializer.Initialize(dbContext);
+                await SeedsInitializer.InitializeSeeds(dbContext);
                 Console.WriteLine("Dev seeds successfully applied");
             }
         }

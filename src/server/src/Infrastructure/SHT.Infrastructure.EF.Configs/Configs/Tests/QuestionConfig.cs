@@ -10,7 +10,7 @@ namespace SHT.Infrastructure.EF.Configs.Configs.Tests
         protected override void ConfigureEntity(EntityTypeBuilder<Question> builder)
         {
             builder.Property(e => e.Text).HasMaxLength(LengthConstants.LargeLength).IsRequired();
-            builder.HasOne<TestVariant>().WithMany().HasForeignKey(e => e.TestVariantId);
+            builder.HasOne<TestVariant>().WithMany(e => e.Questions).HasForeignKey(e => e.TestVariantId);
         }
     }
 }

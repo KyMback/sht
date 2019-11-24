@@ -1,14 +1,30 @@
 using System.Threading.Tasks;
 using SHT.Application.StateMachineConfigs.Core;
 using SHT.Domain.Models.Tests.Students;
+using SHT.Domain.Services.Tests.Student;
+using SHT.Infrastructure.Common.Transactions;
+using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Application.StateMachineConfigs.StudentTestSessions.Handlers
 {
     internal class StartStudentTestSession : IStateTransitionHandler<StudentTestSession>
     {
-        public Task Transit(StateTransitionContext<StudentTestSession> context)
+        private readonly IStudentTestSessionService _studentTestSessionService;
+        private readonly IUnitOfWork _unitOfWork;
+
+        public StartStudentTestSession(
+            IStudentTestSessionService studentTestSessionService,
+            IUnitOfWork unitOfWork)
         {
-            return Task.CompletedTask;
+            _studentTestSessionService = studentTestSessionService;
+            _unitOfWork = unitOfWork;
+        }
+
+        public async Task Transit(StateTransitionContext<StudentTestSession> context)
+        {
+            var variant = context.DeserializeData(StudentTestSessionDataKey.TestVariant);
+            await _studentTestSessionService.Start(context.Entity, variant);
+            await _unitOfWork.Commit();
         }
     }
 }

@@ -17,5 +17,7 @@ namespace SHT.Domain.Services.Exceptions
         LoginIsNotUniq = 6,
 
         InvalidUserType = 7,
+
+        InvalidVariantName = 8,
     }
 }

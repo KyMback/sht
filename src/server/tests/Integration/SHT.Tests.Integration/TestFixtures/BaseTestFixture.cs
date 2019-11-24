@@ -63,6 +63,12 @@ namespace SHT.Tests.Integration.TestFixtures
             return await AuthorizedStudent.GetAsync(path);
         }
 
+        protected async Task<HttpResponseMessage> StudentPutAuth(Uri path, object body)
+        {
+            using var content = HttpUtils.ToJsonStringContent(body);
+            return await AuthorizedStudent.PutAsync(path, content);
+        }
+
         protected Task<TModel> GetFromDbById<TModel>(Guid id)
             where TModel : class
         {

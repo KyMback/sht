@@ -26,5 +26,15 @@ namespace SHT.Tests.Integration
 
             public static TestAuthorizationCredentials Credentials => new TestAuthorizationCredentials(Login, Password);
         }
+
+        public static class TestVariantsData
+        {
+            public static class TestVariantWithFreeTextQuestion
+            {
+                public static Guid Id => TestVariantsDefaults.TestVariantWithFreeTextQuestion.Id;
+
+                public static string Name => TestVariantsDefaults.TestVariantWithFreeTextQuestion.Name;
+            }
+        }
     }
 }

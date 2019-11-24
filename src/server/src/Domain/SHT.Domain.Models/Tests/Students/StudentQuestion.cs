@@ -12,7 +12,7 @@ namespace SHT.Domain.Models.Tests.Students
 
         public QuestionType Type { get; set; }
 
-        public double Grade { get; set; }
+        public double? Grade { get; set; }
 
         public string State { get; set; }
 

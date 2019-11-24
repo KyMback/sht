@@ -9,8 +9,14 @@ namespace SHT.Infrastructure.EF.Configs.Configs.Tests.Students
     {
         protected override void ConfigureEntity(EntityTypeBuilder<TestSessionTestVariant> builder)
         {
-            builder.HasOne<TestSession>().WithMany(e => e.TestSessionTestVariants).HasForeignKey(e => e.TestSessionId);
-            builder.HasOne<TestVariant>().WithMany().HasForeignKey(e => e.TestVariantId);
+            builder
+                .HasOne(e => e.TestSession)
+                .WithMany(e => e.TestSessionTestVariants)
+                .HasForeignKey(e => e.TestSessionId);
+            builder
+                .HasOne(e => e.TestVariant)
+                .WithMany(e => e.TestSessionTestVariants)
+                .HasForeignKey(e => e.TestVariantId);
         }
     }
 }

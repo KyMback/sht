@@ -21,6 +21,8 @@ namespace SHT.Application.StateMachineConfigs.Core
             ISafeInjectionResolver safeInjectionResolver)
         {
             _safeInjectionResolver = safeInjectionResolver;
+
+            // TODO: optimize creation + configuration of state machines
             _stateMachine = new StateMachine<string, string>(
                 () => _entity.State,
                 state => _entity.State = state,
@@ -42,7 +44,7 @@ namespace SHT.Application.StateMachineConfigs.Core
             }
         }
 
-        public Task Process(TEntity entity, string trigger)
+        public Task Process(TEntity entity, string trigger, IDictionary<string, string> serializedData = default)
         {
             _entity = entity;
             return _stateMachine.FireAsync(
@@ -50,6 +52,7 @@ namespace SHT.Application.StateMachineConfigs.Core
                 new StateTransitionContext<TEntity>
                 {
                     Entity = entity,
+                    SerializedData = serializedData,
                 });
         }
 

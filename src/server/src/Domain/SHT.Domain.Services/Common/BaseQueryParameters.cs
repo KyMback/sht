@@ -13,6 +13,9 @@ namespace SHT.Domain.Services.Common
     {
         public bool IsReadOnly { get; set; } = true;
 
+        IList<Expression<Func<TEntity, object>>> IQueryParameters<TEntity>.Included { get; set; } =
+            new List<Expression<Func<TEntity, object>>>();
+
         protected IQueryable<TEntity> Queryable { get; private set; }
 
         public IQueryable<TEntity> ToQuery(IQueryProvider queryProvider)
@@ -70,11 +73,23 @@ namespace SHT.Domain.Services.Common
             }
         }
 
+        protected void IncludeIf(bool predicate, Expression<Func<TEntity, object>> expression)
+        {
+            if (predicate)
+            {
+                ((IQueryParameters<TEntity>)this).Included.Add(expression);
+            }
+        }
+
         protected virtual void AddFilters()
         {
         }
 
         protected virtual void AddSorting()
+        {
+        }
+
+        protected virtual void AddIncluded()
         {
         }
     }

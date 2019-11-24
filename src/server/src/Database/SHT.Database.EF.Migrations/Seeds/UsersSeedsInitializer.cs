@@ -1,41 +1,35 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SHT.Database.Defaults;
+using SHT.Database.EF.Migrations.Seeds.Core;
 using SHT.Domain.Models.Users;
 
 namespace SHT.Database.EF.Migrations.Seeds
 {
     internal class UsersSeedsInitializer : ISeedsInitializer
     {
-        private readonly IEnumerable<UserSeedData> _users = new[]
+        private static readonly IReadOnlyCollection<User> Users = new[]
         {
-            new UserSeedData
+            new User
             {
                 Id = UsersDefaults.Instructor.Id,
                 Login = UsersDefaults.Instructor.Login,
                 Password = UsersDefaults.DefaultPasswordHash,
-                Type = UserType.Instructor,
+                UserType = UserType.Instructor,
             },
-            new UserSeedData
+            new User
             {
                 Id = UsersDefaults.Student.Id,
                 Login = UsersDefaults.Student.Login,
                 Password = UsersDefaults.DefaultPasswordHash,
-                Type = UserType.Student,
+                UserType = UserType.Student,
             }
         };
 
-        public async Task ApplyDevSeeds(DbContext context)
+        public async Task ApplySeeds(DbContext context)
         {
-            await context.AddRangeAsync(_users.Select(u => new User
-            {
-                Id = u.Id,
-                Login = u.Login,
-                Password = u.Password,
-                UserType = u.Type,
-            }));
+            await context.AddRangeAsync(Users);
         }
     }
 }
