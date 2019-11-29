@@ -1,0 +1,50 @@
+{
+  "name": "sht-web-client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "mobx": "^5.15.0",
+    "mobx-react-lite": "^1.5.1",
+    "moment": "^2.24.0",
+    "node-sass": "^4.13.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-intl": "^3.7.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.2.0",
+    "reactstrap": "^8.1.1",
+    "typescript": "3.7.2",
+    "use-async-effect": "^2.2.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "lint": "eslint ./src/**/*.{ts,tsx}",
+    "definitions": "dotnet run -p ../server/tools/SHT.JsonSchemasGenerator/ -- ./src/typings ./src/static/schemas"
+  },
+  "devDependencies": {
+    "@types/jest": "24.0.23",
+    "@types/node": "12.12.8",
+    "@types/react": "16.9.11",
+    "@types/react-dom": "16.9.4",
+    "@types/react-router-dom": "^5.1.2",
+    "@types/reactstrap": "^8.0.6",
+    "@typescript-eslint/eslint-plugin": "^2.9.0",
+    "@typescript-eslint/parser": "^2.9.0",
+    "eslint": "^6.7.1"
+  },
+  "proxy": "http://localhost:5000",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

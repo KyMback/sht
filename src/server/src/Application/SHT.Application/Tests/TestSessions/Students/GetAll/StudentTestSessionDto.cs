@@ -1,7 +1,9 @@
 using System;
+using SHT.Application.Core;
 
 namespace SHT.Application.Tests.TestSessions.Students.GetAll
 {
+    [ApiDataContract]
     public class StudentTestSessionDto
     {
         public Guid Id { get; set; }

@@ -1,8 +1,10 @@
 using System;
+using SHT.Application.Core;
 using SHT.Domain.Models.Users;
 
 namespace SHT.Application.Users.Accounts.GetContext
 {
+    [ApiDataContract]
     public class UserContextDto
     {
         public Guid? Id { get; set; }

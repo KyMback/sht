@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <SolutionDir Condition="'$(SolutionDir)'==''">../../</SolutionDir>
+    </PropertyGroup>
+    <Import Project="$(SolutionDir)/common/Common.props" />
+    <Import Project="$(SolutionDir)/common/CodeAnalysis/CodeAnalysis.props" />
+
+    <ItemGroup>
+        <PackageReference Include="NJsonSchema" Version="10.0.28"/>
+        <PackageReference Include="NJsonSchema.CodeGeneration.TypeScript" Version="10.0.28"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\Application\SHT.Application\SHT.Application.csproj"/>
+    </ItemGroup>
+
+</Project>

@@ -1,7 +1,9 @@
+using SHT.Application.Core;
 using SHT.Domain.Models.Users;
 
 namespace SHT.Application.Users.Accounts.SignUp
 {
+    [ApiDataContract]
     public class SignUpDataDto
     {
         public string Login { get; set; }
