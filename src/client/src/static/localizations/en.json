@@ -1,7 +1,13 @@
 {
   "validation_required": "This field is required.",
+  "validation_repeatPasswordNotEqual": "Passwords should be equal.",
   "Login": "Login",
   "Password": "Password",
   "SignIn": "Sign in",
-  "InvalidLoginOrPassword": "Invalid Login or Password"
+  "SignUp": "Sign up",
+  "Submit": "Submit",
+  "RepeatPassword": "Repeat Password",
+  "InvalidLoginOrPassword": "Invalid Login or Password",
+  "SuccessfullyRegistered": "Successfully Registered",
+  "ErrorCode_6": "User with this login is already registered."
 }

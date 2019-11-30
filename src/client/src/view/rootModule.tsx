@@ -4,6 +4,7 @@ import { authenticated } from "../core/routing/guards/authenticationGuard";
 import { InternalModule } from "./internal/internalModule";
 import { anonymous } from "../core/routing/guards/anonymousGuard";
 import { Login } from "./public/login/login";
+import { SignUp } from "./public/signUp/signUp";
 
 const routes: Array<Route> = [
     {
@@ -15,6 +16,11 @@ const routes: Array<Route> = [
     {
         path: "/login",
         component: Login,
+        guards: [anonymous]
+    },
+    {
+        path: "/signUp",
+        component: SignUp,
         guards: [anonymous]
     },
 ];

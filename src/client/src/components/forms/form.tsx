@@ -17,6 +17,7 @@ export const Form = (
 
     const submit = (e: FormEvent) => {
         e.preventDefault();
+
         if (validationProvider.current!.validate()) {
             onValidSubmit && onValidSubmit();
         }

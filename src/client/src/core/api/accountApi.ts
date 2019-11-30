@@ -1,4 +1,4 @@
-import { HttpApi } from "./httpApi";
+import { HttpApi } from "./http/httpApi";
 import { SignInDataDto, SignInResponse, SignUpDataDto, UserContextDto } from "../../typings/dataContracts";
 
 const endpoint = "api/account";
