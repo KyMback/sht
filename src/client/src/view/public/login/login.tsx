@@ -14,15 +14,20 @@ export const Login = observer(() => {
         <Row>
             <Col>
                 <Form onValidSubmit={store.signIn}>
-                    <FormInput label="Login"
-                               onChange={store.setLogin}
-                               value={store.login}
-                               validations={[required]}/>
-                    <FormInput label="Password"
-                               onChange={store.setPassword}
-                               value={store.password}
-                               validations={[required]}/>
-                    <Button><Local id="SignIn"/></Button>
+                    <FormInput
+                        label="Login"
+                        onChange={store.setLogin}
+                        value={store.login}
+                        validations={[required]}/>
+                    <FormInput
+                        label="Password"
+                        type="password"
+                        onChange={store.setPassword}
+                        value={store.password}
+                        validations={[required]}/>
+                    <Button>
+                        <Local id="SignIn"/>
+                    </Button>
                 </Form>
             </Col>
         </Row>

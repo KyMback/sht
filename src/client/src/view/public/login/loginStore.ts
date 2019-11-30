@@ -3,6 +3,7 @@ import { AccountApi } from "../../../core/api/accountApi";
 import { SignInDataDto } from "../../../typings/dataContracts";
 import { userContextStore } from "../../../stores/userContextStore";
 import { routingStore } from "../../../stores/routingStore";
+import { notifications } from "../../../components/notifications/notifications";
 
 export class LoginStore {
     @observable public login?: string;
@@ -20,6 +21,8 @@ export class LoginStore {
         if (result.succeeded) {
             await userContextStore.loadContext();
             await routingStore.gotoBase();
+        } else {
+            notifications.error("InvalidLoginOrPassword");
         }
     };
 }

@@ -10,6 +10,7 @@ import { observer } from "mobx-react-lite";
 import { IntlProvider } from "react-intl";
 import { localStore } from "./stores/localStore";
 import { LoadingAnimationWrapper } from "./components/layouts/loading/loadingAnimationWrapper";
+import { NotificationsContainer } from "./components/notifications/notifications";
 
 export const App = observer(() => {
     const [contextLoaded, setIsContextLoaded] = useState<boolean>(false);
@@ -28,6 +29,7 @@ export const App = observer(() => {
                         </MainLayout>
                     </ContextDepended>
                 ) : <MainLayout/>}
+                {NotificationsContainer}
             </IntlProvider>
             <LoadingAnimationWrapper/>
         </>
