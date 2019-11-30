@@ -6,6 +6,10 @@ class RoutingStore {
     constructor() {
         this.history = createBrowserHistory()
     }
+
+    public goto = (path: string) => {
+        this.history.push(path);
+    }
 }
 
 export const routingStore = new RoutingStore();

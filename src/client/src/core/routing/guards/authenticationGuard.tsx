@@ -1,5 +1,5 @@
 import React from "react";
-import { contextStore } from "../../../stores/contextStore";
+import { userContextStore } from "../../../stores/userContextStore";
 import { Redirect } from "react-router-dom";
 
 export interface GuardProps {
@@ -7,7 +7,7 @@ export interface GuardProps {
 }
 
 export const authenticated = ({ component: Component }: GuardProps) => {
-    return contextStore.isAuthenticated
+    return userContextStore.isAuthenticated
         ? <Component/>
         : <Redirect to={{ pathname: "/login" }}/>
 };

@@ -1,10 +1,10 @@
-import { contextStore } from "./contextStore";
+import { userContextStore } from "./userContextStore";
 import { rootViewStore } from "./rootViewStore";
 import { routingStore } from "./routingStore";
 
 // Keep all global stores here
 const stores = {
-    contextStore,
+    contextStore: userContextStore,
     rootViewStore,
     routingStore,
 };

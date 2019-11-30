@@ -9,7 +9,7 @@ export class HttpApi {
         return HttpApi.request<TData>({
             method: "GET",
             url: url,
-        })
+        });
     };
 
     public static post = async <TData extends any>(url: string, body?: any): Promise<TData> => {
@@ -39,6 +39,9 @@ export class HttpApi {
         const response = await fetch(options.url, {
             method: options.method,
             body: options.body && JSON.stringify(options.body),
+            headers: {
+                "Content-Type": "application/json",
+            },
         });
 
         if (response.ok) {
@@ -46,5 +49,5 @@ export class HttpApi {
         } else {
             throw new Error();
         }
-    }
+    };
 }

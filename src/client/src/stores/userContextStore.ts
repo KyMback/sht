@@ -2,7 +2,7 @@ import { action, observable, runInAction } from "mobx";
 import { AccountApi } from "../core/api/accountApi";
 import { UserType } from "../typings/dataContracts";
 
-class ContextStore {
+class UserContextStore {
     @observable public isAuthenticated: boolean;
     @observable public userType?: UserType;
     @observable public id?: string;
@@ -21,4 +21,4 @@ class ContextStore {
     }
 }
 
-export const contextStore = new ContextStore();
+export const userContextStore = new UserContextStore();
