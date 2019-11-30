@@ -1,3 +1,5 @@
+import { rootViewStore } from "../../stores/rootViewStore";
+
 interface Options {
     url: string;
     method: "GET" | "POST" | "PUT" | "DELETE";
@@ -36,6 +38,7 @@ export class HttpApi {
     };
 
     private static request = async <TData extends any>(options: Options): Promise<TData> => {
+        HttpApi.toggleLoading(true);
         const response = await fetch(options.url, {
             method: options.method,
             body: options.body && JSON.stringify(options.body),
@@ -43,6 +46,7 @@ export class HttpApi {
                 "Content-Type": "application/json",
             },
         });
+        HttpApi.toggleLoading(false);
 
         if (response.ok) {
             return await response.json() as TData;
@@ -50,4 +54,12 @@ export class HttpApi {
             throw new Error();
         }
     };
+
+    private static toggleLoading(show: boolean) {
+        if (show) {
+            rootViewStore.showLoading();
+        } else {
+            rootViewStore.hideLoading();
+        }
+    }
 }

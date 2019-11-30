@@ -9,17 +9,21 @@ import { userContextStore } from "./stores/userContextStore";
 import { observer } from "mobx-react-lite";
 import { IntlProvider } from "react-intl";
 import { localStore } from "./stores/localStore";
+import { LoadingAnimationWrapper } from "./components/layouts/loading/loadingAnimationWrapper";
 
 export const App = observer(() => {
     useAsyncEffect(userContextStore.loadContext, []);
 
     return (
-        <IntlProvider locale={localStore.language} messages={localStore.messages}>
-            <Router history={routingStore.history}>
-                <MainLayout>
-                    <RootModule/>
-                </MainLayout>
-            </Router>
-        </IntlProvider>
+        <>
+            <IntlProvider locale={localStore.language} messages={localStore.messages}>
+                <Router history={routingStore.history}>
+                    <MainLayout>
+                        <RootModule/>
+                    </MainLayout>
+                </Router>
+            </IntlProvider>
+            <LoadingAnimationWrapper/>
+        </>
     );
 });
