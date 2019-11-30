@@ -9,7 +9,8 @@ const routes: Array<Route> = [
     },
     {
         path: "/",
-        redirectTo: "/login"
+        redirectTo: "/login",
+        exact: true,
     },
 ];
 

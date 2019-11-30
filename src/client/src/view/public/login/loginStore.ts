@@ -2,6 +2,7 @@ import { action, observable } from "mobx";
 import { AccountApi } from "../../../core/api/accountApi";
 import { SignInDataDto } from "../../../typings/dataContracts";
 import { userContextStore } from "../../../stores/userContextStore";
+import { routingStore } from "../../../stores/routingStore";
 
 export class LoginStore {
     @observable public login?: string;
@@ -18,6 +19,7 @@ export class LoginStore {
 
         if (result.succeeded) {
             await userContextStore.loadContext();
+            await routingStore.gotoBase();
         }
     };
 }

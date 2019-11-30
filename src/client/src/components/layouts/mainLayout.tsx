@@ -4,7 +4,7 @@ import { Footer } from "./footer/footer";
 import { Container } from "reactstrap";
 
 interface Props {
-    children: ReactNode;
+    children?: ReactNode;
 }
 
 export const MainLayout = (props: Props) => {

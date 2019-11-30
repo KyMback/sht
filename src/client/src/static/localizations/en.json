@@ -1,3 +1,6 @@
 {
-  "validation_required": "This field is required."
+  "validation_required": "This field is required.",
+  "Login": "Login",
+  "Password": "Password",
+  "SignIn": "Sign in"
 }

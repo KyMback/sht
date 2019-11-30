@@ -1,13 +1,11 @@
 import React from "react";
 import { userContextStore } from "../../../stores/userContextStore";
 import { Redirect } from "react-router-dom";
-
-export interface GuardProps {
-    component: React.FC;
-}
+import { GuardProps } from "./index";
 
 export const authenticated = ({ component: Component }: GuardProps) => {
-    return userContextStore.isAuthenticated
+    const v =  userContextStore.isAuthenticated;
+    return v
         ? <Component/>
         : <Redirect to={{ pathname: "/login" }}/>
 };

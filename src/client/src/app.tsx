@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles/styles.scss";
 import { MainLayout } from "./components/layouts/mainLayout";
 import { Router } from "react-router-dom";
@@ -12,18 +12,37 @@ import { localStore } from "./stores/localStore";
 import { LoadingAnimationWrapper } from "./components/layouts/loading/loadingAnimationWrapper";
 
 export const App = observer(() => {
-    useAsyncEffect(userContextStore.loadContext, []);
+    const [contextLoaded, setIsContextLoaded] = useState<boolean>(false);
+    useAsyncEffect(async () => {
+        await userContextStore.loadContext();
+        setIsContextLoaded(true);
+    }, []);
 
     return (
         <>
             <IntlProvider locale={localStore.language} messages={localStore.messages}>
-                <Router history={routingStore.history}>
-                    <MainLayout>
-                        <RootModule/>
-                    </MainLayout>
-                </Router>
+                {contextLoaded ? (
+                    <ContextDepended>
+                        <MainLayout>
+                            <RootModule/>
+                        </MainLayout>
+                    </ContextDepended>
+                ) : <MainLayout/>}
             </IntlProvider>
             <LoadingAnimationWrapper/>
         </>
     );
 });
+
+interface Props {
+    children: React.ReactNode | React.ReactNodeArray;
+}
+
+const ContextDepended = ({ children }: Props) => {
+    return (
+        <Router history={routingStore.history}>
+            {children}
+        </Router>
+    );
+};
+
