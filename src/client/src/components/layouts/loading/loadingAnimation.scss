@@ -1,18 +1,18 @@
 .loading-animation-wrapper {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1000;
-  background: rgba(135, 206, 250, 0.15);
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    background: rgba(135, 206, 250, 0.15);
 
-  .loading-animation {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    height: 32px;
-    width: auto;
-  }
+    .loading-animation {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        height: 32px;
+        width: auto;
+    }
 }

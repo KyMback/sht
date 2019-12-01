@@ -1,10 +1,10 @@
 import React from "react";
 import { Card, CardTitle } from "reactstrap";
-import { KeyOrJsx } from "../../../typings/customTypings";
+import { KeyOrJSX } from "../../../typings/customTypings";
 import { ensureLocal } from "../../../core/localization/local";
 
 interface Props {
-    title?: KeyOrJsx;
+    title?: KeyOrJSX;
     className?: string;
     children: React.ReactNode | React.ReactNodeArray;
 }

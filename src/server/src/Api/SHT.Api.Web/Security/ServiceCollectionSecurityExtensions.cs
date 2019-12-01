@@ -35,7 +35,13 @@ namespace SHT.Api.Web.Security
                             CustomClaimTypes.UserType,
                             UserType.Student.ToString("G")));
                 })
-                .AddAuthentication()
+                .AddAuthentication(options =>
+                    {
+                        options.DefaultScheme = AuthenticationDefaults.AuthenticationScheme;
+                        options.DefaultSignInScheme = AuthenticationDefaults.AuthenticationScheme;
+                        options.DefaultAuthenticateScheme = AuthenticationDefaults.AuthenticationScheme;
+                        options.DefaultSignOutScheme = AuthenticationDefaults.AuthenticationScheme;
+                    })
                 .AddCookie(AuthenticationDefaults.AuthenticationScheme, options =>
                 {
                     options.Cookie.Name = AuthenticationCookieDefaults.CookieName;

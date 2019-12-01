@@ -5,6 +5,7 @@ import { InternalModule } from "./internal/internalModule";
 import { anonymous } from "../core/routing/guards/anonymousGuard";
 import { Login } from "./public/login/login";
 import { SignUp } from "./public/signUp/signUp";
+import { SignOut } from "./public/signOut/signOut";
 
 const routes: Array<Route> = [
     {
@@ -21,6 +22,10 @@ const routes: Array<Route> = [
         path: "/signUp",
         component: SignUp,
         guards: [anonymous],
+    },
+    {
+        path: "/signOut",
+        component: SignOut,
     },
     {
         path: "/",

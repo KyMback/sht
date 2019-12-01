@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "reactstrap";
-import { KeyOrJsx } from "../../../typings/customTypings";
+import { KeyOrJSX } from "../../../typings/customTypings";
 import { ensureLocal } from "../../../core/localization/local";
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 }
 
 export interface CardSectionActionConfigs {
-    title: KeyOrJsx;
+    title: KeyOrJSX;
     onClick?: () => void;
 }
 

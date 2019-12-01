@@ -9,5 +9,7 @@
   "RepeatPassword": "Repeat Password",
   "InvalidLoginOrPassword": "Invalid Login or Password",
   "SuccessfullyRegistered": "Successfully Registered",
-  "ErrorCode_6": "User with this login is already registered."
+  "ErrorCode_6": "User with this login is already registered.",
+  "SignOut": "Sign Out",
+  "TestSessions": "Test Sessions"
 }

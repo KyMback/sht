@@ -1,10 +1,10 @@
 import { ensureLocal } from "../../core/localization/local";
 import React from "react";
-import { KeyOrJsx } from "../../typings/customTypings";
+import { KeyOrJSX } from "../../typings/customTypings";
 
 interface Props {
     onClick: () => void;
-    title?: KeyOrJsx;
+    title?: KeyOrJSX;
 }
 
 export const LinkButton = (

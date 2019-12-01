@@ -1,5 +1,5 @@
 import { FormattedMessage } from "react-intl";
-import { Dictionary, KeyOrJsx } from "../../typings/customTypings";
+import { Dictionary, KeyOrJSX } from "../../typings/customTypings";
 import React from "react";
 
 interface Props {
@@ -9,6 +9,6 @@ interface Props {
 
 export const Local = (props: Props) => <FormattedMessage {...props}/>;
 
-export const ensureLocal = (value?: KeyOrJsx) => {
+export const ensureLocal = (value?: KeyOrJSX) => {
     return typeof value === "string" ? <Local id={value}/> : value;
 };

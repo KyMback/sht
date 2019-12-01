@@ -1,0 +1,19 @@
+.account-menu {
+    & > .account-toggler {
+        background-color: transparent;
+        border: 0;
+        font-size: 30px;
+        line-height: 30px;
+
+        i {
+            font-size: 30px;
+            line-height: 30px;
+        }
+
+        &:hover, &:focus, &:active {
+            border: 0 !important;
+            background-color: transparent !important;
+            box-shadow: none !important;
+        }
+    }
+}
