@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Switch, Route as HistoryRoute, Redirect } from "react-router-dom";
 import { GuardProps } from "./guards";
 import { routingStore } from "../../stores/routingStore";
@@ -16,23 +16,25 @@ export interface Route {
 }
 
 export const RoutesModule = ({ routes }: Props) => {
+    const renderedRoutes = useMemo(() => {
+        const result = routes.map(({ exact, path, component, redirectTo, guards }, index) => {
+            let cmp = component;
+            if (guards && !redirectTo) {
+                cmp = applyGuards(guards, component!);
+            }
+
+            return redirectTo
+                ? <Redirect key={index} from={path} to={{ pathname: redirectTo }} exact={exact}/>
+                : <HistoryRoute key={index} path={path} component={cmp} exact={exact}/>;
+        });
+        result.push(<Redirect key={routingStore.basePath} to={routingStore.basePath}/>);
+
+        return result;
+    }, [routes]);
+
     return (
         <Switch>
-            {routes.map(({ exact, path, component, redirectTo, guards }, index) => {
-                let cmp = component;
-                if (guards && !redirectTo) {
-                    cmp = applyGuards(guards, component!);
-                }
-
-                return redirectTo
-                    ? (
-                        <HistoryRoute key={index} path={path} exact={exact}>
-                            <Redirect to={{ pathname: redirectTo }}/>
-                        </HistoryRoute>
-                    )
-                    : <HistoryRoute key={index} path={path} component={cmp} exact={exact}/>;
-            })}
-            <HistoryRoute><Redirect to={routingStore.basePath}/></HistoryRoute>
+            {renderedRoutes}
         </Switch>
     );
 };

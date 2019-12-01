@@ -4,8 +4,7 @@ import { Redirect } from "react-router-dom";
 import { GuardProps } from "./index";
 
 export const authenticated = ({ component: Component }: GuardProps) => {
-    const v =  userContextStore.isAuthenticated;
-    return v
+    return userContextStore.isAuthenticated
         ? <Component/>
         : <Redirect to={{ pathname: "/login" }}/>
 };

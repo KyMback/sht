@@ -8,20 +8,24 @@ import { SignUp } from "./public/signUp/signUp";
 
 const routes: Array<Route> = [
     {
-        path: "/",
+        path: "/internal",
         component: InternalModule,
-        exact: true,
         guards: [authenticated],
     },
     {
         path: "/login",
         component: Login,
-        guards: [anonymous]
+        guards: [anonymous],
     },
     {
         path: "/signUp",
         component: SignUp,
-        guards: [anonymous]
+        guards: [anonymous],
+    },
+    {
+        path: "/",
+        redirectTo: "/internal",
+        exact: true,
     },
 ];
 

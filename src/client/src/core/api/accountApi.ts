@@ -1,7 +1,7 @@
 import { HttpApi } from "./http/httpApi";
 import { SignInDataDto, SignInResponse, SignUpDataDto, UserContextDto } from "../../typings/dataContracts";
 
-const endpoint = "api/account";
+const endpoint = "/api/account";
 
 export class AccountApi {
     public static getContext = async (): Promise<UserContextDto> => {
