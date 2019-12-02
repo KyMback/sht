@@ -6,6 +6,7 @@ import { SearchResultBaseFilter, TestSessionListItemDto } from "../../../typings
 import { CardSectionsGroup } from "../../../components/layouts/sections/cardSectionsGroup";
 import { CardSection } from "../../../components/layouts/sections/cardSection";
 import { icons } from "../../../components/icons/icon";
+import { routingStore } from "../../../stores/routingStore";
 
 export const TestSessionsDashboard = () => {
     const [testSessions, setTestSessions] = useState<Array<TestSessionListItemDto>>([]);
@@ -21,8 +22,7 @@ export const TestSessionsDashboard = () => {
         <CardSectionsGroup>
             <CardSection title="TestSessions" actions={[{
                 icon: icons.add,
-                onClick: () => {
-                },
+                onClick: () => routingStore.goto("/test-sessions/add"),
                 color: "primary",
             }]}>
                 <ListGroup>

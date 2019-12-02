@@ -20,7 +20,7 @@ export const CardSectionsGroup = (
     }: Props,
 ) => {
     return (
-        <div>
+        <div className="card-sections-group">
             {children}
             <div className="actions">
                 {

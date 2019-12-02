@@ -5,7 +5,7 @@ import { anonymous } from "../core/routing/guards/anonymousGuard";
 import { Login } from "./public/login/login";
 import { SignUp } from "./public/signUp/signUp";
 import { SignOut } from "./public/signOut/signOut";
-import { TestSessionsDashboard } from "./internal/testSessionsDashboard/testSessionsDashboard";
+import { TestSessionsModule } from "./internal/testSessions/testSessionsModule";
 
 const routes: Array<Route> = [
     {
@@ -16,8 +16,7 @@ const routes: Array<Route> = [
     },
     {
         path: "/test-sessions",
-        component: TestSessionsDashboard,
-        exact: true,
+        component: TestSessionsModule,
         guards: [authenticated],
     },
     {
