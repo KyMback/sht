@@ -19,8 +19,8 @@ export const TestSessionDashboard = observer(() => {
     return (
         <CardSectionsGroup>
             <CardSection title="TestSessionDetails">
-                <LabeledText title="Name" value={store.name}/>
-                <LabeledText title="State" value={store.state}/>
+                <LabeledText title="TestSession_Name" value={store.name}/>
+                <LabeledText title="TestSession_State" value={store.state}/>
             </CardSection>
         </CardSectionsGroup>
     );

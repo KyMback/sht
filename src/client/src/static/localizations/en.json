@@ -11,5 +11,9 @@
   "SuccessfullyRegistered": "Successfully Registered",
   "ErrorCode_6": "User with this login is already registered.",
   "SignOut": "Sign Out",
-  "TestSessions": "Test Sessions"
+  "TestSessions": "Test Sessions",
+  "None": "None",
+  "TestSessionDetails": "Test Session Details",
+  "TestSession_Name": "Name:",
+  "TestSession_State": "State:"
 }

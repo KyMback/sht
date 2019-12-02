@@ -11,7 +11,7 @@ interface Props {
 
 export const MainLayout = observer((props: Props) => {
     return (
-        <>
+        <div className="layout">
             <Header navItems={rootViewStore.navItems} accountItems={rootViewStore.accountMenuItems}/>
             <main>
                 <Container fluid>
@@ -19,6 +19,6 @@ export const MainLayout = observer((props: Props) => {
                 </Container>
             </main>
             <Footer/>
-        </>
+        </div>
     );
 });

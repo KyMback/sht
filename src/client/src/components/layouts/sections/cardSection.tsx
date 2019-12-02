@@ -28,7 +28,9 @@ export const CardSection = (
     return (
         <Card className={`card-section ${className || ""}`} body>
             <CardTitle className="d-flex justify-content-between">
-                {ensureLocal(title)}
+                <div className="title">
+                    {ensureLocal(title)}
+                </div>
                 <div className="actions">
                     {actions && actions.map((item, index) => (
                         <Button color={item.color} key={index} onClick={item.onClick}>
