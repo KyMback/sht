@@ -15,5 +15,6 @@
   "None": "None",
   "TestSessionDetails": "Test Session Details",
   "TestSession_Name": "Name:",
-  "TestSession_State": "State:"
+  "TestSession_State": "State:",
+  "TestSession_Trigger_StartTest": "Start Test"
 }

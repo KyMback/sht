@@ -1,4 +1,11 @@
 .card-sections-group {
+    & > .top-actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        margin-bottom: 15px;
+    }
+
     & > .actions {
         display: flex;
         justify-content: flex-end;

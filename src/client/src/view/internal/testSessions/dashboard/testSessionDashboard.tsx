@@ -17,7 +17,10 @@ export const TestSessionDashboard = observer(() => {
     useAsyncEffect(store.loadData, []);
 
     return (
-        <CardSectionsGroup>
+        <CardSectionsGroup topActions={store.triggers.map(item => ({
+            title: `TestSession_Trigger_${item}`,
+            onClick: () => store.stateTransition(item),
+        }))}>
             <CardSection title="TestSessionDetails">
                 <LabeledText title="TestSession_Name" value={store.name}/>
                 <LabeledText title="TestSession_State" value={store.state}/>

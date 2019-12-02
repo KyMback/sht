@@ -2,7 +2,7 @@ import {
     CreatedEntityResponse,
     CreateTestSessionDto,
     SearchResultBaseFilter, TestSessionDto,
-    TestSessionListItemDto,
+    TestSessionListItemDto, TestSessionStateTransitionRequest,
 } from "../../typings/dataContracts";
 import { HttpApi } from "./http/httpApi";
 import * as queryString from "querystring";
@@ -21,6 +21,14 @@ export class TestSessionApi {
 
     public static getListItems = async (filter: SearchResultBaseFilter): Promise<SearchResult<TestSessionListItemDto>> => {
         return HttpApi.get<SearchResult<TestSessionListItemDto>>(`${endpoint}/list?${queryString.stringify(filter.toJSON())}`);
+    };
+
+    public static getAvailableTriggers = async (id: string): Promise<Array<string>> => {
+        return HttpApi.get<Array<string>>(`${endpoint}/state/${id}`);
+    };
+
+    public static stateTransition = async (data: TestSessionStateTransitionRequest) => {
+        return HttpApi.put(`${endpoint}/state`, data);
     };
 }
 
