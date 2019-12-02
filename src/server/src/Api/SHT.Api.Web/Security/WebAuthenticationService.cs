@@ -13,13 +13,13 @@ namespace SHT.Api.Web.Security
 {
     internal class WebAuthenticationService : IAuthenticationService
     {
-        private readonly SignInManager<User> _signInManager;
-        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<Account> _signInManager;
+        private readonly UserManager<Account> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public WebAuthenticationService(
-            SignInManager<User> signInManager,
-            UserManager<User> userManager,
+            SignInManager<Account> signInManager,
+            UserManager<Account> userManager,
             IHttpContextAccessor httpContextAccessor)
         {
             _signInManager = signInManager;
@@ -38,19 +38,20 @@ namespace SHT.Api.Web.Security
             return _httpContextAccessor.HttpContext.SignOutAsync(AuthenticationDefaults.AuthenticationScheme);
         }
 
-        public async Task SignUp(RegistrationData data)
+        public async Task<Account> SignUp(RegistrationData data)
         {
-            var result = await _userManager.CreateAsync(
-                new User
-                {
-                    Login = data.Login,
-                    UserType = data.UserType,
-                }, data.Password);
+            var account = new Account
+            {
+                Email = data.Login,
+            };
+            var result = await _userManager.CreateAsync(account, data.Password);
 
             if (!result.Succeeded)
             {
                 throw new Exception(result.Errors.Aggregate(string.Empty, (s, error) => s + error.Description));
             }
+
+            return account;
         }
     }
 }

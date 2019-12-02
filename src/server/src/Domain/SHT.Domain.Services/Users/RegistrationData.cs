@@ -7,7 +7,5 @@ namespace SHT.Domain.Services.Users
         public string Login { get; set; }
 
         public string Password { get; set; }
-
-        public UserType UserType { get; set; }
     }
 }

@@ -2,19 +2,20 @@ using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using MediatR;
+using SHT.Domain.Models.Users;
 using SHT.Domain.Services.Users;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
-namespace SHT.Application.Users.Accounts.SignUp
+namespace SHT.Application.Users.Students.SignUp
 {
     [UsedImplicitly]
-    internal class SignUpHandler : IRequestHandler<SignUpRequest>
+    internal class SignUpStudentHandler : IRequestHandler<SignUpStudentRequest>
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IRegistrationValidationService _registrationValidationService;
 
-        public SignUpHandler(
+        public SignUpStudentHandler(
             IAuthenticationService authenticationService,
             IUnitOfWork unitOfWork,
             IRegistrationValidationService registrationValidationService)
@@ -25,15 +26,23 @@ namespace SHT.Application.Users.Accounts.SignUp
         }
 
         public async Task<Unit> Handle(
-            SignUpRequest request,
+            SignUpStudentRequest request,
             CancellationToken cancellationToken)
         {
-            await _registrationValidationService.TrowsIfLoginIsNotUniq(request.Data.Login);
-            await _authenticationService.SignUp(new RegistrationData
+            var data = request.Data;
+            await _registrationValidationService.TrowsIfEmailIsNotUniq(data.Email);
+            var account = await _authenticationService.SignUp(new RegistrationData
             {
-                Login = request.Data.Login,
-                Password = request.Data.Password,
-                UserType = request.Data.UserType,
+                Login = data.Email,
+                Password = data.Password,
+            });
+
+            await _unitOfWork.Add(new Student
+            {
+                Account = account,
+                FirstName = data.FirstName,
+                LastName = data.LastName,
+                Group = data.Group,
             });
             await _unitOfWork.Commit();
 

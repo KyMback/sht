@@ -7,22 +7,22 @@ using SHT.Domain.Models.Users;
 
 namespace SHT.Api.Web.Security
 {
-    internal class CustomUserClaimsPrincipalFactory : UserClaimsPrincipalFactory<User>
+    internal class CustomUserClaimsPrincipalFactory : UserClaimsPrincipalFactory<Account>
     {
         public CustomUserClaimsPrincipalFactory(
-            UserManager<User> userManager,
+            UserManager<Account> userManager,
             IOptions<IdentityOptions> optionsAccessor)
             : base(userManager, optionsAccessor)
         {
         }
 
-        public override async Task<ClaimsPrincipal> CreateAsync(User user)
+        public override async Task<ClaimsPrincipal> CreateAsync(Account account)
         {
-            var identity = await GenerateClaimsAsync(user);
+            var identity = await GenerateClaimsAsync(account);
 
             identity.AddClaims(new[]
             {
-                new Claim(CustomClaimTypes.UserType, user.UserType.ToString("G")),
+                new Claim(CustomClaimTypes.UserType, account.UserType.ToString("G")),
             });
 
             return new ClaimsPrincipal(identity);

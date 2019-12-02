@@ -9,7 +9,7 @@ namespace SHT.Infrastructure.EF.Configs.Configs.Tests
     {
         protected override void ConfigureEntity(EntityTypeBuilder<TestVariant> builder)
         {
-            builder.Property(e => e.Name).HasMaxLength(LengthConstants.MediumLength).IsRequired();
+            builder.Property(e => e.Name).HasMaxLength(LengthConstants.Medium).IsRequired();
         }
     }
 }

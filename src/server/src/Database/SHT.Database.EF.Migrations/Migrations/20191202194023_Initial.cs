@@ -3,28 +3,22 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SHT.Database.EF.Migrations.Migrations
 {
-    public partial class AddedTestsTables : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "TestSession",
+                name: "Account",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(maxLength: 255, nullable: false),
-                    InstructorId = table.Column<Guid>(nullable: false),
-                    State = table.Column<string>(maxLength: 255, nullable: false)
+                    Email = table.Column<string>(maxLength: 255, nullable: false),
+                    Password = table.Column<string>(maxLength: 255, nullable: false),
+                    UserType = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TestSession", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TestSession_User_InstructorId",
-                        column: x => x.InstructorId,
-                        principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                    table.PrimaryKey("PK_Account", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -32,7 +26,7 @@ namespace SHT.Database.EF.Migrations.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Number = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -40,53 +34,38 @@ namespace SHT.Database.EF.Migrations.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "StudentTestSession",
+                name: "Instructor",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
-                    StudentId = table.Column<Guid>(nullable: false),
-                    TestSessionId = table.Column<Guid>(nullable: false)
+                    Id = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StudentTestSession", x => x.Id);
+                    table.PrimaryKey("PK_Instructor", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_StudentTestSession_User_StudentId",
-                        column: x => x.StudentId,
-                        principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_StudentTestSession_TestSession_TestSessionId",
-                        column: x => x.TestSessionId,
-                        principalTable: "TestSession",
+                        name: "FK_Instructor_Account_Id",
+                        column: x => x.Id,
+                        principalTable: "Account",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "StudentTestVariant",
+                name: "Student",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    StudentId = table.Column<Guid>(nullable: false),
-                    TestSessionId = table.Column<Guid>(nullable: false),
-                    State = table.Column<string>(maxLength: 255, nullable: false),
-                    Number = table.Column<int>(nullable: false)
+                    FirstName = table.Column<string>(maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(maxLength: 50, nullable: false),
+                    Group = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StudentTestVariant", x => x.Id);
+                    table.PrimaryKey("PK_Student", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_StudentTestVariant_User_StudentId",
-                        column: x => x.StudentId,
-                        principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_StudentTestVariant_TestSession_TestSessionId",
-                        column: x => x.TestSessionId,
-                        principalTable: "TestSession",
+                        name: "FK_Student_Account_Id",
+                        column: x => x.Id,
+                        principalTable: "Account",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -108,6 +87,54 @@ namespace SHT.Database.EF.Migrations.Migrations
                         name: "FK_Question_TestVariant_TestVariantId",
                         column: x => x.TestVariantId,
                         principalTable: "TestVariant",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TestSession",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(maxLength: 255, nullable: false),
+                    InstructorId = table.Column<Guid>(nullable: false),
+                    State = table.Column<string>(maxLength: 255, nullable: false),
+                    CreatedAt = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TestSession", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TestSession_Instructor_InstructorId",
+                        column: x => x.InstructorId,
+                        principalTable: "Instructor",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StudentTestSession",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    StudentId = table.Column<Guid>(nullable: false),
+                    TestSessionId = table.Column<Guid>(nullable: false),
+                    State = table.Column<string>(maxLength: 255, nullable: false),
+                    TestNumber = table.Column<string>(maxLength: 255, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StudentTestSession", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StudentTestSession_Student_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Student",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_StudentTestSession_TestSession_TestSessionId",
+                        column: x => x.TestSessionId,
+                        principalTable: "TestSession",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -144,22 +171,28 @@ namespace SHT.Database.EF.Migrations.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Text = table.Column<string>(maxLength: 4000, nullable: false),
                     Number = table.Column<int>(nullable: false),
-                    Answer = table.Column<string>(maxLength: 4000, nullable: false),
+                    Answer = table.Column<string>(maxLength: 4000, nullable: true),
                     Type = table.Column<int>(nullable: false),
-                    Grade = table.Column<double>(nullable: false),
+                    Grade = table.Column<double>(nullable: true),
                     State = table.Column<string>(maxLength: 255, nullable: false),
-                    StudentTestVariantId = table.Column<Guid>(nullable: false)
+                    StudentTestSessionId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_StudentQuestion", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_StudentQuestion_StudentTestVariant_StudentTestVariantId",
-                        column: x => x.StudentTestVariantId,
-                        principalTable: "StudentTestVariant",
+                        name: "FK_StudentQuestion_StudentTestSession_StudentTestSessionId",
+                        column: x => x.StudentTestSessionId,
+                        principalTable: "StudentTestSession",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Account_Email",
+                table: "Account",
+                column: "Email",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Question_TestVariantId",
@@ -167,9 +200,9 @@ namespace SHT.Database.EF.Migrations.Migrations
                 column: "TestVariantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StudentQuestion_StudentTestVariantId",
+                name: "IX_StudentQuestion_StudentTestSessionId",
                 table: "StudentQuestion",
-                column: "StudentTestVariantId");
+                column: "StudentTestSessionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StudentTestSession_StudentId",
@@ -179,16 +212,6 @@ namespace SHT.Database.EF.Migrations.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_StudentTestSession_TestSessionId",
                 table: "StudentTestSession",
-                column: "TestSessionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_StudentTestVariant_StudentId",
-                table: "StudentTestVariant",
-                column: "StudentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_StudentTestVariant_TestSessionId",
-                table: "StudentTestVariant",
                 column: "TestSessionId");
 
             migrationBuilder.CreateIndex(
@@ -209,7 +232,32 @@ namespace SHT.Database.EF.Migrations.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            throw new NotImplementedException();
+            migrationBuilder.DropTable(
+                name: "Question");
+
+            migrationBuilder.DropTable(
+                name: "StudentQuestion");
+
+            migrationBuilder.DropTable(
+                name: "TestSessionTestVariant");
+
+            migrationBuilder.DropTable(
+                name: "StudentTestSession");
+
+            migrationBuilder.DropTable(
+                name: "TestVariant");
+
+            migrationBuilder.DropTable(
+                name: "Student");
+
+            migrationBuilder.DropTable(
+                name: "TestSession");
+
+            migrationBuilder.DropTable(
+                name: "Instructor");
+
+            migrationBuilder.DropTable(
+                name: "Account");
         }
     }
 }

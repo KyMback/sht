@@ -3,13 +3,13 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using AutoFixture.Xunit2;
 using FluentAssertions;
-using SHT.Application.Users.Accounts.SignUp;
+using SHT.Application.Users.Students.SignUp;
 using SHT.Domain.Models.Users;
 using SHT.Tests.Integration.Extensions;
 using SHT.Tests.Integration.Utils;
 using Xunit;
 
-namespace SHT.Tests.Integration.TestFixtures.Account
+namespace SHT.Tests.Integration.TestFixtures.Accounts
 {
     public class SignUpTestFixture : IClassFixture<SHTWebApiFactory>
     {
@@ -26,21 +26,20 @@ namespace SHT.Tests.Integration.TestFixtures.Account
         [Theory]
         [InlineAutoData(UserType.Instructor)]
         [InlineAutoData(UserType.Student)]
-        public async Task User_SignUp_Succeeded(UserType type, SignUpDataDto data)
+        public async Task User_SignUp_Succeeded(UserType type, SignUpStudentDataDto studentData)
         {
             // Configure
-            data.UserType = type;
-            using var content = HttpUtils.ToJsonStringContent(data);
+            using var content = HttpUtils.ToJsonStringContent(studentData);
 
             // Act
             var response = await _httpClient.PostAsync(_path, content);
 
             // Assert
             response.EnsureSuccessStatusCode();
-            var user = await AppDbUtils.GetSingleOrDefault<User>(_factory, u => u.Login == data.Login);
+            var user = await AppDbUtils.GetSingleOrDefault<Account>(_factory, u => u.Email == studentData.Email);
 
             user.Should().NotBeNull();
-            user.Login.Should().Be(data.Login);
+            user.Email.Should().Be(studentData.Email);
             user.Password.Should().NotBeNullOrWhiteSpace();
             user.UserType.Should().Be(type);
         }

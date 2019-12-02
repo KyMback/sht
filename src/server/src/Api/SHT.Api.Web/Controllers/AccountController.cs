@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using SHT.Application.Users.Accounts.GetContext;
 using SHT.Application.Users.Accounts.SignIn;
 using SHT.Application.Users.Accounts.SignOut;
-using SHT.Application.Users.Accounts.SignUp;
+using SHT.Application.Users.Students.SignUp;
 
 namespace SHT.Api.Web.Controllers
 {
@@ -26,10 +26,10 @@ namespace SHT.Api.Web.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("signUp")]
-        public Task SignUp(SignUpDataDto commandData)
+        [HttpPost("student/signUp")]
+        public Task SignUpStudent(SignUpStudentDataDto commandStudentData)
         {
-            return _mediator.Send(new SignUpRequest(commandData));
+            return _mediator.Send(new SignUpStudentRequest(commandStudentData));
         }
 
         [AllowAnonymous]

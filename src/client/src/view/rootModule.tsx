@@ -3,7 +3,7 @@ import React from "react";
 import { authenticated } from "../core/routing/guards/authenticationGuard";
 import { anonymous } from "../core/routing/guards/anonymousGuard";
 import { Login } from "./public/login/login";
-import { SignUp } from "./public/signUp/signUp";
+import { SignUpStudent } from "./public/signUpStudent/signUpStudent";
 import { SignOut } from "./public/signOut/signOut";
 import { TestSessionsModule } from "./internal/testSessions/testSessionsModule";
 
@@ -25,8 +25,8 @@ const routes: Array<Route> = [
         guards: [anonymous],
     },
     {
-        path: "/signUp",
-        component: SignUp,
+        path: "/signUpStudent",
+        component: SignUpStudent,
         guards: [anonymous],
     },
     {

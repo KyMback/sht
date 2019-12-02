@@ -14,7 +14,7 @@ namespace SHT.Database.Defaults
         {
             public static readonly Guid Id = Guid.Parse("04C3EAF0-EF74-4E6C-9C27-A08CD3CD410B");
 
-            public static readonly string Login = "instructor";
+            public static readonly string Email = "instructor";
         }
 
         public static class Student

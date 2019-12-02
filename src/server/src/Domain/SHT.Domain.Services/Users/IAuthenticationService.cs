@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using SHT.Domain.Models.Users;
 
 namespace SHT.Domain.Services.Users
 {
@@ -8,6 +9,6 @@ namespace SHT.Domain.Services.Users
 
         Task SignOut();
 
-        Task SignUp(RegistrationData data);
+        Task<Account> SignUp(RegistrationData data);
     }
 }

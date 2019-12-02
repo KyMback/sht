@@ -1,7 +1,7 @@
 import React from "react";
 import { CardSection } from "../../../components/layouts/sections/cardSection";
 import { observer, useLocalStore } from "mobx-react-lite";
-import { SignUpStore } from "./signUpStore";
+import { SignUpStudentStore } from "./signUpStudentStore";
 import { Form } from "../../../components/forms/form";
 import { FormInput } from "../../../components/forms";
 import { required } from "../../../components/forms/validations";
@@ -13,17 +13,35 @@ const actions: Array<CardSectionActionConfigs> = [
     },
 ];
 
-export const SignUp = observer(() => {
-    const store = useLocalStore(() => new SignUpStore());
+export const SignUpStudent = observer(() => {
+    const store = useLocalStore(() => new SignUpStudentStore());
 
     return (
         <Form onValidSubmit={store.signUp}>
             <CardSectionsGroup actions={actions}>
                 <CardSection>
                     <FormInput
-                        label="Login"
-                        value={store.login}
-                        onChange={store.setLogin}
+                        label="Email"
+                        value={store.email}
+                        onChange={store.setEmail}
+                        validations={[required]}
+                    />
+                    <FormInput
+                        label="FirstName"
+                        value={store.firstName}
+                        onChange={store.setFirstName}
+                        validations={[required]}
+                    />
+                    <FormInput
+                        label="LastName"
+                        value={store.lastName}
+                        onChange={store.setLastName}
+                        validations={[required]}
+                    />
+                    <FormInput
+                        label="Group"
+                        value={store.group}
+                        onChange={store.setGroup}
                         validations={[required]}
                     />
                     <FormInput

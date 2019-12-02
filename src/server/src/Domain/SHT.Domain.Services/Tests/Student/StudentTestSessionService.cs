@@ -13,33 +13,19 @@ namespace SHT.Domain.Services.Tests.Student
     internal class StudentTestSessionService : IStudentTestSessionService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly StudentTestSessionCanBeCreatedForStudentsOnly _canBeCreatedForStudentsOnly;
         private readonly IStudentQuestionService _studentQuestionService;
 
         public StudentTestSessionService(
             IUnitOfWork unitOfWork,
-            StudentTestSessionCanBeCreatedForStudentsOnly canBeCreatedForStudentsOnly,
             IStudentQuestionService studentQuestionService)
         {
             _unitOfWork = unitOfWork;
-            _canBeCreatedForStudentsOnly = canBeCreatedForStudentsOnly;
             _studentQuestionService = studentQuestionService;
         }
 
         public async Task<IReadOnlyCollection<StudentTestSession>> Create(
             params StudentTestSessionCreationData[] sessions)
         {
-            var queryParameters = new UsersQueryParameters
-            {
-                Ids = sessions.Select(e => e.StudentId).ToArray(),
-            };
-            var users = await _unitOfWork.GetAll(queryParameters, user => user.UserType);
-
-            if (!_canBeCreatedForStudentsOnly.Validate(users).IsValid)
-            {
-                throw new CodedException(ErrorCode.InvalidUserType);
-            }
-
             var studentTestSessions = sessions.Select(e => new StudentTestSession
             {
                 State = StudentTestSessionState.Pending,

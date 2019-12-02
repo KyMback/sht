@@ -9,11 +9,11 @@ namespace SHT.Tests.Integration
         {
             public static Guid Id => UsersDefaults.Instructor.Id;
 
-            public static string Login => UsersDefaults.Instructor.Login;
+            public static string Email => UsersDefaults.Instructor.Email;
 
             public static string Password => UsersDefaults.Password;
 
-            public static TestAuthorizationCredentials Credentials => new TestAuthorizationCredentials(Login, Password);
+            public static TestAuthorizationCredentials Credentials => new TestAuthorizationCredentials(Email, Password);
         }
 
         public static class StudentUserData

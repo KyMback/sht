@@ -4,6 +4,6 @@ namespace SHT.Domain.Services.Users
 {
     public interface IRegistrationValidationService
     {
-        Task TrowsIfLoginIsNotUniq(string login);
+        Task TrowsIfEmailIsNotUniq(string email);
     }
 }

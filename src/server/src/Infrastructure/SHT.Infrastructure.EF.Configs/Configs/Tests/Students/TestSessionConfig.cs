@@ -10,9 +10,9 @@ namespace SHT.Infrastructure.EF.Configs.Configs.Tests.Students
     {
         protected override void ConfigureEntity(EntityTypeBuilder<TestSession> builder)
         {
-            builder.Property(e => e.State).HasMaxLength(LengthConstants.MediumLength).IsRequired();
-            builder.Property(e => e.Name).HasMaxLength(LengthConstants.MediumLength).IsRequired();
-            builder.HasOne<User>().WithMany().HasForeignKey(e => e.InstructorId);
+            builder.Property(e => e.State).HasMaxLength(LengthConstants.Medium).IsRequired();
+            builder.Property(e => e.Name).HasMaxLength(LengthConstants.Medium).IsRequired();
+            builder.HasOne<Instructor>().WithMany().HasForeignKey(e => e.InstructorId);
         }
     }
 }

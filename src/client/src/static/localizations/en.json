@@ -16,5 +16,9 @@
   "TestSessionDetails": "Test Session Details",
   "TestSession_Name": "Name:",
   "TestSession_State": "State:",
-  "TestSession_Trigger_StartTest": "Start Test"
+  "TestSession_Trigger_StartTest": "Start Test",
+  "Email": "Email",
+  "FirstName": "First Name",
+  "LastName": "Last Name",
+  "Group": "Group"
 }

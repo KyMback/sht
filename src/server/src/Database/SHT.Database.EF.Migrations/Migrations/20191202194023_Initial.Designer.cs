@@ -10,8 +10,8 @@ using SHT.Database.EF.Migrations;
 namespace SHT.Database.EF.Migrations.Migrations
 {
     [DbContext(typeof(MigrationDbContext))]
-    [Migration("20191111133636_AddedTestsTables")]
-    partial class AddedTestsTables
+    [Migration("20191202194023_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -55,11 +55,10 @@ namespace SHT.Database.EF.Migrations.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Answer")
-                        .IsRequired()
                         .HasColumnType("character varying(4000)")
                         .HasMaxLength(4000);
 
-                    b.Property<double>("Grade")
+                    b.Property<double?>("Grade")
                         .HasColumnType("double precision");
 
                     b.Property<int>("Number")
@@ -70,7 +69,7 @@ namespace SHT.Database.EF.Migrations.Migrations
                         .HasColumnType("character varying(255)")
                         .HasMaxLength(255);
 
-                    b.Property<Guid>("StudentTestVariantId")
+                    b.Property<Guid>("StudentTestSessionId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Text")
@@ -83,7 +82,7 @@ namespace SHT.Database.EF.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StudentTestVariantId");
+                    b.HasIndex("StudentTestSessionId");
 
                     b.ToTable("StudentQuestion");
                 });
@@ -94,8 +93,17 @@ namespace SHT.Database.EF.Migrations.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("character varying(255)")
+                        .HasMaxLength(255);
+
                     b.Property<Guid>("StudentId")
                         .HasColumnType("uuid");
+
+                    b.Property<string>("TestNumber")
+                        .HasColumnType("character varying(255)")
+                        .HasMaxLength(255);
 
                     b.Property<Guid>("TestSessionId")
                         .HasColumnType("uuid");
@@ -109,40 +117,14 @@ namespace SHT.Database.EF.Migrations.Migrations
                     b.ToTable("StudentTestSession");
                 });
 
-            modelBuilder.Entity("SHT.Domain.Models.Tests.Students.StudentTestVariant", b =>
+            modelBuilder.Entity("SHT.Domain.Models.Tests.TestSession", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<int>("Number")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasColumnType("character varying(255)")
-                        .HasMaxLength(255);
-
-                    b.Property<Guid>("StudentId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("TestSessionId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StudentId");
-
-                    b.HasIndex("TestSessionId");
-
-                    b.ToTable("StudentTestVariant");
-                });
-
-            modelBuilder.Entity("SHT.Domain.Models.Tests.Students.TestSession", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("InstructorId")
                         .HasColumnType("uuid");
@@ -164,7 +146,7 @@ namespace SHT.Database.EF.Migrations.Migrations
                     b.ToTable("TestSession");
                 });
 
-            modelBuilder.Entity("SHT.Domain.Models.Tests.Students.TestSessionTestVariant", b =>
+            modelBuilder.Entity("SHT.Domain.Models.Tests.TestSessionTestVariant", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -191,21 +173,23 @@ namespace SHT.Database.EF.Migrations.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<int>("Number")
-                        .HasColumnType("integer");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("character varying(255)")
+                        .HasMaxLength(255);
 
                     b.HasKey("Id");
 
                     b.ToTable("TestVariant");
                 });
 
-            modelBuilder.Entity("SHT.Domain.Models.Users.User", b =>
+            modelBuilder.Entity("SHT.Domain.Models.Users.Account", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Login")
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("character varying(255)")
                         .HasMaxLength(255);
@@ -220,16 +204,51 @@ namespace SHT.Database.EF.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Login")
+                    b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("User");
+                    b.ToTable("Account");
+                });
+
+            modelBuilder.Entity("SHT.Domain.Models.Users.Instructor", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Instructor");
+                });
+
+            modelBuilder.Entity("SHT.Domain.Models.Users.Student", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Group")
+                        .IsRequired()
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Student");
                 });
 
             modelBuilder.Entity("SHT.Domain.Models.Tests.Question", b =>
                 {
                     b.HasOne("SHT.Domain.Models.Tests.TestVariant", null)
-                        .WithMany()
+                        .WithMany("Questions")
                         .HasForeignKey("TestVariantId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -237,63 +256,66 @@ namespace SHT.Database.EF.Migrations.Migrations
 
             modelBuilder.Entity("SHT.Domain.Models.Tests.Students.StudentQuestion", b =>
                 {
-                    b.HasOne("SHT.Domain.Models.Tests.Students.StudentTestVariant", null)
-                        .WithMany()
-                        .HasForeignKey("StudentTestVariantId")
+                    b.HasOne("SHT.Domain.Models.Tests.Students.StudentTestSession", null)
+                        .WithMany("Questions")
+                        .HasForeignKey("StudentTestSessionId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("SHT.Domain.Models.Tests.Students.StudentTestSession", b =>
                 {
-                    b.HasOne("SHT.Domain.Models.Users.User", null)
+                    b.HasOne("SHT.Domain.Models.Users.Student", null)
                         .WithMany()
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("SHT.Domain.Models.Tests.Students.TestSession", null)
+                    b.HasOne("SHT.Domain.Models.Tests.TestSession", null)
                         .WithMany("StudentTestSessions")
                         .HasForeignKey("TestSessionId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SHT.Domain.Models.Tests.Students.StudentTestVariant", b =>
+            modelBuilder.Entity("SHT.Domain.Models.Tests.TestSession", b =>
                 {
-                    b.HasOne("SHT.Domain.Models.Users.User", null)
-                        .WithMany()
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SHT.Domain.Models.Tests.Students.TestSession", null)
-                        .WithMany()
-                        .HasForeignKey("TestSessionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("SHT.Domain.Models.Tests.Students.TestSession", b =>
-                {
-                    b.HasOne("SHT.Domain.Models.Users.User", null)
+                    b.HasOne("SHT.Domain.Models.Users.Instructor", null)
                         .WithMany()
                         .HasForeignKey("InstructorId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SHT.Domain.Models.Tests.Students.TestSessionTestVariant", b =>
+            modelBuilder.Entity("SHT.Domain.Models.Tests.TestSessionTestVariant", b =>
                 {
-                    b.HasOne("SHT.Domain.Models.Tests.Students.TestSession", null)
+                    b.HasOne("SHT.Domain.Models.Tests.TestSession", "TestSession")
                         .WithMany("TestSessionTestVariants")
                         .HasForeignKey("TestSessionId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("SHT.Domain.Models.Tests.TestVariant", null)
-                        .WithMany()
+                    b.HasOne("SHT.Domain.Models.Tests.TestVariant", "TestVariant")
+                        .WithMany("TestSessionTestVariants")
                         .HasForeignKey("TestVariantId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SHT.Domain.Models.Users.Instructor", b =>
+                {
+                    b.HasOne("SHT.Domain.Models.Users.Account", "Account")
+                        .WithOne()
+                        .HasForeignKey("SHT.Domain.Models.Users.Instructor", "Id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SHT.Domain.Models.Users.Student", b =>
+                {
+                    b.HasOne("SHT.Domain.Models.Users.Account", "Account")
+                        .WithOne()
+                        .HasForeignKey("SHT.Domain.Models.Users.Student", "Id")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

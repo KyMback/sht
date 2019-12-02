@@ -8,7 +8,7 @@ using SHT.Tests.Integration.Extensions;
 using SHT.Tests.Integration.Utils;
 using Xunit;
 
-namespace SHT.Tests.Integration.TestFixtures.Account
+namespace SHT.Tests.Integration.TestFixtures.Accounts
 {
     public class SignInTestFixture : IClassFixture<SHTWebApiFactory>
     {

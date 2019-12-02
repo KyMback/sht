@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using SHT.Domain.Services.Exceptions;
+using SHT.Domain.Services.Users.Accounts;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Domain.Services.Users
@@ -13,9 +14,9 @@ namespace SHT.Domain.Services.Users
             _unitOfWork = unitOfWork;
         }
 
-        public async Task TrowsIfLoginIsNotUniq(string login)
+        public async Task TrowsIfEmailIsNotUniq(string email)
         {
-            if (await _unitOfWork.Any(new UsersQueryParameters(login: login)))
+            if (await _unitOfWork.Any(new AccountQueryParameters(email: email)))
             {
                 throw new CodedException(ErrorCode.LoginIsNotUniq);
             }

@@ -1,5 +1,5 @@
 import { HttpApi } from "./http/httpApi";
-import { SignInDataDto, SignInResponse, SignUpDataDto, UserContextDto } from "../../typings/dataContracts";
+import { SignInDataDto, SignInResponse, SignUpStudentDataDto, UserContextDto } from "../../typings/dataContracts";
 
 const endpoint = "/api/account";
 
@@ -12,8 +12,8 @@ export class AccountApi {
         return HttpApi.post<SignInResponse>(`${endpoint}/signIn`, data);
     };
 
-    public static signUp = async (data: SignUpDataDto) => {
-        return HttpApi.post(`${endpoint}/signUp`, data);
+    public static signUp = async (data: SignUpStudentDataDto) => {
+        return HttpApi.post(`${endpoint}/student/signUp`, data);
     };
 
     public static sightOut = async () => {

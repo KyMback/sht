@@ -16,10 +16,10 @@ namespace SHT.Api.Web.Security
         public static IServiceCollection AddCustomSecurity(this IServiceCollection serviceCollection)
         {
             serviceCollection
-                .AddIdentityCore<User>()
+                .AddIdentityCore<Account>()
                 .AddUserStore<UserStore>()
-                .AddUserManager<UserManager<User>>()
-                .AddSignInManager<SignInManager<User>>();
+                .AddUserManager<UserManager<Account>>()
+                .AddSignInManager<SignInManager<Account>>();
 
             serviceCollection
                 .AddAuthorization(options =>
@@ -62,7 +62,7 @@ namespace SHT.Api.Web.Security
                 });
 
             serviceCollection
-                .AddScoped<IUserClaimsPrincipalFactory<User>, CustomUserClaimsPrincipalFactory>()
+                .AddScoped<IUserClaimsPrincipalFactory<Account>, CustomUserClaimsPrincipalFactory>()
                 .Configure<MvcOptions>(options =>
                 {
                     AuthorizationPolicy policy =

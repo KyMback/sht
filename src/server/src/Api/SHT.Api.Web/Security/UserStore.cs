@@ -3,12 +3,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using SHT.Domain.Models.Users;
-using SHT.Domain.Services.Users;
+using SHT.Domain.Services.Users.Accounts;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Api.Web.Security
 {
-    internal class UserStore : IUserPasswordStore<User>
+    internal class UserStore : IUserPasswordStore<Account>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -17,80 +17,78 @@ namespace SHT.Api.Web.Security
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IdentityResult> CreateAsync(User user, CancellationToken cancellationToken)
+        public Task<IdentityResult> CreateAsync(Account account, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            await _unitOfWork.Add(user);
-            await _unitOfWork.Commit();
-            return IdentityResult.Success;
+            return Task.FromResult(IdentityResult.Success);
         }
 
-        public Task<IdentityResult> DeleteAsync(User user, CancellationToken cancellationToken)
+        public Task<IdentityResult> DeleteAsync(Account account, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public Task<User> FindByIdAsync(string userId, CancellationToken cancellationToken)
+        public Task<Account> FindByIdAsync(string accountId, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            return _unitOfWork.GetSingleOrDefault(new UsersQueryParameters(Guid.Parse(userId)));
+            return _unitOfWork.GetSingleOrDefault(new AccountQueryParameters(Guid.Parse(accountId)));
         }
 
-        public Task<User> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
+        public Task<Account> FindByNameAsync(string normalizedEmail, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            return _unitOfWork.GetSingleOrDefault(new UsersQueryParameters(normalizedUserName: normalizedUserName));
+            return _unitOfWork.GetSingleOrDefault(new AccountQueryParameters(normalizedEmail: normalizedEmail));
         }
 
-        public Task<string> GetNormalizedUserNameAsync(User user, CancellationToken cancellationToken)
+        public Task<string> GetNormalizedUserNameAsync(Account account, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            return Task.FromResult(user.Login.ToUpperInvariant());
+            return Task.FromResult(account.Email.ToUpperInvariant());
         }
 
-        public Task<string> GetUserIdAsync(User user, CancellationToken cancellationToken)
+        public Task<string> GetUserIdAsync(Account account, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            return Task.FromResult(user.Id.ToString());
+            return Task.FromResult(account.Id.ToString());
         }
 
-        public Task<string> GetUserNameAsync(User user, CancellationToken cancellationToken)
+        public Task<string> GetUserNameAsync(Account account, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            return Task.FromResult(user.Login);
+            return Task.FromResult(account.Email);
         }
 
-        public Task SetNormalizedUserNameAsync(User user, string normalizedName, CancellationToken cancellationToken)
+        public Task SetNormalizedUserNameAsync(Account account, string normalizedName, CancellationToken cancellationToken)
         {
             return Task.CompletedTask;
         }
 
-        public Task SetUserNameAsync(User user, string userName, CancellationToken cancellationToken)
+        public Task SetUserNameAsync(Account account, string accountName, CancellationToken cancellationToken)
         {
-            user.Login = userName;
+            account.Email = accountName;
             return Task.CompletedTask;
         }
 
-        public async Task<IdentityResult> UpdateAsync(User user, CancellationToken cancellationToken)
+        public async Task<IdentityResult> UpdateAsync(Account account, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            await _unitOfWork.Update(user);
+            await _unitOfWork.Update(account);
             return IdentityResult.Success;
         }
 
-        public Task<string> GetPasswordHashAsync(User user, CancellationToken cancellationToken)
+        public Task<string> GetPasswordHashAsync(Account account, CancellationToken cancellationToken)
         {
-            return Task.FromResult(user.Password);
+            return Task.FromResult(account.Password);
         }
 
-        public Task<bool> HasPasswordAsync(User user, CancellationToken cancellationToken)
+        public Task<bool> HasPasswordAsync(Account account, CancellationToken cancellationToken)
         {
-            return Task.FromResult(!string.IsNullOrWhiteSpace(user.Password));
+            return Task.FromResult(!string.IsNullOrWhiteSpace(account.Password));
         }
 
-        public Task SetPasswordHashAsync(User user, string passwordHash, CancellationToken cancellationToken)
+        public Task SetPasswordHashAsync(Account account, string passwordHash, CancellationToken cancellationToken)
         {
-            user.Password = passwordHash;
+            account.Password = passwordHash;
             return Task.CompletedTask;
         }
 
