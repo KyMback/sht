@@ -15,7 +15,7 @@ const routes: Array<Route> = [
         guards: [authenticated],
     },
     {
-        path: "/test-sessions",
+        path: "/test-session",
         component: TestSessionsModule,
         guards: [authenticated],
     },

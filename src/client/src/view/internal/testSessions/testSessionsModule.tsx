@@ -1,21 +1,26 @@
 import { Route, RoutesModule } from "../../../core/routing/routesModule";
 import React from "react";
-import { TestSessionsDashboard } from "./testSessionsDashboard";
+import { TestSessionsList } from "./testSessionsList";
 import { AddTestSession } from "./add/addTestSession";
+import { TestSessionDashboard } from "./dashboard/testSessionDashboard";
 
 const routes: Array<Route> = [
     {
-        path: "/test-sessions",
+        path: "/test-session",
         exact: true,
-        redirectTo: "/test-sessions/dashboard",
+        redirectTo: "/test-session/list",
     },
     {
-        path: "/test-sessions/dashboard",
-        component: TestSessionsDashboard,
+        path: "/test-session/list",
+        component: TestSessionsList,
     },
     {
-        path: "/test-sessions/add",
+        path: "/test-session/add",
         component: AddTestSession,
+    },
+    {
+        path: "/test-session/:id",
+        component: TestSessionDashboard,
     },
 ];
 

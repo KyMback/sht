@@ -20,8 +20,8 @@ namespace SHT.Application.Users.Accounts.SignIn
         {
             var result = await _authenticationService.SignIn(new LoginData
             {
-                Login = request.DataDto.Login,
-                Password = request.DataDto.Password,
+                Login = request.Data.Login,
+                Password = request.Data.Password,
             });
 
             return new SignInResponse

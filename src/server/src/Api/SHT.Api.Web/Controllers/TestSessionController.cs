@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using SHT.Api.Web.Attributes;
 using SHT.Application.Common;
 using SHT.Application.Tests.TestSessions.Create;
+using SHT.Application.Tests.TestSessions.Get;
 using SHT.Application.Tests.TestSessions.GetAvailableStateTransitions;
 using SHT.Application.Tests.TestSessions.GetList;
 using SHT.Application.Tests.TestSessions.StateTransition;
@@ -35,6 +36,13 @@ namespace SHT.Api.Web.Controllers
         public Task<SearchResult<TestSessionListItemDto>> GetList([FromQuery] SearchResultBaseFilter filter)
         {
             return _mediator.Send(new GetAllTestSessionsRequest(filter));
+        }
+
+        [AuthorizeInstructorsOnly]
+        [HttpGet("{id}")]
+        public Task<TestSessionDto> Get([FromRoute] Guid id)
+        {
+            return _mediator.Send(new GetTestSessionRequest(id));
         }
 
         [AuthorizeInstructorsOnly]

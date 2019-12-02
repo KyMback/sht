@@ -26,7 +26,7 @@ namespace SHT.Application.Tests.TestSessions.GetList
             GetAllTestSessionsRequest request,
             CancellationToken cancellationToken)
         {
-            var filter = request.DataDto;
+            var filter = request.Data;
             var queryParameters = new TestSessionQueryParameters
             {
                 PagingSettings = new PageSettings(filter.PageNumber, filter.PageSize),

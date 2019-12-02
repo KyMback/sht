@@ -5,8 +5,8 @@ namespace SHT.Application.Tests.TestSessions.GetList
 {
     public class GetAllTestSessionsRequest : BaseRequest<SearchResultBaseFilter, SearchResult<TestSessionListItemDto>>
     {
-        public GetAllTestSessionsRequest(SearchResultBaseFilter dataDto)
-            : base(dataDto)
+        public GetAllTestSessionsRequest(SearchResultBaseFilter data)
+            : base(data)
         {
         }
     }

@@ -6,13 +6,13 @@ namespace SHT.Application.Common
 #pragma warning disable SA1649
     public abstract class BaseRequest<TData, TResponse> : IRequest<TResponse>
     {
-        public BaseRequest(TData dataDto)
+        public BaseRequest(TData data)
         {
-            DataDto = dataDto;
+            Data = data;
         }
 
         [NotNull]
-        public TData DataDto { get; set; }
+        public TData Data { get; set; }
     }
 #pragma warning restore SA1649
 }

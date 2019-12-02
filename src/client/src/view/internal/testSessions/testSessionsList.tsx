@@ -7,8 +7,9 @@ import { CardSectionsGroup } from "../../../components/layouts/sections/cardSect
 import { CardSection } from "../../../components/layouts/sections/cardSection";
 import { icons } from "../../../components/icons/icon";
 import { routingStore } from "../../../stores/routingStore";
+import { LinkButton } from "../../../components/buttons/linkButton";
 
-export const TestSessionsDashboard = () => {
+export const TestSessionsList = () => {
     const [testSessions, setTestSessions] = useState<Array<TestSessionListItemDto>>([]);
     useAsyncEffect(async () => {
         const result = await TestSessionApi.getListItems(SearchResultBaseFilter.fromJS({
@@ -27,7 +28,11 @@ export const TestSessionsDashboard = () => {
             }]}>
                 <ListGroup>
                     {testSessions.map((item, index) => (
-                        <ListGroupItem key={index}>{item.name}</ListGroupItem>
+                        <ListGroupItem key={index}>
+                            <LinkButton
+                                onClick={() => routingStore.goto(`/test-session/${item.id}`)}
+                                title={<>{item.name}</>}/>
+                        </ListGroupItem>
                     ))}
                 </ListGroup>
             </CardSection>
