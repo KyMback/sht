@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoFixture.Xunit2;
 using FluentAssertions;
-using SHT.Application.Core;
+using SHT.Application.Common;
 using SHT.Application.Tests.TestSessions.Create;
 using SHT.Application.Tests.TestSessions.Students.GetAll;
 using SHT.Domain.Models.Tests.Students;

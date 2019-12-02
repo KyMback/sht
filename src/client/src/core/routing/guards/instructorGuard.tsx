@@ -7,5 +7,5 @@ import React from "react";
 export const instructor = ({ component: Component }: GuardProps) => {
     return userContextStore.userType === UserType.Instructor
         ? <Component/>
-        : <Redirect to={{ pathname: "/internal/student" }}/>;
+        : <Redirect to={{ pathname: "/dashboard/student" }}/>;
 };

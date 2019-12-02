@@ -1,7 +1,7 @@
 using JetBrains.Annotations;
 using MediatR;
 
-namespace SHT.Application.Core
+namespace SHT.Application.Common
 {
     public abstract class BaseRequest<TData> : IRequest
     {

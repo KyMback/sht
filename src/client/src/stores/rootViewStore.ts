@@ -9,7 +9,7 @@ const navItemsDictionary: Dictionary<Array<NavItemConfig>> = {
     [UserType.Instructor]: [
         {
             title: "TestSessions",
-            href: "/internal/instructor/test-sessions",
+            href: "/test-sessions",
         },
     ],
 };

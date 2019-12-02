@@ -13,6 +13,8 @@ namespace SHT.Domain.Services.Common
     {
         public bool IsReadOnly { get; set; } = true;
 
+        public PageSettings PagingSettings { get; set; }
+
         IList<Expression<Func<TEntity, object>>> IQueryParameters<TEntity>.Included { get; set; } =
             new List<Expression<Func<TEntity, object>>>();
 

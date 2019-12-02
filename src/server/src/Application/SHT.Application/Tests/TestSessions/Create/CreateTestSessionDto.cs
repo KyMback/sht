@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using SHT.Application.Core;
+using SHT.Application.Common;
 
 namespace SHT.Application.Tests.TestSessions.Create
 {

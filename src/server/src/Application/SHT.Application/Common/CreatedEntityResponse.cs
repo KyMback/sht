@@ -1,6 +1,6 @@
 using System;
 
-namespace SHT.Application.Core
+namespace SHT.Application.Common
 {
     public class CreatedEntityResponse
     {

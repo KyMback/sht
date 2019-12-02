@@ -1,4 +1,4 @@
-using SHT.Application.Core;
+using SHT.Application.Common;
 
 namespace SHT.Application.Users.Accounts.SignIn
 {

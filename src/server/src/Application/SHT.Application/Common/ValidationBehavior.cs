@@ -5,7 +5,7 @@ using FluentValidation;
 using MediatR;
 using SHT.Infrastructure.Common.Extensions;
 
-namespace SHT.Application.Core
+namespace SHT.Application.Common
 {
     internal class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {

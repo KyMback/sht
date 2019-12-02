@@ -4,10 +4,12 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SHT.Api.Web.Attributes;
-using SHT.Application.Core;
+using SHT.Application.Common;
 using SHT.Application.Tests.TestSessions.Create;
 using SHT.Application.Tests.TestSessions.GetAvailableStateTransitions;
+using SHT.Application.Tests.TestSessions.GetList;
 using SHT.Application.Tests.TestSessions.StateTransition;
+using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Api.Web.Controllers
 {
@@ -26,6 +28,13 @@ namespace SHT.Api.Web.Controllers
         public Task<CreatedEntityResponse> Create(CreateTestSessionDto data)
         {
             return _mediator.Send(new CreateTestSessionRequest(data));
+        }
+
+        [AuthorizeInstructorsOnly]
+        [HttpGet("list")]
+        public Task<SearchResult<TestSessionListItemDto>> GetList([FromQuery] SearchResultBaseFilter filter)
+        {
+            return _mediator.Send(new GetAllTestSessionsRequest(filter));
         }
 
         [AuthorizeInstructorsOnly]

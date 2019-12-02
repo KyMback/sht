@@ -5,7 +5,7 @@ using SHT.Domain.Models.Tests.Students;
 
 namespace SHT.Domain.Models.Tests
 {
-    public class TestSession : BaseEntity, IHasState
+    public class TestSession : BaseEntity, IHasState, IHasCreatedAt
     {
         public string Name { get; set; }
 
@@ -19,5 +19,7 @@ namespace SHT.Domain.Models.Tests
         // Test variants which will be used in this test session
         public virtual IList<TestSessionTestVariant> TestSessionTestVariants { get; set; } =
             new List<TestSessionTestVariant>();
+
+        public DateTime CreatedAt { get; set; }
     }
 }

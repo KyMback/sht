@@ -88,12 +88,32 @@ namespace SHT.Infrastructure.DataAccess.EF
             return await Query(queryParameters).ToArrayAsync();
         }
 
+        public async Task<SearchResult<TEntity>> GetSearchResult<TEntity>(IQueryParameters<TEntity> queryParameters)
+            where TEntity : class
+        {
+            var queryable = Query(queryParameters);
+            return new SearchResult<TEntity>(
+                await queryable.WithPaging(queryParameters.PagingSettings).ToArrayAsync(),
+                await queryable.LongCountAsync());
+        }
+
         public async Task<IReadOnlyCollection<TData>> GetAll<TEntity, TData>(
             IQueryParameters<TEntity> queryParameters,
             Expression<Func<TEntity, TData>> selector)
             where TEntity : class
         {
             return await Query(queryParameters).Select(selector).ToArrayAsync();
+        }
+
+        public async Task<SearchResult<TData>> GetSearchResult<TEntity, TData>(
+            IQueryParameters<TEntity> queryParameters,
+            Expression<Func<TEntity, TData>> selector)
+            where TEntity : class
+        {
+            var queryable = Query(queryParameters);
+            return new SearchResult<TData>(
+                await queryable.Select(selector).WithPaging(queryParameters.PagingSettings).ToArrayAsync(),
+                await queryable.LongCountAsync());
         }
 
         Task<bool> IUnitOfWork.Any<TEntity>(IQueryParameters<TEntity> queryParameters)

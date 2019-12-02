@@ -6,6 +6,7 @@ interface Props {
 
 export const icons = {
     account: "account_box",
+    add: "add",
 };
 
 export const Icon = ({ icon }: Props) => {

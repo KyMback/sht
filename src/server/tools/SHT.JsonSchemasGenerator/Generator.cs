@@ -10,7 +10,7 @@ using Newtonsoft.Json.Serialization;
 using NJsonSchema;
 using NJsonSchema.Generation;
 using SHT.Application;
-using SHT.Application.Core;
+using SHT.Application.Common;
 
 namespace SHT.JsonSchemasGenerator
 {

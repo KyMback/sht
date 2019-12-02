@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using MediatR;
-using SHT.Application.Core;
+using SHT.Application.Common;
 using SHT.Common.Extensions;
 using SHT.Domain.Services.Tests;
 using SHT.Domain.Services.Tests.Student;

@@ -1,5 +1,5 @@
 using System;
-using SHT.Application.Core;
+using SHT.Application.Common;
 using SHT.Domain.Models.Users;
 
 namespace SHT.Application.Users.Accounts.GetContext

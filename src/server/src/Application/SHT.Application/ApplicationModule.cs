@@ -1,7 +1,7 @@
 using Autofac;
 using MediatR;
 using MediatR.Pipeline;
-using SHT.Application.Core;
+using SHT.Application.Common;
 using SHT.Application.StateMachineConfigs.Core;
 using SHT.Infrastructure.Common.Extensions;
 

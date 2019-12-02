@@ -7,5 +7,5 @@ import { UserType } from "../../../typings/dataContracts";
 export const student = ({ component: Component }: GuardProps) => {
     return userContextStore.userType === UserType.Student
         ? <Component/>
-        : <Redirect to={{ pathname: "/internal/instructor" }}/>;
+        : <Redirect to={{ pathname: "/dashboard/instructor" }}/>;
 };
