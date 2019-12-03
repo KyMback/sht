@@ -2,5 +2,9 @@
 
 $body-bg: color("background");
 $enable-shadows: true;
+$enable-responsive-font-sizes: true;
+$primary: color("primary");
+$danger: color("error");
+$success: color("success");
 
 @import "~bootstrap/scss/bootstrap";

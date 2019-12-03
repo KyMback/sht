@@ -10,6 +10,7 @@ import { CardSectionActionConfigs, CardSectionsGroup } from "../../../components
 const actions: Array<CardSectionActionConfigs> = [
     {
         title: "Submit",
+        color: "primary",
     },
 ];
 

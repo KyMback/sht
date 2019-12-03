@@ -36,7 +36,7 @@ export const Header = (
 
     return (
         <header>
-            <Navbar dark color="dark" expand="md">
+            <Navbar dark color="primary" expand>
                 <NavbarBrand className="clickable" onClick={routingStore.gotoBase}>
                     {logo ? ensureLocal(logo) : "Logo"}
                 </NavbarBrand>

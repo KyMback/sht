@@ -1,5 +1,8 @@
 $colors: (
-    "background": #F8F7F9
+    "background": #F8F7F9,
+    "primary": #4e5191,
+    "error": #ff1a26,
+    "success": #54a941,
 );
 
 @function color($color) {

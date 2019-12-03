@@ -1,0 +1,24 @@
+@import "../../styles/variables";
+
+.form-control-wrapper {
+    &:not(.invalid) {
+        // validator height
+        padding-bottom: 23.8px;
+    }
+
+    .validation-error {
+        margin-top: 7px;
+        display: flex;
+        align-items: center;
+        color: color("error");
+        font-size: 13px;
+        line-height: 14px;
+        font-weight: 500;
+
+        i {
+            font-weight: 500;
+            font-size: 17px;
+            margin-right: 4px;
+        }
+    }
+}

@@ -28,7 +28,7 @@ export const Login = observer(() => {
                         onChange={store.setPassword}
                         value={store.password}
                         validations={[required]}/>
-                    <Button>
+                    <Button color="primary">
                         <Local id="SignIn"/>
                     </Button>
                     <LinkButton onClick={() => routingStore.goto("/signUp")} title="SignUp"/>

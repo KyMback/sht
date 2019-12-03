@@ -4,6 +4,7 @@ import { ControlProps } from "../controls";
 import { ValidationFunction } from "./validations";
 import { FormGroup } from "reactstrap";
 import { ValidationContext } from "./validationProvider";
+import { Icon, icons } from "../icons/icon";
 
 export interface FormWrapperProps<TValue, TControlProps extends ControlProps<TValue>> {
     label: string;
@@ -28,7 +29,7 @@ export const FormControlWrapper = <TValue, TControlProps extends ControlProps<TV
     useEffect(() => {
         const validator = () => {
             setIsUsed(true);
-            return !validate(controlProps.value, validations)
+            return !validate(controlProps.value, validations);
         };
         context.add(validator);
         return () => context.remove(validator);
@@ -41,7 +42,7 @@ export const FormControlWrapper = <TValue, TControlProps extends ControlProps<TV
     const error = validate(controlProps.value, validations);
 
     return (
-        <FormGroup className={getClassNames(isUsed, error)}>
+        <FormGroup className={`form-control-wrapper ${getClassNames(isUsed, error)}`}>
             <label htmlFor={name}><Local id={label}/></label>
             <Control id={name} {...controlProps} valid={!isUsed ? undefined : !error} onChange={onChange}/>
             {isUsed && error && <ErrorMessage error={error}/>}
@@ -49,8 +50,14 @@ export const FormControlWrapper = <TValue, TControlProps extends ControlProps<TV
     );
 };
 
-function getClassNames(isChanged: boolean, error?: string): string {
-    return isChanged && error ? "invalid" : "";
+function getClassNames(isUsed: boolean, error?: string): string {
+    const classNames = [];
+
+    if (isUsed && error) {
+        classNames.push("invalid");
+    }
+
+    return classNames.join(" ");
 }
 
 function validate(value?: any, validations?: Array<ValidationFunction<any>>): string | undefined {
@@ -71,6 +78,9 @@ interface ErrorMessageProps {
 
 const ErrorMessage = ({ error }: ErrorMessageProps) => {
     return (
-        <span><Local id={`validation_${error}`}/></span>
+        <span className="validation-error">
+            <Icon icon={icons.error} />
+            <Local id={`validation_${error}`}/>
+        </span>
     );
 };

@@ -12,6 +12,7 @@ interface Props {
 export interface CardSectionActionConfigs {
     title: KeyOrJSX;
     onClick?: () => void;
+    color?: "primary" | "secondary";
 }
 
 export const CardSectionsGroup = (
@@ -36,7 +37,7 @@ export const CardSectionsGroup = (
             <div className="actions">
                 {
                     actions && actions.map((v, index) => (
-                        <Button key={index} onClick={v.onClick}>
+                        <Button color={v.color} key={index} onClick={v.onClick}>
                             {ensureLocal(v.title)}
                         </Button>
                     ))

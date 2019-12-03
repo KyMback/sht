@@ -5,8 +5,9 @@ interface Props {
 }
 
 export const icons = {
-    account: "account_box",
+    account: "account_circle",
     add: "add",
+    error: "error_outline",
 };
 
 export const Icon = ({ icon }: Props) => {
