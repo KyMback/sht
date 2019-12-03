@@ -3,7 +3,7 @@ import { LoginStore } from "./loginStore";
 import React from "react";
 import { Col, Row, Button } from "reactstrap";
 import { Local } from "../../../core/localization/local";
-import { required } from "../../../components/forms/validations";
+import { emailValidation, required } from "../../../components/forms/validations";
 import { FormInput } from "../../../components/forms";
 import { Form } from "../../../components/forms/form";
 import { routingStore } from "../../../stores/routingStore";
@@ -18,9 +18,10 @@ export const Login = observer(() => {
                 <Form onValidSubmit={store.signIn}>
                     <FormInput
                         label="Login"
+                        type="email"
                         onChange={store.setLogin}
                         value={store.login}
-                        validations={[required]}/>
+                        validations={[required, emailValidation]}/>
                     <FormInput
                         label="Password"
                         type="password"

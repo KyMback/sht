@@ -1,6 +1,7 @@
 {
   "validation_required": "This field is required.",
   "validation_repeatPasswordNotEqual": "Passwords should be equal.",
+  "validation_invalidEmailAddress": "Invalid email address",
   "Login": "Login",
   "Password": "Password",
   "SignIn": "Sign in",

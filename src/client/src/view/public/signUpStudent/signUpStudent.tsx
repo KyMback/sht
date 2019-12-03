@@ -4,7 +4,7 @@ import { observer, useLocalStore } from "mobx-react-lite";
 import { SignUpStudentStore } from "./signUpStudentStore";
 import { Form } from "../../../components/forms/form";
 import { FormInput } from "../../../components/forms";
-import { required } from "../../../components/forms/validations";
+import { emailValidation, required } from "../../../components/forms/validations";
 import { CardSectionActionConfigs, CardSectionsGroup } from "../../../components/layouts/sections/cardSectionsGroup";
 
 const actions: Array<CardSectionActionConfigs> = [
@@ -22,9 +22,10 @@ export const SignUpStudent = observer(() => {
                 <CardSection>
                     <FormInput
                         label="Email"
+                        type="email"
                         value={store.email}
                         onChange={store.setEmail}
-                        validations={[required]}
+                        validations={[required, emailValidation]}
                     />
                     <FormInput
                         label="FirstName"

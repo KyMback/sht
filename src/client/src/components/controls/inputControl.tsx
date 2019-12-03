@@ -4,7 +4,7 @@ import { ControlProps } from "./index";
 
 export interface InputControlProps extends ControlProps<string | undefined> {
     className?: string;
-    type?: "password" | "text";
+    type?: "password" | "text" | "email";
 }
 
 export const InputControl = (
