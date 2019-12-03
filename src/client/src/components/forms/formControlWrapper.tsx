@@ -43,7 +43,7 @@ export const FormControlWrapper = <TValue, TControlProps extends ControlProps<TV
     return (
         <FormGroup className={getClassNames(isUsed, error)}>
             <label htmlFor={name}><Local id={label}/></label>
-            <Control id={name} {...controlProps} onChange={onChange}/>
+            <Control id={name} {...controlProps} valid={!isUsed ? undefined : !error} onChange={onChange}/>
             {isUsed && error && <ErrorMessage error={error}/>}
         </FormGroup>
     );

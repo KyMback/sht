@@ -1,0 +1,10 @@
+$colors: (
+    "background": #F8F7F9
+);
+
+@function color($color) {
+    @return map-get($colors, $color);
+}
+
+
+$header-height: 60px;

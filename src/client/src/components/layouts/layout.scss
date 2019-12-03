@@ -1,5 +1,8 @@
+@import "../../styles/variables";
+
 .layout {
     main {
         padding: 20px 5px;
+        height: calc(100vh - #{$header-height});
     }
 }

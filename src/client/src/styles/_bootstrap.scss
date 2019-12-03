@@ -1,1 +1,6 @@
+@import "variables";
+
+$body-bg: color("background");
+$enable-shadows: true;
+
 @import "~bootstrap/scss/bootstrap";
