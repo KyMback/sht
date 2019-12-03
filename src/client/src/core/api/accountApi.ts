@@ -1,11 +1,16 @@
 import { HttpApi } from "./http/httpApi";
 import { SignInDataDto, SignInResponse, SignUpStudentDataDto, UserContextDto } from "../../typings/dataContracts";
+import * as queryString from "querystring";
 
 const endpoint = "/api/account";
 
 export class AccountApi {
     public static getContext = async (): Promise<UserContextDto> => {
         return HttpApi.get<UserContextDto>(`${endpoint}/context`);
+    };
+
+    public static confirmEmail = async (email: string, token: string) => {
+        return HttpApi.get(`${endpoint}/confirm-email?${queryString.stringify({ email, token })}`);
     };
 
     public static signIn = async (data: SignInDataDto): Promise<SignInResponse> => {

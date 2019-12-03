@@ -8,8 +8,10 @@
   "Submit": "Submit",
   "RepeatPassword": "Repeat Password",
   "InvalidLoginOrPassword": "Invalid Login or Password",
-  "SuccessfullyRegistered": "Successfully Registered",
+  "SuccessfullyRegistered": "Successfully Registered. Verify your email address to activate your account.",
   "ErrorCode_6": "User with this login is already registered.",
+  "ErrorCode_9": "Link expired.",
+  "ErrorCode_10": "Confirm email first.",
   "SignOut": "Sign Out",
   "TestSessions": "Test Sessions",
   "None": "None",
@@ -20,5 +22,6 @@
   "Email": "Email",
   "FirstName": "First Name",
   "LastName": "Last Name",
-  "Group": "Group"
+  "Group": "Group",
+  "EmailSuccessfullyConfirmed": "Email successfully confirmed"
 }

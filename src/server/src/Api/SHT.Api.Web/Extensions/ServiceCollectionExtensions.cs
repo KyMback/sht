@@ -9,10 +9,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using SHT.Api.Web.Constants;
 using SHT.Api.Web.OperationFilters;
+using SHT.Api.Web.Options;
+using SHT.Api.Web.Security;
 using SHT.Api.Web.Services;
 using SHT.Infrastructure.Common.Localization.Options;
 using SHT.Infrastructure.Common.Options;
+using SHT.Infrastructure.Services.Abstractions;
 using SHT.Resources;
 
 namespace SHT.Api.Web.Extensions
@@ -35,11 +39,16 @@ namespace SHT.Api.Web.Extensions
                 .Configure<RouteOptions>(configuration.GetSection(nameof(RouteOptions)))
                 .Configure<MvcOptions>(configuration.GetSection(nameof(MvcOptions)))
                 .Configure<JsonOptions>(configuration.GetSection(nameof(JsonOptions)))
+                .Configure<EmailOptions>(configuration.GetSection(nameof(EmailOptions)))
                 .Configure<LocalizationOptions>(configuration.GetSection(nameof(LocalizationOptions)))
                 .Configure<ConnectionsOptions>(configuration.GetSection(nameof(ConnectionsOptions)))
+                .Configure<TokensOptions>(configuration.GetSection(nameof(TokensOptions)))
+                .Configure<EmailConfirmationTokenProviderOptions>(
+                    configuration.GetSection($"{nameof(TokensOptions)}:ConfirmEmail"))
                 .Configure<LocalizationOptions>(CreateLocalizationOptions)
                 .AddSingleton(x => x.GetRequiredService<IOptions<ApplicationOptions>>().Value)
                 .AddSingleton(x => x.GetRequiredService<IOptions<ConnectionsOptions>>().Value)
+                .AddSingleton(x => CreateRouteOptions(configuration))
                 .AddSingleton(x => x.GetRequiredService<IOptions<LocalizationOptions>>().Value);
 
             return services;
@@ -76,6 +85,15 @@ namespace SHT.Api.Web.Extensions
             options.Sources = new[]
             {
                 new LocalizationSource(ResourceMap.GetLocalizationsRootPath(), LocalizationSourceType.Common),
+            };
+        }
+
+        private static RoutesOptions CreateRouteOptions(IConfiguration configuration)
+        {
+            var applicationUri = configuration.GetValue<Uri>(ApplicationOptionsKeys.ApplicationUri);
+            return new RoutesOptions
+            {
+                EmailConfirmationUri = new Uri(applicationUri, RoutesConstants.EmailConfirmation),
             };
         }
     }

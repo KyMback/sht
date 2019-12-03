@@ -19,5 +19,9 @@ namespace SHT.Domain.Services.Exceptions
         InvalidUserType = 7,
 
         InvalidVariantName = 8,
+
+        InvalidEmailConfirmationToken = 9,
+
+        NotConfirmedEmail = 10,
     }
 }

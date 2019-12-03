@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Core;
 using SHT.Api.Web.Extensions;
+using SHT.Api.Web.Options;
 using SHT.Common;
 
 namespace SHT.Api.Web

@@ -15,7 +15,7 @@ namespace SHT.Application.Users.Students.SignUp
         {
             public DataValidator()
             {
-                RuleFor(e => e.Email).NotEmpty();
+                RuleFor(e => e.Email).NotEmpty().EmailAddress();
                 RuleFor(e => e.Password).NotEmpty();
                 RuleFor(e => e.FirstName).NotEmpty();
                 RuleFor(e => e.LastName).NotEmpty();

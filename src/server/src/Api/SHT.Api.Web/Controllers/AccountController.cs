@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SHT.Application.Users.Accounts.ConfirmEmail;
 using SHT.Application.Users.Accounts.GetContext;
 using SHT.Application.Users.Accounts.SignIn;
 using SHT.Application.Users.Accounts.SignOut;
@@ -43,6 +44,13 @@ namespace SHT.Api.Web.Controllers
         public Task SignOut()
         {
             return _mediator.Send(new SignOutRequest());
+        }
+
+        [AllowAnonymous]
+        [HttpGet("confirm-email")]
+        public Task ConfirmEmail([FromQuery] ConfirmEmailDataDto data)
+        {
+            return _mediator.Send(new ConfirmEmailRequest(data));
         }
     }
 }

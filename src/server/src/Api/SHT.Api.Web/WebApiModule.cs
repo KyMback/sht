@@ -2,6 +2,7 @@ using Autofac;
 using Microsoft.AspNetCore.Http;
 using SHT.Api.Web.Middleware;
 using SHT.Api.Web.Security;
+using SHT.Api.Web.Security.Services;
 using SHT.Api.Web.Services;
 using SHT.Infrastructure.Common;
 using SHT.Infrastructure.Common.Extensions;
@@ -17,7 +18,6 @@ namespace SHT.Api.Web
             builder
                 .AddSingleAsImplementedInterfaces<WebSafeInjectionResolver>()
                 .AddSingleAsImplementedInterfaces<WebExecutionContextAccessor>()
-                .AddSingleAsImplementedInterfaces<DateTimeProvider>()
                 .AddScopedAsImplementedInterfaces<WebAuthenticationService>();
         }
 

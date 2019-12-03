@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <SolutionDir Condition="'$(SolutionDir)'==''">../../../</SolutionDir>
+    </PropertyGroup>
+    <Import Project="$(SolutionDir)/common/Common.props" />
+    <Import Project="$(SolutionDir)/common/CodeAnalysis/CodeAnalysis.props" />
+
+    <ItemGroup>
+        <ProjectReference Include="..\SHT.Infrastructure.Common\SHT.Infrastructure.Common.csproj" />
+        <ProjectReference Include="..\SHT.Infrastructure.Services.Abstractions\SHT.Infrastructure.Services.Abstractions.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MailKit" Version="2.4.1" />
+    </ItemGroup>
+
+</Project>

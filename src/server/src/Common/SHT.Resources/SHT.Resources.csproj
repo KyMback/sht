@@ -4,7 +4,17 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <SolutionDir Condition="'$(SolutionDir)'==''">../../../</SolutionDir>
     </PropertyGroup>
+
     <Import Project="$(SolutionDir)/common/Common.props"/>
     <Import Project="$(SolutionDir)/common/CodeAnalysis/CodeAnalysis.props"/>
+
+    <ItemGroup>
+        <None Update="Localizations\emailing.en.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Localizations\server.en.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
 
 </Project>

@@ -64,6 +64,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{E7C750AF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SHT.JsonSchemasGenerator", "tools\SHT.JsonSchemasGenerator\SHT.JsonSchemasGenerator.csproj", "{25E8811F-B949-463D-880F-08767B88CF8C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SHT.Infrastructure.Services.Abstractions", "src\Infrastructure\SHT.Infrastructure.Services.Abstractions\SHT.Infrastructure.Services.Abstractions.csproj", "{97D5194F-BA32-41C5-904D-A159B061E646}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SHT.Infrastructure.Services", "src\Infrastructure\SHT.Infrastructure.Services\SHT.Infrastructure.Services.csproj", "{4D01F02F-E694-4851-9F51-93C2FD31DA93}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -126,6 +130,14 @@ Global
 		{25E8811F-B949-463D-880F-08767B88CF8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25E8811F-B949-463D-880F-08767B88CF8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{25E8811F-B949-463D-880F-08767B88CF8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97D5194F-BA32-41C5-904D-A159B061E646}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97D5194F-BA32-41C5-904D-A159B061E646}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97D5194F-BA32-41C5-904D-A159B061E646}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97D5194F-BA32-41C5-904D-A159B061E646}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D01F02F-E694-4851-9F51-93C2FD31DA93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D01F02F-E694-4851-9F51-93C2FD31DA93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D01F02F-E694-4851-9F51-93C2FD31DA93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D01F02F-E694-4851-9F51-93C2FD31DA93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5818E696-3968-4F8F-97FA-858489D4F0E4} = {506E9A27-720A-401C-8E90-8B75A1234278}
@@ -150,5 +162,7 @@ Global
 		{B59E1848-94E6-4F67-BABE-4CD2D1597F57} = {644DA782-0748-4FA8-A854-E4DDA9388BA1}
 		{3C89259E-896E-4A4A-8C18-80630BA1286C} = {D3C79F53-1A80-4116-A0AD-3130B8C8936D}
 		{25E8811F-B949-463D-880F-08767B88CF8C} = {E7C750AF-B0DE-4B8F-BD9E-2C3572B09BA7}
+		{97D5194F-BA32-41C5-904D-A159B061E646} = {5F34EA21-2ADD-4A63-AE91-4CB6E18D9181}
+		{4D01F02F-E694-4851-9F51-93C2FD31DA93} = {5F34EA21-2ADD-4A63-AE91-4CB6E18D9181}
 	EndGlobalSection
 EndGlobal

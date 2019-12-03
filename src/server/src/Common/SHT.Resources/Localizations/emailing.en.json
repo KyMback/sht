@@ -1,0 +1,4 @@
+{
+  "ConfirmEmail_Subject": "SHT Account Information",
+  "ConfirmEmail_BodyTemplate": "Follow the link below to confirm your email address.\n\n{0}"
+}

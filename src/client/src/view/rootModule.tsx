@@ -6,6 +6,7 @@ import { Login } from "./public/login/login";
 import { SignUpStudent } from "./public/signUpStudent/signUpStudent";
 import { SignOut } from "./public/signOut/signOut";
 import { TestSessionsModule } from "./internal/testSessions/testSessionsModule";
+import { EmailConfirmationPage } from "./public/emailConfirmation/emailConfirmationPage";
 
 const routes: Array<Route> = [
     {
@@ -32,6 +33,10 @@ const routes: Array<Route> = [
     {
         path: "/signOut",
         component: SignOut,
+    },
+    {
+        path: "/email-confirmation",
+        component: EmailConfirmationPage,
     },
     {
         path: "/",

@@ -15,6 +15,7 @@
         <ProjectReference Include="..\..\Domain\SHT.Domain.Services\SHT.Domain.Services.csproj" />
         <ProjectReference Include="..\..\Infrastructure\SHT.Infrastructure.Common\SHT.Infrastructure.Common.csproj" />
         <ProjectReference Include="..\..\Infrastructure\SHT.Infrastructure.DataAccess.EF\SHT.Infrastructure.DataAccess.EF.csproj" />
+        <ProjectReference Include="..\..\Infrastructure\SHT.Infrastructure.Services\SHT.Infrastructure.Services.csproj" />
     </ItemGroup>
 
     <ItemGroup>

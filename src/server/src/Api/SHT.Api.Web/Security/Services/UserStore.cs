@@ -6,9 +6,9 @@ using SHT.Domain.Models.Users;
 using SHT.Domain.Services.Users.Accounts;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
-namespace SHT.Api.Web.Security
+namespace SHT.Api.Web.Security.Services
 {
-    internal class UserStore : IUserPasswordStore<Account>
+    internal class UserStore : IUserPasswordStore<Account>, IUserEmailStore<Account>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -58,7 +58,10 @@ namespace SHT.Api.Web.Security
             return Task.FromResult(account.Email);
         }
 
-        public Task SetNormalizedUserNameAsync(Account account, string normalizedName, CancellationToken cancellationToken)
+        public Task SetNormalizedUserNameAsync(
+            Account account,
+            string normalizedName,
+            CancellationToken cancellationToken)
         {
             return Task.CompletedTask;
         }
@@ -89,6 +92,51 @@ namespace SHT.Api.Web.Security
         public Task SetPasswordHashAsync(Account account, string passwordHash, CancellationToken cancellationToken)
         {
             account.Password = passwordHash;
+            return Task.CompletedTask;
+        }
+
+        public Task<Account> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            return _unitOfWork.GetSingleOrDefault(new AccountQueryParameters(normalizedEmail: normalizedEmail));
+        }
+
+        public Task<string> GetEmailAsync(Account user, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            return Task.FromResult(user.Email);
+        }
+
+        public Task<bool> GetEmailConfirmedAsync(Account user, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            return Task.FromResult(user.IsEmailConfirmed);
+        }
+
+        public Task<string> GetNormalizedEmailAsync(Account user, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            return Task.FromResult(user.Email.ToUpperInvariant());
+        }
+
+        public Task SetEmailAsync(Account user, string email, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            user.Email = email;
+            return Task.CompletedTask;
+        }
+
+        public Task SetEmailConfirmedAsync(Account user, bool confirmed, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            user.IsEmailConfirmed = confirmed;
+            _unitOfWork.Update(user);
+            return Task.CompletedTask;
+        }
+
+        public Task SetNormalizedEmailAsync(Account user, string normalizedEmail, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
             return Task.CompletedTask;
         }
 

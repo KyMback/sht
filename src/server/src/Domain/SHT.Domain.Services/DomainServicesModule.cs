@@ -15,6 +15,8 @@ namespace SHT.Domain.Services
             builder
                 .RegisterFluentValidators(ThisAssembly)
                 .AddScopedAsImplementedInterfaces<TestSessionService>()
+                .AddScopedAsImplementedInterfaces<UserEmailService>()
+                .AddScopedAsImplementedInterfaces<UserAccountService>()
                 .AddScopedAsImplementedInterfaces<StudentTestSessionService>()
                 .AddScopedAsImplementedInterfaces<StudentQuestionService>()
                 .AddScopedAsImplementedInterfaces<RegistrationValidationService>();

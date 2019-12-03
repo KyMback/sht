@@ -192,6 +192,9 @@ namespace SHT.Database.EF.Migrations.Migrations
                         .HasColumnType("character varying(255)")
                         .HasMaxLength(255);
 
+                    b.Property<bool>("IsEmailConfirmed")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("character varying(255)")

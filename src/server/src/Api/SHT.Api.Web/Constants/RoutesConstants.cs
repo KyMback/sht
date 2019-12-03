@@ -22,5 +22,7 @@ namespace SHT.Api.Web.Constants
         ///     Swagger UI start page route.
         /// </summary>
         public static readonly string SwaggerUiStartPageRoute = $"{SwaggerUiRoute}/index.html";
+
+        public static readonly string EmailConfirmation = "email-confirmation";
     }
 }

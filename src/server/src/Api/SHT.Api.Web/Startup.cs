@@ -12,8 +12,10 @@ using SHT.Api.Web.Middleware;
 using SHT.Api.Web.Security;
 using SHT.Application;
 using SHT.Domain.Services;
+using SHT.Infrastructure.Common;
 using SHT.Infrastructure.Common.Extensions;
 using SHT.Infrastructure.DataAccess.EF;
+using SHT.Infrastructure.Services;
 
 namespace SHT.Api.Web
 {
@@ -33,8 +35,8 @@ namespace SHT.Api.Web
             services
                 .AddDataProtection()
                 .Services
-                .AddCustomSecurity()
                 .AddCustomOptions(_configuration)
+                .AddCustomSecurity(_configuration)
                 .AddCorrelationIdFluent()
                 .AddRouting()
                 .AddCustomSwagger()
@@ -54,6 +56,8 @@ namespace SHT.Api.Web
                 .AddTypeAssembly<WebApiModule>()
                 .AddTypeAssembly<ApplicationModule>()
                 .AddTypeAssembly<DomainServicesModule>()
+                .AddTypeAssembly<InfrastructureServicesModule>()
+                .AddTypeAssembly<InfrastructureCommonModule>()
                 .AddTypeAssembly<DataAccessModule>();
         }
 

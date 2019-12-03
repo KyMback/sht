@@ -18,6 +18,7 @@ namespace SHT.Database.EF.Migrations.Seeds
                 {
                     Email = UsersDefaults.Instructor.Email,
                     Password = UsersDefaults.DefaultPasswordHash,
+                    IsEmailConfirmed = true,
                     UserType = UserType.Instructor
                 }
             },

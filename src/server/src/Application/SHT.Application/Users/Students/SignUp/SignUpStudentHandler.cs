@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 using MediatR;
 using SHT.Domain.Models.Users;
 using SHT.Domain.Services.Users;
+using SHT.Infrastructure.Common.Transactions;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Application.Users.Students.SignUp
@@ -14,15 +15,18 @@ namespace SHT.Application.Users.Students.SignUp
         private readonly IAuthenticationService _authenticationService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IRegistrationValidationService _registrationValidationService;
+        private readonly IUserAccountService _userAccountService;
 
         public SignUpStudentHandler(
             IAuthenticationService authenticationService,
             IUnitOfWork unitOfWork,
-            IRegistrationValidationService registrationValidationService)
+            IRegistrationValidationService registrationValidationService,
+            IUserAccountService userAccountService)
         {
             _authenticationService = authenticationService;
             _unitOfWork = unitOfWork;
             _registrationValidationService = registrationValidationService;
+            _userAccountService = userAccountService;
         }
 
         public async Task<Unit> Handle(
@@ -31,10 +35,12 @@ namespace SHT.Application.Users.Students.SignUp
         {
             var data = request.Data;
             await _registrationValidationService.TrowsIfEmailIsNotUniq(data.Email);
+            using var scope = TransactionsFactory.Create();
             var account = await _authenticationService.SignUp(new RegistrationData
             {
-                Login = data.Email,
+                Email = data.Email,
                 Password = data.Password,
+                UserType = UserType.Student,
             });
 
             await _unitOfWork.Add(new Student
@@ -44,7 +50,10 @@ namespace SHT.Application.Users.Students.SignUp
                 LastName = data.LastName,
                 Group = data.Group,
             });
+
             await _unitOfWork.Commit();
+            await _userAccountService.SendEmailConfirmation(account);
+            scope.Complete();
 
             return Unit.Value;
         }

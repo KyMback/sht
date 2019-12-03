@@ -232,32 +232,7 @@ namespace SHT.Database.EF.Migrations.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Question");
-
-            migrationBuilder.DropTable(
-                name: "StudentQuestion");
-
-            migrationBuilder.DropTable(
-                name: "TestSessionTestVariant");
-
-            migrationBuilder.DropTable(
-                name: "StudentTestSession");
-
-            migrationBuilder.DropTable(
-                name: "TestVariant");
-
-            migrationBuilder.DropTable(
-                name: "Student");
-
-            migrationBuilder.DropTable(
-                name: "TestSession");
-
-            migrationBuilder.DropTable(
-                name: "Instructor");
-
-            migrationBuilder.DropTable(
-                name: "Account");
+            throw new NotSupportedException();
         }
     }
 }

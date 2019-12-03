@@ -7,5 +7,7 @@ namespace SHT.Domain.Models.Users
         public string Password { get; set; }
 
         public UserType UserType { get; set; }
+
+        public bool IsEmailConfirmed { get; set; }
     }
 }
