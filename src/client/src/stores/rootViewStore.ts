@@ -31,6 +31,17 @@ const accountMenuItemsDictionary: Dictionary<Array<AccountMenuItem>> = {
     ],
 };
 
+const defaultAccountActions: Array<AccountMenuItem> = [
+    {
+        title: "SignIn",
+        onClick: () => routingStore.goto("/login"),
+    },
+    {
+        title: "SignUp",
+        onClick: () => routingStore.goto("/signUp"),
+    },
+];
+
 class RootViewStore {
     @observable private loadingCount: number = 0;
 
@@ -46,7 +57,7 @@ class RootViewStore {
     @computed
     public get accountMenuItems(): Array<AccountMenuItem> | undefined {
         if (!userContextStore.userType) {
-            return undefined;
+            return defaultAccountActions;
         }
 
         return accountMenuItemsDictionary[userContextStore.userType];

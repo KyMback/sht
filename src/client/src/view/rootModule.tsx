@@ -26,7 +26,7 @@ const routes: Array<Route> = [
         guards: [anonymous],
     },
     {
-        path: "/signUpStudent",
+        path: "/signUp",
         component: SignUpStudent,
         guards: [anonymous],
     },

@@ -31,7 +31,7 @@ export const Login = observer(() => {
                     <Button>
                         <Local id="SignIn"/>
                     </Button>
-                    <LinkButton onClick={() => routingStore.goto("/signUpStudent")} title="SignUp"/>
+                    <LinkButton onClick={() => routingStore.goto("/signUp")} title="SignUp"/>
                 </Form>
             </Col>
         </Row>
