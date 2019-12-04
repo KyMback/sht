@@ -9,6 +9,17 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
       - Serilog__WriteTo__FileLogger__Args__path=${Serilog__WriteTo__FileLogger__Args__path}
       - ConnectionsOptions__DefaultConnection=Server=db;Port=5432;Database=${DB_NAME};User Id=${DB_USER_NAME};Password=${DB_PASS}
+      - IdentityOptions__Password__RequireLowercase=${IdentityOptions__Password__RequireLowercase}
+      - IdentityOptions__Password__RequireUppercase=${IdentityOptions__Password__RequireUppercase}
+      - IdentityOptions__Password__RequireDigit=${IdentityOptions__Password__RequireDigit}
+      - IdentityOptions__Password__RequireNonAlphanumeric=${IdentityOptions__Password__RequireNonAlphanumeric}
+      - IdentityOptions__Password__RequiredLength=${IdentityOptions__Password__RequiredLength}
+      - EmailOptions__Host=${EmailOptions__Host}
+      - EmailOptions__Port=${EmailOptions__Port}
+      - EmailOptions__Login=${EmailOptions__Login}
+      - EmailOptions__Password=${EmailOptions__Password}
+      - EmailOptions__FromAddress=${EmailOptions__FromAddress}
+      - ApplicationUri=${ApplicationUri}
     ports:
       - "${API_PORT:?err}:${SERVER_API_PORT:?err}"
     volumes:
