@@ -9,9 +9,9 @@ services:
       - POSTGRES_PASSWORD=${DB_PASS}
       - POSTGRES_DB=${DB_NAME}
     ports:
-      - "54320:5432"
+      - "5432:5432"
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - sht-db-data:/var/lib/postgresql/data
     networks:
       - database
   db-update:
@@ -26,4 +26,4 @@ services:
 networks:
   database:
 volumes:
-  db-data:
+  sht-db-data:

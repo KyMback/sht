@@ -24,9 +24,11 @@ services:
     ports:
       - "${API_PORT:?err}:${SERVER_API_PORT:?err}"
     volumes:
-      - /home/share/logs/web-api:/app/Logs
+      - sht-web-api-logs:/app/Logs
     networks:
       - database
 networks:
   database:
+volumes:
+  sht-web-api-logs:
   
