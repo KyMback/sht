@@ -4,6 +4,12 @@
     "migr:add": "npm run server -- migr:add",
     "db:update": "npm run server -- db:update",
     "db:update:recreate": "npm run server -- db:update:recreate",
-    "db:update:recreate:devseeds": "npm run server -- db:update:recreate:devseeds"
+    "db:update:recreate:devseeds": "npm run server -- db:update:recreate:devseeds",
+    "docker:api:up": "cd ./tools/deploy && docker-compose -f docker-compose.api.yaml up web-api",
+    "docker:api:down": "cd ./tools/deploy && docker-compose -f docker-compose.api.yaml down",
+    "docker:db:up": "cd ./tools/deploy && docker-compose -f docker-compose.db.yaml up --build -d db",
+    "docker:db:down": "cd ./tools/deploy && docker-compose -f docker-compose.db.yaml down",
+    "docker:db:update": "cd ./tools/deploy && docker-compose -f docker-compose.db.yaml up db-update",
+    "docker:db:recreate:devseeds": "cd ./tools/deploy && docker-compose -f docker-compose.db.yaml -f docker-compose.db.recreate.yaml up db-update"
   }
 }

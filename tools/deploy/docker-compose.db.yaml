@@ -1,0 +1,29 @@
+version: "3.2"
+services:
+  db:
+    image: "postgres"
+    container_name: "db"
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=${DB_USER_NAME}
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_DB=${DB_NAME}
+    ports:
+      - "54320:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - database
+  db-update:
+    command: update
+    build:
+      context: ./../../src
+      dockerfile: ./../tools/deploy/db.migrations.Dockerfile
+    environment:
+      - ConnectionOptions__ConnectionString=Server=db;Port=5432;Database=${DB_NAME};User Id=${DB_USER_NAME};Password=${DB_PASS}
+    networks:
+      - database
+networks:
+  database:
+volumes:
+  postgres-data:
