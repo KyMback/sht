@@ -5,7 +5,7 @@
     "db:update": "npm run server -- db:update",
     "db:update:recreate": "npm run server -- db:update:recreate",
     "db:update:recreate:devseeds": "npm run server -- db:update:recreate:devseeds",
-    "docker:api:up": "cd ./tools/deploy && docker-compose -f docker-compose.api.yaml up web-api",
+    "docker:api:up": "cd ./tools/deploy && docker-compose -f docker-compose.api.yaml up -d web-api",
     "docker:api:down": "cd ./tools/deploy && docker-compose -f docker-compose.api.yaml down",
     "docker:db:up": "cd ./tools/deploy && docker-compose -f docker-compose.db.yaml up --build -d db",
     "docker:db:down": "cd ./tools/deploy && docker-compose -f docker-compose.db.yaml down",

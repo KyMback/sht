@@ -19,6 +19,7 @@ COPY /server/src/Domain/SHT.Domain.Models/SHT.Domain.Models.csproj ./src/Domain/
 
 COPY /server/src/Infrastructure/SHT.Infrastructure.Common/SHT.Infrastructure.Common.csproj ./src/Infrastructure/SHT.Infrastructure.Common/
 COPY /server/src/Infrastructure/SHT.Infrastructure.Services/SHT.Infrastructure.Services.csproj ./src/Infrastructure/SHT.Infrastructure.Services/
+COPY /server/src/Infrastructure/SHT.Infrastructure.Services.Abstractions/SHT.Infrastructure.Services.Abstractions.csproj ./src/Infrastructure/SHT.Infrastructure.Services.Abstractions/
 COPY /server/src/Infrastructure/SHT.Infrastructure.DataAccess.Abstractions/SHT.Infrastructure.DataAccess.Abstractions.csproj ./src/Infrastructure/SHT.Infrastructure.DataAccess.Abstractions/
 COPY /server/src/Infrastructure/SHT.Infrastructure.DataAccess.EF/SHT.Infrastructure.DataAccess.EF.csproj ./src/Infrastructure/SHT.Infrastructure.DataAccess.EF/
 COPY /server/src/Infrastructure/SHT.Infrastructure.EF.Configs/SHT.Infrastructure.EF.Configs.csproj ./src/Infrastructure/SHT.Infrastructure.EF.Configs/
