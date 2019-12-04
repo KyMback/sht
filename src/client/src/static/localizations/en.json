@@ -24,5 +24,6 @@
   "FirstName": "First Name",
   "LastName": "Last Name",
   "Group": "Group",
-  "EmailSuccessfullyConfirmed": "Email successfully confirmed"
+  "EmailSuccessfullyConfirmed": "Email successfully confirmed",
+  "SuccessfullySignIn": "You have successfully registered and logged in. Wait for further instructions from the teacher."
 }

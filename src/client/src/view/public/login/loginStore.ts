@@ -22,6 +22,7 @@ export class LoginStore {
             if (result.succeeded) {
                 await userContextStore.loadContext();
                 await routingStore.gotoBase();
+                notifications.success("SuccessfullySignIn");
             } else {
                 notifications.error("InvalidLoginOrPassword");
             }
