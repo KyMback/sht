@@ -17,11 +17,18 @@ namespace SHT.Domain.Services.Tests.Student
 
         public string State { get; set; }
 
+        public bool OrderDescByTestSessionCreatedAt { get; set; }
+
         protected override void AddFilters()
         {
             FilterIfHasValue(Id, session => session.Id == Id.Value);
             FilterIfHasValue(State, session => session.State == State);
             FilterIfHasValue(StudentId, session => session.StudentId == StudentId.Value);
+        }
+
+        protected override void AddSorting()
+        {
+            SortDescIf(OrderDescByTestSessionCreatedAt, session => session.TestSession.CreatedAt);
         }
     }
 }

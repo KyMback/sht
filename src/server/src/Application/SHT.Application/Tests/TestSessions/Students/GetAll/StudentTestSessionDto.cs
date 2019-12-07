@@ -8,10 +8,10 @@ namespace SHT.Application.Tests.TestSessions.Students.GetAll
     {
         public Guid Id { get; set; }
 
-        public Guid TestSessionId { get; set; }
-
         public string State { get; set; }
 
-        public string TestNumber { get; set; }
+        public string Name { get; set; }
+
+        public string TestVariant { get; set; }
     }
 }

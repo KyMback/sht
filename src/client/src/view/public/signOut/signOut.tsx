@@ -7,9 +7,12 @@ import { userContextStore } from "../../../stores/userContextStore";
 
 export const SignOut = () => {
     useAsyncEffect(async () => {
-        await AccountApi.sightOut();
-        await userContextStore.loadContext();
-        routingStore.gotoBase();
+        try {
+            await AccountApi.sightOut();
+            await userContextStore.loadContext();
+        } finally {
+            routingStore.gotoBase();
+        }
     });
 
     return (

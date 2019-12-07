@@ -1,4 +1,4 @@
-import { Route, RoutesModule } from "../../../core/routing/routesModule";
+import { Route, RoutesModule } from "../../../../core/routing/routesModule";
 import React from "react";
 import { TestSessionsList } from "./testSessionsList";
 import { AddTestSession } from "./add/addTestSession";

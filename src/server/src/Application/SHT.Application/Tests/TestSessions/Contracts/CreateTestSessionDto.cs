@@ -1,16 +1,20 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using SHT.Application.Common;
 
-namespace SHT.Application.Tests.TestSessions.Create
+namespace SHT.Application.Tests.TestSessions.Contracts
 {
     [ApiDataContract]
     public class CreateTestSessionDto
     {
+        [Required]
         public string Name { get; set; }
 
+        [Required]
         public IReadOnlyCollection<Guid> StudentsIds { get; set; }
 
-        public IReadOnlyCollection<Guid> TestVariantsIds { get; set; }
+        [Required]
+        public IReadOnlyCollection<TestSessionVariantDataDto> TestVariants { get; set; }
     }
 }

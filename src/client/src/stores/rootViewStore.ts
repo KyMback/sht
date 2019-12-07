@@ -12,6 +12,12 @@ const navItemsDictionary: Dictionary<Array<NavItemConfig>> = {
             href: "/test-session",
         },
     ],
+    [UserType.Student]: [
+        {
+            title: "TestSessions",
+            href: "/test-session",
+        },
+    ],
 };
 
 const accountMenuItemsDictionary: Dictionary<Array<AccountMenuItem>> = {

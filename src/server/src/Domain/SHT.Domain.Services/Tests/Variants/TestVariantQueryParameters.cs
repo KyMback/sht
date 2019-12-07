@@ -3,7 +3,7 @@ using System.Linq;
 using SHT.Domain.Models.Tests;
 using SHT.Domain.Services.Common;
 
-namespace SHT.Domain.Services.Tests
+namespace SHT.Domain.Services.Tests.Variants
 {
     public class TestVariantQueryParameters : BaseQueryParameters<TestVariant>
     {

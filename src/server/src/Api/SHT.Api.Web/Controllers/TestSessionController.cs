@@ -5,6 +5,8 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SHT.Api.Web.Attributes;
 using SHT.Application.Common;
+using SHT.Application.Common.Tables;
+using SHT.Application.Tests.TestSessions.Contracts;
 using SHT.Application.Tests.TestSessions.Create;
 using SHT.Application.Tests.TestSessions.Get;
 using SHT.Application.Tests.TestSessions.GetAvailableStateTransitions;
@@ -14,6 +16,7 @@ using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Api.Web.Controllers
 {
+    [AuthorizeInstructorsOnly]
     [ApiRoute("test-session")]
     public class TestSessionController : BaseApiController
     {
@@ -24,35 +27,30 @@ namespace SHT.Api.Web.Controllers
             _mediator = mediator;
         }
 
-        [AuthorizeInstructorsOnly]
         [HttpPost]
         public Task<CreatedEntityResponse> Create(CreateTestSessionDto data)
         {
             return _mediator.Send(new CreateTestSessionRequest(data));
         }
 
-        [AuthorizeInstructorsOnly]
         [HttpGet("list")]
-        public Task<SearchResult<TestSessionListItemDto>> GetList([FromQuery] SearchResultBaseFilter filter)
+        public Task<TableResult<TestSessionListItemDto>> GetList([FromQuery] SearchResultBaseFilter filter)
         {
             return _mediator.Send(new GetAllTestSessionsRequest(filter));
         }
 
-        [AuthorizeInstructorsOnly]
         [HttpGet("{id}")]
         public Task<TestSessionDto> Get([FromRoute] Guid id)
         {
             return _mediator.Send(new GetTestSessionRequest(id));
         }
 
-        [AuthorizeInstructorsOnly]
         [HttpPut("state")]
         public Task StateTransition(TestSessionStateTransitionRequest request)
         {
             return _mediator.Send(request);
         }
 
-        [AuthorizeInstructorsOnly]
         [HttpGet("state/{id}")]
         public Task<IReadOnlyCollection<string>> GetStateTransitions([FromRoute] Guid id)
         {

@@ -1,4 +1,4 @@
-export interface SearchResult<TData> {
+export interface TableResult<TData> {
     items: Array<TData>;
     total: number;
 }

@@ -4,6 +4,8 @@ namespace SHT.Domain.Models.Tests
 {
     public class TestSessionTestVariant : BaseEntity
     {
+        public string Name { get; set; }
+
         public Guid TestVariantId { get; set; }
 
         public virtual TestVariant TestVariant { get; set; }

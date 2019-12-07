@@ -40,6 +40,7 @@ namespace SHT.Api.Web.Controllers
             return _mediator.Send(new GetContextRequest());
         }
 
+        [AllowAnonymous]
         [HttpGet("signOut")]
         public Task SignOut()
         {

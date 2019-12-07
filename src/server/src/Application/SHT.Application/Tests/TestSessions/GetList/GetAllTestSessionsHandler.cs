@@ -2,6 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using MediatR;
+using SHT.Application.Common.Tables;
 using SHT.Domain.Services.Tests;
 using SHT.Infrastructure.Common;
 using SHT.Infrastructure.DataAccess.Abstractions;
@@ -11,7 +12,7 @@ namespace SHT.Application.Tests.TestSessions.GetList
     [UsedImplicitly]
     internal class GetAllTestSessionsHandler : IRequestHandler<
         GetAllTestSessionsRequest,
-        SearchResult<TestSessionListItemDto>>
+        TableResult<TestSessionListItemDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IExecutionContextAccessor _executionContextAccessor;
@@ -22,7 +23,7 @@ namespace SHT.Application.Tests.TestSessions.GetList
             _executionContextAccessor = executionContextAccessor;
         }
 
-        public Task<SearchResult<TestSessionListItemDto>> Handle(
+        public async Task<TableResult<TestSessionListItemDto>> Handle(
             GetAllTestSessionsRequest request,
             CancellationToken cancellationToken)
         {
@@ -33,12 +34,14 @@ namespace SHT.Application.Tests.TestSessions.GetList
                 DescByCreatedAt = true,
                 InstructorId = _executionContextAccessor.GetCurrentUserId(),
             };
-            return _unitOfWork.GetSearchResult(queryParameters, session => new TestSessionListItemDto
+            var result = await _unitOfWork.GetSearchResult(queryParameters, session => new TestSessionListItemDto
             {
                 Id = session.Id,
                 Name = session.Name,
                 State = session.State,
             });
+
+            return new TableResult<TestSessionListItemDto>(result.Items, result.Total);
         }
     }
 }

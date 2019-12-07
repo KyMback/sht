@@ -1,7 +1,7 @@
 import { action, observable, runInAction } from "mobx";
-import { TestSessionApi } from "../../../../core/api/testSessionApi";
+import { TestSessionApi } from "../../../../../core/api/testSessionApi";
 import moment from "moment";
-import { TestSessionStateTransitionRequest } from "../../../../typings/dataContracts";
+import { TestSessionStateTransitionRequest } from "../../../../../typings/dataContracts";
 
 export class TestSessionDashboardStore {
     @observable public id: string;

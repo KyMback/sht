@@ -1,15 +1,19 @@
-import { CardSectionsGroup } from "../../../../components/layouts/sections/cardSectionsGroup";
-import { CardSection } from "../../../../components/layouts/sections/cardSection";
+import {
+    CardSectionActionConfigs,
+    CardSectionsGroup,
+} from "../../../../../components/layouts/sections/cardSectionsGroup";
+import { CardSection } from "../../../../../components/layouts/sections/cardSection";
 import React from "react";
 import { observer, useLocalStore } from "mobx-react-lite";
 import { AddTestSessionStore } from "./addTestSessionStore";
-import { Form } from "../../../../components/forms/form";
-import { FormInput } from "../../../../components/forms";
-import { required } from "../../../../components/forms/validations";
+import { Form } from "../../../../../components/forms/form";
+import { FormInput } from "../../../../../components/forms";
+import { required } from "../../../../../components/forms/validations";
 
-const actions = [
+const actions: Array<CardSectionActionConfigs> = [
     {
         title: "Submit",
+        color: "primary",
     },
 ];
 

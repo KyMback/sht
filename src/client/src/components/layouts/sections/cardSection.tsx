@@ -8,10 +8,10 @@ interface Props {
     title?: KeyOrJSX;
     className?: string;
     children: React.ReactNode | React.ReactNodeArray;
-    actions?: Array<ActionProps>;
+    actions?: Array<SectionActionProps>;
 }
 
-interface ActionProps {
+export interface SectionActionProps {
     icon: string;
     onClick: () => void;
     color: "primary" | "secondary";

@@ -13,7 +13,7 @@ import { LoadingAnimationWrapper } from "./components/layouts/loading/loadingAni
 import { NotificationsContainer } from "./components/notifications/notifications";
 
 export const App = observer(() => {
-    const [contextLoaded, setIsContextLoaded] = useState<boolean>(false);
+    const [isContextLoaded, setIsContextLoaded] = useState<boolean>(false);
     useAsyncEffect(async () => {
         await userContextStore.loadContext();
         setIsContextLoaded(true);
@@ -22,29 +22,15 @@ export const App = observer(() => {
     return (
         <>
             <IntlProvider locale={localStore.language} messages={localStore.messages}>
-                {contextLoaded ? (
-                    <ContextDepended>
-                        <MainLayout>
-                            <RootModule/>
-                        </MainLayout>
-                    </ContextDepended>
-                ) : <MainLayout/>}
+                <Router history={routingStore.history}>
+                    <MainLayout>
+                        {isContextLoaded && <RootModule/>}
+                    </MainLayout>
+                </Router>
                 {NotificationsContainer}
             </IntlProvider>
             <LoadingAnimationWrapper/>
         </>
     );
 });
-
-interface Props {
-    children: React.ReactNode | React.ReactNodeArray;
-}
-
-const ContextDepended = ({ children }: Props) => {
-    return (
-        <Router history={routingStore.history}>
-            {children}
-        </Router>
-    );
-};
 

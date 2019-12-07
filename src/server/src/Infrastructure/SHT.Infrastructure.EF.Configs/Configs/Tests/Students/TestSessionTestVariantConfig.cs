@@ -9,6 +9,14 @@ namespace SHT.Infrastructure.EF.Configs.Configs.Tests.Students
     {
         protected override void ConfigureEntity(EntityTypeBuilder<TestSessionTestVariant> builder)
         {
+            builder.Property(e => e.Name).HasMaxLength(LengthConstants.Medium).IsRequired();
+
+            builder.HasIndex(e => new
+            {
+                e.Name,
+                e.TestSessionId,
+            }).IsUnique();
+
             builder
                 .HasOne(e => e.TestSession)
                 .WithMany(e => e.TestSessionTestVariants)

@@ -5,6 +5,7 @@ using AutoFixture.Xunit2;
 using FluentAssertions;
 using SHT.Application.Common;
 using SHT.Application.StateMachineConfigs.TestSessions;
+using SHT.Application.Tests.TestSessions.Contracts;
 using SHT.Application.Tests.TestSessions.Create;
 using SHT.Application.Tests.TestSessions.StateTransition;
 using SHT.Domain.Models.Tests;

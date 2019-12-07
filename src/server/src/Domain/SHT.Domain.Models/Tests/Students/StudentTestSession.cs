@@ -10,9 +10,11 @@ namespace SHT.Domain.Models.Tests.Students
 
         public Guid TestSessionId { get; set; }
 
+        public virtual TestSession TestSession { get; set; }
+
         public string State { get; set; }
 
-        public string TestNumber { get; set; }
+        public string TestVariant { get; set; }
 
         public virtual IList<StudentQuestion> Questions { get; set; } = new List<StudentQuestion>();
     }

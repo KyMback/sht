@@ -1,6 +1,6 @@
-import { TestSessionApi } from "../../../../core/api/testSessionApi";
-import { CreateTestSessionDto } from "../../../../typings/dataContracts";
-import { routingStore } from "../../../../stores/routingStore";
+import { TestSessionApi } from "../../../../../core/api/testSessionApi";
+import { CreateTestSessionDto } from "../../../../../typings/dataContracts";
+import { routingStore } from "../../../../../stores/routingStore";
 import { action, observable } from "mobx";
 
 export class AddTestSessionStore {

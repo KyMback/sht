@@ -4,12 +4,15 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SHT.Api.Web.Attributes;
+using SHT.Application.Common;
+using SHT.Application.Common.Tables;
 using SHT.Application.Tests.TestSessions.Students.GetAll;
 using SHT.Application.Tests.TestSessions.Students.GetAvailableStateTransitions;
 using SHT.Application.Tests.TestSessions.Students.StateTransition;
 
 namespace SHT.Api.Web.Controllers
 {
+    [AuthorizeStudentsOnly]
     [ApiRoute("student-test-session")]
     public class StudentTestSessionController : BaseApiController
     {
@@ -33,10 +36,9 @@ namespace SHT.Api.Web.Controllers
         }
 
         [HttpGet("list")]
-        public Task<IReadOnlyCollection<StudentTestSessionDto>> GetAll(
-            [FromQuery] GetAllStudentTestSessionsRequest request)
+        public Task<TableResult<StudentTestSessionDto>> GetAll([FromQuery] SearchResultBaseFilter data)
         {
-            return _mediator.Send(request);
+            return _mediator.Send(new GetAllStudentTestSessionsRequest(data));
         }
     }
 }

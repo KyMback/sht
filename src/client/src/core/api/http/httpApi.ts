@@ -1,5 +1,6 @@
 import { rootViewStore } from "../../../stores/rootViewStore";
 import { ApiError } from "./apiError";
+import * as queryString from "querystring";
 
 interface Options {
     url: string;
@@ -16,10 +17,10 @@ const apiConstants = {
 };
 
 export class HttpApi {
-    public static get = async <TData extends any>(url: string): Promise<TData> => {
+    public static get = async <TData extends any>(url: string, query?: any): Promise<TData> => {
         return HttpApi.request<TData>({
             method: "GET",
-            url: url,
+            url: query ? `${url}?${queryString.stringify(query)}` : url,
         });
     };
 

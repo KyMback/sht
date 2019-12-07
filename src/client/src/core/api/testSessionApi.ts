@@ -5,8 +5,7 @@ import {
     TestSessionListItemDto, TestSessionStateTransitionRequest,
 } from "../../typings/dataContracts";
 import { HttpApi } from "./http/httpApi";
-import * as queryString from "querystring";
-import { SearchResult } from "./searchResult";
+import { TableResult } from "./tableResult";
 
 const endpoint = "/api/test-session";
 
@@ -19,8 +18,8 @@ export class TestSessionApi {
         return HttpApi.get<TestSessionDto>(`${endpoint}/${id}`);
     };
 
-    public static getListItems = async (filter: SearchResultBaseFilter): Promise<SearchResult<TestSessionListItemDto>> => {
-        return HttpApi.get<SearchResult<TestSessionListItemDto>>(`${endpoint}/list?${queryString.stringify(filter.toJSON())}`);
+    public static getListItems = async (filter: SearchResultBaseFilter): Promise<TableResult<TestSessionListItemDto>> => {
+        return HttpApi.get<TableResult<TestSessionListItemDto>>(`${endpoint}/list`, filter.toJSON());
     };
 
     public static getAvailableTriggers = async (id: string): Promise<Array<string>> => {

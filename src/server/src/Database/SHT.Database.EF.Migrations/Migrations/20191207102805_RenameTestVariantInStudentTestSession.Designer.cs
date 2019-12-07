@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SHT.Database.EF.Migrations;
@@ -9,9 +10,10 @@ using SHT.Database.EF.Migrations;
 namespace SHT.Database.EF.Migrations.Migrations
 {
     [DbContext(typeof(MigrationDbContext))]
-    partial class MigrationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191207102805_RenameTestVariantInStudentTestSession")]
+    partial class RenameTestVariantInStudentTestSession
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -150,11 +152,6 @@ namespace SHT.Database.EF.Migrations.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("character varying(255)")
-                        .HasMaxLength(255);
-
                     b.Property<Guid>("TestSessionId")
                         .HasColumnType("uuid");
 
@@ -166,9 +163,6 @@ namespace SHT.Database.EF.Migrations.Migrations
                     b.HasIndex("TestSessionId");
 
                     b.HasIndex("TestVariantId");
-
-                    b.HasIndex("Name", "TestSessionId")
-                        .IsUnique();
 
                     b.ToTable("TestSessionTestVariant");
                 });
@@ -280,7 +274,7 @@ namespace SHT.Database.EF.Migrations.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("SHT.Domain.Models.Tests.TestSession", "TestSession")
+                    b.HasOne("SHT.Domain.Models.Tests.TestSession", null)
                         .WithMany("StudentTestSessions")
                         .HasForeignKey("TestSessionId")
                         .OnDelete(DeleteBehavior.Restrict)
