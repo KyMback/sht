@@ -15,6 +15,11 @@ namespace SHT.Application.StateMachineConfigs.TestSessions
                 .To(TestSessionStates.Started)
                 .WithTrigger(TestSessionTriggers.StartTest)
                 .Use<StartTestSessionHandler>();
+
+            builder.Configure()
+                .From(TestSessionStates.Started)
+                .To(TestSessionStates.Ended)
+                .WithTrigger(TestSessionTriggers.EndTest);
         }
     }
 }

@@ -20,7 +20,12 @@ export const TestSessionDashboard = observer(() => {
     const actions: Array<CardSectionActionConfigs> = [
         {
             color: "primary" as Color,
-            title: `Edit`,
+            title: "Cancel",
+            onClick: () => routingStore.goto(`/test-session`),
+        },
+        {
+            color: "primary" as Color,
+            title: "Edit",
             onClick: () => routingStore.goto(`/test-session/edit/${store.id}`),
         },
     ].concat(store.triggers.map(item => ({

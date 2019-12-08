@@ -34,6 +34,7 @@ namespace SHT.Application.StateMachineConfigs.Core
             {
                 var trigger = _stateMachine.SetTriggerParameters<StateTransitionContext<TEntity>>(cfg.Trigger);
 
+                // TODO: bottleneck (not async operation - we wait it)
                 _stateMachine
                     .Configure(cfg.FromState)
                     .PermitIf(trigger.Trigger, cfg.ToState, () => CheckGuards(cfg.Guards).GetAwaiter().GetResult());
