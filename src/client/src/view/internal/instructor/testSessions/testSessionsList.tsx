@@ -7,7 +7,7 @@ import { CardSectionsGroup } from "../../../../components/layouts/sections/cardS
 import { CardSection, SectionActionProps } from "../../../../components/layouts/sections/cardSection";
 import { icons } from "../../../../components/icons/icon";
 import { routingStore } from "../../../../stores/routingStore";
-import { LinkButton } from "../../../../components/buttons/linkButton";
+import { dateAndTime } from "../../../../core/utils/dateTimeUtil";
 
 const actions: Array<SectionActionProps> = [
     {
@@ -44,7 +44,7 @@ export const TestSessionsList = () => {
                                 {item.state}
                             </div>
                             <div>
-                                {item.createdAt}
+                                {dateAndTime(item.createdAt)}
                             </div>
                         </ListGroupItem>
                     ))}
