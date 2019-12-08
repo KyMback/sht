@@ -1,0 +1,43 @@
+@import "../../../styles/variables";
+@import "../../../styles/mixins";
+
+.multi-select {
+    &.is-invalid {
+        span {
+            &:focus {
+                border-color: color("error");
+                box-shadow: box-shadow(color("error"));
+            }
+        }
+
+        & > div {
+            border-color: color("error") !important;
+            &:focus, &:focus-within {
+                box-shadow: box-shadow(color("error"));
+            }
+        }
+    }
+
+    &.is-valid {
+        span {
+            &:focus {
+                border-color: color("success");
+                box-shadow: box-shadow(color("success"));
+            }
+        }
+
+        & > div {
+            border-color: color("success") !important;
+            &:focus, &:focus-within {
+                box-shadow: box-shadow(color("success"));
+            }
+        }
+    }
+
+    & > div {
+        &:focus, &:focus-within {
+            border-color: color("border-color");
+            box-shadow: box-shadow(color("primary"));
+        }
+    }
+}

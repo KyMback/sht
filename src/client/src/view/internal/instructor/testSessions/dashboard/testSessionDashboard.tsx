@@ -22,7 +22,7 @@ export const TestSessionDashboard = observer(() => {
             onClick: () => store.stateTransition(item),
         }))}>
             <CardSection title="TestSessionDetails">
-                <LabeledText title="TestSession_Name" value={store.name}/>
+                <LabeledText title="TestSessionDashboard_Name" value={store.name}/>
                 <LabeledText title="TestSession_State" value={store.state}/>
             </CardSection>
         </CardSectionsGroup>

@@ -7,6 +7,7 @@
   "SignIn": "Sign in",
   "SignUp": "Sign up",
   "Submit": "Submit",
+  "SelectItems": "Select items...",
   "RepeatPassword": "Repeat Password",
   "InvalidLoginOrPassword": "Invalid Login or Password",
   "SuccessfullyRegistered": "Successfully Registered. Verify your email address to activate your account.",
@@ -17,7 +18,7 @@
   "TestSessions": "Test Sessions",
   "None": "None",
   "TestSessionDetails": "Test Session Details",
-  "TestSession_Name": "Name:",
+  "TestSessionDashboard_Name": "Name:",
   "TestSession_State": "State:",
   "TestSession_Trigger_StartTest": "Start Test",
   "Email": "Email",
@@ -25,5 +26,7 @@
   "LastName": "Last Name",
   "Group": "Group",
   "EmailSuccessfullyConfirmed": "Email successfully confirmed",
-  "SuccessfullySignIn": "You have successfully registered and logged in. Wait for further instructions from the teacher."
+  "SuccessfullySignIn": "You have successfully registered and logged in. Wait for further instructions from the teacher.",
+  "TestSession_Name": "Test Session Name",
+  "TestSession_StudentGroups": "Students Groups"
 }

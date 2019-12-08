@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Button } from "reactstrap";
 import { KeyOrJSX } from "../../../typings/customTypings";
 import { ensureLocal } from "../../../core/localization/local";
@@ -22,27 +22,42 @@ export const CardSectionsGroup = (
         topActions,
     }: Props,
 ) => {
+    const topActionsComponent = useMemo(() => {
+        return topActions
+            ? (
+                <div className="top-actions">
+                    {
+                        topActions.map((v, index) => (
+                            <Button key={index} onClick={v.onClick}>
+                                {ensureLocal(v.title)}
+                            </Button>
+                        ))
+                    }
+                </div>
+            )
+            : null;
+    }, [topActions]);
+    const bottomActions = useMemo(() => {
+        return actions
+            ? (
+                <div className="actions">
+                    {
+                        actions.map((v, index) => (
+                            <Button color={v.color} key={index} onClick={v.onClick}>
+                                {ensureLocal(v.title)}
+                            </Button>
+                        ))
+                    }
+                </div>
+            )
+            : null;
+    }, [actions]);
+
     return (
         <div className="card-sections-group">
-            {topActions && <div className="top-actions">
-                {
-                    topActions.map((v, index) => (
-                        <Button key={index} onClick={v.onClick}>
-                            {ensureLocal(v.title)}
-                        </Button>
-                    ))
-                }
-            </div>}
+            {topActionsComponent}
             {children}
-            <div className="actions">
-                {
-                    actions && actions.map((v, index) => (
-                        <Button color={v.color} key={index} onClick={v.onClick}>
-                            {ensureLocal(v.title)}
-                        </Button>
-                    ))
-                }
-            </div>
+            {bottomActions}
         </div>
     );
 };

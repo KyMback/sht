@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Button, Card, CardTitle } from "reactstrap";
 import { KeyOrJSX } from "../../../typings/customTypings";
 import { ensureLocal } from "../../../core/localization/local";
@@ -25,19 +25,26 @@ export const CardSection = (
         actions,
     }: Props,
 ) => {
+    const actionsComponent = useMemo(() => (
+        <div className="actions">
+            {actions && actions.map((item, index) => (
+                <Button color={item.color} key={index} onClick={item.onClick}>
+                    <Icon icon={item.icon}/>
+                </Button>
+            ))}
+        </div>
+    ), [actions]);
+    const titleComponent = useMemo(() => (
+        <div className="title">
+            {ensureLocal(title)}
+        </div>
+    ), [title]);
+
     return (
         <Card className={`card-section ${className || ""}`} body>
             <CardTitle className="d-flex justify-content-between">
-                <div className="title">
-                    {ensureLocal(title)}
-                </div>
-                <div className="actions">
-                    {actions && actions.map((item, index) => (
-                        <Button color={item.color} key={index} onClick={item.onClick}>
-                            <Icon icon={item.icon}/>
-                        </Button>
-                    ))}
-                </div>
+                {titleComponent}
+                {actionsComponent}
             </CardTitle>
             {children}
         </Card>

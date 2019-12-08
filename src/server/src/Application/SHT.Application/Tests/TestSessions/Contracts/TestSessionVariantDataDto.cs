@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using SHT.Application.Common;
 
 namespace SHT.Application.Tests.TestSessions.Contracts
@@ -8,6 +9,7 @@ namespace SHT.Application.Tests.TestSessions.Contracts
     {
         public Guid TestVariantId { get; set; }
 
+        [Required]
         public string Name { get; set; }
     }
 }

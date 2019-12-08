@@ -68,7 +68,7 @@ namespace SHT.Infrastructure.DataAccess.EF
             IQueryParameters<TEntity> queryParameters,
             Expression<Func<TEntity, TData>> selector)
         {
-            return Query(queryParameters).Select(selector).SingleAsync();
+            return Query(queryParameters, selector).SingleAsync();
         }
 
         Task<TEntity> IUnitOfWork.GetSingleOrDefault<TEntity>(IQueryParameters<TEntity> queryParameters)
@@ -80,7 +80,7 @@ namespace SHT.Infrastructure.DataAccess.EF
             IQueryParameters<TEntity> queryParameters,
             Expression<Func<TEntity, TData>> selector)
         {
-            return Query(queryParameters).Select(selector).SingleOrDefaultAsync();
+            return Query(queryParameters, selector).SingleOrDefaultAsync();
         }
 
         async Task<IReadOnlyCollection<TEntity>> IUnitOfWork.GetAll<TEntity>(IQueryParameters<TEntity> queryParameters)
@@ -102,7 +102,7 @@ namespace SHT.Infrastructure.DataAccess.EF
             Expression<Func<TEntity, TData>> selector)
             where TEntity : class
         {
-            return await Query(queryParameters).Select(selector).ToArrayAsync();
+            return await Query(queryParameters, selector).ToArrayAsync();
         }
 
         public async Task<SearchResult<TData>> GetSearchResult<TEntity, TData>(
@@ -157,13 +157,15 @@ namespace SHT.Infrastructure.DataAccess.EF
         private IQueryable<TEntity> Query<TEntity>(IQueryParameters<TEntity> queryParameters)
             where TEntity : class
         {
-            var queryable = queryParameters.ToQuery(this);
-            foreach (var expression in queryParameters.Included)
-            {
-                queryable = queryable.Include(expression);
-            }
+            return QueryParametersApplier.ApplyQueryParameters(this, queryParameters);
+        }
 
-            return queryParameters.IsReadOnly ? queryable.AsNoTracking() : queryable.AsTracking();
+        private IQueryable<TData> Query<TEntity, TData>(
+            IQueryParameters<TEntity> queryParameters,
+            Expression<Func<TEntity, TData>> selector)
+            where TEntity : class
+        {
+            return QueryParametersApplier.ApplyQueryParameters(this, queryParameters, selector);
         }
     }
 }

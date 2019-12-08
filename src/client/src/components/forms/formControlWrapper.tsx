@@ -1,5 +1,5 @@
 import { Local } from "../../core/localization/local";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { ControlProps } from "../controls";
 import { ValidationFunction } from "./validations";
 import { FormGroup } from "reactstrap";
@@ -39,13 +39,21 @@ export const FormControlWrapper = <TValue, TControlProps extends ControlProps<TV
         setIsUsed(true);
         controlProps.onChange(value);
     };
+
     const error = validate(controlProps.value, validations);
+
+    const serializerProps = JSON.stringify(controlProps);
+    const memoControl = useMemo(
+        () => <Control id={name} {...controlProps} valid={!isUsed ? undefined : !error} onChange={onChange}/>,
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [serializerProps, isUsed, name, error]);
+    const errorMessage = useMemo(() => isUsed && error && <ErrorMessage error={error}/>, [error, isUsed]);
 
     return (
         <FormGroup className={`form-control-wrapper ${getClassNames(isUsed, error)}`}>
             <label htmlFor={name}><Local id={label}/></label>
-            <Control id={name} {...controlProps} valid={!isUsed ? undefined : !error} onChange={onChange}/>
-            {isUsed && error && <ErrorMessage error={error}/>}
+            {memoControl}
+            {errorMessage}
         </FormGroup>
     );
 };
@@ -79,7 +87,7 @@ interface ErrorMessageProps {
 const ErrorMessage = ({ error }: ErrorMessageProps) => {
     return (
         <span className="validation-error">
-            <Icon icon={icons.error} />
+            <Icon icon={icons.error}/>
             <Local id={`validation_${error}`}/>
         </span>
     );

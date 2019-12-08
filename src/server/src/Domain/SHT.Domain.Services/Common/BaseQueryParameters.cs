@@ -13,6 +13,8 @@ namespace SHT.Domain.Services.Common
     {
         public bool IsReadOnly { get; set; } = true;
 
+        public bool IsUniq { get; set; }
+
         public PageSettings PagingSettings { get; set; }
 
         IList<Expression<Func<TEntity, object>>> IQueryParameters<TEntity>.Included { get; set; } =

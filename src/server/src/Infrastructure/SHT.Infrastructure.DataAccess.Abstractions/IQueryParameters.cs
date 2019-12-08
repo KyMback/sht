@@ -10,6 +10,8 @@ namespace SHT.Infrastructure.DataAccess.Abstractions
     {
         bool IsReadOnly { get; set; }
 
+        bool IsUniq { get; set; }
+
         PageSettings PagingSettings { get; set; }
 
         IList<Expression<Func<TEntity, object>>> Included { get; set; }
