@@ -11,5 +11,6 @@ $enable-validation-icons: false;
 $input-focus-border-color: color("border-color");
 $input-btn-focus-width: $control-focus-width;
 $input-btn-focus-box-shadow: box-shadow(color("primary"));
+$form-group-margin-bottom: 0.5rem;
 
 @import "~bootstrap/scss/bootstrap";

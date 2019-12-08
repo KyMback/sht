@@ -10,8 +10,10 @@ using SHT.Application.Tests.TestSessions.Contracts;
 using SHT.Application.Tests.TestSessions.Create;
 using SHT.Application.Tests.TestSessions.Get;
 using SHT.Application.Tests.TestSessions.GetAvailableStateTransitions;
+using SHT.Application.Tests.TestSessions.GetDetails;
 using SHT.Application.Tests.TestSessions.GetList;
 using SHT.Application.Tests.TestSessions.StateTransition;
+using SHT.Application.Tests.TestSessions.Update;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Api.Web.Controllers
@@ -28,9 +30,21 @@ namespace SHT.Api.Web.Controllers
         }
 
         [HttpPost]
-        public Task<CreatedEntityResponse> Create(CreateTestSessionDto data)
+        public Task<CreatedEntityResponse> Create(TestSessionDetailsDto data)
         {
             return _mediator.Send(new CreateTestSessionRequest(data));
+        }
+
+        [HttpPut("{id}")]
+        public Task Update(TestSessionDetailsDto data, [FromRoute] Guid id)
+        {
+            return _mediator.Send(new UpdateTestSessionRequest(data, id));
+        }
+
+        [HttpGet("details/{id}")]
+        public Task<TestSessionDetailsDto> GetDetails([FromRoute] Guid id)
+        {
+            return _mediator.Send(new GetTestSessionDetailsRequest(id));
         }
 
         [HttpGet("list")]

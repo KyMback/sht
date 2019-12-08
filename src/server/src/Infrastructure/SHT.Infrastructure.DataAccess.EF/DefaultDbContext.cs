@@ -59,6 +59,15 @@ namespace SHT.Infrastructure.DataAccess.EF
             return Task.CompletedTask;
         }
 
+        async Task IUnitOfWork.DeleteRange<TEntity>(IEnumerable<TEntity> entities)
+        {
+            var uow = (IUnitOfWork)this;
+            foreach (var entity in entities)
+            {
+                await uow.Delete(entity);
+            }
+        }
+
         Task<TEntity> IUnitOfWork.GetSingle<TEntity>(IQueryParameters<TEntity> queryParameters)
         {
             return Query(queryParameters).SingleAsync();

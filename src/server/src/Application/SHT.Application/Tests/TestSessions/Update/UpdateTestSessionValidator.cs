@@ -2,12 +2,12 @@ using FluentValidation;
 using JetBrains.Annotations;
 using SHT.Application.Tests.TestSessions.Common;
 
-namespace SHT.Application.Tests.TestSessions.Create
+namespace SHT.Application.Tests.TestSessions.Update
 {
     [UsedImplicitly]
-    internal class CreateTestSessionValidator : AbstractValidator<CreateTestSessionRequest>
+    internal class UpdateTestSessionValidator : AbstractValidator<UpdateTestSessionRequest>
     {
-        public CreateTestSessionValidator()
+        public UpdateTestSessionValidator()
         {
             RuleFor(e => e.Data).SetValidator(new TestSessionDetailsDtoValidator());
         }

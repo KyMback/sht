@@ -31,7 +31,7 @@ namespace SHT.Application.Tests.TestSessions.Create
             CreateTestSessionRequest request,
             CancellationToken cancellationToken)
         {
-            CreateTestSessionDto data = request.Data;
+            TestSessionDetailsDto data = request.Data;
             using var transaction = TransactionsFactory.Create();
 
             var created = await _testSessionService.CreateTestSession(data.Name);

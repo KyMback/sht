@@ -22,6 +22,9 @@ namespace SHT.Infrastructure.DataAccess.Abstractions
         Task Delete<TEntity>([NotNull] TEntity entity)
             where TEntity : class;
 
+        Task DeleteRange<TEntity>([NotNull] [ItemNotNull] IEnumerable<TEntity> entities)
+            where TEntity : class;
+
         [ItemNotNull]
         Task<TEntity> GetSingle<TEntity>([NotNull] IQueryParameters<TEntity> queryParameters)
             where TEntity : class;

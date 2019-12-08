@@ -6,7 +6,7 @@ using SHT.Application.Common;
 namespace SHT.Application.Tests.TestSessions.Contracts
 {
     [ApiDataContract]
-    public class CreateTestSessionDto
+    public class TestSessionDetailsDto
     {
         [Required]
         public string Name { get; set; }

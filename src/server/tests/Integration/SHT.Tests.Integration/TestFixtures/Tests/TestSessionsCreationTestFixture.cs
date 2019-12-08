@@ -26,7 +26,7 @@ namespace SHT.Tests.Integration.TestFixtures.Tests
         public async Task TestSession_Creation_Succeeded(string name)
         {
             // Configure
-            var data = new CreateTestSessionDto
+            var data = new TestSessionDetailsDto
             {
                 Name = name,
             };

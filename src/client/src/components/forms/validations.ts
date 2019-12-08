@@ -8,6 +8,12 @@ export const required: ValidationFunction<any> = (value: any) => {
     return !value || requiredArray(value)
         ? "required"
         : undefined;
+}
+
+export const nameShouldBeUniq = (values: Array<string | undefined>): ValidationFunction<string | undefined> => {
+    return (value?: string) => {
+            return values.filter(e => e === value).length > 1 ? "nameShouldBeUniq" : undefined;
+    }
 };
 
 const requiredArray: ValidationFunction<Array<any>> = (value: Array<any>) => {

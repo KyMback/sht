@@ -32,28 +32,33 @@ namespace SHT.Domain.Services.Tests
             return _unitOfWork.Add(session);
         }
 
-        public Task LinkStudents(StudentTestSessionLinkData linkData)
+        public async Task LinkStudents(StudentTestSessionLinkData linkData)
         {
+            // TODO: can be optimized
+            await _unitOfWork.DeleteRange(linkData.TestSession.StudentTestSessions);
+
             linkData.TestSession.StudentTestSessions = linkData.StudentIds.Select(e => new StudentTestSession
             {
                 State = StudentTestSessionState.Pending,
                 StudentId = e,
                 TestSessionId = linkData.TestSession.Id,
-            }).ToArray();
+            }).ToList();
 
-            return _unitOfWork.Update(linkData.TestSession);
+            await _unitOfWork.Update(linkData.TestSession);
         }
 
-        public Task LinkVariants(TestSessionVariantsLinkData linkData)
+        public async Task LinkVariants(TestSessionVariantsLinkData linkData)
         {
+            // TODO: can be optimized
+            await _unitOfWork.DeleteRange(linkData.TestSession.TestSessionTestVariants);
             linkData.TestSession.TestSessionTestVariants = linkData.TestVariants.Select(e => new TestSessionTestVariant
             {
                 Name = e.Key,
                 TestSessionId = linkData.TestSession.Id,
                 TestVariantId = e.Value,
-            }).ToArray();
+            }).ToList();
 
-            return _unitOfWork.Update(linkData.TestSession);
+            await _unitOfWork.Update(linkData.TestSession);
         }
     }
 }

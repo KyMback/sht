@@ -1,8 +1,8 @@
 import React, { useMemo } from "react";
-import { Button, Card, CardTitle } from "reactstrap";
+import { Card, CardTitle } from "reactstrap";
 import { KeyOrJSX } from "../../../typings/customTypings";
 import { ensureLocal } from "../../../core/localization/local";
-import { Icon } from "../../icons/icon";
+import { IconButton } from "../../buttons/iconButton/iconButton";
 
 interface Props {
     title?: KeyOrJSX;
@@ -27,11 +27,7 @@ export const CardSection = (
 ) => {
     const actionsComponent = useMemo(() => (
         <div className="actions">
-            {actions && actions.map((item, index) => (
-                <Button color={item.color} key={index} onClick={item.onClick}>
-                    <Icon icon={item.icon}/>
-                </Button>
-            ))}
+            {actions && actions.map((item, index) => <IconButton {...item} key={index}/>)}
         </div>
     ), [actions]);
     const titleComponent = useMemo(() => (

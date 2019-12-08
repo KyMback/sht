@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { Button } from "reactstrap";
-import { KeyOrJSX } from "../../../typings/customTypings";
+import { Color, KeyOrJSX } from "../../../typings/customTypings";
 import { ensureLocal } from "../../../core/localization/local";
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 export interface CardSectionActionConfigs {
     title: KeyOrJSX;
     onClick?: () => void;
-    color?: "primary" | "secondary";
+    color?: Color;
 }
 
 export const CardSectionsGroup = (
@@ -28,7 +28,7 @@ export const CardSectionsGroup = (
                 <div className="top-actions">
                     {
                         topActions.map((v, index) => (
-                            <Button key={index} onClick={v.onClick}>
+                            <Button key={index} color={v.color} onClick={v.onClick}>
                                 {ensureLocal(v.title)}
                             </Button>
                         ))

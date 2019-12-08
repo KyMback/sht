@@ -1,7 +1,7 @@
 import { Route, RoutesModule } from "../../../../core/routing/routesModule";
 import React from "react";
 import { TestSessionsList } from "./testSessionsList";
-import { AddTestSession } from "./add/addTestSession";
+import { TestSessionEditDetails } from "./details/testSessionEditDetails";
 import { TestSessionDashboard } from "./dashboard/testSessionDashboard";
 
 const routes: Array<Route> = [
@@ -16,7 +16,11 @@ const routes: Array<Route> = [
     },
     {
         path: "/test-session/add",
-        component: AddTestSession,
+        component: TestSessionEditDetails,
+    },
+    {
+        path: "/test-session/edit/:id",
+        component: TestSessionEditDetails,
     },
     {
         path: "/test-session/:id",

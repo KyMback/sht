@@ -2,7 +2,7 @@ import { ControlProps } from "../index";
 import React, { useMemo } from "react";
 import ReactSelect from "react-select";
 import { KeyOrJSX } from "../../../typings/customTypings";
-import { ensureLocal } from "../../../core/localization/local";
+import { ensureLocal, Local } from "../../../core/localization/local";
 import { isEmpty, some } from "lodash";
 
 export interface MultiSelectProps<TData = any> extends ControlProps<Array<TData> | undefined> {
@@ -39,7 +39,7 @@ export const MultiSelect = <TData extends any>(
             isSearchable
             isMulti
             backspaceRemovesValue
-            placeholder={placeholder ? ensureLocal(placeholder) : null}
+            placeholder={placeholder ? ensureLocal(placeholder) : <Local id="SelectItems"/>}
             options={selectOptions}
             onChange={v => onChange(handleChange<TData>(v))}
             value={isEmpty(value) ? undefined : mapSelectItemToOption(options.filter(i => some(value, v => v === i.value)))}
