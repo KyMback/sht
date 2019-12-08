@@ -44,6 +44,8 @@ export class StudentTestSessionDashboardStore {
             trigger: trigger,
             serializedData: data,
         }));
+
+        await this.loadData();
     };
 }
 
