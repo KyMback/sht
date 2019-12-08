@@ -38,5 +38,14 @@
   "TestSession_StudentGroups": "Students Groups",
   "TestSession_TestVariants": "Test Variants",
   "TestSession_TestVariantName": "Test Variant Name",
-  "TestSession_Variant": "Test Variant"
+  "TestSession_Variant": "Test Variant",
+  "Student_AvailableTestSessions": "Available Tests",
+  "StudentTestSession_Title": "Test: {name}",
+  "StudentTestSession_Trigger_StartTest": "Start Test",
+  "StudentTestSession_Trigger_EndTest": "End Test",
+  "StudentTestSession_State": "State:",
+  "StudentTestSession_Variant": "Test Variant:",
+  "StudentTestSession_StartTestModalTitle": "Choose variant",
+  "StudentTestSession_ChooseVariant": "Choose variant",
+  "StudentTestSession_StartTestModalButton": "Start Test"
 }

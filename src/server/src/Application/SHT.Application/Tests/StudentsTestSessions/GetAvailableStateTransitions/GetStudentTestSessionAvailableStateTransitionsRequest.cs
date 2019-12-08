@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using MediatR;
 
-namespace SHT.Application.Tests.TestSessions.Students.GetAvailableStateTransitions
+namespace SHT.Application.Tests.StudentsTestSessions.GetAvailableStateTransitions
 {
     public class GetStudentTestSessionAvailableStateTransitionsRequest : IRequest<IEnumerable<string>>
     {

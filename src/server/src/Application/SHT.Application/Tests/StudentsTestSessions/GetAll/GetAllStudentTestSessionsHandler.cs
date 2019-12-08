@@ -3,15 +3,16 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 using MediatR;
 using SHT.Application.Common.Tables;
+using SHT.Domain.Models.Tests;
 using SHT.Domain.Services.Tests.Student;
 using SHT.Infrastructure.Common;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
-namespace SHT.Application.Tests.TestSessions.Students.GetAll
+namespace SHT.Application.Tests.StudentsTestSessions.GetAll
 {
     [UsedImplicitly]
     internal class GetAllStudentTestSessionsHandler : IRequestHandler<GetAllStudentTestSessionsRequest,
-        TableResult<StudentTestSessionDto>>
+        TableResult<StudentTestSessionListItemDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IExecutionContextAccessor _executionContextAccessor;
@@ -24,7 +25,7 @@ namespace SHT.Application.Tests.TestSessions.Students.GetAll
             _executionContextAccessor = executionContextAccessor;
         }
 
-        public async Task<TableResult<StudentTestSessionDto>> Handle(
+        public async Task<TableResult<StudentTestSessionListItemDto>> Handle(
             GetAllStudentTestSessionsRequest request,
             CancellationToken cancellationToken)
         {
@@ -34,17 +35,19 @@ namespace SHT.Application.Tests.TestSessions.Students.GetAll
                 PagingSettings = new PageSettings(filter.PageNumber, filter.PageSize),
                 OrderDescByTestSessionCreatedAt = true,
                 StudentId = _executionContextAccessor.GetCurrentUserId(),
+                ExceptTestSessionState = TestSessionStates.Pending,
             };
 
-            var result = await _unitOfWork.GetSearchResult(queryParameters, session => new StudentTestSessionDto
+            var result = await _unitOfWork.GetSearchResult(queryParameters, session => new StudentTestSessionListItemDto
             {
                 Id = session.Id,
                 State = session.State,
                 Name = session.TestSession.Name,
                 TestVariant = session.TestVariant,
+                CreatedAt = session.TestSession.CreatedAt,
             });
 
-            return new TableResult<StudentTestSessionDto>(result.Items, result.Total);
+            return new TableResult<StudentTestSessionListItemDto>(result.Items, result.Total);
         }
     }
 }

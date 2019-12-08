@@ -6,7 +6,6 @@ using FluentAssertions;
 using SHT.Application.Common;
 using SHT.Application.Common.Tables;
 using SHT.Application.Tests.TestSessions.Create;
-using SHT.Application.Tests.TestSessions.Students.GetAll;
 using SHT.Domain.Models.Tests.Students;
 using SHT.Tests.Integration.Extensions;
 using Xunit;

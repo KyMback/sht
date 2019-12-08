@@ -19,7 +19,7 @@ export const TestSessionDashboard = observer(() => {
 
     const actions: Array<CardSectionActionConfigs> = [
         {
-            color: "primary" as Color,
+            color: "secondary" as Color,
             title: "Cancel",
             onClick: () => routingStore.goto(`/test-session`),
         },

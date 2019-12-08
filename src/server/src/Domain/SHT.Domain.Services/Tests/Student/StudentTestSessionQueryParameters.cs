@@ -17,6 +17,8 @@ namespace SHT.Domain.Services.Tests.Student
 
         public string State { get; set; }
 
+        public string ExceptTestSessionState { get; set; }
+
         public bool OrderDescByTestSessionCreatedAt { get; set; }
 
         protected override void AddFilters()
@@ -24,6 +26,7 @@ namespace SHT.Domain.Services.Tests.Student
             FilterIfHasValue(Id, session => session.Id == Id.Value);
             FilterIfHasValue(State, session => session.State == State);
             FilterIfHasValue(StudentId, session => session.StudentId == StudentId.Value);
+            FilterIfHasValue(ExceptTestSessionState, session => session.TestSession.State != ExceptTestSessionState);
         }
 
         protected override void AddSorting()

@@ -8,8 +8,6 @@ using SHT.Application.StateMachineConfigs.StudentTestSessions;
 using SHT.Application.StateMachineConfigs.TestSessions;
 using SHT.Application.Tests.TestSessions.Create;
 using SHT.Application.Tests.TestSessions.StateTransition;
-using SHT.Application.Tests.TestSessions.Students.GetAll;
-using SHT.Application.Tests.TestSessions.Students.StateTransition;
 using SHT.Domain.Models.Tests.Students;
 using SHT.Tests.Integration.Extensions;
 using Xunit;

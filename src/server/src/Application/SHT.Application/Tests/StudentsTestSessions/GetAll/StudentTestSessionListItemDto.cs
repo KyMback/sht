@@ -1,10 +1,10 @@
 using System;
 using SHT.Application.Common;
 
-namespace SHT.Application.Tests.TestSessions.Students.GetAll
+namespace SHT.Application.Tests.StudentsTestSessions.GetAll
 {
     [ApiDataContract]
-    public class StudentTestSessionDto
+    public class StudentTestSessionListItemDto
     {
         public Guid Id { get; set; }
 
@@ -13,5 +13,7 @@ namespace SHT.Application.Tests.TestSessions.Students.GetAll
         public string Name { get; set; }
 
         public string TestVariant { get; set; }
+
+        public DateTime CreatedAt { get; set; }
     }
 }

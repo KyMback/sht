@@ -1,7 +1,7 @@
 using FluentValidation;
 using JetBrains.Annotations;
 
-namespace SHT.Application.Tests.TestSessions.Students.StateTransition
+namespace SHT.Application.Tests.StudentsTestSessions.StateTransition
 {
     [UsedImplicitly]
     internal class StudentTestSessionStateTransitionValidator : AbstractValidator<StudentTestSessionStateTransitionRequest>

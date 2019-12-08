@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using SHT.Api.Web.Attributes;
 using SHT.Application.Common;
 using SHT.Application.Common.Tables;
-using SHT.Application.Tests.TestSessions.Students.GetAll;
-using SHT.Application.Tests.TestSessions.Students.GetAvailableStateTransitions;
-using SHT.Application.Tests.TestSessions.Students.StateTransition;
+using SHT.Application.Tests.StudentsTestSessions.Get;
+using SHT.Application.Tests.StudentsTestSessions.GetAll;
+using SHT.Application.Tests.StudentsTestSessions.GetAvailableStateTransitions;
+using SHT.Application.Tests.StudentsTestSessions.GetVariants;
+using SHT.Application.Tests.StudentsTestSessions.StateTransition;
 
 namespace SHT.Api.Web.Controllers
 {
@@ -36,9 +38,21 @@ namespace SHT.Api.Web.Controllers
         }
 
         [HttpGet("list")]
-        public Task<TableResult<StudentTestSessionDto>> GetAll([FromQuery] SearchResultBaseFilter data)
+        public Task<TableResult<StudentTestSessionListItemDto>> GetAll([FromQuery] SearchResultBaseFilter data)
         {
             return _mediator.Send(new GetAllStudentTestSessionsRequest(data));
+        }
+
+        [HttpGet("{id}")]
+        public Task<StudentTestSessionDto> Get([FromRoute] Guid id)
+        {
+            return _mediator.Send(new GetStudentTestSessionRequest(id));
+        }
+
+        [HttpGet("test-variants/{id}")]
+        public Task<IEnumerable<string>> GetTestVariants([FromRoute] Guid id)
+        {
+            return _mediator.Send(new GetStudentTestSessionVariantsRequest(id));
         }
     }
 }

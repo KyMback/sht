@@ -8,7 +8,7 @@ using SHT.Domain.Models.Tests.Students;
 using SHT.Domain.Services.Tests.Student;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
-namespace SHT.Application.Tests.TestSessions.Students.GetAvailableStateTransitions
+namespace SHT.Application.Tests.StudentsTestSessions.GetAvailableStateTransitions
 {
     [UsedImplicitly]
     internal class GetStudentTestSessionAvailableStateTransitionsHandler : IRequestHandler<

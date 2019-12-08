@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using MediatR;
 using SHT.Application.Common;
 
-namespace SHT.Application.Tests.TestSessions.Students.StateTransition
+namespace SHT.Application.Tests.StudentsTestSessions.StateTransition
 {
     [ApiDataContract]
     public class StudentTestSessionStateTransitionRequest : IRequest

@@ -1,9 +1,12 @@
 import { observable, runInAction } from "mobx";
-import { SearchResultBaseFilter, StudentTestSessionDto } from "../../../../typings/dataContracts";
+import {
+    SearchResultBaseFilter,
+    StudentTestSessionListItemDto,
+} from "../../../../typings/dataContracts";
 import { StudentTestSessionApi } from "../../../../core/api/studentTestSessionApi";
 
 export class StudentTestSessionsStore {
-    @observable testSessions: Array<StudentTestSessionDto> = [];
+    @observable testSessions: Array<StudentTestSessionListItemDto> = [];
 
     public loadData = async () => {
         const result = await StudentTestSessionApi.getList(SearchResultBaseFilter.fromJS({

@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { Button } from "reactstrap";
+import { Button, ButtonGroup } from "reactstrap";
 import { Color, KeyOrJSX } from "../../../typings/customTypings";
 import { ensureLocal } from "../../../core/localization/local";
 
@@ -26,6 +26,7 @@ export const CardSectionsGroup = (
         return topActions
             ? (
                 <div className="top-actions">
+                    <ButtonGroup>
                     {
                         topActions.map((v, index) => (
                             <Button key={index} color={v.color} onClick={v.onClick}>
@@ -33,6 +34,7 @@ export const CardSectionsGroup = (
                             </Button>
                         ))
                     }
+                    </ButtonGroup>
                 </div>
             )
             : null;

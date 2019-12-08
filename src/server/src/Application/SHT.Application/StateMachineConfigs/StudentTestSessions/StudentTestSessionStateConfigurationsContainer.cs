@@ -18,6 +18,12 @@ namespace SHT.Application.StateMachineConfigs.StudentTestSessions
                 .WithTrigger(StudentTestSessionTriggers.StartTest)
                 .WithGuard<TestSessionIsStartedGuard>()
                 .Use<StartStudentTestSession>();
+
+            builder
+                .Configure()
+                .From(StudentTestSessionState.Started)
+                .To(StudentTestSessionState.Ended)
+                .WithTrigger(StudentTestSessionTriggers.EndTest);
         }
     }
 }
