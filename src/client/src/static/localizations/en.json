@@ -49,5 +49,7 @@
   "StudentTestSession_ChooseVariant": "Choose variant",
   "StudentTestSession_StartTestModalButton": "Start Test",
   "StudentTestSession_OpenQuestions": "Open Questions",
-  "OpenTestDashboard": "Open Test Dashboard"
+  "OpenTestDashboard": "Open Test Dashboard",
+  "StudentQuestions_Questions": "Questions",
+  "QuestionType_FreeText": "Free Text"
 }

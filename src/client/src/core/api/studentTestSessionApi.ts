@@ -3,7 +3,8 @@ import {
     SearchResultBaseFilter,
     StudentTestQuestionListItemDto,
     StudentTestSessionDto,
-    StudentTestSessionListItemDto, StudentTestSessionStateTransitionRequest,
+    StudentTestSessionListItemDto,
+    StudentTestSessionStateTransitionRequest,
 } from "../../typings/dataContracts";
 import { TableResult } from "./tableResult";
 

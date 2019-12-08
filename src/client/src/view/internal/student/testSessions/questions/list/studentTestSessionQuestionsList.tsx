@@ -10,6 +10,8 @@ import { StudentTestSessionQuestionsListStore } from "./studentTestSessionQuesti
 import useAsyncEffect from "use-async-effect";
 import { ListGroup, ListGroupItem, ListGroupItemHeading } from "reactstrap";
 import { routingStore } from "../../../../../../stores/routingStore";
+import { enumeration, EnumLocal } from "../../../../../../core/localization/local";
+import { QuestionType } from "../../../../../../typings/dataContracts";
 
 interface Params {
     sessionId: string;
@@ -31,7 +33,7 @@ export const StudentTestSessionQuestionsList = observer(() => {
 
     return (
         <CardSectionsGroup topActions={actions}>
-            <CardSection title="StudentQuestions">
+            <CardSection title="StudentQuestions_Questions">
                 <ListGroup>
                     {store.questions.map((item, index) => (
                         <ListGroupItem
@@ -44,7 +46,7 @@ export const StudentTestSessionQuestionsList = observer(() => {
                                 {item.number}
                             </ListGroupItemHeading>
                             <div>
-                                {item.type}
+                                <EnumLocal enumObject={QuestionType} value={item.type}/>
                             </div>
                         </ListGroupItem>
                     ))}
@@ -53,3 +55,5 @@ export const StudentTestSessionQuestionsList = observer(() => {
         </CardSectionsGroup>
     );
 });
+
+enumeration(QuestionType, "QuestionType");
