@@ -15,7 +15,7 @@ s nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderi
 eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
  id est laborum.";
 
-            public static readonly int Number = 1;
+            public static readonly string Number = "1";
 
             public static readonly Guid TestVariantId = TestVariantsDefaults.TestVariantWithFreeTextQuestion.Id;
         }

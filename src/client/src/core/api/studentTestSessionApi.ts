@@ -1,6 +1,7 @@
 import { HttpApi } from "./http/httpApi";
 import {
     SearchResultBaseFilter,
+    StudentTestQuestionListItemDto,
     StudentTestSessionDto,
     StudentTestSessionListItemDto, StudentTestSessionStateTransitionRequest,
 } from "../../typings/dataContracts";
@@ -27,5 +28,9 @@ export class StudentTestSessionApi {
 
     public static getStateTransitions = async (id: string): Promise<Array<string>> => {
         return HttpApi.get<Array<string>>(`${endPoint}/state/${id}`);
+    };
+
+    public static getTestQuestions = async (id: string): Promise<Array<StudentTestQuestionListItemDto>> => {
+        return HttpApi.get<Array<StudentTestQuestionListItemDto>>(`${endPoint}/${id}/questions/list`);
     };
 }

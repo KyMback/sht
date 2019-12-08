@@ -2,8 +2,13 @@ import { Route, RoutesModule } from "../../../../core/routing/routesModule";
 import React from "react";
 import { StudentTestSessions } from "./studentTestSessions";
 import { StudentTestSessionDashboard } from "./dashboard/studentTestSessionDashboard";
+import { StudentQuestionsModule } from "./questions/studentQuestionsModule";
 
 const routes: Array<Route> = [
+    {
+        path: "/test-session/:sessionId/questions",
+        component: StudentQuestionsModule,
+    },
     {
         path: "/test-session/list",
         component: StudentTestSessions,

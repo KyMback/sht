@@ -9,6 +9,7 @@ using SHT.Application.Common.Tables;
 using SHT.Application.Tests.StudentsTestSessions.Get;
 using SHT.Application.Tests.StudentsTestSessions.GetAll;
 using SHT.Application.Tests.StudentsTestSessions.GetAvailableStateTransitions;
+using SHT.Application.Tests.StudentsTestSessions.GetTestQuestions;
 using SHT.Application.Tests.StudentsTestSessions.GetVariants;
 using SHT.Application.Tests.StudentsTestSessions.StateTransition;
 
@@ -53,6 +54,12 @@ namespace SHT.Api.Web.Controllers
         public Task<IEnumerable<string>> GetTestVariants([FromRoute] Guid id)
         {
             return _mediator.Send(new GetStudentTestSessionVariantsRequest(id));
+        }
+
+        [HttpGet("{id}/questions/list")]
+        public Task<IReadOnlyCollection<StudentTestQuestionListItemDto>> GetTestQuestions([FromRoute] Guid id)
+        {
+            return _mediator.Send(new GetStudentTestQuestionsRequest(id));
         }
     }
 }

@@ -6,7 +6,7 @@ namespace SHT.Domain.Models.Tests
     {
         public string Text { get; set; }
 
-        public int Number { get; set; }
+        public string Number { get; set; }
 
         public QuestionType Type { get; set; }
 

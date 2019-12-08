@@ -47,5 +47,7 @@
   "StudentTestSession_Variant": "Test Variant:",
   "StudentTestSession_StartTestModalTitle": "Choose variant",
   "StudentTestSession_ChooseVariant": "Choose variant",
-  "StudentTestSession_StartTestModalButton": "Start Test"
+  "StudentTestSession_StartTestModalButton": "Start Test",
+  "StudentTestSession_OpenQuestions": "Open Questions",
+  "OpenTestDashboard": "Open Test Dashboard"
 }

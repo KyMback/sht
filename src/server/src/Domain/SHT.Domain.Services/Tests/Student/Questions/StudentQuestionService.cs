@@ -17,8 +17,7 @@ namespace SHT.Domain.Services.Tests.Student.Questions
             _unitOfWork = unitOfWork;
         }
 
-        public async Task AddQuestionsToStudentTestSession(
-            StudentQuestionCreationData data)
+        public async Task AddQuestionsToStudentTestSession(StudentQuestionCreationData data)
         {
             var queryParameters = new QuestionQueryParameters
             {
@@ -32,7 +31,6 @@ namespace SHT.Domain.Services.Tests.Student.Questions
                 Text = question.Text,
                 Type = question.Type,
                 StudentTestSessionId = data.StudentTestSessionId,
-                State = StudentQuestionState.Pending,
             }).ToArray();
             await _unitOfWork.AddRange(studentQuestions);
         }

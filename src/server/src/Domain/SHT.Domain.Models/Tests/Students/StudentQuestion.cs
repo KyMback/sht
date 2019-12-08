@@ -6,7 +6,7 @@ namespace SHT.Domain.Models.Tests.Students
     {
         public string Text { get; set; }
 
-        public int Number { get; set; }
+        public string Number { get; set; }
 
         public string Answer { get; set; }
 
@@ -14,8 +14,8 @@ namespace SHT.Domain.Models.Tests.Students
 
         public double? Grade { get; set; }
 
-        public string State { get; set; }
-
         public Guid StudentTestSessionId { get; set; }
+
+        public virtual StudentTestSession StudentTestSession { get; set; }
     }
 }

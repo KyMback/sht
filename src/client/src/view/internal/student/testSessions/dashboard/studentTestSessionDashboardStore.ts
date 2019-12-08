@@ -1,8 +1,9 @@
-import { observable, runInAction } from "mobx";
+import { computed, observable, runInAction } from "mobx";
 import { StudentTestSessionApi } from "../../../../../core/api/studentTestSessionApi";
 import { StudentTestSessionStateTransitionRequest } from "../../../../../typings/dataContracts";
 import { studentTestSessionStateTriggers } from "./stateTransition/studentTestSessionStateTriggers";
 import { StartStudentTestModalStore } from "./stateTransition/startTest/startStudentTestModalStore";
+import { studentTestSessionStates } from "./stateTransition/studentTestSessionStates";
 
 export class StudentTestSessionDashboardStore {
     @observable public id: string;
@@ -11,6 +12,11 @@ export class StudentTestSessionDashboardStore {
     @observable public variant?: string;
     @observable public stateTransitions: Array<string> = [];
     @observable public startStudentTestModalStore?: StartStudentTestModalStore;
+
+    @computed
+    public get isQuestionsAvailable(): boolean {
+        return this.state === studentTestSessionStates.started;
+    }
 
     constructor(id: string) {
         this.id = id;
