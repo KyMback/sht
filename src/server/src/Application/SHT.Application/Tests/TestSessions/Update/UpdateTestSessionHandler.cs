@@ -40,6 +40,7 @@ namespace SHT.Application.Tests.TestSessions.Update
                 IsReadOnly = false,
             };
             TestSession testSession = await _unitOfWork.GetSingle(queryParameters);
+            testSession.Name = data.Name;
             await _testSessionService.LinkStudents(new StudentTestSessionLinkData(testSession, data.StudentsIds));
             await _testSessionService.LinkVariants(new TestSessionVariantsLinkData(
                 testSession,
