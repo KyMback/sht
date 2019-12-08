@@ -14,5 +14,7 @@ namespace SHT.Application.Tests.TestSessions.GetList
 
         [Required]
         public string State { get; set; }
+
+        public DateTime CreatedAt { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-import { ListGroup, ListGroupItem } from "reactstrap";
+import { ListGroup, ListGroupItem, ListGroupItemHeading } from "reactstrap";
 import React, { useState } from "react";
 import useAsyncEffect from "use-async-effect";
 import { TestSessionApi } from "../../../../core/api/testSessionApi";
@@ -32,10 +32,20 @@ export const TestSessionsList = () => {
             <CardSection title="TestSessions" actions={actions}>
                 <ListGroup>
                     {testSessions.map((item, index) => (
-                        <ListGroupItem key={index}>
-                            <LinkButton
-                                onClick={() => routingStore.goto(`/test-session/${item.id}`)}
-                                title={<>{item.name}</>}/>
+                        <ListGroupItem
+                            key={index}
+                            className="clickable"
+                            action
+                            onClick={() => routingStore.goto(`/test-session/${item.id}`)}>
+                            <ListGroupItemHeading>
+                                {item.name}
+                            </ListGroupItemHeading>
+                            <div>
+                                {item.state}
+                            </div>
+                            <div>
+                                {item.createdAt}
+                            </div>
                         </ListGroupItem>
                     ))}
                 </ListGroup>

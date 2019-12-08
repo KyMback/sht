@@ -10,9 +10,8 @@ using SHT.Infrastructure.DataAccess.Abstractions;
 namespace SHT.Application.Tests.TestSessions.GetList
 {
     [UsedImplicitly]
-    internal class GetAllTestSessionsHandler : IRequestHandler<
-        GetAllTestSessionsRequest,
-        TableResult<TestSessionListItemDto>>
+    internal class GetAllTestSessionsHandler :
+        IRequestHandler<GetAllTestSessionsRequest, TableResult<TestSessionListItemDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IExecutionContextAccessor _executionContextAccessor;
@@ -39,6 +38,7 @@ namespace SHT.Application.Tests.TestSessions.GetList
                 Id = session.Id,
                 Name = session.Name,
                 State = session.State,
+                CreatedAt = session.CreatedAt,
             });
 
             return new TableResult<TestSessionListItemDto>(result.Items, result.Total);
