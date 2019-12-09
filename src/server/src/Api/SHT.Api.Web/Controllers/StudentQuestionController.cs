@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SHT.Api.Web.Attributes;
+using SHT.Application.Tests.StudentQuestions.Answer;
 using SHT.Application.Tests.StudentQuestions.Get;
 
 namespace SHT.Api.Web.Controllers
@@ -21,6 +22,12 @@ namespace SHT.Api.Web.Controllers
         public Task<StudentQuestionDto> Get([FromRoute] Guid id)
         {
             return _mediator.Send(new GetStudentQuestionRequest(id));
+        }
+
+        [HttpPut("answer")]
+        public Task Answer(AnswerStudentQuestionDto data)
+        {
+            return _mediator.Send(new AnswerStudentQuestionRequest(data));
         }
     }
 }

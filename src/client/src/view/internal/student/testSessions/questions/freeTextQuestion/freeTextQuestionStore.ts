@@ -1,6 +1,7 @@
 import { action, observable, runInAction } from "mobx";
 import { BaseQuestionStore } from "../infrasturcture/baseQuestionStore";
 import { StudentQuestionApi } from "../../../../../../core/api/studentQuestionApi";
+import { AnswerStudentQuestionDto } from "../../../../../../typings/dataContracts";
 
 export class FreeTextQuestionStore extends BaseQuestionStore {
     @observable public question?: string;
@@ -23,5 +24,9 @@ export class FreeTextQuestionStore extends BaseQuestionStore {
     };
 
     public submit = async () => {
+        await StudentQuestionApi.answer(AnswerStudentQuestionDto.fromJS({
+            answer: this.answer,
+            questionId: this.id,
+        }));
     };
 }
