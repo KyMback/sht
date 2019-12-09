@@ -16,6 +16,7 @@ export const FreeTextQuestion = observer(({ store }: Props) => {
         <>
             <span>{store.question}</span>
             <br/>
+            <br/>
             <FormTextArea
                 label="AnswerLabel"
                 value={store.answer}

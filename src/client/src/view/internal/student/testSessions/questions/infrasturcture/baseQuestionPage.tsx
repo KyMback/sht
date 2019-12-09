@@ -15,6 +15,7 @@ import { FreeTextQuestion } from "../freeTextQuestion/freeTextQuestion";
 import { routingStore } from "../../../../../../stores/routingStore";
 import { observer } from "mobx-react-lite";
 import { FreeTextQuestionStore } from "../freeTextQuestion/freeTextQuestionStore";
+import { DisableCopyPasteWrapper } from "../../../../../../components/common/disableCopyPasteWrapper";
 
 export const BaseQuestionPage = observer(() => {
     const params = useParams<IdParams>();
@@ -40,7 +41,9 @@ export const BaseQuestionPage = observer(() => {
         <Form onValidSubmit={store.submit}>
             <CardSectionsGroup topActions={topActions} actions={actions}>
                 <CardSection title={<Local id="Question_TitleTemplate" values={{ number: store.number }}/>}>
-                    {component}
+                    <DisableCopyPasteWrapper>
+                        {component}
+                    </DisableCopyPasteWrapper>
                 </CardSection>
             </CardSectionsGroup>
         </Form>
