@@ -15,10 +15,10 @@ export const FreeTextQuestion = observer(({ store }: Props) => {
 
     return (
         <>
-            <LabeledText title="Question" value={store.question}/>
+            <span>{store.question}</span>
             <br/>
             <FormTextArea
-                label="Answer"
+                label="AnswerLabel"
                 value={store.answer}
                 onChange={store.setAnswer}
                 validations={[required]}

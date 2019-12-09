@@ -55,5 +55,5 @@
   "Question_TitleTemplate": "Question: {number}",
   "BackToQuestionsList": "Back To Questions List",
   "Question": "Question",
-  "Answer": "Answer"
+  "AnswerLabel": "Answer:"
 }
