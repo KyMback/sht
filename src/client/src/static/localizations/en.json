@@ -54,5 +54,6 @@
   "QuestionType_FreeText": "Free Text",
   "Question_TitleTemplate": "Question: {number}",
   "BackToQuestionsList": "Back To Questions List",
-  "Question": "Question"
+  "Question": "Question",
+  "Answer": "Answer"
 }

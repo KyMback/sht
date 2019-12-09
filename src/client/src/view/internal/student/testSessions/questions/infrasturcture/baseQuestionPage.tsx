@@ -14,6 +14,7 @@ import { QuestionType } from "../../../../../../typings/dataContracts";
 import { FreeTextQuestion } from "../freeTextQuestion/freeTextQuestion";
 import { routingStore } from "../../../../../../stores/routingStore";
 import { observer } from "mobx-react-lite";
+import { FreeTextQuestionStore } from "../freeTextQuestion/freeTextQuestionStore";
 
 export const BaseQuestionPage = observer(() => {
     const params = useParams<IdParams>();
@@ -49,7 +50,7 @@ export const BaseQuestionPage = observer(() => {
 function getComponent(store: BaseQuestionStore) {
     switch (store.type) {
         case QuestionType.FreeText:
-            return <FreeTextQuestion store={store}/>;
+            return <FreeTextQuestion store={store as FreeTextQuestionStore}/>;
         default:
             throw new Error(`Invalid question type: ${store.type}`);
     }

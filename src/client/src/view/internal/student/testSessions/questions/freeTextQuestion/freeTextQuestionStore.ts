@@ -1,10 +1,12 @@
-import { observable, runInAction } from "mobx";
+import { action, observable, runInAction } from "mobx";
 import { BaseQuestionStore } from "../infrasturcture/baseQuestionStore";
 import { StudentQuestionApi } from "../../../../../../core/api/studentQuestionApi";
 
 export class FreeTextQuestionStore extends BaseQuestionStore {
     @observable public question?: string;
     @observable public answer?: string;
+
+    @action public setAnswer = (value?: string) => this.answer = value;
 
     public loadData = async () => {
         if (this.isDataLoaded) {

@@ -1,8 +1,10 @@
 import { ControlProps } from "../index";
 import React from "react";
+import TextareaAutosize from "react-textarea-autosize";
 
-interface TextAreaProps extends ControlProps<string | undefined> {
-    className: string;
+export interface TextAreaProps extends ControlProps<string | undefined> {
+    className?: string;
+    minRows?: number;
 }
 
 export const TextArea = (
@@ -11,9 +13,17 @@ export const TextArea = (
         onChange,
         valid,
         className,
+        minRows,
     }: TextAreaProps,
 ) => {
+    const validationClass = valid === undefined ? "" : valid ? "is-valid" : "is-invalid";
+
     return (
-        <></>
+        <TextareaAutosize
+            minRows={minRows || 3}
+            className={`form-control ${validationClass} ${className || ""}`}
+            value={value || ""}
+            onChange={e => onChange(e.target.value)}
+        />
     );
 };
