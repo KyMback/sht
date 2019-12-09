@@ -17,13 +17,22 @@ namespace SHT.Application.StateMachineConfigs.StudentTestSessions
                 .To(StudentTestSessionState.Started)
                 .WithTrigger(StudentTestSessionTriggers.StartTest)
                 .WithGuard<TestSessionIsStartedGuard>()
+                .WithGuard<CurrentUserIsOwnerGuard>()
                 .Use<StartStudentTestSession>();
+
+            builder
+                .Configure()
+                .From(StudentTestSessionState.Pending)
+                .To(StudentTestSessionState.Ended)
+                .WithTrigger(StudentTestSessionTriggers.OverdueTest)
+                .WithGuard<CurrentUserIsTestSessionOwner>();
 
             builder
                 .Configure()
                 .From(StudentTestSessionState.Started)
                 .To(StudentTestSessionState.Ended)
-                .WithTrigger(StudentTestSessionTriggers.EndTest);
+                .WithTrigger(StudentTestSessionTriggers.EndTest)
+                .WithGuard<CurrentUserIsOwnerOrTestSessionOwnerGuard>();
         }
     }
 }

@@ -1,8 +1,10 @@
 {
+  "UnexpectedErrorHappened":  "Unexpected Error Happened.\n Id: {id}\n Code: {code}",
   "validation_required": "This field is required.",
   "validation_repeatPasswordNotEqual": "Passwords should be equal.",
   "validation_invalidEmailAddress": "Invalid email address.",
   "validation_nameShouldBeUniq": "Name should be uniq.",
+  "SuccessfullySaved": "Successfully Saved",
   "Login": "Login",
   "Password": "Password",
   "SignIn": "Sign in",
@@ -19,6 +21,7 @@
   "ErrorCode_6": "User with this login is already registered.",
   "ErrorCode_9": "Link expired.",
   "ErrorCode_10": "Confirm email first.",
+  "ErrorCode_11": "Test Session was ended.",
   "SignOut": "Sign Out",
   "TestSessions": "Test Sessions",
   "None": "None",
@@ -55,5 +58,6 @@
   "Question_TitleTemplate": "Question: {number}",
   "BackToQuestionsList": "Back To Questions List",
   "Question": "Question",
-  "AnswerLabel": "Answer:"
+  "AnswerLabel": "Answer:",
+  "TestVariantTemplate": "Test Variant: {variant}"
 }

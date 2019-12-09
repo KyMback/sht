@@ -7,7 +7,7 @@ import { CardSection } from "../../../../../../components/layouts/sections/cardS
 import { observer } from "mobx-react-lite";
 import { ListGroup, ListGroupItem, ListGroupItemHeading } from "reactstrap";
 import { routingStore } from "../../../../../../stores/routingStore";
-import { enumeration, EnumLocal } from "../../../../../../core/localization/local";
+import { enumeration, EnumLocal, Local } from "../../../../../../core/localization/local";
 import { QuestionType } from "../../../../../../typings/dataContracts";
 import { studentQuestionsContext } from "../studentQuestionsModule";
 
@@ -22,7 +22,9 @@ export const StudentTestSessionQuestionsList = observer(() => {
     ];
 
     return (
-        <CardSectionsGroup topActions={actions}>
+        <CardSectionsGroup
+            title={<Local id="TestVariantTemplate" values={{ variant: store.variant }}/>}
+            topActions={actions}>
             <CardSection title="StudentQuestions_Questions">
                 <ListGroup>
                     {store.questionsList.map((item, index) => (
@@ -35,9 +37,7 @@ export const StudentTestSessionQuestionsList = observer(() => {
                             <ListGroupItemHeading>
                                 {item.number}
                             </ListGroupItemHeading>
-                            <div>
-                                <EnumLocal enumObject={QuestionType} value={item.type}/>
-                            </div>
+                            <EnumLocal enumObject={QuestionType} value={item.type}/>
                         </ListGroupItem>
                     ))}
                 </ListGroup>

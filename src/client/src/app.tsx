@@ -11,6 +11,7 @@ import { IntlProvider } from "react-intl";
 import { localStore } from "./stores/localStore";
 import { LoadingAnimationWrapper } from "./components/layouts/loading/loadingAnimationWrapper";
 import { NotificationsContainer } from "./components/notifications/notifications";
+import { ApiErrorHandler } from "./core/api/http/apiErrorHandler";
 
 export const App = observer(() => {
     const [isContextLoaded, setIsContextLoaded] = useState<boolean>(false);
@@ -23,9 +24,11 @@ export const App = observer(() => {
         <>
             <IntlProvider locale={localStore.language} messages={localStore.messages}>
                 <Router history={routingStore.history}>
-                    <MainLayout>
-                        {isContextLoaded && <RootModule/>}
-                    </MainLayout>
+                    <ApiErrorHandler>
+                        <MainLayout>
+                            {isContextLoaded && <RootModule/>}
+                        </MainLayout>
+                    </ApiErrorHandler>
                 </Router>
                 {NotificationsContainer}
             </IntlProvider>

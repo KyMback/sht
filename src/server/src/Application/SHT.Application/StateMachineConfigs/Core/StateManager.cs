@@ -84,7 +84,8 @@ namespace SHT.Application.StateMachineConfigs.Core
             context.SourceState = transition.Source;
             context.TargetState = transition.Destination;
             context.Trigger = transition.Trigger;
-            var handlers = configuration.Handlers.Select(t => _safeInjectionResolver.Resolve(t))
+            var handlers = configuration.Handlers
+                .Select(t => _safeInjectionResolver.Resolve(t))
                 .Cast<IStateTransitionHandler<TEntity>>();
 
             using var transaction = TransactionsFactory.Create();

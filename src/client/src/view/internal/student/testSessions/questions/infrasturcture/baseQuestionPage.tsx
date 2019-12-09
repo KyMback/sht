@@ -39,7 +39,9 @@ export const BaseQuestionPage = observer(() => {
 
     return (
         <Form onValidSubmit={store.submit}>
-            <CardSectionsGroup topActions={topActions} actions={actions}>
+            <CardSectionsGroup
+                title={<Local id="TestVariantTemplate" values={{ variant: context.variant }}/>}
+                topActions={topActions} actions={actions}>
                 <CardSection title={<Local id="Question_TitleTemplate" values={{ number: store.number }}/>}>
                     <DisableCopyPasteWrapper>
                         {component}

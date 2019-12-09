@@ -23,5 +23,7 @@ namespace SHT.Domain.Services.Exceptions
         InvalidEmailConfirmationToken = 9,
 
         NotConfirmedEmail = 10,
+
+        StudentTestSessionEnded = 11,
     }
 }

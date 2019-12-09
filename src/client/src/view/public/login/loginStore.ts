@@ -1,6 +1,6 @@
 import { action, observable } from "mobx";
 import { AccountApi } from "../../../core/api/accountApi";
-import { SignInDataDto } from "../../../typings/dataContracts";
+import { SignInDataDto, UserType } from "../../../typings/dataContracts";
 import { userContextStore } from "../../../stores/userContextStore";
 import { routingStore } from "../../../stores/routingStore";
 import { notifications } from "../../../components/notifications/notifications";
@@ -22,7 +22,9 @@ export class LoginStore {
             if (result.succeeded) {
                 await userContextStore.loadContext();
                 await routingStore.gotoBase();
-                notifications.success("SuccessfullySignIn");
+                if (userContextStore.userType === UserType.Student) {
+                    notifications.success("SuccessfullySignIn");
+                }
             } else {
                 notifications.error("InvalidLoginOrPassword");
             }

@@ -14,11 +14,16 @@ namespace SHT.Domain.Services.Tests.Student.Questions
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IExecutionContextAccessor _executionContextAccessor;
+        private readonly IStudentQuestionValidationService _studentQuestionValidationService;
 
-        public StudentQuestionService(IUnitOfWork unitOfWork, IExecutionContextAccessor executionContextAccessor)
+        public StudentQuestionService(
+            IUnitOfWork unitOfWork,
+            IExecutionContextAccessor executionContextAccessor,
+            IStudentQuestionValidationService studentQuestionValidationService)
         {
             _unitOfWork = unitOfWork;
             _executionContextAccessor = executionContextAccessor;
+            _studentQuestionValidationService = studentQuestionValidationService;
         }
 
         public async Task AddQuestionsToStudentTestSession(StudentQuestionCreationData data)
@@ -48,6 +53,7 @@ namespace SHT.Domain.Services.Tests.Student.Questions
                 Id = questionId,
             };
             var question = await _unitOfWork.GetSingle(queryParameters);
+            await _studentQuestionValidationService.ThrowIfTestSessionIsEnded(question.StudentTestSessionId);
             question.Answer = answer;
             await _unitOfWork.Update(question);
         }

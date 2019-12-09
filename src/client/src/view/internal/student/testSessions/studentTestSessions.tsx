@@ -7,6 +7,7 @@ import React from "react";
 import useAsyncEffect from "use-async-effect";
 import { routingStore } from "../../../../stores/routingStore";
 import { dateAndTime } from "../../../../core/utils/dateTimeUtil";
+import { studentTestSessionStates } from "./dashboard/stateTransition/studentTestSessionStates";
 
 export const StudentTestSessions = observer(() => {
     const store = useLocalStore(() => new StudentTestSessionsStore());
@@ -18,6 +19,7 @@ export const StudentTestSessions = observer(() => {
                 <ListGroup>
                     {store.testSessions.map((item, index) => (
                         <ListGroupItem
+                            color={mapStateToColor(item.state!)}
                             className="clickable"
                             action
                             key={index}
@@ -38,3 +40,16 @@ export const StudentTestSessions = observer(() => {
         </CardSectionsGroup>
     );
 });
+
+function mapStateToColor(state: string): string {
+    switch (state) {
+        case studentTestSessionStates.pending:
+            return "danger";
+        case studentTestSessionStates.started:
+            return "warning";
+        case studentTestSessionStates.ended:
+            return "success";
+        default:
+            throw new Error(`Not supported state: ${state}`);
+    }
+}

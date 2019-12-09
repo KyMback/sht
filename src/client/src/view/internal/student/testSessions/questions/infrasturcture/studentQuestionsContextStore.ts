@@ -7,6 +7,8 @@ import { StudentTestSessionApi } from "../../../../../../core/api/studentTestSes
 
 export class StudentQuestionsContextStore {
     @observable public sessionId: string;
+    @observable public sessionState?: string;
+    @observable public variant?: string;
     @observable public isDataLoaded: boolean = false;
     @observable public questionsList: Array<StudentTestQuestionListItemDto> = [];
     @observable public questionsMap: Dictionary<QuestionMetadata> = {};
@@ -18,8 +20,11 @@ export class StudentQuestionsContextStore {
     public loadData = async () => {
         this.isDataLoaded = false;
         const questions = await StudentTestSessionApi.getTestQuestions(this.sessionId);
+        const session = await StudentTestSessionApi.get(this.sessionId);
 
         runInAction(() => {
+            this.sessionState = session.state;
+            this.variant = session.variant;
             this.questionsList = questions;
             questions.forEach(q => this.questionsMap[q.id] = {
                 type: q.type,

@@ -19,6 +19,7 @@ namespace SHT.Domain.Services
                 .AddScopedAsImplementedInterfaces<UserAccountService>()
                 .AddScopedAsImplementedInterfaces<StudentTestSessionService>()
                 .AddScopedAsImplementedInterfaces<StudentQuestionService>()
+                .AddScopedAsImplementedInterfaces<StudentQuestionValidationService>()
                 .AddScopedAsImplementedInterfaces<RegistrationValidationService>();
 
             builder
