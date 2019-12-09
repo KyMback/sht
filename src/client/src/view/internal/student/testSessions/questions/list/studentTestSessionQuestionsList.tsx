@@ -1,33 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
     CardSectionActionConfigs,
     CardSectionsGroup,
 } from "../../../../../../components/layouts/sections/cardSectionsGroup";
 import { CardSection } from "../../../../../../components/layouts/sections/cardSection";
-import { useParams } from "react-router-dom";
-import { observer, useLocalStore } from "mobx-react-lite";
-import { StudentTestSessionQuestionsListStore } from "./studentTestSessionQuestionsListStore";
-import useAsyncEffect from "use-async-effect";
+import { observer } from "mobx-react-lite";
 import { ListGroup, ListGroupItem, ListGroupItemHeading } from "reactstrap";
 import { routingStore } from "../../../../../../stores/routingStore";
 import { enumeration, EnumLocal } from "../../../../../../core/localization/local";
 import { QuestionType } from "../../../../../../typings/dataContracts";
-
-interface Params {
-    sessionId: string;
-}
-
+import { studentQuestionsContext } from "../studentQuestionsModule";
 
 export const StudentTestSessionQuestionsList = observer(() => {
-    const params = useParams<Params>();
-    const store = useLocalStore(() => new StudentTestSessionQuestionsListStore(params.sessionId));
-    useAsyncEffect(store.loadData, []);
-
+    const store = useContext(studentQuestionsContext)!;
     const actions: Array<CardSectionActionConfigs> = [
         {
             title: "OpenTestDashboard",
             color: "primary",
-            onClick: () => routingStore.goto(`/test-session/${params.sessionId}`),
+            onClick: () => routingStore.goto(`/test-session/${store.sessionId}`),
         }
     ];
 
@@ -35,13 +25,13 @@ export const StudentTestSessionQuestionsList = observer(() => {
         <CardSectionsGroup topActions={actions}>
             <CardSection title="StudentQuestions_Questions">
                 <ListGroup>
-                    {store.questions.map((item, index) => (
+                    {store.questionsList.map((item, index) => (
                         <ListGroupItem
                             color={item.isAnswered ? "success" : "secondary"}
                             className="clickable"
                             action
                             key={index}
-                            onClick={() => {}}>
+                            onClick={() => routingStore.goto(`/test-session/${store.sessionId}/questions/${item.id}`)}>
                             <ListGroupItemHeading>
                                 {item.number}
                             </ListGroupItemHeading>
