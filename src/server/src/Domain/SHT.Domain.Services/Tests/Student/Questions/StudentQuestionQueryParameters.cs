@@ -6,6 +6,8 @@ namespace SHT.Domain.Services.Tests.Student.Questions
 {
     public class StudentQuestionQueryParameters : BaseQueryParameters<StudentQuestion>
     {
+        public Guid? Id { get; set; }
+
         public Guid? StudentTestSessionId { get; set; }
 
         public Guid? StudentId { get; set; }
@@ -18,6 +20,7 @@ namespace SHT.Domain.Services.Tests.Student.Questions
                 StudentTestSessionId,
                 question => question.StudentTestSessionId == StudentTestSessionId.Value);
             FilterIfHasValue(StudentId, question => question.StudentTestSession.StudentId == StudentId.Value);
+            FilterIfHasValue(Id, question => question.Id == Id.Value);
         }
 
         protected override void AddSorting()

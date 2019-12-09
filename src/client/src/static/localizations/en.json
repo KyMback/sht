@@ -51,5 +51,8 @@
   "StudentTestSession_OpenQuestions": "Open Questions",
   "OpenTestDashboard": "Open Test Dashboard",
   "StudentQuestions_Questions": "Questions",
-  "QuestionType_FreeText": "Free Text"
+  "QuestionType_FreeText": "Free Text",
+  "Question_TitleTemplate": "Question: {number}",
+  "BackToQuestionsList": "Back To Questions List",
+  "Question": "Question"
 }

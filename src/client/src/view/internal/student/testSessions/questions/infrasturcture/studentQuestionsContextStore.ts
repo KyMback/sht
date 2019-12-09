@@ -41,7 +41,7 @@ export class StudentQuestionsContextStore {
     private createStore = (info: QuestionMetadata) => {
         switch (info.type) {
             case QuestionType.FreeText:
-                return new FreeTextQuestionStore(info.id, info.type);
+                return new FreeTextQuestionStore(info.id, this.sessionId, info.type);
             default:
                 throw new Error(`Unsupported question type: ${info.type}`);
         }
