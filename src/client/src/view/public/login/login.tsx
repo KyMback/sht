@@ -21,17 +21,17 @@ export const Login = observer(() => {
                         type="email"
                         onChange={store.setLogin}
                         value={store.login}
-                        validations={[required, emailValidation]}/>
+                        validations={[required, emailValidation]} />
                     <FormInput
                         label="Password"
                         type="password"
                         onChange={store.setPassword}
                         value={store.password}
-                        validations={[required]}/>
+                        validations={[required]} />
                     <Button color="primary">
-                        <Local id="SignIn"/>
+                        <Local id="SignIn" />
                     </Button>
-                    <LinkButton onClick={() => routingStore.goto("/signUp")} title="SignUp"/>
+                    <LinkButton onClick={() => routingStore.goto("/signUp")} title="SignUp" />
                 </Form>
             </Col>
         </Row>

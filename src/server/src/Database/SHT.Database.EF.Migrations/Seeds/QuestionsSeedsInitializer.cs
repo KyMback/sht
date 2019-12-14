@@ -14,10 +14,9 @@ namespace SHT.Database.EF.Migrations.Seeds
             new Question
             {
                 Id = QuestionsDefaults.FreeTextQuestion.Id,
-                Number = QuestionsDefaults.FreeTextQuestion.Number,
                 Text = QuestionsDefaults.FreeTextQuestion.Text,
                 Type = QuestionType.FreeText,
-                TestVariantId = QuestionsDefaults.FreeTextQuestion.TestVariantId,
+                CreatedById = UsersDefaults.Instructor.Id
             },
         };
 

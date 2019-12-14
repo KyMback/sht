@@ -21,7 +21,13 @@ namespace SHT.Database.Defaults
         {
             public static readonly Guid Id = Guid.Parse("A483E362-03FD-4C59-8CB1-CC19777A9219");
 
-            public static readonly string Login = "student";
+            public static readonly string Email = "testStudent@gmail.com";
+
+            public static readonly string FirstName = "TestFirstName";
+
+            public static readonly string LastName = "TestSurname";
+
+            public static readonly string Group = "TestGroup";
         }
     }
 #pragma warning restore CA1034 // Nested types should not be visible

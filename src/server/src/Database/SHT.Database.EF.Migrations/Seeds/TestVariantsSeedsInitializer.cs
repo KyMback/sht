@@ -15,6 +15,16 @@ namespace SHT.Database.EF.Migrations.Seeds
             {
                 Id = TestVariantsDefaults.TestVariantWithFreeTextQuestion.Id,
                 Name = TestVariantsDefaults.TestVariantWithFreeTextQuestion.Name,
+                CreatedById = UsersDefaults.Instructor.Id,
+                Questions = new List<TestVariantQuestion>
+                {
+                    new TestVariantQuestion
+                    {
+                        Number = QuestionsDefaults.FreeTextQuestion.Number,
+                        Text = QuestionsDefaults.FreeTextQuestion.Text,
+                        Type = QuestionType.FreeText,
+                    }
+                }
             },
         };
 

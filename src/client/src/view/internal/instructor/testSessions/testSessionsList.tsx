@@ -22,7 +22,7 @@ export const TestSessionsList = () => {
     useAsyncEffect(async () => {
         const result = await TestSessionApi.getListItems(SearchResultBaseFilter.fromJS({
             pageNumber: 1,
-            pageSize: 10,
+            pageSize: 100,
         }));
         setTestSessions(result.items);
     }, []);

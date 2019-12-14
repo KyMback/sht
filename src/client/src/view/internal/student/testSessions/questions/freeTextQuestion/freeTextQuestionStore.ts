@@ -37,7 +37,7 @@ export class FreeTextQuestionStore extends BaseQuestionStore {
             if (isExpected(e, apiErrors.studentTestSessionEnded)) {
                 notifications.errorCode(apiErrors.studentTestSessionEnded);
                 routingStore.goto(`/test-session/${this.sessionId}`);
-                return ;
+                return;
             }
 
             throw e;

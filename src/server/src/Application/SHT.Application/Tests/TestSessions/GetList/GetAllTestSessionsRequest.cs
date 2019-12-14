@@ -1,6 +1,5 @@
 using SHT.Application.Common;
 using SHT.Application.Common.Tables;
-using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Application.Tests.TestSessions.GetList
 {

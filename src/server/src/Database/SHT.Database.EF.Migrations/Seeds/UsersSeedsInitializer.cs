@@ -16,6 +16,7 @@ namespace SHT.Database.EF.Migrations.Seeds
                 Id = UsersDefaults.Instructor.Id,
                 Account = new Account
                 {
+                    Id = UsersDefaults.Instructor.Id,
                     Email = UsersDefaults.Instructor.Email,
                     Password = UsersDefaults.DefaultPasswordHash,
                     IsEmailConfirmed = true,
@@ -24,9 +25,29 @@ namespace SHT.Database.EF.Migrations.Seeds
             },
         };
 
+        private static readonly IReadOnlyCollection<Student> Students = new[]
+        {
+            new Student
+            {
+                Id = UsersDefaults.Student.Id,
+                FirstName = UsersDefaults.Student.FirstName,
+                LastName = UsersDefaults.Student.LastName,
+                Group = UsersDefaults.Student.Group,
+                Account = new Account
+                {
+                    Id = UsersDefaults.Student.Id,
+                    Email = UsersDefaults.Student.Email,
+                    Password = UsersDefaults.DefaultPasswordHash,
+                    IsEmailConfirmed = true,
+                    UserType = UserType.Student
+                }
+            },
+        };
+
         public async Task ApplySeeds(DbContext context)
         {
             await context.AddRangeAsync(Instructors);
+            await context.AddRangeAsync(Students);
         }
     }
 }

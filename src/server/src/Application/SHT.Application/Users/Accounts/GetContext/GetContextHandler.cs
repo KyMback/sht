@@ -2,8 +2,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using MediatR;
-using SHT.Domain.Models.Users;
-using SHT.Domain.Services.Users;
 using SHT.Domain.Services.Users.Accounts;
 using SHT.Infrastructure.Common;
 using SHT.Infrastructure.DataAccess.Abstractions;

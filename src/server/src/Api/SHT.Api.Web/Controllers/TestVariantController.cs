@@ -4,7 +4,9 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SHT.Api.Web.Attributes;
 using SHT.Application.Common;
-using SHT.Application.Tests.Variants.GetLookups;
+using SHT.Application.Common.Tables;
+using SHT.Application.TestVariants.GetList;
+using SHT.Application.TestVariants.GetLookups;
 
 namespace SHT.Api.Web.Controllers
 {
@@ -23,6 +25,12 @@ namespace SHT.Api.Web.Controllers
         public Task<IReadOnlyCollection<Lookup>> GetLookups()
         {
             return _mediator.Send(new GetVariantsLookupsRequest());
+        }
+
+        [HttpGet("list")]
+        public Task<TableResult<TestVariantListItemDto>> GetList([FromQuery] SearchResultBaseFilter filter)
+        {
+            return _mediator.Send(new GetTestVariantsListRequest(filter));
         }
     }
 }

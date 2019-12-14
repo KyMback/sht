@@ -14,7 +14,6 @@ using SHT.Application.Tests.TestSessions.GetDetails;
 using SHT.Application.Tests.TestSessions.GetList;
 using SHT.Application.Tests.TestSessions.StateTransition;
 using SHT.Application.Tests.TestSessions.Update;
-using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Api.Web.Controllers
 {

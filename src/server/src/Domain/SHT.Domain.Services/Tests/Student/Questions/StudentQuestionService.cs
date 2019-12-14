@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using SHT.Domain.Models.Tests;
 using SHT.Domain.Models.Tests.Students;
-using SHT.Domain.Services.Tests.Questions;
+using SHT.Domain.Services.Tests.Variants;
 using SHT.Infrastructure.Common;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
@@ -28,12 +26,13 @@ namespace SHT.Domain.Services.Tests.Student.Questions
 
         public async Task AddQuestionsToStudentTestSession(StudentQuestionCreationData data)
         {
-            var queryParameters = new QuestionQueryParameters
+            var queryParameters = new TestVariantQuestionQueryParameters
             {
                 TestVariantId = data.TestVariantId,
             };
 
-            IReadOnlyCollection<Question> questions = await _unitOfWork.GetAll(queryParameters);
+            var questions =
+                await _unitOfWork.GetAll(queryParameters, testVariantQuestion => testVariantQuestion);
             var studentQuestions = questions.Select(question => new StudentQuestion
             {
                 Number = question.Number,

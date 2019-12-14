@@ -1,5 +1,4 @@
 using System;
-using Autofac.Core;
 using SHT.Domain.Models.Tests;
 using SHT.Domain.Services.Common;
 

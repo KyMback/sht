@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SHT.Domain.Models.Tests;
+using SHT.Domain.Models.Users;
 
 namespace SHT.Infrastructure.EF.Configs.Configs.Tests
 {
@@ -10,9 +11,8 @@ namespace SHT.Infrastructure.EF.Configs.Configs.Tests
         protected override void ConfigureEntity(EntityTypeBuilder<Question> builder)
         {
             builder.Property(e => e.Text).HasMaxLength(LengthConstants.Large).IsRequired();
-            builder.Property(e => e.Number).HasMaxLength(LengthConstants.Small).IsRequired();
 
-            builder.HasOne<TestVariant>().WithMany(e => e.Questions).HasForeignKey(e => e.TestVariantId);
+            builder.HasOne<Instructor>().WithMany().HasForeignKey(e => e.CreatedById);
         }
     }
 }

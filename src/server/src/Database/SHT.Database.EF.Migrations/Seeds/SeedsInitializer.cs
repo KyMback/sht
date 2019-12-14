@@ -10,8 +10,8 @@ namespace SHT.Database.EF.Migrations.Seeds
         private static readonly IReadOnlyCollection<ISeedsInitializer> Initializers = new ISeedsInitializer[]
         {
             new UsersSeedsInitializer(),
-            new TestVariantsSeedsInitializer(),
             new QuestionsSeedsInitializer(),
+            new TestVariantsSeedsInitializer(),
         };
 
         public static async Task InitializeSeeds(DbContext context)
