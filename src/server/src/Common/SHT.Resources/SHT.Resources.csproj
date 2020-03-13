@@ -5,8 +5,8 @@
         <SolutionDir Condition="'$(SolutionDir)'==''">../../../</SolutionDir>
     </PropertyGroup>
 
-    <Import Project="$(SolutionDir)/common/Common.props"/>
-    <Import Project="$(SolutionDir)/common/CodeAnalysis/CodeAnalysis.props"/>
+    <Import Project="$(SolutionDir)/common/Common.props" />
+    <Import Project="$(SolutionDir)/common/CodeAnalysis/CodeAnalysis.props" />
 
     <ItemGroup>
         <None Update="Localizations\emailing.en.json">

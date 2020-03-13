@@ -12,10 +12,6 @@ namespace SHT.Api.Web.Extensions
         public static IMvcCoreBuilder AddCustomJsonOptions(this IMvcCoreBuilder builder)
         {
             return builder
-                .AddNewtonsoftJson(options =>
-                {
-                    options.SerializerSettings.Converters.Add(new StringEnumConverter());
-                })
                 .AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
