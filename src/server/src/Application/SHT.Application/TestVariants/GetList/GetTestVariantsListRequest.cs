@@ -1,5 +1,6 @@
 using SHT.Application.Common;
 using SHT.Application.Common.Tables;
+using SHT.Application.TestVariants.Contracts;
 
 namespace SHT.Application.TestVariants.GetList
 {

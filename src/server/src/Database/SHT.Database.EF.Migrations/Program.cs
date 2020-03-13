@@ -17,7 +17,7 @@ namespace SHT.Database.EF.Migrations
 
         private static async Task Update(UpdateOptions options, string[] args)
         {
-            await using MigrationDbContext dbContext = new MigrationDbContextDesignTimeFactory().CreateDbContext(args);
+            using MigrationDbContext dbContext = new MigrationDbContextDesignTimeFactory().CreateDbContext(args);
             if (options.Recreate)
             {
                 Console.WriteLine("Dropping db...");

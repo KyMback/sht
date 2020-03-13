@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MediatR;
@@ -5,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using SHT.Api.Web.Attributes;
 using SHT.Application.Common;
 using SHT.Application.Common.Tables;
+using SHT.Application.TestVariants.Contracts;
+using SHT.Application.TestVariants.Get;
 using SHT.Application.TestVariants.GetList;
 using SHT.Application.TestVariants.GetLookups;
 
@@ -31,6 +34,12 @@ namespace SHT.Api.Web.Controllers
         public Task<TableResult<TestVariantListItemDto>> GetList([FromQuery] SearchResultBaseFilter filter)
         {
             return _mediator.Send(new GetTestVariantsListRequest(filter));
+        }
+
+        [HttpGet("{id}")]
+        public Task<TestVariantDto> GetList([FromRoute] Guid id)
+        {
+            return _mediator.Send(new GetTestVariantRequest(id));
         }
     }
 }

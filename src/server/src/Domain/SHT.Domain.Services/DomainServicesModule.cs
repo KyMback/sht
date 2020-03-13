@@ -2,6 +2,7 @@ using Autofac;
 using SHT.Domain.Services.Tests;
 using SHT.Domain.Services.Tests.Student;
 using SHT.Domain.Services.Tests.Student.Questions;
+using SHT.Domain.Services.Tests.Variants;
 using SHT.Domain.Services.Users;
 using SHT.Infrastructure.Common.Extensions;
 using SHT.Infrastructure.DataAccess.Abstractions;
@@ -20,6 +21,7 @@ namespace SHT.Domain.Services
                 .AddScopedAsImplementedInterfaces<StudentTestSessionService>()
                 .AddScopedAsImplementedInterfaces<StudentQuestionService>()
                 .AddScopedAsImplementedInterfaces<StudentQuestionValidationService>()
+                .AddScopedAsImplementedInterfaces<TestVariantService>()
                 .AddScopedAsImplementedInterfaces<RegistrationValidationService>();
 
             builder

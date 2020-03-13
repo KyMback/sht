@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using SHT.Application.Common;
 
-namespace SHT.Application.TestVariants.GetList
+namespace SHT.Application.TestVariants.Contracts
 {
     [ApiDataContract]
     public class TestVariantListItemDto

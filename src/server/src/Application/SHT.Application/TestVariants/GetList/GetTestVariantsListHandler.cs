@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 using MediatR;
 using SHT.Application.Common.Tables;
+using SHT.Application.TestVariants.Contracts;
 using SHT.Domain.Services.Tests.Variants;
 using SHT.Infrastructure.Common;
 using SHT.Infrastructure.DataAccess.Abstractions;
