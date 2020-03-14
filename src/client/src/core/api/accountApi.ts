@@ -6,7 +6,17 @@ const endpoint = "/api/account";
 
 export class AccountApi {
     public static getContext = async (): Promise<UserContextDto> => {
-        return HttpApi.get<UserContextDto>(`${endpoint}/context`);
+        const query = `
+        {
+          userContext {
+            id
+            isAuthenticated
+            userType
+          }
+        }
+        `;
+        const result = await HttpApi.graphQl<{ userContext: UserContextDto }>(query);
+        return result.data.userContext;
     };
 
     public static confirmEmail = async (email: string, token: string) => {

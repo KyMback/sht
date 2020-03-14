@@ -1,5 +1,10 @@
+using System;
 using Autofac;
 using CorrelationId;
+using HotChocolate;
+using HotChocolate.AspNetCore;
+using HotChocolate.AspNetCore.Playground;
+using HotChocolate.Execution;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SHT.Api.Web.Constants;
 using SHT.Api.Web.Extensions;
+using SHT.Api.Web.GraphQl;
 using SHT.Api.Web.Middleware;
 using SHT.Api.Web.Security;
 using SHT.Application;
@@ -41,6 +47,11 @@ namespace SHT.Api.Web
                 .AddRouting()
                 .AddCustomSwagger()
                 .AddHttpContextAccessor()
+                .AddGraphQL(
+                    provider => CustomSchemaBuilder.Configure().AddServices(provider).Create(),
+                    builder => builder
+                        .Use<CustomGraphQlExceptionHandlingMiddleware>()
+                        .UseDefaultPipeline())
                 .AddMvcCore()
                 .AddCustomMvcOptions()
                 .AddCustomJsonOptions()
@@ -65,6 +76,13 @@ namespace SHT.Api.Web
         {
             app
                 .UseCorrelationId()
+                .UseIf(_hostingEnvironment.IsDevelopment(), builder => builder.UsePlayground(
+                    new PlaygroundOptions
+                    {
+                        Path = "/graphql",
+                        EnableSubscription = false,
+                        QueryPath = "/graphql",
+                    }))
                 .UseRequestLocalization(
                     RequestLocalizationConfigurator.GetRequestLocalizationOptions(app.ApplicationServices))
                 .UseMiddleware<SpaRoutingMiddleware>()
@@ -78,6 +96,11 @@ namespace SHT.Api.Web
                 .UseSwagger()
                 .UseCustomSwaggerUi()
                 .UseMiddleware<ExceptionHandlingMiddleware>()
+                .UseGraphQL(new QueryMiddlewareOptions
+                {
+                    EnableSubscriptions = false,
+                    Path = "/graphql",
+                })
                 .UseCustomEndpoints();
         }
     }

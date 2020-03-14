@@ -16,7 +16,22 @@ const apiConstants = {
     },
 };
 
+interface GraphQlResponse<TData> {
+    data: TData;
+}
+
 export class HttpApi {
+    public static graphQl = async <TData extends any>(query: string, variables?: any): Promise<GraphQlResponse<TData>> => {
+        return HttpApi.request<GraphQlResponse<TData>>({
+            method: "POST",
+            url: "/graphql",
+            body: {
+                variables,
+                query,
+            },
+        });
+    };
+
     public static get = async <TData extends any>(url: string, query?: any): Promise<TData> => {
         return HttpApi.request<TData>({
             method: "GET",

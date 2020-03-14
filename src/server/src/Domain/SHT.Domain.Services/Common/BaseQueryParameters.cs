@@ -8,7 +8,7 @@ using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.IQueryProvider
 
 namespace SHT.Domain.Services.Common
 {
-    public abstract class BaseQueryParameters<TEntity> : IQueryParameters<TEntity>
+    public class BaseQueryParameters<TEntity> : IQueryParameters<TEntity>
         where TEntity : class
     {
         public bool IsReadOnly { get; set; } = true;

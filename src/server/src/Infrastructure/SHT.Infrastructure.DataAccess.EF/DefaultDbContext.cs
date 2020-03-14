@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using SHT.Infrastructure.Common.Options;
 using SHT.Infrastructure.DataAccess.Abstractions;
 using SHT.Infrastructure.EF.Configs;
@@ -14,13 +15,16 @@ namespace SHT.Infrastructure.DataAccess.EF
     {
         private readonly ConnectionsOptions _connectionsOptions;
         private readonly Lazy<IEnumerable<IBeforeCommitHandler>> _beforeCommitHandlers;
+        private readonly ILoggerFactory _loggerFactory;
 
         public DefaultDbContext(
             ConnectionsOptions connectionsOptions,
-            Lazy<IEnumerable<IBeforeCommitHandler>> beforeCommitHandlers)
+            Lazy<IEnumerable<IBeforeCommitHandler>> beforeCommitHandlers,
+            ILoggerFactory loggerFactory)
         {
             _connectionsOptions = connectionsOptions;
             _beforeCommitHandlers = beforeCommitHandlers;
+            _loggerFactory = loggerFactory;
         }
 
         public IQueryable<TEntity> Queryable<TEntity>()
@@ -151,6 +155,7 @@ namespace SHT.Infrastructure.DataAccess.EF
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
+                .UseLoggerFactory(_loggerFactory)
                 .UseLazyLoadingProxies()
                 .UseNpgsql(_connectionsOptions.DefaultConnection);
 

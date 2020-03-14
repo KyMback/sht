@@ -34,13 +34,6 @@ namespace SHT.Api.Web.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("context")]
-        public Task<UserContextDto> GetContext()
-        {
-            return _mediator.Send(new GetContextRequest());
-        }
-
-        [AllowAnonymous]
         [HttpGet("signOut")]
         public Task SignOut()
         {

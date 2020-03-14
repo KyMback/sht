@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using SHT.Api.Web.Constants;
+using SHT.Api.Web.GraphQl;
 using SHT.Domain.Services.Exceptions;
 using SHT.Infrastructure.Common.Exceptions;
 
@@ -17,6 +18,7 @@ namespace SHT.Api.Web.Middleware
             new Dictionary<Type, (ErrorCode errorCode, int statusCode)>
             {
                 { typeof(ValidationException), (ErrorCode.DataIsInvalid, StatusCodes.Status400BadRequest) },
+                { typeof(GraphQlException), (ErrorCode.DataIsInvalid, StatusCodes.Status400BadRequest) },
                 { typeof(UnauthorizedException), (ErrorCode.Unauthorized, StatusCodes.Status401Unauthorized) },
                 {
                     typeof(DbUpdateConcurrencyException),

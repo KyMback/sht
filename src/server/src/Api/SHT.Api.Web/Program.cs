@@ -53,8 +53,6 @@ namespace SHT.Api.Web
                             })
                         .ConfigureAppConfiguration((context, builder) =>
                             builder.AddCustomConfiguration(context.HostingEnvironment, args))
-                        .UseIIS()
-                        .UseIISIntegration()
                         .UseContentRoot(Directory.GetCurrentDirectory())
                         .UseIf(isDevelopment, b => b.UseClientDistAsWebRoot())
                         .UseStartup<Startup>();
