@@ -5,24 +5,25 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using SHT.Infrastructure.Common.Options;
+using Microsoft.Extensions.Options;
 using SHT.Infrastructure.DataAccess.Abstractions;
+using SHT.Infrastructure.DataAccess.Abstractions.Options;
 using SHT.Infrastructure.EF.Configs;
 
 namespace SHT.Infrastructure.DataAccess.EF
 {
     public class DefaultDbContext : DbContext, Abstractions.IQueryProvider, IUnitOfWork, IEntitiesTracker
     {
-        private readonly ConnectionsOptions _connectionsOptions;
+        private readonly IOptions<DataAccessOptions> _dataAccessOptions;
         private readonly Lazy<IEnumerable<IBeforeCommitHandler>> _beforeCommitHandlers;
         private readonly ILoggerFactory _loggerFactory;
 
         public DefaultDbContext(
-            ConnectionsOptions connectionsOptions,
+            IOptions<DataAccessOptions> dataAccessOptions,
             Lazy<IEnumerable<IBeforeCommitHandler>> beforeCommitHandlers,
             ILoggerFactory loggerFactory)
         {
-            _connectionsOptions = connectionsOptions;
+            _dataAccessOptions = dataAccessOptions;
             _beforeCommitHandlers = beforeCommitHandlers;
             _loggerFactory = loggerFactory;
         }
@@ -155,9 +156,16 @@ namespace SHT.Infrastructure.DataAccess.EF
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-                .UseLoggerFactory(_loggerFactory)
+                .EnableDetailedErrors(_dataAccessOptions.Value.EnableDetailedErrors)
                 .UseLazyLoadingProxies()
-                .UseNpgsql(_connectionsOptions.DefaultConnection);
+                .UseNpgsql(_dataAccessOptions.Value.ConnectionsOptions.DefaultConnection);
+
+            if (_dataAccessOptions.Value.EnableLogging)
+            {
+                optionsBuilder
+                    .UseLoggerFactory(_loggerFactory)
+                    .EnableSensitiveDataLogging(_dataAccessOptions.Value.EnableSensitiveDataLogging);
+            }
 
             base.OnConfiguring(optionsBuilder);
         }

@@ -1,4 +1,4 @@
-namespace SHT.Infrastructure.Common.Options
+namespace SHT.Infrastructure.DataAccess.Abstractions.Options
 {
     public class ConnectionsOptions
     {
