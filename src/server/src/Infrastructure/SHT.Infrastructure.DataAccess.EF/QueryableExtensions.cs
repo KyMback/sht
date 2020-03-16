@@ -3,7 +3,7 @@ using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Infrastructure.DataAccess.EF
 {
-    internal static class QueryableExtensions
+    public static class QueryableExtensions
     {
         public static IQueryable<TData> WithPaging<TData>(this IQueryable<TData> queryable, PageSettings settings)
         {

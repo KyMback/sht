@@ -10,6 +10,10 @@ namespace SHT.Infrastructure.DataAccess.Abstractions
             Total = total;
         }
 
+        public SearchResult()
+        {
+        }
+
         public IReadOnlyCollection<TData> Items { get; set; }
 
         public long Total { get; set; }

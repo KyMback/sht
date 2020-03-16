@@ -1,4 +1,7 @@
 using HotChocolate.Types;
+using SHT.Api.Web.GraphQl.Extensions;
+using SHT.Api.Web.Security.Constants;
+using SHT.Application.Tests.TestSessions.Contracts;
 
 namespace SHT.Api.Web.GraphQl.GraphTypes
 {
@@ -7,8 +10,21 @@ namespace SHT.Api.Web.GraphQl.GraphTypes
         protected override void Configure(IObjectTypeDescriptor<GraphQueries> descriptor)
         {
             descriptor
-                .Field(f => f.GetContext(default, default))
+                .Field(f => f.GetUserContext(default, default))
+                .Type<NonNullType<UserContextGraphType>>()
                 .Name("userContext");
+
+            descriptor
+                .Authorize(AuthorizationPolicyNames.InstructorsOnly)
+                .Field(f => f.GetTestSessionListItems(default, default))
+                .Type<NonNullType<ListType<NonNullType<TestSessionListItemDtoGraphType>>>>()
+                .Name("testSessionListItems")
+                .UseOffsetBasedPaging<NonNullType<TestSessionListItemDtoGraphType>, TestSessionListItemDto>()
+                .UseSorting<TestSessionListItemDto>(typeDescriptor =>
+                {
+                    typeDescriptor.BindFieldsExplicitly();
+                    typeDescriptor.Sortable(e => e.CreatedAt);
+                });
         }
     }
 }

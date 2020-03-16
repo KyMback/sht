@@ -9,7 +9,6 @@ namespace SHT.Api.Web.GraphQl.GraphTypes
         protected override void Configure(IEnumTypeDescriptor<UserType> descriptor)
         {
             descriptor.UseNamesAsValues();
-            descriptor.BindValuesExplicitly();
         }
     }
 }

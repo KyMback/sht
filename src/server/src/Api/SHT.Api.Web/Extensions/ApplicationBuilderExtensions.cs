@@ -1,4 +1,6 @@
 using System;
+using HotChocolate.AspNetCore;
+using HotChocolate.AspNetCore.Playground;
 using Microsoft.AspNetCore.Builder;
 using SHT.Api.Web.Constants;
 using SHT.Api.Web.Services;
@@ -23,6 +25,26 @@ namespace SHT.Api.Web.Extensions
                         $"{RoutesConstants.SwaggerJsonRoute}/{versionString}/swagger.json",
                         versionString);
                 });
+        }
+
+        public static IApplicationBuilder UseGraphQlPlayground(this IApplicationBuilder applicationBuilder)
+        {
+            return applicationBuilder.UsePlayground(
+                new PlaygroundOptions
+                {
+                    Path = "/graphql/playground",
+                    EnableSubscription = false,
+                    QueryPath = "/api/graphql",
+                });
+        }
+
+        public static IApplicationBuilder UseGraphQlEndpoint(this IApplicationBuilder applicationBuilder)
+        {
+            return applicationBuilder.UseGraphQL(new QueryMiddlewareOptions
+            {
+                EnableSubscriptions = false,
+                Path = "/api/graphql",
+            });
         }
 
         public static IApplicationBuilder UseCustomEndpoints(this IApplicationBuilder applicationBuilder)
