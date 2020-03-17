@@ -1,65 +1,102 @@
-import { Local } from "../../core/localization/local";
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import { ensureLocal, Local } from "../../core/localization/local";
+import React, {
+    forwardRef,
+    Ref,
+    RefAttributes,
+    useCallback,
+    useContext,
+    useEffect,
+    useImperativeHandle,
+    useMemo,
+    useRef,
+    useState,
+} from "react";
 import { ControlProps } from "../controls";
-import { ValidationFunction } from "./validations";
 import { FormGroup } from "reactstrap";
 import { ValidationContext } from "./validationProvider";
 import { Icon, icons } from "../icons/icon";
+import { KeyOrJSX } from "../../typings/customTypings";
 
 export interface FormWrapperProps<TValue, TControlProps extends ControlProps<TValue>> {
-    label: string;
+    label?: KeyOrJSX;
     name?: string;
     control: React.FC<TControlProps>;
     controlProps: TControlProps;
     validations?: Array<ValidationFunction<TValue>>;
 }
 
-export const FormControlWrapper = <TValue, TControlProps extends ControlProps<TValue>>({
-    control: Control,
-    label,
-    name,
-    controlProps,
-    validations,
-}: FormWrapperProps<TValue, TControlProps>) => {
-    const [isUsed, setIsUsed] = useState<boolean>(false);
-    const context = useContext(ValidationContext);
+export interface DetailedValidationError {
+    key: string;
+    values?: any;
+}
 
-    useEffect(() => {
-        const validator = () => {
-            setIsUsed(true);
-            return !validate(controlProps.value, validations);
-        };
-        context.add(validator);
-        return () => context.remove(validator);
-    }, [context, controlProps.value, validations, isUsed]);
+export type ValidationError = string | DetailedValidationError;
 
-    const onChange = (value: TValue) => {
-        setIsUsed(true);
-        controlProps.onChange(value);
+export type ValidationFunction<TValue> = (value: TValue) => ValidationError | undefined;
+
+const withValidation = (Control: React.FC<any & RefAttributes<ValidationHandlers>>) => {
+    return <TValue, TControlProps extends ControlProps<TValue>>(props: FormWrapperProps<TValue, TControlProps>) => {
+        const controlRef = useRef<ValidationHandlers>(null);
+        const context = useContext(ValidationContext);
+        useEffect(() => {
+            const isValid = () => {
+                controlRef.current!.setIsUsed(true);
+                return controlRef.current!.isValid();
+            };
+            context.add(isValid);
+            return () => context.remove(isValid);
+        }, [context]);
+
+        return <Control {...props} ref={controlRef} />;
     };
-
-    const error = validate(controlProps.value, validations);
-
-    const serializerProps = JSON.stringify(controlProps);
-    const memoControl = useMemo(
-        () => <Control id={name} {...controlProps} valid={!isUsed ? undefined : !error} onChange={onChange} />,
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [serializerProps, isUsed, name, error],
-    );
-    const errorMessage = useMemo(() => isUsed && error && <ErrorMessage error={error} />, [error, isUsed]);
-
-    return (
-        <FormGroup className={`form-control-wrapper ${getClassNames(isUsed, error)}`}>
-            <label htmlFor={name}>
-                <Local id={label} />
-            </label>
-            {memoControl}
-            {errorMessage}
-        </FormGroup>
-    );
 };
 
-function getClassNames(isUsed: boolean, error?: string): string {
+interface ValidationHandlers {
+    setIsUsed: (isUsed: boolean) => void;
+    isValid: () => boolean;
+}
+
+export const FormControlWrapper = withValidation(
+    forwardRef(
+        <TValue, TControlProps extends ControlProps<TValue>>(
+            { control: Control, label, name, controlProps, validations }: FormWrapperProps<TValue, TControlProps>,
+            ref: Ref<ValidationHandlers>,
+        ) => {
+            useImperativeHandle(
+                ref,
+                () => ({
+                    setIsUsed: setIsUsed,
+                    isValid: () => !validate(controlProps.value, validations),
+                }),
+                [controlProps.value, validations],
+            );
+            const [isUsed, setIsUsed] = useState<boolean>(false);
+
+            const onChange = useCallback(
+                (value: TValue) => {
+                    setIsUsed(true);
+                    controlProps.onChange(value);
+                    // eslint-disable-next-line react-hooks/exhaustive-deps
+                },
+                [controlProps],
+            );
+
+            const error = validate(controlProps.value, validations);
+            const errorMessage = useMemo(() => isUsed && error && <ErrorMessage error={error} />, [error, isUsed]);
+            const labelComponent = useMemo(() => label && ensureLocal(label), [label]);
+
+            return (
+                <FormGroup className={`form-control-wrapper ${getClassNames(isUsed, error)}`}>
+                    <label htmlFor={name}>{labelComponent}</label>
+                    <Control id={name} {...controlProps} valid={!isUsed ? undefined : !error} onChange={onChange} />
+                    {errorMessage}
+                </FormGroup>
+            );
+        },
+    ),
+);
+
+function getClassNames(isUsed: boolean, error?: ValidationError): string {
     const classNames = [];
 
     if (isUsed && error) {
@@ -69,7 +106,7 @@ function getClassNames(isUsed: boolean, error?: string): string {
     return classNames.join(" ");
 }
 
-function validate(value?: any, validations?: Array<ValidationFunction<any>>): string | undefined {
+function validate(value?: any, validations?: Array<ValidationFunction<any>>): ValidationError | undefined {
     if (!validations) {
         return;
     }
@@ -82,14 +119,22 @@ function validate(value?: any, validations?: Array<ValidationFunction<any>>): st
 }
 
 interface ErrorMessageProps {
-    error: string;
+    error: ValidationError;
 }
 
 const ErrorMessage = ({ error }: ErrorMessageProps) => {
     return (
         <span className="validation-error">
             <Icon icon={icons.error} />
-            <Local id={`validation_${error}`} />
+            <ErrorLocal error={error} />
         </span>
     );
+};
+
+const ErrorLocal = ({ error }: ErrorMessageProps) => {
+    if (typeof error === "string") {
+        return <Local id={`validation_${error}`} />;
+    } else {
+        return <Local id={`validation_${error.key}`} values={error.values} />;
+    }
 };

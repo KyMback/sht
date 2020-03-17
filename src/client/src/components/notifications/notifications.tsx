@@ -9,7 +9,7 @@ const notificationsDefaults: ToastContainerProps = {
     hideProgressBar: true,
 };
 
-export const NotificationsContainer = <ToastContainer {...notificationsDefaults} />;
+export const NotificationsContainer = () => <ToastContainer {...notificationsDefaults} />;
 
 export const notifications = {
     error: (message: KeyOrJSX) => toast.error(ensureLocal(message)),

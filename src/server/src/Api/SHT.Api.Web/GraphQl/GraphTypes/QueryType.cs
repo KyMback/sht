@@ -15,8 +15,8 @@ namespace SHT.Api.Web.GraphQl.GraphTypes
                 .Name("userContext");
 
             descriptor
-                .Authorize(AuthorizationPolicyNames.InstructorsOnly)
                 .Field(f => f.GetTestSessionListItems(default, default))
+                .Authorize(AuthorizationPolicyNames.InstructorsOnly)
                 .Type<NonNullType<ListType<NonNullType<TestSessionListItemDtoGraphType>>>>()
                 .Name("testSessionListItems")
                 .UseOffsetBasedPaging<NonNullType<TestSessionListItemDtoGraphType>, TestSessionListItemDto>()

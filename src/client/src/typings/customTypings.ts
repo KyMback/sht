@@ -9,3 +9,5 @@ export type Color = "primary" | "secondary";
 export interface IdParams {
     id?: string;
 }
+
+export type PropsWithStore<TStore> = { store: TStore };

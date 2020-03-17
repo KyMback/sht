@@ -7,7 +7,7 @@ import { RootModule } from "./view/rootModule";
 import { useAsyncEffect } from "use-async-effect";
 import { userContextStore } from "./stores/userContextStore";
 import { observer } from "mobx-react-lite";
-import { IntlProvider } from "react-intl";
+import { RawIntlProvider } from "react-intl";
 import { localStore } from "./stores/localStore";
 import { LoadingAnimationWrapper } from "./components/layouts/loading/loadingAnimationWrapper";
 import { NotificationsContainer } from "./components/notifications/notifications";
@@ -21,16 +21,14 @@ export const App = observer(() => {
     }, []);
 
     return (
-        <>
-            <IntlProvider locale={localStore.language} messages={localStore.messages}>
-                <Router history={routingStore.history}>
-                    <ApiErrorHandler>
-                        <MainLayout>{isContextLoaded && <RootModule />}</MainLayout>
-                    </ApiErrorHandler>
-                </Router>
-                {NotificationsContainer}
-            </IntlProvider>
+        <RawIntlProvider value={localStore.intlShape}>
+            <Router history={routingStore.history}>
+                <ApiErrorHandler>
+                    <MainLayout>{isContextLoaded && <RootModule />}</MainLayout>
+                </ApiErrorHandler>
+            </Router>
+            <NotificationsContainer />
             <LoadingAnimationWrapper />
-        </>
+        </RawIntlProvider>
     );
 });
