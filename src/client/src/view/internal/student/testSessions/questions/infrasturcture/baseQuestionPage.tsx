@@ -40,12 +40,12 @@ export const BaseQuestionPage = observer(() => {
     return (
         <Form onValidSubmit={store.submit}>
             <CardSectionsGroup
-                title={<Local id="TestVariantTemplate" values={{ variant: context.variant }}/>}
-                topActions={topActions} actions={actions}>
-                <CardSection title={<Local id="Question_TitleTemplate" values={{ number: store.number }}/>}>
-                    <DisableCopyPasteWrapper>
-                        {component}
-                    </DisableCopyPasteWrapper>
+                title={<Local id="TestVariantTemplate" values={{ variant: context.variant }} />}
+                topActions={topActions}
+                actions={actions}
+            >
+                <CardSection title={<Local id="Question_TitleTemplate" values={{ number: store.number }} />}>
+                    <DisableCopyPasteWrapper>{component}</DisableCopyPasteWrapper>
                 </CardSection>
             </CardSectionsGroup>
         </Form>
@@ -55,7 +55,7 @@ export const BaseQuestionPage = observer(() => {
 function getComponent(store: BaseQuestionStore) {
     switch (store.type) {
         case QuestionType.FreeText:
-            return <FreeTextQuestion store={store as FreeTextQuestionStore}/>;
+            return <FreeTextQuestion store={store as FreeTextQuestionStore} />;
         default:
             throw new Error(`Invalid question type: ${store.type}`);
     }

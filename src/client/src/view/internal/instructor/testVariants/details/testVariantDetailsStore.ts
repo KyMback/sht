@@ -10,7 +10,7 @@ export class TestVariantDetailsStore {
         return !this.id;
     }
 
-    @action public setName = (value?: string) => this.name = value;
+    @action public setName = (value?: string) => (this.name = value);
 
     constructor(id?: string) {
         this.id = id;
@@ -25,9 +25,9 @@ export class TestVariantDetailsStore {
 
         runInAction(() => {
             this.name = result.name;
-        })
+        });
     };
 
-    public save = async () => {
-    };
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    public save = async () => {};
 }

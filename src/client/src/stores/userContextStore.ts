@@ -28,7 +28,7 @@ class UserContextStore {
         runInAction(() => {
             Object.assign(this, result);
         });
-    }
+    };
 }
 
 export const userContextStore = new UserContextStore();

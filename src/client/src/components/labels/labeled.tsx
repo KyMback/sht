@@ -8,20 +8,11 @@ interface Props<TValue> {
 }
 
 export const LabeledText = (props: Props<string>) => {
-    return (
-        <LabelWrapper title={props.title}>
-            {props.value || NoneContent}
-        </LabelWrapper>
-    );
+    return <LabelWrapper title={props.title}>{props.value || NoneContent}</LabelWrapper>;
 };
 
 export const LabeledDateTime = ({ value, title }: Props<string>) => {
-    return (
-        <LabelWrapper title={title}>
-            {value || NoneContent}
-        </LabelWrapper>
-    );
+    return <LabelWrapper title={title}>{value || NoneContent}</LabelWrapper>;
 };
 
-const NoneContent = <Local id="None"/>;
-
+const NoneContent = <Local id="None" />;

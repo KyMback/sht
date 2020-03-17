@@ -14,12 +14,14 @@ interface Props {
 
 export const ActionIcon = ({ icon, onClick, tooltip, className }: Props) => {
     const id = useMemo(() => uniqId("tooltip_"), []);
-    const tooltipComponent = useMemo(() => (tooltip &&
-        <UncontrolledTooltip target={id}>{ensureLocal(tooltip)}</UncontrolledTooltip>), [id, tooltip]);
+    const tooltipComponent = useMemo(
+        () => tooltip && <UncontrolledTooltip target={id}>{ensureLocal(tooltip)}</UncontrolledTooltip>,
+        [id, tooltip],
+    );
 
     return (
         <div id={id} className={`action-icon ${className || ""}`} onClick={onClick}>
-            <Icon icon={icon}/>
+            <Icon icon={icon} />
             {tooltipComponent}
         </div>
     );

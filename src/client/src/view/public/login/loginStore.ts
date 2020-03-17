@@ -10,15 +10,17 @@ export class LoginStore {
     @observable public login?: string;
     @observable public password?: string;
 
-    @action public setLogin = (value?: string) => this.login = value;
-    @action public setPassword = (value?: string) => this.password = value;
+    @action public setLogin = (value?: string) => (this.login = value);
+    @action public setPassword = (value?: string) => (this.password = value);
 
     public signIn = async () => {
         try {
-            const result = await AccountApi.signIn(SignInDataDto.fromJS({
-                login: this.login,
-                password: this.password,
-            }));
+            const result = await AccountApi.signIn(
+                SignInDataDto.fromJS({
+                    login: this.login,
+                    password: this.password,
+                }),
+            );
             if (result.succeeded) {
                 await userContextStore.loadContext();
                 await routingStore.gotoBase();

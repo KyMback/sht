@@ -7,8 +7,8 @@ import { InstructorModule } from "./instructor/instructorModule";
 const routes: Array<Route> = [
     {
         path: "/",
-        component: () => userContextStore.isInstructor ? <InstructorModule/> : <StudentModule/>,
+        component: () => (userContextStore.isInstructor ? <InstructorModule /> : <StudentModule />),
     },
 ];
 
-export const InternalModule = () => <RoutesModule routes={routes}/>;
+export const InternalModule = () => <RoutesModule routes={routes} />;

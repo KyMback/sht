@@ -18,13 +18,14 @@ export const StudentTestSessionQuestionsList = observer(() => {
             title: "OpenTestDashboard",
             color: "primary",
             onClick: () => routingStore.goto(`/test-session/${store.sessionId}`),
-        }
+        },
     ];
 
     return (
         <CardSectionsGroup
-            title={<Local id="TestVariantTemplate" values={{ variant: store.variant }}/>}
-            topActions={actions}>
+            title={<Local id="TestVariantTemplate" values={{ variant: store.variant }} />}
+            topActions={actions}
+        >
             <CardSection title="StudentQuestions_Questions">
                 <ListGroup>
                     {store.questionsList.map((item, index) => (
@@ -33,11 +34,10 @@ export const StudentTestSessionQuestionsList = observer(() => {
                             className="clickable"
                             action
                             key={index}
-                            onClick={() => routingStore.goto(`/test-session/${store.sessionId}/questions/${item.id}`)}>
-                            <ListGroupItemHeading>
-                                {item.number}
-                            </ListGroupItemHeading>
-                            <EnumLocal enumObject={QuestionType} value={item.type}/>
+                            onClick={() => routingStore.goto(`/test-session/${store.sessionId}/questions/${item.id}`)}
+                        >
+                            <ListGroupItemHeading>{item.number}</ListGroupItemHeading>
+                            <EnumLocal enumObject={QuestionType} value={item.type} />
                         </ListGroupItem>
                     ))}
                 </ListGroup>

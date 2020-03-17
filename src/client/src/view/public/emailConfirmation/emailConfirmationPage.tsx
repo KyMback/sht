@@ -12,9 +12,7 @@ export const EmailConfirmationPage = () => {
     const data = queryString.parse(loc.search.slice(1));
     useAsyncEffect(async () => confirmAccount(data["email"] as string, data["token"] as string), []);
 
-    return (
-        <></>
-    );
+    return <></>;
 };
 
 const confirmAccount = async (email: string, token: string) => {

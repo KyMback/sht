@@ -21,11 +21,11 @@ export class TestSessionDetailsEditStore {
         this.id = id;
     }
 
-    @action setName = (value?: string) => this.name = value;
+    @action setName = (value?: string) => (this.name = value);
     @action setSelectedGroups = (value?: Array<string>) => {
         this.selectedGroups = value || [];
     };
-    @action setTestVariantsIds = (value: Array<TestVariant>) => this.testVariants = value;
+    @action setTestVariantsIds = (value: Array<TestVariant>) => (this.testVariants = value);
 
     @action
     public addNewTestVariant = () => {
@@ -103,7 +103,7 @@ export class TestSessionDetailsEditStore {
             studentsIds: this.selectedGroups.map(g => this.groupedGroups[g]).flat(),
             testVariants: this.testVariants,
         });
-    }
+    };
 }
 
 export interface TestVariant {

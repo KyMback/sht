@@ -42,9 +42,7 @@ export const TestVariantDetails = observer(() => {
                         validations={[required]}
                     />
                 </CardSection>
-                <CardSection title="TestVariant_Questions">
-
-                </CardSection>
+                {/*<CardSection title="TestVariant_Questions"></CardSection>*/}
             </CardSectionsGroup>
         </Form>
     );

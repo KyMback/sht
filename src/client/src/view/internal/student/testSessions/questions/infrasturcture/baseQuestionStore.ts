@@ -18,4 +18,3 @@ export abstract class BaseQuestionStore {
     public abstract loadData: () => Promise<any>;
     public abstract submit: () => Promise<any>;
 }
-

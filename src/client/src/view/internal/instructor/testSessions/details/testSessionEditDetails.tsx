@@ -16,7 +16,6 @@ import { SessionTestVariantItem } from "./sessionTestVariantItem";
 import { useParams } from "react-router-dom";
 import { IdParams } from "../../../../../typings/customTypings";
 
-
 export const TestSessionEditDetails = observer(() => {
     const params = useParams<IdParams>();
     const store = useLocalStore(() => new TestSessionDetailsEditStore(params.id));
@@ -51,16 +50,19 @@ export const TestSessionEditDetails = observer(() => {
                         validations={[required]}
                     />
                 </CardSection>
-                <CardSection title="TestSession_TestVariants" actions={[
-                    {
-                        color: "primary",
-                        icon: icons.add,
-                        onClick: store.addNewTestVariant,
-                    },
-                ]}>
+                <CardSection
+                    title="TestSession_TestVariants"
+                    actions={[
+                        {
+                            color: "primary",
+                            icon: icons.add,
+                            onClick: store.addNewTestVariant,
+                        },
+                    ]}
+                >
                     <ListGroup>
                         {store.testVariants.map((tv, index) => (
-                            <SessionTestVariantItem key={index} data={tv} store={store}/>
+                            <SessionTestVariantItem key={index} data={tv} store={store} />
                         ))}
                     </ListGroup>
                 </CardSection>

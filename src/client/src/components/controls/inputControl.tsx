@@ -8,15 +8,7 @@ export interface InputControlProps extends ControlProps<string | undefined> {
     valid?: boolean;
 }
 
-export const InputControl = (
-    {
-        onChange,
-        value,
-        className,
-        type,
-        valid,
-    }: InputControlProps,
-) => {
+export const InputControl = ({ onChange, value, className, type, valid }: InputControlProps) => {
     return (
         <Input
             invalid={valid === undefined ? undefined : !valid}

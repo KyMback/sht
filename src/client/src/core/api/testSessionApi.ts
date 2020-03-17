@@ -1,7 +1,10 @@
 import {
     CreatedEntityResponse,
-    SearchResultBaseFilter, TestSessionDetailsDto, TestSessionDto,
-    TestSessionListItemDto, TestSessionStateTransitionRequest,
+    SearchResultBaseFilter,
+    TestSessionDetailsDto,
+    TestSessionDto,
+    TestSessionListItemDto,
+    TestSessionStateTransitionRequest,
 } from "../../typings/dataContracts";
 import { HttpApi } from "./http/httpApi";
 import { TableResult } from "./tableResult";
@@ -25,8 +28,26 @@ export class TestSessionApi {
         return HttpApi.get<TestSessionDetailsDto>(`${endpoint}/details/${id}`);
     };
 
-    public static getListItems = async (filter: SearchResultBaseFilter): Promise<TableResult<TestSessionListItemDto>> => {
-        return HttpApi.get<TableResult<TestSessionListItemDto>>(`${endpoint}/list`, filter.toJSON());
+    public static getListItems = async (
+        filter: SearchResultBaseFilter,
+    ): Promise<TableResult<TestSessionListItemDto>> => {
+        const query = `
+{
+  testSessionListItems(pageNumber: ${filter.pageNumber}, pageSize:${filter.pageSize}, order_by:{createdAt:DESC}) {
+    items {
+      id
+      createdAt
+      name
+      state
+    }
+    total
+  }
+}
+        `;
+        const {
+            data: { testSessionListItems },
+        } = await HttpApi.graphQl<{ testSessionListItems: TableResult<TestSessionListItemDto> }>(query);
+        return testSessionListItems;
     };
 
     public static getAvailableTriggers = async (id: string): Promise<Array<string>> => {
@@ -37,4 +58,3 @@ export class TestSessionApi {
         return HttpApi.put(`${endpoint}/state`, data);
     };
 }
-

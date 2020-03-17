@@ -6,7 +6,6 @@ export type KeyOrJSX = string | React.ReactNode;
 
 export type Color = "primary" | "secondary";
 
-
 export interface IdParams {
     id?: string;
 }

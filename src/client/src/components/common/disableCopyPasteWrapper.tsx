@@ -6,7 +6,12 @@ interface Props {
 
 export const DisableCopyPasteWrapper = ({ children }: Props) => {
     return (
-        <div className="disable-copy-paste" onCut={e => e.preventDefault()} onPaste={e => e.preventDefault()} onCopy={e => e.preventDefault()}>
+        <div
+            className="disable-copy-paste"
+            onCut={e => e.preventDefault()}
+            onPaste={e => e.preventDefault()}
+            onCopy={e => e.preventDefault()}
+        >
             {children}
         </div>
     );

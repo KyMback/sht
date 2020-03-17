@@ -20,10 +20,12 @@ const actions: Array<SectionActionProps> = [
 export const TestSessionsList = () => {
     const [testSessions, setTestSessions] = useState<Array<TestSessionListItemDto>>([]);
     useAsyncEffect(async () => {
-        const result = await TestSessionApi.getListItems(SearchResultBaseFilter.fromJS({
-            pageNumber: 1,
-            pageSize: 100,
-        }));
+        const result = await TestSessionApi.getListItems(
+            SearchResultBaseFilter.fromJS({
+                pageNumber: 1,
+                pageSize: 100,
+            }),
+        );
         setTestSessions(result.items);
     }, []);
 
@@ -36,16 +38,11 @@ export const TestSessionsList = () => {
                             key={index}
                             className="clickable"
                             action
-                            onClick={() => routingStore.goto(`/test-session/${item.id}`)}>
-                            <ListGroupItemHeading>
-                                {item.name}
-                            </ListGroupItemHeading>
-                            <div>
-                                {item.state}
-                            </div>
-                            <div>
-                                {dateAndTime(item.createdAt)}
-                            </div>
+                            onClick={() => routingStore.goto(`/test-session/${item.id}`)}
+                        >
+                            <ListGroupItemHeading>{item.name}</ListGroupItemHeading>
+                            <div>{item.state}</div>
+                            <div>{dateAndTime(item.createdAt)}</div>
                         </ListGroupItem>
                     ))}
                 </ListGroup>

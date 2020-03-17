@@ -12,7 +12,7 @@ interface Props {
 export const IconButton = ({ icon, onClick, color }: Props) => {
     return (
         <Button color={color} onClick={onClick}>
-            <Icon icon={icon}/>
+            <Icon icon={icon} />
         </Button>
     );
 };

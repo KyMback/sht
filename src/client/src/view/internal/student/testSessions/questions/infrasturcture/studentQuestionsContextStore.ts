@@ -26,10 +26,13 @@ export class StudentQuestionsContextStore {
             this.sessionState = session.state;
             this.variant = session.variant;
             this.questionsList = questions;
-            questions.forEach(q => this.questionsMap[q.id] = {
-                type: q.type,
-                id: q.id,
-            });
+            questions.forEach(
+                q =>
+                    (this.questionsMap[q.id] = {
+                        type: q.type,
+                        id: q.id,
+                    }),
+            );
             this.isDataLoaded = true;
         });
     };

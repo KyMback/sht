@@ -16,17 +16,14 @@ export const SessionTestVariantItem = observer(({ data, store }: Props) => {
     return (
         <ListGroupItem>
             <div className="d-flex justify-content-end">
-                <ActionIcon
-                    icon={icons.close}
-                    onClick={() => store.removeTestVariant(data)}
-                    tooltip="Remove"/>
+                <ActionIcon icon={icons.close} onClick={() => store.removeTestVariant(data)} tooltip="Remove" />
             </div>
             <Row>
                 <Col>
                     <FormInput
                         label="TestSession_TestVariantName"
                         value={data.name}
-                        onChange={v => data.name = v}
+                        onChange={v => (data.name = v)}
                         validations={[required, nameShouldBeUniq(store.testVariants.map(e => e.name))]}
                     />
                 </Col>
@@ -36,7 +33,7 @@ export const SessionTestVariantItem = observer(({ data, store }: Props) => {
                         isClearable
                         value={data.testVariantId}
                         options={store.testVariantsItems}
-                        onChange={v => data.testVariantId = v}
+                        onChange={v => (data.testVariantId = v)}
                         validations={[required]}
                     />
                 </Col>

@@ -25,15 +25,12 @@ export const App = observer(() => {
             <IntlProvider locale={localStore.language} messages={localStore.messages}>
                 <Router history={routingStore.history}>
                     <ApiErrorHandler>
-                        <MainLayout>
-                            {isContextLoaded && <RootModule/>}
-                        </MainLayout>
+                        <MainLayout>{isContextLoaded && <RootModule />}</MainLayout>
                     </ApiErrorHandler>
                 </Router>
                 {NotificationsContainer}
             </IntlProvider>
-            <LoadingAnimationWrapper/>
+            <LoadingAnimationWrapper />
         </>
     );
 });
-

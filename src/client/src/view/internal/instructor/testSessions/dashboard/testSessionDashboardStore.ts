@@ -37,10 +37,12 @@ export class TestSessionDashboardStore {
 
     @action
     public stateTransition = async (trigger: string) => {
-        await TestSessionApi.stateTransition(TestSessionStateTransitionRequest.fromJS({
-            testSessionId: this.id,
-            trigger,
-        }));
+        await TestSessionApi.stateTransition(
+            TestSessionStateTransitionRequest.fromJS({
+                testSessionId: this.id,
+                trigger,
+            }),
+        );
         await this.loadData();
     };
 }

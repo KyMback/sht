@@ -14,4 +14,4 @@ const routes: Array<Route> = [
     },
 ];
 
-export const StudentModule = () => <RoutesModule routes={routes}/>;
+export const StudentModule = () => <RoutesModule routes={routes} />;

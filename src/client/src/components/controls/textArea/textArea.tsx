@@ -7,15 +7,7 @@ export interface TextAreaProps extends ControlProps<string | undefined> {
     minRows?: number;
 }
 
-export const TextArea = (
-    {
-        value,
-        onChange,
-        valid,
-        className,
-        minRows,
-    }: TextAreaProps,
-) => {
+export const TextArea = ({ value, onChange, valid, className, minRows }: TextAreaProps) => {
     const validationClass = valid === undefined ? "" : valid ? "is-valid" : "is-invalid";
 
     return (

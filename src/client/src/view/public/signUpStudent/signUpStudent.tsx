@@ -40,12 +40,7 @@ export const SignUpStudent = observer(() => {
                         onChange={store.setLastName}
                         validations={[required]}
                     />
-                    <FormInput
-                        label="Group"
-                        value={store.group}
-                        onChange={store.setGroup}
-                        validations={[required]}
-                    />
+                    <FormInput label="Group" value={store.group} onChange={store.setGroup} validations={[required]} />
                     <FormInput
                         label="Password"
                         type="password"

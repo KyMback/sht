@@ -28,19 +28,20 @@ export const TestSessionDashboard = observer(() => {
             title: "Edit",
             onClick: () => routingStore.goto(`/test-session/edit/${store.id}`),
         },
-    ].concat(store.triggers.map(item => ({
-        color: "primary",
-        title: `TestSession_Trigger_${item}`,
-        onClick: () => store.stateTransition(item),
-    })));
+    ].concat(
+        store.triggers.map(item => ({
+            color: "primary",
+            title: `TestSession_Trigger_${item}`,
+            onClick: () => store.stateTransition(item),
+        })),
+    );
 
     return (
         <CardSectionsGroup topActions={actions}>
             <CardSection title="TestSession_Details">
-                <LabeledText title="TestSessionDashboard_Name" value={store.name}/>
-                <LabeledText title="TestSession_State" value={store.state}/>
+                <LabeledText title="TestSessionDashboard_Name" value={store.name} />
+                <LabeledText title="TestSession_State" value={store.state} />
             </CardSection>
         </CardSectionsGroup>
     );
 });
-

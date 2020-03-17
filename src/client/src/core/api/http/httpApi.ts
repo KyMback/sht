@@ -21,7 +21,10 @@ interface GraphQlResponse<TData> {
 }
 
 export class HttpApi {
-    public static graphQl = async <TData extends any>(query: string, variables?: any): Promise<GraphQlResponse<TData>> => {
+    public static graphQl = async <TData extends any>(
+        query: string,
+        variables?: any,
+    ): Promise<GraphQlResponse<TData>> => {
         return HttpApi.request<GraphQlResponse<TData>>({
             method: "POST",
             url: "/api/graphql",

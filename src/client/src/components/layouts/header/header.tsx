@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 import {
-    Collapse, DropdownItem, DropdownMenu, DropdownToggle, Nav,
-    Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, UncontrolledDropdown,
+    Collapse,
+    DropdownItem,
+    DropdownMenu,
+    DropdownToggle,
+    Nav,
+    Navbar,
+    NavbarBrand,
+    NavbarToggler,
+    NavItem,
+    NavLink,
+    UncontrolledDropdown,
 } from "reactstrap";
 import { routingStore } from "../../../stores/routingStore";
 import { KeyOrJSX } from "../../../typings/customTypings";
@@ -26,13 +35,7 @@ export interface AccountMenuItem {
     withDivider?: boolean;
 }
 
-export const Header = (
-    {
-        logo,
-        navItems,
-        accountItems,
-    }: Props,
-) => {
+export const Header = ({ logo, navItems, accountItems }: Props) => {
     const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
 
     return (
@@ -41,24 +44,24 @@ export const Header = (
                 <NavbarBrand className="clickable" onClick={routingStore.gotoBase}>
                     {logo ? ensureLocal(logo) : "Logo"}
                 </NavbarBrand>
-                <NavbarToggler onClick={_ => setIsCollapsed(!isCollapsed)} className="mr-2"/>
+                <NavbarToggler onClick={_ => setIsCollapsed(!isCollapsed)} className="mr-2" />
                 <Collapse isOpen={isCollapsed} navbar className="justify-content-between">
-                    <NavBar navItems={navItems}/>
-                    {accountItems && <UncontrolledDropdown className="account-menu">
-                        <DropdownToggle className="account-toggler">
-                            <Icon icon={icons.account}/>
-                        </DropdownToggle>
-                        <DropdownMenu right>
-                            {accountItems.map((value, index) => (
-                                <div key={index}>
-                                    {value.withDivider && <DropdownItem divider/>}
-                                    <DropdownItem onClick={value.onClick}>
-                                        {ensureLocal(value.title)}
-                                    </DropdownItem>
-                                </div>
-                            ))}
-                        </DropdownMenu>
-                    </UncontrolledDropdown>}
+                    <NavBar navItems={navItems} />
+                    {accountItems && (
+                        <UncontrolledDropdown className="account-menu">
+                            <DropdownToggle className="account-toggler">
+                                <Icon icon={icons.account} />
+                            </DropdownToggle>
+                            <DropdownMenu right>
+                                {accountItems.map((value, index) => (
+                                    <div key={index}>
+                                        {value.withDivider && <DropdownItem divider />}
+                                        <DropdownItem onClick={value.onClick}>{ensureLocal(value.title)}</DropdownItem>
+                                    </div>
+                                ))}
+                            </DropdownMenu>
+                        </UncontrolledDropdown>
+                    )}
                 </Collapse>
             </Navbar>
         </header>
@@ -74,13 +77,14 @@ const NavBar = ({ navItems }: NavBarProps) => {
 
     return (
         <Nav navbar>
-            {navItems && navItems.map((item, index) => (
-                <NavItem key={index} active={location.pathname.startsWith(item.href)}>
-                    <NavLink className="clickable" onClick={_ => routingStore.goto(item.href)}>
-                        {ensureLocal(item.title)}
-                    </NavLink>
-                </NavItem>
-            ))}
+            {navItems &&
+                navItems.map((item, index) => (
+                    <NavItem key={index} active={location.pathname.startsWith(item.href)}>
+                        <NavLink className="clickable" onClick={_ => routingStore.goto(item.href)}>
+                            {ensureLocal(item.title)}
+                        </NavLink>
+                    </NavItem>
+                ))}
         </Nav>
     );
 };

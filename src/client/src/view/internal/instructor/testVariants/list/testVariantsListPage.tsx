@@ -29,13 +29,10 @@ export const TestVariantsListPage = observer(() => {
                             key={index}
                             className="clickable"
                             action
-                            onClick={() => routingStore.goto(`/test-variants/${item.id}/details`)}>
-                            <ListGroupItemHeading>
-                                {item.name}
-                            </ListGroupItemHeading>
-                            <div>
-                                {item.createdByName}
-                            </div>
+                            onClick={() => routingStore.goto(`/test-variants/${item.id}/details`)}
+                        >
+                            <ListGroupItemHeading>{item.name}</ListGroupItemHeading>
+                            <div>{item.createdByName}</div>
                         </ListGroupItem>
                     ))}
                 </ListGroup>

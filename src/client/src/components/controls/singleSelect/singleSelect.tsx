@@ -12,17 +12,15 @@ export interface SingleSelectProps<TData = any> extends ControlProps<TData | und
     isClearable?: boolean;
 }
 
-export const SingleSelect = <TData extends any>(
-    {
-        value,
-        onChange,
-        options,
-        valid,
-        placeholder,
-        className,
-        isClearable,
-    }: SingleSelectProps<TData>,
-) => {
+export const SingleSelect = <TData extends any>({
+    value,
+    onChange,
+    options,
+    valid,
+    placeholder,
+    className,
+    isClearable,
+}: SingleSelectProps<TData>) => {
     const selectOptions = useMemo(() => mapSelectItemToOption(options), [options]);
 
     return (
@@ -31,7 +29,7 @@ export const SingleSelect = <TData extends any>(
             isSearchable
             isClearable={isClearable}
             backspaceRemovesValue
-            placeholder={placeholder ? ensureLocal(placeholder) : <Local id="Select"/>}
+            placeholder={placeholder ? ensureLocal(placeholder) : <Local id="Select" />}
             options={selectOptions}
             onChange={v => onChange(handleChange<TData>(v))}
             value={selectOptions.find(e => e.value === value)}

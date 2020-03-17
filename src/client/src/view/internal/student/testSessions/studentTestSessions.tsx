@@ -23,16 +23,11 @@ export const StudentTestSessions = observer(() => {
                             className="clickable"
                             action
                             key={index}
-                            onClick={() => routingStore.goto(`/test-session/${item.id}`)}>
-                            <ListGroupItemHeading>
-                                {item.name}
-                            </ListGroupItemHeading>
-                            <div>
-                                {item.state}
-                            </div>
-                            <div>
-                                {dateAndTime(item.createdAt)}
-                            </div>
+                            onClick={() => routingStore.goto(`/test-session/${item.id}`)}
+                        >
+                            <ListGroupItemHeading>{item.name}</ListGroupItemHeading>
+                            <div>{item.state}</div>
+                            <div>{dateAndTime(item.createdAt)}</div>
                         </ListGroupItem>
                     ))}
                 </ListGroup>

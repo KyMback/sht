@@ -19,7 +19,7 @@ export const StartStudentTestModal = observer(({ store }: Props) => {
         <Modal centered isOpen={store.isOpen} toggle={store.close}>
             <Form onValidSubmit={store.submit}>
                 <ModalHeader toggle={store.close}>
-                    <Local id="StudentTestSession_StartTestModalTitle"/>
+                    <Local id="StudentTestSession_StartTestModalTitle" />
                 </ModalHeader>
                 <ModalBody>
                     <FormSingleSelect
@@ -32,14 +32,13 @@ export const StartStudentTestModal = observer(({ store }: Props) => {
                 </ModalBody>
                 <ModalFooter>
                     <Button color="secondary" onClick={store.close}>
-                        <Local id="Cancel"/>
+                        <Local id="Cancel" />
                     </Button>
                     <Button color="primary">
-                        <Local id="StudentTestSession_StartTestModalButton"/>
+                        <Local id="StudentTestSession_StartTestModalButton" />
                     </Button>
                 </ModalFooter>
             </Form>
         </Modal>
-
     );
 });

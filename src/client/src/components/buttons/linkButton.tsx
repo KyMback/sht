@@ -7,16 +7,16 @@ interface Props {
     title?: KeyOrJSX;
 }
 
-export const LinkButton = (
-    {
-        title,
-        onClick,
-    }: Props,
-) => {
+export const LinkButton = ({ title, onClick }: Props) => {
     return (
-        <button className="link-button" onClick={e => {
-            e.preventDefault();
-            onClick();
-        }}>{ensureLocal(title)}</button>
+        <button
+            className="link-button"
+            onClick={e => {
+                e.preventDefault();
+                onClick();
+            }}
+        >
+            {ensureLocal(title)}
+        </button>
     );
 };

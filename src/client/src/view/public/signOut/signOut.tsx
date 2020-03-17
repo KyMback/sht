@@ -17,7 +17,7 @@ export const SignOut = () => {
 
     return (
         <div>
-            <Local id="SignOut"/>
+            <Local id="SignOut" />
         </div>
     );
 };

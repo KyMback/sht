@@ -3,7 +3,7 @@ import en from "./../static/localizations/en.json";
 import { Dictionary } from "../typings/customTypings";
 
 const messages: Dictionary = {
-    "en": en,
+    en: en,
 };
 
 class LocalStore {

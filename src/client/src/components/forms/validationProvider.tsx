@@ -8,10 +8,10 @@ interface Context {
 type ValidatorType = () => boolean;
 
 const defaultContextValue: Context = {
-    add: () => {
-    },
-    remove: () => {
-    },
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    add: () => {},
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    remove: () => {},
 };
 
 export const ValidationContext = createContext<Context>(defaultContextValue);
@@ -30,11 +30,7 @@ export class ValidationProvider extends React.Component {
     }
 
     public render() {
-        return (
-            <ValidationContext.Provider value={this.contextObj}>
-                {this.props.children}
-            </ValidationContext.Provider>
-        );
+        return <ValidationContext.Provider value={this.contextObj}>{this.props.children}</ValidationContext.Provider>;
     }
 
     public validate = (): boolean => {

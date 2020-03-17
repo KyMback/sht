@@ -6,5 +6,5 @@ const endPoint = "/api/student";
 export class StudentApi {
     public static getGroups = async (): Promise<Array<StudentGroupedGroupDto>> => {
         return HttpApi.get<Array<StudentGroupedGroupDto>>(`${endPoint}/groups`);
-    }
+    };
 }

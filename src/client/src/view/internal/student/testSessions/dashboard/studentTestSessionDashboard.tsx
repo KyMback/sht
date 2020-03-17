@@ -27,13 +27,15 @@ export const StudentTestSessionDashboard = observer(() => {
     const store = useLocalStore(() => new StudentTestSessionDashboardStore(params.id!));
     useAsyncEffect(store.loadData, []);
 
-    const topActions: Array<CardSectionActionConfigs> = store.isQuestionsAvailable ? [
-        {
-            title: "StudentTestSession_OpenQuestions",
-            onClick: () => routingStore.goto(`/test-session/${params.id}/questions`),
-            color: "primary",
-        },
-    ] : [];
+    const topActions: Array<CardSectionActionConfigs> = store.isQuestionsAvailable
+        ? [
+              {
+                  title: "StudentTestSession_OpenQuestions",
+                  onClick: () => routingStore.goto(`/test-session/${params.id}/questions`),
+                  color: "primary",
+              },
+          ]
+        : [];
 
     const stateTransitionOptions: Array<CardSectionActionConfigs> = store.stateTransitions.map(item => ({
         color: "primary",
@@ -44,15 +46,16 @@ export const StudentTestSessionDashboard = observer(() => {
     return (
         <>
             <CardSectionsGroup
-                title={<Local id="StudentTestSession_Title" values={{ name: store.name }}/>}
+                title={<Local id="StudentTestSession_Title" values={{ name: store.name }} />}
                 actions={actions}
-                topActions={topActions.concat(stateTransitionOptions)}>
+                topActions={topActions.concat(stateTransitionOptions)}
+            >
                 <CardSection>
-                    <LabeledText title="StudentTestSession_State" value={store.state}/>
-                    <LabeledText title="StudentTestSession_Variant" value={store.variant}/>
+                    <LabeledText title="StudentTestSession_State" value={store.state} />
+                    <LabeledText title="StudentTestSession_Variant" value={store.variant} />
                 </CardSection>
             </CardSectionsGroup>
-            {store.startStudentTestModalStore && <StartStudentTestModal store={store.startStudentTestModalStore}/>}
+            {store.startStudentTestModalStore && <StartStudentTestModal store={store.startStudentTestModalStore} />}
         </>
     );
 });

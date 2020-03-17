@@ -37,7 +37,8 @@ export class StudentTestSessionDashboardStore {
             this.startStudentTestModalStore = new StartStudentTestModalStore(
                 this.id,
                 this.stateTransitionInternal,
-                () => this.startStudentTestModalStore = undefined);
+                () => (this.startStudentTestModalStore = undefined),
+            );
             this.startStudentTestModalStore.open();
         } else {
             await this.stateTransitionInternal(trigger);
@@ -45,13 +46,14 @@ export class StudentTestSessionDashboardStore {
     };
 
     private stateTransitionInternal = async (trigger: string, data?: any) => {
-        await StudentTestSessionApi.stateTransition(StudentTestSessionStateTransitionRequest.fromJS({
-            studentTestSessionId: this.id,
-            trigger: trigger,
-            serializedData: data,
-        }));
+        await StudentTestSessionApi.stateTransition(
+            StudentTestSessionStateTransitionRequest.fromJS({
+                studentTestSessionId: this.id,
+                trigger: trigger,
+                serializedData: data,
+            }),
+        );
 
         await this.loadData();
     };
 }
-

@@ -10,7 +10,7 @@ export class FreeTextQuestionStore extends BaseQuestionStore {
     @observable public question?: string;
     @observable public answer?: string;
 
-    @action public setAnswer = (value?: string) => this.answer = value;
+    @action public setAnswer = (value?: string) => (this.answer = value);
 
     public loadData = async () => {
         if (this.isDataLoaded) {
@@ -28,10 +28,12 @@ export class FreeTextQuestionStore extends BaseQuestionStore {
 
     public submit = async () => {
         try {
-            await StudentQuestionApi.answer(AnswerStudentQuestionDto.fromJS({
-                answer: this.answer,
-                questionId: this.id,
-            }));
+            await StudentQuestionApi.answer(
+                AnswerStudentQuestionDto.fromJS({
+                    answer: this.answer,
+                    questionId: this.id,
+                }),
+            );
             notifications.successfullySaved();
         } catch (e) {
             if (isExpected(e, apiErrors.studentTestSessionEnded)) {

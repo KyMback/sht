@@ -28,4 +28,4 @@ const routes: Array<Route> = [
     },
 ];
 
-export const TestSessionsModule = () => <RoutesModule routes={routes}/>;
+export const TestSessionsModule = () => <RoutesModule routes={routes} />;

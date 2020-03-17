@@ -14,15 +14,13 @@ export interface FormWrapperProps<TValue, TControlProps extends ControlProps<TVa
     validations?: Array<ValidationFunction<TValue>>;
 }
 
-export const FormControlWrapper = <TValue, TControlProps extends ControlProps<TValue>>(
-    {
-        control: Control,
-        label,
-        name,
-        controlProps,
-        validations,
-    }: FormWrapperProps<TValue, TControlProps>,
-) => {
+export const FormControlWrapper = <TValue, TControlProps extends ControlProps<TValue>>({
+    control: Control,
+    label,
+    name,
+    controlProps,
+    validations,
+}: FormWrapperProps<TValue, TControlProps>) => {
     const [isUsed, setIsUsed] = useState<boolean>(false);
     const context = useContext(ValidationContext);
 
@@ -44,14 +42,17 @@ export const FormControlWrapper = <TValue, TControlProps extends ControlProps<TV
 
     const serializerProps = JSON.stringify(controlProps);
     const memoControl = useMemo(
-        () => <Control id={name} {...controlProps} valid={!isUsed ? undefined : !error} onChange={onChange}/>,
+        () => <Control id={name} {...controlProps} valid={!isUsed ? undefined : !error} onChange={onChange} />,
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [serializerProps, isUsed, name, error]);
-    const errorMessage = useMemo(() => isUsed && error && <ErrorMessage error={error}/>, [error, isUsed]);
+        [serializerProps, isUsed, name, error],
+    );
+    const errorMessage = useMemo(() => isUsed && error && <ErrorMessage error={error} />, [error, isUsed]);
 
     return (
         <FormGroup className={`form-control-wrapper ${getClassNames(isUsed, error)}`}>
-            <label htmlFor={name}><Local id={label}/></label>
+            <label htmlFor={name}>
+                <Local id={label} />
+            </label>
             {memoControl}
             {errorMessage}
         </FormGroup>
@@ -87,8 +88,8 @@ interface ErrorMessageProps {
 const ErrorMessage = ({ error }: ErrorMessageProps) => {
     return (
         <span className="validation-error">
-            <Icon icon={icons.error}/>
-            <Local id={`validation_${error}`}/>
+            <Icon icon={icons.error} />
+            <Local id={`validation_${error}`} />
         </span>
     );
 };

@@ -9,15 +9,14 @@ export class StartStudentTestModalStore {
     @observable variant?: string;
     @observable variants: Array<SelectItem<string>> = [];
 
-    @action setIsOpen = (value: boolean) => this.isOpen = value;
-    @action setVariant = (value?: string) => this.variant = value;
+    @action setIsOpen = (value: boolean) => (this.isOpen = value);
+    @action setVariant = (value?: string) => (this.variant = value);
 
     constructor(
         private studentTestSessionId: string,
         private stateTransition: (trigger: string, data?: string) => void,
         private onClose: () => void,
-    ) {
-    }
+    ) {}
 
     public loadData = async () => {
         const result = await StudentTestSessionApi.getTestVariants(this.studentTestSessionId);

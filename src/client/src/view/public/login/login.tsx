@@ -21,13 +21,15 @@ export const Login = observer(() => {
                         type="email"
                         onChange={store.setLogin}
                         value={store.login}
-                        validations={[required, emailValidation]} />
+                        validations={[required, emailValidation]}
+                    />
                     <FormInput
                         label="Password"
                         type="password"
                         onChange={store.setPassword}
                         value={store.password}
-                        validations={[required]} />
+                        validations={[required]}
+                    />
                     <Button color="primary">
                         <Local id="SignIn" />
                     </Button>

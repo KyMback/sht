@@ -21,7 +21,7 @@ export const ApiErrorHandler = ({ children }: Props) => {
 
 const onUnhandledRejection = (event: PromiseRejectionEvent): void => {
     const error = event.reason;
-    if (error instanceof (ApiError)) {
+    if (error instanceof ApiError) {
         handleApiError(error);
     }
 };
@@ -32,7 +32,7 @@ const handleApiError = (error: ApiError): void => {
         return;
     }
 
-    notifications.error(<Local id="UnexpectedErrorHappened" values={error}/>);
+    notifications.error(<Local id="UnexpectedErrorHappened" values={error} />);
 };
 
 const handleUnauthorized = (): void => {

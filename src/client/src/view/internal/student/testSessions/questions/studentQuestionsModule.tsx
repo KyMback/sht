@@ -43,7 +43,7 @@ export const StudentQuestionsModule = observer(() => {
 
     return (
         <studentQuestionsContext.Provider value={store}>
-            {store.isDataLoaded && <RoutesModule routes={routes}/>}
+            {store.isDataLoaded && <RoutesModule routes={routes} />}
         </studentQuestionsContext.Provider>
     );
 });

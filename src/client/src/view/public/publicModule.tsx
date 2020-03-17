@@ -7,7 +7,7 @@ const routes: Array<Route> = [
     {
         path: "/",
         exact: true,
-        redirectTo: "/login"
+        redirectTo: "/login",
     },
     {
         path: "/login",
@@ -19,4 +19,4 @@ const routes: Array<Route> = [
     },
 ];
 
-export const PublicModule = () => <RoutesModule routes={routes}/>;
+export const PublicModule = () => <RoutesModule routes={routes} />;

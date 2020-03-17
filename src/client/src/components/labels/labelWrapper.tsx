@@ -7,12 +7,7 @@ interface Props {
     children: React.ReactNode;
 }
 
-export const LabelWrapper = (
-    {
-        title,
-        children,
-    }: Props,
-) => {
+export const LabelWrapper = ({ title, children }: Props) => {
     return (
         <div className="labeled">
             <label>{ensureLocal(title)}</label>

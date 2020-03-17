@@ -11,7 +11,9 @@ import { TableResult } from "./tableResult";
 const endPoint = "/api/student-test-session";
 
 export class StudentTestSessionApi {
-    public static getList = async (filter: SearchResultBaseFilter): Promise<TableResult<StudentTestSessionListItemDto>> => {
+    public static getList = async (
+        filter: SearchResultBaseFilter,
+    ): Promise<TableResult<StudentTestSessionListItemDto>> => {
         return HttpApi.get<TableResult<StudentTestSessionListItemDto>>(`${endPoint}/list`, filter.toJSON());
     };
 
@@ -23,7 +25,9 @@ export class StudentTestSessionApi {
         return HttpApi.get<Array<string>>(`${endPoint}/test-variants/${id}`);
     };
 
-    public static stateTransition = async (data: StudentTestSessionStateTransitionRequest): Promise<StudentTestSessionDto> => {
+    public static stateTransition = async (
+        data: StudentTestSessionStateTransitionRequest,
+    ): Promise<StudentTestSessionDto> => {
         return HttpApi.put(`${endPoint}/state`, data);
     };
 

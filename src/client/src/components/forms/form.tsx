@@ -7,12 +7,7 @@ interface Props {
     onValidSubmit?: () => void;
 }
 
-export const Form = (
-    {
-        onValidSubmit,
-        children,
-    }: Props,
-) => {
+export const Form = ({ onValidSubmit, children }: Props) => {
     const validationProvider = useRef<ValidationProvider>(null);
 
     const submit = (e: FormEvent) => {
@@ -25,10 +20,7 @@ export const Form = (
 
     return (
         <FormComponent onSubmit={submit}>
-            <ValidationProvider ref={validationProvider}>
-                {children}
-            </ValidationProvider>
+            <ValidationProvider ref={validationProvider}>{children}</ValidationProvider>
         </FormComponent>
     );
 };
-

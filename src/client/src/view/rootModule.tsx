@@ -17,8 +17,8 @@ const routes: Array<Route> = [
     },
     {
         path: "/",
-        component: () => userContextStore.isAuthenticated ? <InternalModule/> : <PublicModule/>
+        component: () => (userContextStore.isAuthenticated ? <InternalModule /> : <PublicModule />),
     },
 ];
 
-export const RootModule = () => <RoutesModule routes={routes}/>;
+export const RootModule = () => <RoutesModule routes={routes} />;

@@ -21,16 +21,14 @@ interface InternalOption {
     value?: any;
 }
 
-export const MultiSelect = <TData extends any>(
-    {
-        value,
-        onChange,
-        options,
-        valid,
-        placeholder,
-        className,
-    }: MultiSelectProps<TData>,
-) => {
+export const MultiSelect = <TData extends any>({
+    value,
+    onChange,
+    options,
+    valid,
+    placeholder,
+    className,
+}: MultiSelectProps<TData>) => {
     const selectOptions = useMemo(() => mapSelectItemToOption(options), [options]);
 
     return (
@@ -39,10 +37,12 @@ export const MultiSelect = <TData extends any>(
             isSearchable
             isMulti
             backspaceRemovesValue
-            placeholder={placeholder ? ensureLocal(placeholder) : <Local id="SelectItems"/>}
+            placeholder={placeholder ? ensureLocal(placeholder) : <Local id="SelectItems" />}
             options={selectOptions}
             onChange={v => onChange(handleChange<TData>(v))}
-            value={isEmpty(value) ? undefined : mapSelectItemToOption(options.filter(i => some(value, v => v === i.value)))}
+            value={
+                isEmpty(value) ? undefined : mapSelectItemToOption(options.filter(i => some(value, v => v === i.value)))
+            }
         />
     );
 };
