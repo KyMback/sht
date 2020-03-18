@@ -1,7 +1,7 @@
 import { observer, useLocalStore } from "mobx-react-lite";
 import { LoginStore } from "./loginStore";
 import React from "react";
-import { Col, Row, Button } from "reactstrap";
+import { Button } from "reactstrap";
 import { Local } from "../../../core/localization/local";
 import { emailValidation, required } from "../../../components/forms/validations";
 import { Form } from "../../../components/forms/form";

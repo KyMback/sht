@@ -8,10 +8,12 @@ namespace SHT.Api.Web.GraphQl.Extensions
         public static IObjectFieldDescriptor UseOffsetBasedPaging<TSchemaType, TType>(this IObjectFieldDescriptor descriptor)
             where TSchemaType : class, IOutputType
         {
-            return descriptor
+            descriptor
                 .AddOffsetBasedPagingArguments()
                 .Type<SearchResultGraphType<TSchemaType, TType>>()
                 .Use<QueryableOffsetBasedPagingMiddleware<TType>>();
+
+            return descriptor;
         }
 
         private static IObjectFieldDescriptor AddOffsetBasedPagingArguments(

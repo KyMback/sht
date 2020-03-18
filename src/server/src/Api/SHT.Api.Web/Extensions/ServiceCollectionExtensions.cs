@@ -1,10 +1,8 @@
 using System;
 using System.Reflection;
-using CorrelationId;
+using CorrelationId.DependencyInjection;
 using HotChocolate;
 using HotChocolate.Execution;
-using HotChocolate.Types.Descriptors;
-using HotChocolate.Utilities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;

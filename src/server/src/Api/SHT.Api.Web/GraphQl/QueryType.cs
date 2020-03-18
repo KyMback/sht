@@ -1,9 +1,10 @@
 using HotChocolate.Types;
 using SHT.Api.Web.GraphQl.Extensions;
+using SHT.Api.Web.GraphQl.GraphTypes;
 using SHT.Api.Web.Security.Constants;
 using SHT.Application.Tests.TestSessions.Contracts;
 
-namespace SHT.Api.Web.GraphQl.GraphTypes
+namespace SHT.Api.Web.GraphQl
 {
     public class QueryType : ObjectType<GraphQueries>
     {
@@ -19,7 +20,7 @@ namespace SHT.Api.Web.GraphQl.GraphTypes
                 .Authorize(AuthorizationPolicyNames.InstructorsOnly)
                 .Type<NonNullType<ListType<NonNullType<TestSessionListItemDtoGraphType>>>>()
                 .Name("testSessionListItems")
-                .UseOffsetBasedPaging<NonNullType<TestSessionListItemDtoGraphType>, TestSessionListItemDto>()
+                .UseOffsetBasedPaging<TestSessionListItemDtoGraphType, TestSessionListItemDto>()
                 .UseSorting<TestSessionListItemDto>(typeDescriptor =>
                 {
                     typeDescriptor.BindFieldsExplicitly();
