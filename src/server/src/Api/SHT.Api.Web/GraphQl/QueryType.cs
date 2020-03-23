@@ -21,11 +21,42 @@ namespace SHT.Api.Web.GraphQl
                 .Type<NonNullType<ListType<NonNullType<TestSessionListItemDtoGraphType>>>>()
                 .Name("testSessionListItems")
                 .UseOffsetBasedPaging<TestSessionListItemDtoGraphType, TestSessionListItemDto>()
+                // .UseSelection() // Issue with paging result type
                 .UseSorting<TestSessionListItemDto>(typeDescriptor =>
                 {
                     typeDescriptor.BindFieldsExplicitly();
                     typeDescriptor.Sortable(e => e.CreatedAt);
                 });
+
+            descriptor
+                .Field(f => f.GetTestSessionDetails(default, default))
+                .Authorize(AuthorizationPolicyNames.InstructorsOnly)
+                .Type<NonNullType<TestSessionDetailsDtoGraphType>>()
+                .Name("testSessionDetails")
+                .UseSingleOrDefault()
+                // .UseSelection()
+                .UseFiltering<TestSessionDetailsDto>(filterDescriptor =>
+                    filterDescriptor.Filter(p => p.Id).AllowEquals());
+
+            descriptor
+                .Field(f => f.GetTestSessionTriggers(default, default, default))
+                .Authorize(AuthorizationPolicyNames.InstructorsOnly)
+                .Type<NonNullType<ListType<NonNullType<StringType>>>>()
+                .Name("testSessionTriggers")
+                .Argument("testSessionId", argumentDescriptor => argumentDescriptor.Type<NonNullType<UuidType>>());
+
+            descriptor
+                .Field(f => f.GetVariantsLookups(default, default))
+                .Authorize(AuthorizationPolicyNames.InstructorsOnly)
+                .Type<NonNullType<ListType<NonNullType<LookupGraphType>>>>()
+                .Name("testVariantLookups")
+                .UseSelection();
+
+            descriptor
+                .Field(f => f.GetStudentsGroups(default))
+                .Authorize()
+                .Type<NonNullType<ListType<NonNullType<StudentGroupedGroupDtoGraphType>>>>()
+                .Name("studentsGroups");
         }
     }
 }

@@ -1,7 +1,8 @@
 import { action, observable, runInAction } from "mobx";
 import { TestSessionApi } from "../../../../../core/api/testSessionApi";
 import moment from "moment";
-import { TestSessionStateTransitionRequest } from "../../../../../typings/dataContracts";
+import { TestSessionDto, TestSessionStateTransitionRequest } from "../../../../../typings/dataContracts";
+import { HttpApi } from "../../../../../core/api/http/httpApi";
 
 export class TestSessionDashboardStore {
     @observable public id: string;
@@ -19,19 +20,11 @@ export class TestSessionDashboardStore {
 
     @action
     public loadData = async () => {
-        const result = await TestSessionApi.get(this.id);
-        await this.loadAvailableActions();
+        const data = await loadData(this.id);
 
         runInAction(() => {
-            Object.assign(this, result);
-        });
-    };
-
-    @action
-    public loadAvailableActions = async () => {
-        const result = await TestSessionApi.getAvailableTriggers(this.id);
-        runInAction(() => {
-            this.triggers = result;
+            Object.assign(this, data.testSession);
+            this.triggers = data.triggers;
         });
     };
 
@@ -45,4 +38,23 @@ export class TestSessionDashboardStore {
         );
         await this.loadData();
     };
+}
+
+async function loadData(id: string): Promise<{ testSession: TestSessionDto; triggers: Array<string> }> {
+    const query = `
+query q($id:Uuid!) {
+  testSession:testSessionDetails(where:{ id:$id }) {
+    id
+    name
+    studentsIds
+    testVariants {
+      name
+      testVariantId
+    }
+  }
+  
+  triggers:testSessionTriggers(testSessionId:$id)
+}
+    `;
+    return HttpApi.graphQl<{ testSession: TestSessionDto; triggers: Array<string> }>(query, { id });
 }

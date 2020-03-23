@@ -16,16 +16,9 @@ const apiConstants = {
     },
 };
 
-interface GraphQlResponse<TData> {
-    data: TData;
-}
-
 export class HttpApi {
-    public static graphQl = async <TData extends any>(
-        query: string,
-        variables?: any,
-    ): Promise<GraphQlResponse<TData>> => {
-        return HttpApi.request<GraphQlResponse<TData>>({
+    public static graphQl = async <TData extends any>(query: string, variables?: any): Promise<TData> => {
+        const result = await HttpApi.request<{ data: TData }>({
             method: "POST",
             url: "/api/graphql",
             body: {
@@ -33,6 +26,8 @@ export class HttpApi {
                 query,
             },
         });
+
+        return result.data;
     };
 
     public static get = async <TData extends any>(url: string, query?: any): Promise<TData> => {

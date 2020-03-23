@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using SHT.Application.Common;
 
-namespace SHT.Application.Users.Students.GetGroups
+namespace SHT.Application.Users.Students.Contracts
 {
     [ApiDataContract]
     public class StudentGroupedGroupDto

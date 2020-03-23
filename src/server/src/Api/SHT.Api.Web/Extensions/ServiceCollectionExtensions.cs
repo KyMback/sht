@@ -1,8 +1,9 @@
 using System;
 using System.Reflection;
-using CorrelationId.DependencyInjection;
+using CorrelationId;
 using HotChocolate;
 using HotChocolate.Execution;
+using HotChocolate.Execution.Configuration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -35,6 +36,11 @@ namespace SHT.Api.Web.Extensions
 
         public static IServiceCollection AddCustomGraphQl(this IServiceCollection collection)
         {
+            var customOptions = new QueryExecutionOptions
+            {
+                ForceSerialExecution = true,
+            };
+
             return collection
                 .AddGraphQL(
                     provider => CustomSchemaBuilder
@@ -43,7 +49,8 @@ namespace SHT.Api.Web.Extensions
                         .Create(),
                     builder => builder
                         .Use<CustomGraphQlExceptionHandlingMiddleware>()
-                        .UseDefaultPipeline());
+                        .UseDefaultPipeline())
+                .AddSingleton<IExecutionStrategyOptionsAccessor>(provider => customOptions);
         }
 
         public static IServiceCollection AddCustomOptions(

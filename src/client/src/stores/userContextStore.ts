@@ -1,6 +1,6 @@
 import { action, computed, observable, runInAction } from "mobx";
-import { AccountApi } from "../core/api/accountApi";
-import { UserType } from "../typings/dataContracts";
+import { UserContextDto, UserType } from "../typings/dataContracts";
+import { HttpApi } from "../core/api/http/httpApi";
 
 class UserContextStore {
     @observable public isAuthenticated: boolean;
@@ -23,7 +23,7 @@ class UserContextStore {
 
     @action
     public loadContext = async () => {
-        const result = await AccountApi.getContext();
+        const result = await loadContext();
 
         runInAction(() => {
             Object.assign(this, result);
@@ -32,3 +32,17 @@ class UserContextStore {
 }
 
 export const userContextStore = new UserContextStore();
+
+async function loadContext(): Promise<UserContextDto> {
+    const query = `
+        {
+          userContext {
+            id
+            isAuthenticated
+            userType
+          }
+        }
+        `;
+    const { userContext } = await HttpApi.graphQl<{ userContext: UserContextDto }>(query);
+    return userContext;
+}

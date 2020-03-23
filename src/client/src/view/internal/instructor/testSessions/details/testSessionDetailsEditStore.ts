@@ -1,12 +1,11 @@
 import { TestSessionApi } from "../../../../../core/api/testSessionApi";
-import { TestSessionDetailsDto } from "../../../../../typings/dataContracts";
+import { Lookup, StudentGroupedGroupDto, TestSessionDetailsDto } from "../../../../../typings/dataContracts";
 import { routingStore } from "../../../../../stores/routingStore";
 import { action, observable, runInAction } from "mobx";
 import { SelectItem } from "../../../../../components/controls/multiSelect/multiSelect";
-import { StudentApi } from "../../../../../core/api/studentApi";
-import { TestVariantApi } from "../../../../../core/api/testVariantApi";
 import { Dictionary } from "../../../../../typings/customTypings";
 import { pull, intersection, isEmpty } from "lodash";
+import { HttpApi } from "../../../../../core/api/http/httpApi";
 
 export class TestSessionDetailsEditStore {
     @observable id?: string;
@@ -56,35 +55,21 @@ export class TestSessionDetailsEditStore {
     };
 
     public loadData = async () => {
-        await this.loadAdditionalInfo();
-        await this.loadInfo();
-    };
-
-    private loadInfo = async () => {
-        if (!this.id) {
-            return;
-        }
-
-        const result = await TestSessionApi.getDetails(this.id);
+        const { groups, testSession, variants } = await loadData(this.id);
 
         runInAction(() => {
-            this.name = result.name;
-            const groups: Array<string> = [];
-            Object.entries(this.groupedGroups).forEach(([key, values]) => {
-                if (!isEmpty(intersection(values, result.studentsIds))) {
-                    groups.push(key);
-                }
-            });
-            this.selectedGroups = groups;
-            this.testVariants = result.testVariants;
-        });
-    };
+            if (testSession) {
+                this.name = testSession.name;
+                const groups: Array<string> = [];
+                Object.entries(this.groupedGroups).forEach(([key, values]) => {
+                    if (!isEmpty(intersection(values, testSession.studentsIds))) {
+                        groups.push(key);
+                    }
+                });
+                this.selectedGroups = groups;
+                this.testVariants = testSession.testVariants;
+            }
 
-    private loadAdditionalInfo = async () => {
-        const variantLookups = await TestVariantApi.getLookups();
-        const groups = await StudentApi.getGroups();
-
-        runInAction(() => {
             this.groupedGroups = groups.reduce((dict, g) => {
                 dict[g.groupName] = g.studentsIds;
                 return dict;
@@ -93,7 +78,7 @@ export class TestSessionDetailsEditStore {
                 value: e.groupName,
                 text: e.groupName,
             }));
-            this.testVariantsItems = [...variantLookups];
+            this.testVariantsItems = [...variants];
         });
     };
 
@@ -109,4 +94,41 @@ export class TestSessionDetailsEditStore {
 export interface TestVariant {
     testVariantId?: string;
     name?: string;
+}
+
+interface LoadedData {
+    testSession?: TestSessionDetailsDto;
+    variants: Array<Lookup>;
+    groups: Array<StudentGroupedGroupDto>;
+}
+
+const testSessionDetailsQuery = `
+  testSession:testSessionDetails(where:{ id:$id }) {
+    id
+    name
+    studentsIds
+    testVariants {
+      name
+      testVariantId
+    }
+  }
+`;
+
+async function loadData(id?: string): Promise<LoadedData> {
+    const query = `
+query q${id ? "($id:Uuid!)" : undefined} {
+${id ? testSessionDetailsQuery : undefined}
+
+  variants:testVariantLookups {
+    text
+    value
+  }
+
+  groups:studentsGroups {
+    groupName
+    studentsIds
+  }
+}
+    `;
+    return HttpApi.graphQl<LoadedData>(query, { id });
 }

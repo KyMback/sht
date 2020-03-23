@@ -1,13 +1,14 @@
 import { ListGroup, ListGroupItem, ListGroupItemHeading } from "reactstrap";
 import React, { useState } from "react";
 import useAsyncEffect from "use-async-effect";
-import { TestSessionApi } from "../../../../core/api/testSessionApi";
-import { SearchResultBaseFilter, TestSessionListItemDto } from "../../../../typings/dataContracts";
+import { TestSessionListItemDto } from "../../../../typings/dataContracts";
 import { CardSectionsGroup } from "../../../../components/layouts/sections/cardSectionsGroup";
 import { CardSection, SectionActionProps } from "../../../../components/layouts/sections/cardSection";
 import { icons } from "../../../../components/icons/icon";
 import { routingStore } from "../../../../stores/routingStore";
 import { dateAndTime } from "../../../../core/utils/dateTimeUtil";
+import { HttpApi } from "../../../../core/api/http/httpApi";
+import { TableResult } from "../../../../core/api/tableResult";
 
 const actions: Array<SectionActionProps> = [
     {
@@ -20,12 +21,7 @@ const actions: Array<SectionActionProps> = [
 export const TestSessionsList = () => {
     const [testSessions, setTestSessions] = useState<Array<TestSessionListItemDto>>([]);
     useAsyncEffect(async () => {
-        const result = await TestSessionApi.getListItems(
-            SearchResultBaseFilter.fromJS({
-                pageNumber: 1,
-                pageSize: 100,
-            }),
-        );
+        const result = await loadData(1, 100);
         setTestSessions(result.items);
     }, []);
 
@@ -50,3 +46,21 @@ export const TestSessionsList = () => {
         </CardSectionsGroup>
     );
 };
+
+async function loadData(pageNumber: number, pageSize: number) {
+    const query = `
+{
+  items:testSessionListItems(pageNumber: ${pageNumber}, pageSize:${pageSize}, order_by:{createdAt:DESC}) {
+    items {
+      id
+      createdAt
+      name
+      state
+    }
+    total
+  }
+}
+        `;
+    const { items } = await HttpApi.graphQl<{ items: TableResult<TestSessionListItemDto> }>(query);
+    return items;
+}

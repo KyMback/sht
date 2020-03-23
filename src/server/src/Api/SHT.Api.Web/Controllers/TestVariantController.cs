@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +8,6 @@ using SHT.Application.Common.Tables;
 using SHT.Application.TestVariants.Contracts;
 using SHT.Application.TestVariants.Get;
 using SHT.Application.TestVariants.GetList;
-using SHT.Application.TestVariants.GetLookups;
 
 namespace SHT.Api.Web.Controllers
 {
@@ -22,12 +20,6 @@ namespace SHT.Api.Web.Controllers
         public TestVariantController(IMediator mediator)
         {
             _mediator = mediator;
-        }
-
-        [HttpGet("lookups")]
-        public Task<IReadOnlyCollection<Lookup>> GetLookups()
-        {
-            return _mediator.Send(new GetVariantsLookupsRequest());
         }
 
         [HttpGet("list")]

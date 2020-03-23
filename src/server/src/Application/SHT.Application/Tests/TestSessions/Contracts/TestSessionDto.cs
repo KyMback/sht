@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using SHT.Application.Common;
 
-namespace SHT.Application.Tests.TestSessions.Get
+namespace SHT.Application.Tests.TestSessions.Contracts
 {
     [ApiDataContract]
     public class TestSessionDto

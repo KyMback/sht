@@ -2,6 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using MediatR;
+using SHT.Application.Tests.TestSessions.Contracts;
 using SHT.Domain.Services.Tests;
 using SHT.Infrastructure.Common;
 using SHT.Infrastructure.DataAccess.Abstractions;

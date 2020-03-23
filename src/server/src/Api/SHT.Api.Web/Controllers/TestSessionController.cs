@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -8,8 +7,6 @@ using SHT.Application.Common;
 using SHT.Application.Tests.TestSessions.Contracts;
 using SHT.Application.Tests.TestSessions.Create;
 using SHT.Application.Tests.TestSessions.Get;
-using SHT.Application.Tests.TestSessions.GetAvailableStateTransitions;
-using SHT.Application.Tests.TestSessions.GetDetails;
 using SHT.Application.Tests.TestSessions.StateTransition;
 using SHT.Application.Tests.TestSessions.Update;
 
@@ -38,12 +35,6 @@ namespace SHT.Api.Web.Controllers
             return _mediator.Send(new UpdateTestSessionRequest(data, id));
         }
 
-        [HttpGet("details/{id}")]
-        public Task<TestSessionDetailsDto> GetDetails([FromRoute] Guid id)
-        {
-            return _mediator.Send(new GetTestSessionDetailsRequest(id));
-        }
-
         [HttpGet("{id}")]
         public Task<TestSessionDto> Get([FromRoute] Guid id)
         {
@@ -54,12 +45,6 @@ namespace SHT.Api.Web.Controllers
         public Task StateTransition(TestSessionStateTransitionRequest request)
         {
             return _mediator.Send(request);
-        }
-
-        [HttpGet("state/{id}")]
-        public Task<IReadOnlyCollection<string>> GetStateTransitions([FromRoute] Guid id)
-        {
-            return _mediator.Send(new GetTestSessionAvailableStateTransitionsRequest(id));
         }
     }
 }
