@@ -1,10 +1,19 @@
 using HotChocolate.Types;
 using SHT.Api.Web.GraphQl.Paging;
+using SHT.Api.Web.GraphQl.Selection;
 
 namespace SHT.Api.Web.GraphQl.Extensions
 {
     public static class ObjectTypeDescriptorExtensions
     {
+        public static IObjectFieldDescriptor UseCustomSelection<TType>(this IObjectFieldDescriptor descriptor)
+        {
+            descriptor
+                .Use<CustomSelectionMiddleware<TType>>();
+
+            return descriptor;
+        }
+
         public static IObjectFieldDescriptor UseOffsetBasedPaging<TSchemaType, TType>(this IObjectFieldDescriptor descriptor)
             where TSchemaType : class, IOutputType
         {

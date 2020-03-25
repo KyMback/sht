@@ -3,7 +3,7 @@ using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Api.Web.GraphQl.Paging
 {
-    public class SearchResultGraphType<TSchemaType, TType> : ObjectType<SearchResult<TType>>
+    public class SearchResultGraphType<TSchemaType, TType> : ObjectType<SearchResult<TType>>, ISearchResult
         where TSchemaType : class, IOutputType
     {
         protected override void Configure(IObjectTypeDescriptor<SearchResult<TType>> descriptor)
@@ -16,5 +16,10 @@ namespace SHT.Api.Web.GraphQl.Paging
                 .Field(e => e.Items)
                 .Type<ListType<TSchemaType>>();
         }
+    }
+
+    #pragma warning disable
+    public interface ISearchResult
+    {
     }
 }

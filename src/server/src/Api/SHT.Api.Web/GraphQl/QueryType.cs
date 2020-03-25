@@ -1,8 +1,10 @@
 using HotChocolate.Types;
+using HotChocolate.Types.Relay;
 using SHT.Api.Web.GraphQl.Extensions;
 using SHT.Api.Web.GraphQl.GraphTypes;
 using SHT.Api.Web.Security.Constants;
 using SHT.Application.Tests.TestSessions.Contracts;
+using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Api.Web.GraphQl
 {
@@ -21,7 +23,7 @@ namespace SHT.Api.Web.GraphQl
                 .Type<NonNullType<ListType<NonNullType<TestSessionListItemDtoGraphType>>>>()
                 .Name("testSessionListItems")
                 .UseOffsetBasedPaging<TestSessionListItemDtoGraphType, TestSessionListItemDto>()
-                // .UseSelection() // Issue with paging result type
+                .UseCustomSelection<TestSessionListItemDto>()
                 .UseSorting<TestSessionListItemDto>(typeDescriptor =>
                 {
                     typeDescriptor.BindFieldsExplicitly();
