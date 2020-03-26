@@ -1,9 +1,13 @@
 import { observable, runInAction } from "mobx";
 import { Dictionary } from "../../../../../../typings/customTypings";
 import { BaseQuestionStore } from "./baseQuestionStore";
-import { QuestionType, StudentTestQuestionListItemDto } from "../../../../../../typings/dataContracts";
+import {
+    QuestionType,
+    StudentTestQuestionListItemDto,
+    StudentTestSessionDto,
+} from "../../../../../../typings/dataContracts";
 import { FreeTextQuestionStore } from "../freeTextQuestion/freeTextQuestionStore";
-import { StudentTestSessionApi } from "../../../../../../core/api/studentTestSessionApi";
+import { HttpApi } from "../../../../../../core/api/http/httpApi";
 
 export class StudentQuestionsContextStore {
     @observable public sessionId: string;
@@ -19,14 +23,13 @@ export class StudentQuestionsContextStore {
 
     public loadData = async () => {
         this.isDataLoaded = false;
-        const questions = await StudentTestSessionApi.getTestQuestions(this.sessionId);
-        const session = await StudentTestSessionApi.get(this.sessionId);
+        const data = await loadData(this.sessionId);
 
         runInAction(() => {
-            this.sessionState = session.state;
-            this.variant = session.variant;
-            this.questionsList = questions;
-            questions.forEach(
+            this.sessionState = data.session.state;
+            this.variant = data.session.testVariant;
+            this.questionsList = data.questions;
+            data.questions.forEach(
                 q =>
                     (this.questionsMap[q.id] = {
                         type: q.type,
@@ -60,4 +63,29 @@ interface QuestionMetadata {
     store?: BaseQuestionStore;
     id: string;
     type: QuestionType;
+}
+
+interface LoadedData {
+    session: StudentTestSessionDto;
+    questions: Array<StudentTestQuestionListItemDto>;
+}
+
+const query = `
+query q($id: Uuid!) {  
+  session: studentTestSession(where: {id: $id}) {
+    state
+    testVariant
+  }
+  
+  questions: studentTestQuestions(where: {studentTestSessionId:$id}, order_by:{number:ASC}) {
+    id
+    isAnswered
+    number
+    type
+  }
+}
+`;
+
+async function loadData(id: string): Promise<LoadedData> {
+    return HttpApi.graphQl<LoadedData>(query, { id });
 }

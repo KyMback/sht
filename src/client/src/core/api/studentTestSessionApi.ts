@@ -1,26 +1,9 @@
 import { HttpApi } from "./http/httpApi";
-import {
-    SearchResultBaseFilter,
-    StudentTestQuestionListItemDto,
-    StudentTestSessionDto,
-    StudentTestSessionListItemDto,
-    StudentTestSessionStateTransitionRequest,
-} from "../../typings/dataContracts";
-import { TableResult } from "./tableResult";
+import { StudentTestSessionDto, StudentTestSessionStateTransitionRequest } from "../../typings/dataContracts";
 
 const endPoint = "/api/student-test-session";
 
 export class StudentTestSessionApi {
-    public static getList = async (
-        filter: SearchResultBaseFilter,
-    ): Promise<TableResult<StudentTestSessionListItemDto>> => {
-        return HttpApi.get<TableResult<StudentTestSessionListItemDto>>(`${endPoint}/list`, filter.toJSON());
-    };
-
-    public static get = async (id: string): Promise<StudentTestSessionDto> => {
-        return HttpApi.get<StudentTestSessionDto>(`${endPoint}/${id}`);
-    };
-
     public static getTestVariants = async (id: string): Promise<Array<string>> => {
         return HttpApi.get<Array<string>>(`${endPoint}/test-variants/${id}`);
     };
@@ -29,13 +12,5 @@ export class StudentTestSessionApi {
         data: StudentTestSessionStateTransitionRequest,
     ): Promise<StudentTestSessionDto> => {
         return HttpApi.put(`${endPoint}/state`, data);
-    };
-
-    public static getStateTransitions = async (id: string): Promise<Array<string>> => {
-        return HttpApi.get<Array<string>>(`${endPoint}/state/${id}`);
-    };
-
-    public static getTestQuestions = async (id: string): Promise<Array<StudentTestQuestionListItemDto>> => {
-        return HttpApi.get<Array<StudentTestQuestionListItemDto>>(`${endPoint}/${id}/questions/list`);
     };
 }

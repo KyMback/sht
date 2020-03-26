@@ -52,7 +52,7 @@ export const StudentTestSessionDashboard = observer(() => {
             >
                 <CardSection>
                     <LabeledText title="StudentTestSession_State" value={store.state} />
-                    <LabeledText title="StudentTestSession_Variant" value={store.variant} />
+                    <LabeledText title="StudentTestSession_Variant" value={store.testVariant} />
                 </CardSection>
             </CardSectionsGroup>
             {store.startStudentTestModalStore && <StartStudentTestModal store={store.startStudentTestModalStore} />}

@@ -1,10 +1,10 @@
 using HotChocolate.Types;
-using HotChocolate.Types.Relay;
 using SHT.Api.Web.GraphQl.Extensions;
 using SHT.Api.Web.GraphQl.GraphTypes;
 using SHT.Api.Web.Security.Constants;
+using SHT.Application.Tests.StudentsTestSessions.Contracts;
+using SHT.Application.Tests.StudentsTestSessions.GetTestQuestions;
 using SHT.Application.Tests.TestSessions.Contracts;
-using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Api.Web.GraphQl
 {
@@ -33,10 +33,10 @@ namespace SHT.Api.Web.GraphQl
             descriptor
                 .Field(f => f.GetTestSessionDetails(default, default))
                 .Authorize(AuthorizationPolicyNames.InstructorsOnly)
-                .Type<NonNullType<TestSessionDetailsDtoGraphType>>()
+                .Type<TestSessionDetailsDtoGraphType>()
                 .Name("testSessionDetails")
                 .UseSingleOrDefault()
-                // .UseSelection()
+                // .UseSelection() see https://github.com/ChilliCream/hotchocolate/issues/1582
                 .UseFiltering<TestSessionDetailsDto>(filterDescriptor =>
                     filterDescriptor.Filter(p => p.Id).AllowEquals());
 
@@ -59,6 +59,50 @@ namespace SHT.Api.Web.GraphQl
                 .Authorize()
                 .Type<NonNullType<ListType<NonNullType<StudentGroupedGroupDtoGraphType>>>>()
                 .Name("studentsGroups");
+
+            descriptor
+                .Field(f => f.GetStudentsTestSessions(default, default))
+                .Authorize(AuthorizationPolicyNames.StudentsOnly)
+                .Type<NonNullType<ListType<NonNullType<StudentTestSessionDtoGraphType>>>>()
+                .Name("studentTestSessions")
+                .UseOffsetBasedPaging<StudentTestSessionDtoGraphType, StudentTestSessionDto>()
+                .UseCustomSelection<StudentTestSessionDto>()
+                .UseSorting<StudentTestSessionDto>(typeDescriptor =>
+                {
+                    typeDescriptor.BindFieldsExplicitly();
+                    typeDescriptor.Sortable(e => e.CreatedAt);
+                });
+
+            descriptor
+                .Field(f => f.GetStudentsTestSessions2(default, default))
+                .Authorize(AuthorizationPolicyNames.StudentsOnly)
+                .Type<StudentTestSessionDtoGraphType>()
+                .Name("studentTestSession")
+                .UseSingleOrDefault()
+                .UseSelection()
+                .UseFiltering<StudentTestSessionDto>(filterDescriptor =>
+                    filterDescriptor.Filter(e => e.Id).AllowEquals());
+
+            descriptor
+                .Field(f => f.GetStudentTestSessionTriggers(default, default, default, default))
+                .Authorize(AuthorizationPolicyNames.StudentsOnly)
+                .Type<NonNullType<ListType<NonNullType<StringType>>>>()
+                .Name("studentTestSessionTriggers")
+                .Argument("testSessionId", argumentDescriptor => argumentDescriptor.Type<NonNullType<UuidType>>());
+
+            descriptor
+                .Field(f => f.GetStudentTestQuestions(default, default))
+                .Authorize(AuthorizationPolicyNames.StudentsOnly)
+                .Type<NonNullType<ListType<NonNullType<StudentTestQuestionListItemDtoGraphType>>>>()
+                .Name("studentTestQuestions")
+                .UseSelection()
+                .UseFiltering<StudentTestQuestionListItemDto>(filterDescriptor =>
+                    filterDescriptor.Filter(e => e.StudentTestSessionId).AllowEquals())
+                .UseSorting<StudentTestQuestionListItemDto>(sortDescriptor =>
+                {
+                    sortDescriptor.BindFieldsExplicitly();
+                    sortDescriptor.Sortable(e => e.Number);
+                });
         }
     }
 }

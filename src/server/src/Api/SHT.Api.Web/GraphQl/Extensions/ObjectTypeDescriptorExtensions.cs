@@ -14,6 +14,9 @@ namespace SHT.Api.Web.GraphQl.Extensions
             return descriptor;
         }
 
+        /// <summary>
+        /// https://github.com/ChilliCream/hotchocolate/issues/1509
+        /// </summary>
         public static IObjectFieldDescriptor UseOffsetBasedPaging<TSchemaType, TType>(this IObjectFieldDescriptor descriptor)
             where TSchemaType : class, IOutputType
         {

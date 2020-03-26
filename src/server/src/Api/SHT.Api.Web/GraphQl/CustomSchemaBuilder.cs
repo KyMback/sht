@@ -10,6 +10,8 @@ namespace SHT.Api.Web.GraphQl
         {
             return SchemaBuilder.New()
                 .AddAuthorizeDirectiveType()
+                // To restrict max number of fields in one page
+                .AddType(new PaginationAmountType(100))
                 .ModifyOptions(e => e.DefaultBindingBehavior = BindingBehavior.Explicit)
                 .AddType<UserContextGraphType>()
                 .AddType<TestSessionListItemDtoGraphType>()

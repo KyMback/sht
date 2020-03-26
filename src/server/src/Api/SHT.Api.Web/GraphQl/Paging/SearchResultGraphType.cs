@@ -17,9 +17,4 @@ namespace SHT.Api.Web.GraphQl.Paging
                 .Type<ListType<TSchemaType>>();
         }
     }
-
-    #pragma warning disable
-    public interface ISearchResult
-    {
-    }
 }
