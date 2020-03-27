@@ -1,8 +1,8 @@
 import { action, observable } from "mobx";
 import { SelectItem } from "../../../../../../../components/controls/multiSelect/multiSelect";
-import { StudentTestSessionApi } from "../../../../../../../core/api/studentTestSessionApi";
 import { studentTestSessionTransitionDataKeys } from "../studentTestSessionTransitionDataKeys";
 import { studentTestSessionStateTriggers } from "../studentTestSessionStateTriggers";
+import { HttpApi } from "../../../../../../../core/api/http/httpApi";
 
 export class StartStudentTestModalStore {
     @observable isOpen: boolean = false;
@@ -19,9 +19,9 @@ export class StartStudentTestModalStore {
     ) {}
 
     public loadData = async () => {
-        const result = await StudentTestSessionApi.getTestVariants(this.studentTestSessionId);
+        const { variants } = await loadData(this.studentTestSessionId);
 
-        this.variants = result.map(e => ({
+        this.variants = variants.map(e => ({
             value: e,
             text: e,
         }));
@@ -42,4 +42,18 @@ export class StartStudentTestModalStore {
         this.setIsOpen(false);
         this.onClose();
     };
+}
+
+interface LoadedData {
+    variants: Array<string>;
+}
+
+const query = `
+query q($id: Uuid!) {  
+  variants: studentTestSessionVariants(studentTestSessionId: $id)
+}
+`;
+
+async function loadData(studentTestSessionId: string): Promise<LoadedData> {
+    return HttpApi.graphQl(query, { id: studentTestSessionId });
 }

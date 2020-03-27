@@ -1,6 +1,7 @@
 using HotChocolate;
 using HotChocolate.Types;
 using SHT.Api.Web.GraphQl.GraphTypes;
+using SHT.Api.Web.GraphQl.GraphTypes.StudentTestSessions;
 
 namespace SHT.Api.Web.GraphQl
 {

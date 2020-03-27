@@ -1,7 +1,7 @@
 using HotChocolate.Types;
 using SHT.Application.Tests.StudentsTestSessions.Contracts;
 
-namespace SHT.Api.Web.GraphQl.GraphTypes
+namespace SHT.Api.Web.GraphQl.GraphTypes.StudentTestSessions
 {
     public class StudentTestSessionDtoGraphType : ObjectType<StudentTestSessionDto>
     {

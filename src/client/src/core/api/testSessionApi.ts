@@ -1,7 +1,6 @@
 import {
     CreatedEntityResponse,
     TestSessionDetailsDto,
-    TestSessionDto,
     TestSessionStateTransitionRequest,
 } from "../../typings/dataContracts";
 import { HttpApi } from "./http/httpApi";
@@ -15,10 +14,6 @@ export class TestSessionApi {
 
     public static update = async (data: TestSessionDetailsDto, id: string) => {
         return HttpApi.put(`${endpoint}/${id}`, data);
-    };
-
-    public static get = async (id: string): Promise<TestSessionDto> => {
-        return HttpApi.get<TestSessionDto>(`${endpoint}/${id}`);
     };
 
     public static stateTransition = async (data: TestSessionStateTransitionRequest) => {

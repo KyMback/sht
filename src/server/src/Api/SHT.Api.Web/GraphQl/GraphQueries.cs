@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using HotChocolate;
 using SHT.Application.Common;
 using SHT.Application.StateMachineConfigs.Core;
+using SHT.Application.Tests.StudentQuestions.Contracts;
 using SHT.Application.Tests.StudentsTestSessions.Contracts;
-using SHT.Application.Tests.StudentsTestSessions.GetTestQuestions;
 using SHT.Application.Tests.TestSessions.Contracts;
 using SHT.Application.Users.Accounts.GetContext;
 using SHT.Application.Users.Students.Contracts;
@@ -22,7 +22,7 @@ using SHT.Infrastructure.Common;
 using SHT.Infrastructure.DataAccess.Abstractions;
 using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.IQueryProvider;
 
-namespace SHT.Api.Web.GraphQl.GraphTypes
+namespace SHT.Api.Web.GraphQl
 {
     public class GraphQueries
     {
@@ -129,13 +129,7 @@ namespace SHT.Api.Web.GraphQl.GraphTypes
             [Service] IExecutionContextAccessor executionContextAccessor,
             [Service] IQueryProvider queryProvider)
         {
-            var queryParameters = new StudentTestSessionQueryParameters
-            {
-                StudentId = executionContextAccessor.GetCurrentUserId(),
-                ExceptTestSessionState = TestSessionStates.Pending,
-            };
-
-            return queryParameters.ToQuery(queryProvider).Select(StudentTestSessionDto.Selector);
+            return GetStudentsTestSessions(executionContextAccessor, queryProvider);
         }
 
         public async Task<IReadOnlyCollection<string>> GetStudentTestSessionTriggers(
@@ -152,7 +146,7 @@ namespace SHT.Api.Web.GraphQl.GraphTypes
             return await stateManager.GetAvailableTriggers(testSession);
         }
 
-        public IQueryable<StudentTestQuestionListItemDto> GetStudentTestQuestions(
+        public IQueryable<StudentTestQuestionDto> GetStudentTestQuestions(
             [Service] IExecutionContextAccessor executionContextAccessor,
             [Service] IQueryProvider queryProvider)
         {
@@ -161,7 +155,33 @@ namespace SHT.Api.Web.GraphQl.GraphTypes
                 StudentId = executionContextAccessor.GetCurrentUserId(),
             };
 
-            return queryParameters.ToQuery(queryProvider).Select(StudentTestQuestionListItemDto.Selector);
+            return queryParameters.ToQuery(queryProvider).Select(StudentTestQuestionDto.Selector);
+        }
+
+        // Just because can't use the same method for different fields
+        public IQueryable<StudentTestQuestionDto> GetStudentTestQuestion(
+            [Service] IExecutionContextAccessor executionContextAccessor,
+            [Service] IQueryProvider queryProvider)
+        {
+            return GetStudentTestQuestions(executionContextAccessor, queryProvider);
+        }
+
+        public async Task<IReadOnlyCollection<string>> GetStudentTestSessionVariants(
+            Guid studentTestSessionId,
+            [Service] IExecutionContextAccessor executionContextAccessor,
+            [Service] IUnitOfWork unitOfWork)
+        {
+            var queryParameters = new StudentTestSessionQueryParameters
+            {
+                Id = studentTestSessionId,
+                StudentId = executionContextAccessor.GetCurrentUserId(),
+            };
+
+            var result = await unitOfWork.GetSingle(
+                queryParameters,
+                session => session.TestSession.TestSessionTestVariants.Select(e => e.Name).ToArray());
+
+            return result;
         }
     }
 }

@@ -5,6 +5,7 @@ import { AnswerStudentQuestionDto } from "../../../../../../typings/dataContract
 import { apiErrors, isExpected } from "../../../../../../core/api/http/apiError";
 import { notifications } from "../../../../../../components/notifications/notifications";
 import { routingStore } from "../../../../../../stores/routingStore";
+import { HttpApi } from "../../../../../../core/api/http/httpApi";
 
 export class FreeTextQuestionStore extends BaseQuestionStore {
     @observable public question?: string;
@@ -17,12 +18,12 @@ export class FreeTextQuestionStore extends BaseQuestionStore {
             return;
         }
 
-        const question = await StudentQuestionApi.get(this.id);
+        const { question } = await loadData(this.id);
 
         runInAction(() => {
-            Object.assign(this, question);
             this.isDataLoaded = true;
-            this.question = question.text;
+            this.answer = question.answer;
+            this.question = question.question;
         });
     };
 
@@ -45,4 +46,24 @@ export class FreeTextQuestionStore extends BaseQuestionStore {
             throw e;
         }
     };
+}
+
+interface LoadedData {
+    question: {
+        question: string;
+        answer?: string;
+    };
+}
+
+const query = `
+query q($id: Uuid!) {
+  question: studentTestQuestion(where:{id: $id}) {
+    question: text
+    answer
+  }
+}
+`;
+
+async function loadData(id: string): Promise<LoadedData> {
+    return HttpApi.graphQl<LoadedData>(query, { id });
 }

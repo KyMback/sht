@@ -1,7 +1,7 @@
 using HotChocolate.Types;
 using SHT.Application.Users.Students.Contracts;
 
-namespace SHT.Api.Web.GraphQl.GraphTypes
+namespace SHT.Api.Web.GraphQl.GraphTypes.StudentTestSessions
 {
     public class StudentGroupedGroupDtoGraphType : ObjectType<StudentGroupedGroupDto>
     {

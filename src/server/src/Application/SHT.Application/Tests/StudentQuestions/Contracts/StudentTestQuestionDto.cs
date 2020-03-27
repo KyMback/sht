@@ -1,20 +1,21 @@
 using System;
-using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using SHT.Application.Common;
 using SHT.Domain.Models.Tests;
 using SHT.Domain.Models.Tests.Students;
 
-namespace SHT.Application.Tests.StudentsTestSessions.Contracts
+namespace SHT.Application.Tests.StudentQuestions.Contracts
 {
     [ApiDataContract]
-    public class StudentTestQuestionListItemDto
+    public class StudentTestQuestionDto
     {
-        public static readonly Expression<Func<StudentQuestion, StudentTestQuestionListItemDto>> Selector =
-            question => new StudentTestQuestionListItemDto
+        public static readonly Expression<Func<StudentQuestion, StudentTestQuestionDto>> Selector =
+            question => new StudentTestQuestionDto
             {
+                Answer = question.Answer,
                 Id = question.Id,
                 Number = question.Number,
+                Text = question.Text,
                 Type = question.Type,
                 StudentTestSessionId = question.StudentTestSessionId,
                 IsAnswered = !string.IsNullOrWhiteSpace(question.Answer),
@@ -22,13 +23,16 @@ namespace SHT.Application.Tests.StudentsTestSessions.Contracts
 
         public Guid Id { get; set; }
 
-        [Required]
+        public string Text { get; set; }
+
         public string Number { get; set; }
+
+        public string Answer { get; set; }
 
         public bool IsAnswered { get; set; }
 
-        public QuestionType Type { get; set; }
-
         public Guid StudentTestSessionId { get; set; }
+
+        public QuestionType Type { get; set; }
     }
 }

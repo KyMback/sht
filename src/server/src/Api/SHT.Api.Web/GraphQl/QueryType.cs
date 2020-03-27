@@ -1,9 +1,10 @@
 using HotChocolate.Types;
 using SHT.Api.Web.GraphQl.Extensions;
 using SHT.Api.Web.GraphQl.GraphTypes;
+using SHT.Api.Web.GraphQl.GraphTypes.StudentTestSessions;
 using SHT.Api.Web.Security.Constants;
+using SHT.Application.Tests.StudentQuestions.Contracts;
 using SHT.Application.Tests.StudentsTestSessions.Contracts;
-using SHT.Application.Tests.StudentsTestSessions.GetTestQuestions;
 using SHT.Application.Tests.TestSessions.Contracts;
 
 namespace SHT.Api.Web.GraphQl
@@ -37,6 +38,7 @@ namespace SHT.Api.Web.GraphQl
                 .Name("testSessionDetails")
                 .UseSingleOrDefault()
                 // .UseSelection() see https://github.com/ChilliCream/hotchocolate/issues/1582
+                // https://github.com/ChilliCream/hotchocolate/pull/1584
                 .UseFiltering<TestSessionDetailsDto>(filterDescriptor =>
                     filterDescriptor.Filter(p => p.Id).AllowEquals());
 
@@ -93,16 +95,31 @@ namespace SHT.Api.Web.GraphQl
             descriptor
                 .Field(f => f.GetStudentTestQuestions(default, default))
                 .Authorize(AuthorizationPolicyNames.StudentsOnly)
-                .Type<NonNullType<ListType<NonNullType<StudentTestQuestionListItemDtoGraphType>>>>()
+                .Type<NonNullType<ListType<NonNullType<StudentTestQuestionDtoGraphType>>>>()
                 .Name("studentTestQuestions")
                 .UseSelection()
-                .UseFiltering<StudentTestQuestionListItemDto>(filterDescriptor =>
-                    filterDescriptor.Filter(e => e.StudentTestSessionId).AllowEquals())
-                .UseSorting<StudentTestQuestionListItemDto>(sortDescriptor =>
+                .UseFiltering<StudentTestQuestionDtoFilterInputType>()
+                .UseSorting<StudentTestQuestionDto>(sortDescriptor =>
                 {
                     sortDescriptor.BindFieldsExplicitly();
                     sortDescriptor.Sortable(e => e.Number);
                 });
+
+            descriptor
+                .Field(f => f.GetStudentTestQuestion(default, default))
+                .Authorize(AuthorizationPolicyNames.StudentsOnly)
+                .Type<StudentTestQuestionDtoGraphType>()
+                .Name("studentTestQuestion")
+                .UseSingleOrDefault()
+                .UseSelection()
+                .UseFiltering<StudentTestQuestionDtoFilterInputType>();
+
+            descriptor
+                .Field(f => f.GetStudentTestSessionVariants(default, default, default))
+                .Authorize(AuthorizationPolicyNames.StudentsOnly)
+                .Type<NonNullType<ListType<NonNullType<StringType>>>>()
+                .Name("studentTestSessionVariants")
+                .Argument("studentTestSessionId", argumentDescriptor => argumentDescriptor.Type<NonNullType<UuidType>>());
         }
     }
 }

@@ -116,8 +116,8 @@ const testSessionDetailsQuery = `
 
 async function loadData(id?: string): Promise<LoadedData> {
     const query = `
-query q${id ? "($id:Uuid!)" : undefined} {
-${id ? testSessionDetailsQuery : undefined}
+query q${id ? "($id:Uuid!)" : ""} {
+${id ? testSessionDetailsQuery : ""}
 
   variants:testVariantLookups {
     text
