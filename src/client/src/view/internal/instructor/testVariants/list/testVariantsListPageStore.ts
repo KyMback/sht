@@ -1,20 +1,42 @@
 import { observable, runInAction } from "mobx";
-import { SearchResultBaseFilter, TestVariantListItemDto } from "../../../../../typings/dataContracts";
-import { TestVariantApi } from "../../../../../core/api/testVariantApi";
+import { TableResult } from "../../../../../core/api/tableResult";
+import { HttpApi } from "../../../../../core/api/http/httpApi";
+
+interface TestVariant {
+    id: string;
+    name: string;
+    createdByName: string;
+}
 
 export class TestVariantsListPageStore {
-    @observable testVariants: Array<TestVariantListItemDto> = [];
+    @observable testVariants: Array<TestVariant> = [];
 
     public loadData = async () => {
-        const result = await TestVariantApi.getList(
-            SearchResultBaseFilter.fromJS({
-                pageNumber: 1,
-                pageSize: 100,
-            }),
-        );
+        const { testVariants } = await loadData(1, 10);
 
         runInAction(() => {
-            this.testVariants = result.items;
+            this.testVariants = testVariants.items;
         });
     };
+}
+
+interface LoadedData {
+    testVariants: TableResult<TestVariant>;
+}
+
+const query = `
+query q($pageNumber: Int!, $pageSize: Int!) {
+  testVariants(pageNumber: $pageNumber, pageSize: $pageSize) {
+    items {
+      id
+      name
+      createdByName
+    }
+    total
+  }
+}
+`;
+
+async function loadData(pageNumber: number, pageSize: number): Promise<LoadedData> {
+    return HttpApi.graphQl(query, { pageNumber, pageSize });
 }

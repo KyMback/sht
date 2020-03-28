@@ -1,5 +1,5 @@
 import { action, computed, observable, runInAction } from "mobx";
-import { TestVariantApi } from "../../../../../core/api/testVariantApi";
+import { HttpApi } from "../../../../../core/api/http/httpApi";
 
 export class TestVariantDetailsStore {
     @observable public id?: string;
@@ -21,13 +21,31 @@ export class TestVariantDetailsStore {
             return;
         }
 
-        const result = await TestVariantApi.get(this.id!);
+        const { details } = await loadData(this.id!);
 
         runInAction(() => {
-            this.name = result.name;
+            this.name = details.name;
         });
     };
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     public save = async () => {};
+}
+
+interface LoadedData {
+    details: {
+        name: string;
+    };
+}
+
+const query = `
+query q($id: Uuid!) {
+  details: testVariant(where: { id: $id }) {
+    name
+  }
+}
+`;
+
+async function loadData(id: string): Promise<LoadedData> {
+    return HttpApi.graphQl<LoadedData>(query, { id });
 }

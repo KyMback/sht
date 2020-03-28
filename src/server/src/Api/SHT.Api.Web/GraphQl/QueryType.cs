@@ -6,6 +6,7 @@ using SHT.Api.Web.Security.Constants;
 using SHT.Application.Tests.StudentQuestions.Contracts;
 using SHT.Application.Tests.StudentsTestSessions.Contracts;
 using SHT.Application.Tests.TestSessions.Contracts;
+using SHT.Application.TestVariants.Contracts;
 
 namespace SHT.Api.Web.GraphQl
 {
@@ -37,7 +38,9 @@ namespace SHT.Api.Web.GraphQl
                 .Type<TestSessionDetailsDtoGraphType>()
                 .Name("testSessionDetails")
                 .UseSingleOrDefault()
-                // .UseSelection() see https://github.com/ChilliCream/hotchocolate/issues/1582
+                // .UseSelection()
+                // problem with second select for nested collections (mb issue with ef core)
+                // see https://github.com/ChilliCream/hotchocolate/issues/1582
                 // https://github.com/ChilliCream/hotchocolate/pull/1584
                 .UseFiltering<TestSessionDetailsDto>(filterDescriptor =>
                     filterDescriptor.Filter(p => p.Id).AllowEquals());
@@ -120,6 +123,21 @@ namespace SHT.Api.Web.GraphQl
                 .Type<NonNullType<ListType<NonNullType<StringType>>>>()
                 .Name("studentTestSessionVariants")
                 .Argument("studentTestSessionId", argumentDescriptor => argumentDescriptor.Type<NonNullType<UuidType>>());
+
+            descriptor.Field(f => f.GetTestVariant(default, default))
+                .Authorize(AuthorizationPolicyNames.InstructorsOnly)
+                .Type<TestVariantDtoGraphType>()
+                .Name("testVariant")
+                .UseSingleOrDefault()
+                .UseFiltering<TestVariantDto>(filterDescriptor =>
+                    filterDescriptor.Filter(e => e.Id).AllowEquals());
+
+            descriptor.Field(f => f.GetTestVariants(default, default))
+                .Authorize(AuthorizationPolicyNames.InstructorsOnly)
+                .Type<NonNullType<ListType<NonNullType<TestVariantDtoGraphType>>>>()
+                .Name("testVariants")
+                .UseOffsetBasedPaging<TestVariantDtoGraphType, TestVariantDto>();
+            // .UseCustomSelection<TestVariantDto>(); // problem with second select for nested collections (mb issue with ef core)
         }
     }
 }

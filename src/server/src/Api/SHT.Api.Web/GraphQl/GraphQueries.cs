@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HotChocolate;
+using Microsoft.EntityFrameworkCore;
 using SHT.Application.Common;
 using SHT.Application.StateMachineConfigs.Core;
 using SHT.Application.Tests.StudentQuestions.Contracts;
 using SHT.Application.Tests.StudentsTestSessions.Contracts;
 using SHT.Application.Tests.TestSessions.Contracts;
+using SHT.Application.TestVariants.Contracts;
 using SHT.Application.Users.Accounts.GetContext;
 using SHT.Application.Users.Students.Contracts;
 using SHT.Domain.Models.Tests;
@@ -182,6 +184,26 @@ namespace SHT.Api.Web.GraphQl
                 session => session.TestSession.TestSessionTestVariants.Select(e => e.Name).ToArray());
 
             return result;
+        }
+
+        public IQueryable<TestVariantDto> GetTestVariants(
+            [Service] IExecutionContextAccessor executionContextAccessor,
+            [Service] IQueryProvider queryProvider)
+        {
+            var queryParameters = new TestVariantQueryParameters
+            {
+                CreatedById = executionContextAccessor.GetCurrentUserId(),
+            };
+
+            return queryParameters.ToQuery(queryProvider).Select(TestVariantDto.Selector);
+        }
+
+        // Just because can't use the same method for different fields
+        public IQueryable<TestVariantDto> GetTestVariant(
+            [Service] IExecutionContextAccessor executionContextAccessor,
+            [Service] IQueryProvider queryProvider)
+        {
+            return GetTestVariants(executionContextAccessor, queryProvider);
         }
     }
 }
