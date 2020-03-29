@@ -38,10 +38,7 @@ namespace SHT.Api.Web.GraphQl
                 .Type<TestSessionDetailsDtoGraphType>()
                 .Name("testSessionDetails")
                 .UseSingleOrDefault()
-                // .UseSelection()
-                // problem with second select for nested collections (mb issue with ef core)
-                // see https://github.com/ChilliCream/hotchocolate/issues/1582
-                // https://github.com/ChilliCream/hotchocolate/pull/1584
+                .UseSelection()
                 .UseFiltering<TestSessionDetailsDto>(filterDescriptor =>
                     filterDescriptor.Filter(p => p.Id).AllowEquals());
 
@@ -136,8 +133,8 @@ namespace SHT.Api.Web.GraphQl
                 .Authorize(AuthorizationPolicyNames.InstructorsOnly)
                 .Type<NonNullType<ListType<NonNullType<TestVariantDtoGraphType>>>>()
                 .Name("testVariants")
-                .UseOffsetBasedPaging<TestVariantDtoGraphType, TestVariantDto>();
-            // .UseCustomSelection<TestVariantDto>(); // problem with second select for nested collections (mb issue with ef core)
+                .UseOffsetBasedPaging<TestVariantDtoGraphType, TestVariantDto>()
+                .UseCustomSelection<TestVariantDto>();
         }
     }
 }
