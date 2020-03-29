@@ -1,7 +1,7 @@
 #############################################
 ######### BUILD SERVER
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0 AS build-server
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-server
 
 WORKDIR /usr/src/web-api
 
@@ -38,7 +38,7 @@ RUN dotnet build
 #############################################
 ######### BUILD CLIENT
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0 AS build-app
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-app
 
 # install nodejs
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash && \
@@ -54,7 +54,7 @@ COPY /client/package-lock.json ./client/package-lock.json
 WORKDIR /usr/src/web-app/client
 RUN npm install
 
-COPY --from=build-server /usr/src/web-api/tools/SHT.JsonSchemasGenerator/bin/Debug/netcoreapp3.0 /usr/src/web-app/server/tools/SHT.JsonSchemasGenerator/bin/Debug/netcoreapp3.0
+COPY --from=build-server /usr/src/web-api/tools/SHT.JsonSchemasGenerator/bin/Debug/netcoreapp3.1 /usr/src/web-app/server/tools/SHT.JsonSchemasGenerator/bin/Debug/netcoreapp3.1
 COPY /client .
 
 RUN npm run build:prod
@@ -62,7 +62,7 @@ RUN npm run build:prod
 
 #################################################
 ############ RUNTIME
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.0 as final
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 as final
 
 WORKDIR /app
 

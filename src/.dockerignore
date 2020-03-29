@@ -1,0 +1,15 @@
+# IDEs
+**/.idea
+**/.vscode
+
+# For .net core
+server/**/bin
+server/**/obj
+server/**/out
+server/**/TestResults
+server/**/packages
+
+# For js
+client/**/node_modules
+client/**/build
+client/**/dataContracts.ts

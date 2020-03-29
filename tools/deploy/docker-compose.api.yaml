@@ -2,14 +2,15 @@ version: "3.2"
 services:
   web-api:
     restart: unless-stopped
+    container_name: sht-web-api
     build:
       context: ./../../src
       dockerfile: ./../tools/deploy/api.web.Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - Serilog__WriteTo__FileLogger__Args__path=${Serilog__WriteTo__FileLogger__Args__path}
-      - ConnectionsOptions__DefaultConnection=Server=db;Port=5432;Database=${DB_NAME};User Id=${DB_USER_NAME};Password=${DB_PASS}
+      - DataAccessOptions__ConnectionsOptions__DefaultConnection=${DataAccessOptions__ConnectionsOptions__DefaultConnection}
       - IdentityOptions__Password__RequireLowercase=${IdentityOptions__Password__RequireLowercase}
       - IdentityOptions__Password__RequireUppercase=${IdentityOptions__Password__RequireUppercase}
       - IdentityOptions__Password__RequireDigit=${IdentityOptions__Password__RequireDigit}

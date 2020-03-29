@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0 AS build-server
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-server
 
 WORKDIR /usr/src/db-migration
 

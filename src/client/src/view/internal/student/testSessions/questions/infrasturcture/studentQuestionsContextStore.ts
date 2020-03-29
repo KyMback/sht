@@ -1,11 +1,7 @@
 import { observable, runInAction } from "mobx";
 import { Dictionary } from "../../../../../../typings/customTypings";
 import { BaseQuestionStore } from "./baseQuestionStore";
-import {
-    QuestionType,
-    StudentTestQuestionListItemDto,
-    StudentTestSessionDto,
-} from "../../../../../../typings/dataContracts";
+import { QuestionType, StudentTestQuestionDto, StudentTestSessionDto } from "../../../../../../typings/dataContracts";
 import { FreeTextQuestionStore } from "../freeTextQuestion/freeTextQuestionStore";
 import { HttpApi } from "../../../../../../core/api/http/httpApi";
 
@@ -14,7 +10,7 @@ export class StudentQuestionsContextStore {
     @observable public sessionState?: string;
     @observable public variant?: string;
     @observable public isDataLoaded: boolean = false;
-    @observable public questionsList: Array<StudentTestQuestionListItemDto> = [];
+    @observable public questionsList: Array<StudentTestQuestionDto> = [];
     @observable public questionsMap: Dictionary<QuestionMetadata> = {};
 
     constructor(sessionId: string) {
@@ -67,7 +63,7 @@ interface QuestionMetadata {
 
 interface LoadedData {
     session: StudentTestSessionDto;
-    questions: Array<StudentTestQuestionListItemDto>;
+    questions: Array<StudentTestQuestionDto>;
 }
 
 const query = `

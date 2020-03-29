@@ -9,7 +9,7 @@ services:
       - POSTGRES_PASSWORD=${DB_PASS}
       - POSTGRES_DB=${DB_NAME}
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - sht-db-data:/var/lib/postgresql/data
     networks:
@@ -20,7 +20,7 @@ services:
       context: ./../../src
       dockerfile: ./../tools/deploy/db.migrations.Dockerfile
     environment:
-      - ConnectionOptions__ConnectionString=Server=db;Port=5432;Database=${DB_NAME};User Id=${DB_USER_NAME};Password=${DB_PASS}
+      - ConnectionOptions__ConnectionString=${ConnectionOptions__ConnectionString}
     networks:
       - database
 networks:
