@@ -1,6 +1,6 @@
 import { AccountService } from "../../../services/accountService";
 import { SignUpStudentDataDto, UserType } from "../../../typings/dataContracts";
-import { action, observable } from "mobx";
+import { computed, observable } from "mobx";
 import { routingStore } from "../../../stores/routingStore";
 import { notifications } from "../../../components/notifications/notifications";
 import { apiErrors, isExpected } from "../../../core/api/http/apiError";
@@ -13,16 +13,10 @@ export class SignUpStudentStore {
     @observable public password?: string;
     @observable public repeatPassword?: string;
 
-    @action public setEmail = (value?: string) => (this.email = value);
-    @action public setFirstName = (value?: string) => (this.firstName = value);
-    @action public setLastName = (value?: string) => (this.lastName = value);
-    @action public setGroup = (value?: string) => (this.group = value);
-    @action public setPassword = (value?: string) => (this.password = value);
-    @action public setRepeatPassword = (value?: string) => (this.repeatPassword = value);
-
-    public repeatPasswordValidation = () => {
-        return this.repeatPassword !== this.password ? "repeatPasswordNotEqual" : undefined;
-    };
+    @computed
+    public get repeatPasswordValidation() {
+        return this.repeatPassword !== this.password ? () => "repeatPasswordNotEqual" : () => undefined;
+    }
 
     public signUp = async () => {
         try {

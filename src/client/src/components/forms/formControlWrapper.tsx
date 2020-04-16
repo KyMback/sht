@@ -1,16 +1,5 @@
 import { ensureLocal, Local } from "../../core/localization/local";
-import React, {
-    forwardRef,
-    Ref,
-    RefAttributes,
-    useCallback,
-    useContext,
-    useEffect,
-    useImperativeHandle,
-    useMemo,
-    useRef,
-    useState,
-} from "react";
+import React, { useMemo } from "react";
 import { ControlProps } from "../controls";
 import { FormGroup } from "reactstrap";
 import { ValidationContext } from "./validationProvider";
@@ -34,66 +23,80 @@ export type ValidationError = string | DetailedValidationError;
 
 export type ValidationFunction<TValue> = (value: TValue) => ValidationError | undefined;
 
-const withValidation = (Control: React.FC<any & RefAttributes<ValidationHandlers>>) => {
-    return <TValue, TControlProps extends ControlProps<TValue>>(props: FormWrapperProps<TValue, TControlProps>) => {
-        const controlRef = useRef<ValidationHandlers>(null);
-        const context = useContext(ValidationContext);
-        useEffect(() => {
-            const isValid = () => {
-                controlRef.current!.setIsUsed(true);
-                return controlRef.current!.isValid();
+function withValidation<TValue, TControlProps extends ControlProps<TValue>>(
+    Control: React.FC<FormWrapperProps<TValue, TControlProps> & ValidationResultProps>,
+): React.ComponentType<FormWrapperProps<TValue, TControlProps>> {
+    return class extends React.Component<FormWrapperProps<TValue, TControlProps>, { isUsed: boolean }> {
+        static contextType = ValidationContext;
+        context!: React.ContextType<typeof ValidationContext>;
+
+        constructor(props: any) {
+            super(props);
+            this.state = {
+                isUsed: false,
             };
-            context.add(isValid);
-            return () => context.remove(isValid);
-        }, [context]);
+        }
 
-        return <Control {...props} ref={controlRef} />;
+        public componentDidMount(): void {
+            this.context.add(this);
+        }
+
+        public componentWillUnmount(): void {
+            this.context.remove(this);
+        }
+
+        public isValid = (): boolean => {
+            this.setState({
+                isUsed: true,
+            });
+            return !validate(this.props.controlProps.value, this.props.validations);
+        };
+
+        private onChange = (value: TValue) => {
+            this.props.controlProps.onChange(value);
+            this.setState({
+                isUsed: true,
+            });
+        };
+
+        public render = () => {
+            return (
+                <Control
+                    {...this.props}
+                    {...this.state}
+                    error={validate(this.props.controlProps.value, this.props.validations)}
+                    controlProps={{ ...this.props.controlProps, onChange: this.onChange }}
+                />
+            );
+        };
     };
-};
+}
 
-interface ValidationHandlers {
-    setIsUsed: (isUsed: boolean) => void;
-    isValid: () => boolean;
+interface ValidationResultProps {
+    isUsed: boolean;
+    error?: ValidationError;
 }
 
 export const FormControlWrapper = withValidation(
-    forwardRef(
-        <TValue, TControlProps extends ControlProps<TValue>>(
-            { control: Control, label, name, controlProps, validations }: FormWrapperProps<TValue, TControlProps>,
-            ref: Ref<ValidationHandlers>,
-        ) => {
-            useImperativeHandle(
-                ref,
-                () => ({
-                    setIsUsed: setIsUsed,
-                    isValid: () => !validate(controlProps.value, validations),
-                }),
-                [controlProps.value, validations],
-            );
-            const [isUsed, setIsUsed] = useState<boolean>(false);
+    <TValue, TControlProps extends ControlProps<TValue>>({
+        control: Control,
+        label,
+        name,
+        controlProps,
+        isUsed,
+        error,
+    }: FormWrapperProps<TValue, TControlProps> & ValidationResultProps) => {
+        const errorMessage = useMemo(() => isUsed && error && <ErrorMessage error={error} />, [error, isUsed]);
+        const labelComponent = useMemo(() => label && ensureLocal(label), [label]);
 
-            const onChange = useCallback(
-                (value: TValue) => {
-                    setIsUsed(true);
-                    controlProps.onChange(value);
-                    // eslint-disable-next-line react-hooks/exhaustive-deps
-                },
-                [controlProps],
-            );
-
-            const error = validate(controlProps.value, validations);
-            const errorMessage = useMemo(() => isUsed && error && <ErrorMessage error={error} />, [error, isUsed]);
-            const labelComponent = useMemo(() => label && ensureLocal(label), [label]);
-
-            return (
-                <FormGroup className={`form-control-wrapper ${getClassNames(isUsed, error)}`}>
-                    <label htmlFor={name}>{labelComponent}</label>
-                    <Control id={name} {...controlProps} valid={!isUsed ? undefined : !error} onChange={onChange} />
-                    {errorMessage}
-                </FormGroup>
-            );
-        },
-    ),
+        return (
+            <FormGroup className={`form-control-wrapper ${getClassNames(isUsed, error)}`}>
+                <label htmlFor={name}>{labelComponent}</label>
+                <Control id={name} {...controlProps} valid={!isUsed ? undefined : !error} />
+                {errorMessage}
+            </FormGroup>
+        );
+    },
 );
 
 function getClassNames(isUsed: boolean, error?: ValidationError): string {
@@ -111,9 +114,9 @@ function validate(value?: any, validations?: Array<ValidationFunction<any>>): Va
         return;
     }
     for (const val of validations) {
-        const result = val(value);
-        if (result) {
-            return result;
+        const error = val(value);
+        if (error) {
+            return error;
         }
     }
 }

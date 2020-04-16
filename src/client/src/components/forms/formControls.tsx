@@ -13,6 +13,8 @@ export function makeFormControl<TProps extends ControlProps<TValue>, TValue>(
 ): React.FC<FormControlProps<TValue, TProps>> {
     return (props: FormControlProps<TValue, TProps>) => {
         return (
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
             <FormControlWrapper<TValue, TProps>
                 control={control}
                 controlProps={props}

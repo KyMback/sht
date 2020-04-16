@@ -1,10 +1,9 @@
-import React, { createContext, forwardRef, PropsWithChildren, Ref, useImperativeHandle, useMemo } from "react";
-
-type ValidatorType = () => boolean;
+import React, { createContext, forwardRef, PropsWithChildren, Ref, useImperativeHandle, useState } from "react";
+import { pull } from "lodash";
 
 interface Context {
-    add: (validator: ValidatorType) => void;
-    remove: (validator: ValidatorType) => void;
+    add: (validator: ValidationProviderHandlers) => void;
+    remove: (validator: ValidationProviderHandlers) => void;
 }
 
 export interface ValidationProviderHandlers {
@@ -12,20 +11,20 @@ export interface ValidationProviderHandlers {
 }
 
 class InternalContext implements Context {
-    private validators: Array<ValidatorType> = [];
+    private validators: Array<ValidationProviderHandlers> = [];
 
-    public add = (validator: ValidatorType) => {
-        this.validators = [...this.validators, validator];
+    public add = (validator: ValidationProviderHandlers) => {
+        this.validators.push(validator);
     };
 
-    public remove = (validator: ValidatorType) => {
-        this.validators = this.validators.filter(v => v !== validator);
+    public remove = (validator: ValidationProviderHandlers) => {
+        pull(this.validators, validator);
     };
 
     public isValid = (): boolean => {
         let result = true;
         for (const val of this.validators) {
-            result = val() && result;
+            result = val.isValid() && result;
         }
 
         return result;
@@ -36,7 +35,7 @@ export const ValidationContext = createContext<Context>(new InternalContext());
 
 export const ValidationProvider = forwardRef<ValidationProviderHandlers, PropsWithChildren<object>>(
     ({ children }: PropsWithChildren<object>, ref: Ref<ValidationProviderHandlers>) => {
-        const contextObject = useMemo<InternalContext>(() => new InternalContext(), []);
+        const [contextObject] = useState(new InternalContext());
         useImperativeHandle(
             ref,
             () => ({
