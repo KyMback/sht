@@ -1,11 +1,11 @@
 import { action, observable, runInAction } from "mobx";
 import { BaseQuestionStore } from "../infrasturcture/baseQuestionStore";
-import { StudentQuestionApi } from "../../../../../../core/api/studentQuestionApi";
 import { AnswerStudentQuestionDto } from "../../../../../../typings/dataContracts";
 import { apiErrors, isExpected } from "../../../../../../core/api/http/apiError";
 import { notifications } from "../../../../../../components/notifications/notifications";
 import { routingStore } from "../../../../../../stores/routingStore";
 import { HttpApi } from "../../../../../../core/api/http/httpApi";
+import { StudentQuestionsService } from "../../../../../../services/studentQuestionsService";
 
 export class FreeTextQuestionStore extends BaseQuestionStore {
     @observable public question?: string;
@@ -29,7 +29,7 @@ export class FreeTextQuestionStore extends BaseQuestionStore {
 
     public submit = async () => {
         try {
-            await StudentQuestionApi.answer(
+            await StudentQuestionsService.answer(
                 AnswerStudentQuestionDto.fromJS({
                     answer: this.answer,
                     questionId: this.id,

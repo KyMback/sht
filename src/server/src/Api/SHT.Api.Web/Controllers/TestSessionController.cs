@@ -29,9 +29,9 @@ namespace SHT.Api.Web.Controllers
         }
 
         [HttpPut("{id}")]
-        public Task Update(TestSessionDetailsDto data, [FromRoute] Guid id)
+        public Task Update(TestSessionDetailsDto data)
         {
-            return _mediator.Send(new UpdateTestSessionRequest(data, id));
+            return _mediator.Send(new UpdateTestSessionRequest(data));
         }
 
         [HttpPut("state")]

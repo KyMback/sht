@@ -1,6 +1,6 @@
 using HotChocolate.Types;
-using SHT.Api.Web.GraphQl.Paging;
-using SHT.Api.Web.GraphQl.Selection;
+using SHT.Api.Web.GraphQl.Queries.Paging;
+using SHT.Api.Web.GraphQl.Queries.Selection;
 
 namespace SHT.Api.Web.GraphQl.Extensions
 {

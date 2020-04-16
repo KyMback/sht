@@ -1,7 +1,7 @@
 import { action, observable, runInAction } from "mobx";
-import { TestSessionApi } from "../../../../../core/api/testSessionApi";
+import { TestSessionsService } from "../../../../../services/testSessionsService";
 import moment from "moment";
-import { TestSessionDto, TestSessionStateTransitionRequest } from "../../../../../typings/dataContracts";
+import { TestSessionDto } from "../../../../../typings/dataContracts";
 import { HttpApi } from "../../../../../core/api/http/httpApi";
 
 export class TestSessionDashboardStore {
@@ -30,12 +30,7 @@ export class TestSessionDashboardStore {
 
     @action
     public stateTransition = async (trigger: string) => {
-        await TestSessionApi.stateTransition(
-            TestSessionStateTransitionRequest.fromJS({
-                testSessionId: this.id,
-                trigger,
-            }),
-        );
+        await TestSessionsService.stateTransition(this.id, trigger);
         await this.loadData();
     };
 }
@@ -47,6 +42,7 @@ query q($id:Uuid!) {
     id
     name
     studentsIds
+    state
     testVariants {
       name
       testVariantId

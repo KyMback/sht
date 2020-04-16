@@ -1,6 +1,6 @@
 import { computed, observable, runInAction } from "mobx";
-import { StudentTestSessionApi } from "../../../../../core/api/studentTestSessionApi";
-import { StudentTestSessionDto, StudentTestSessionStateTransitionRequest } from "../../../../../typings/dataContracts";
+import { StudentTestSessionsService } from "../../../../../services/studentTestSessionsService";
+import { StudentTestSessionDto } from "../../../../../typings/dataContracts";
 import { studentTestSessionStateTriggers } from "./stateTransition/studentTestSessionStateTriggers";
 import { StartStudentTestModalStore } from "./stateTransition/startTest/startStudentTestModalStore";
 import { studentTestSessionStates } from "./stateTransition/studentTestSessionStates";
@@ -46,14 +46,7 @@ export class StudentTestSessionDashboardStore {
     };
 
     private stateTransitionInternal = async (trigger: string, data?: any) => {
-        await StudentTestSessionApi.stateTransition(
-            StudentTestSessionStateTransitionRequest.fromJS({
-                studentTestSessionId: this.id,
-                trigger: trigger,
-                serializedData: data,
-            }),
-        );
-
+        await StudentTestSessionsService.stateTransition(this.id, trigger, data);
         await this.loadData();
     };
 }

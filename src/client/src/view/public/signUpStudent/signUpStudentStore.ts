@@ -1,4 +1,4 @@
-import { AccountApi } from "../../../core/api/accountApi";
+import { AccountService } from "../../../services/accountService";
 import { SignUpStudentDataDto, UserType } from "../../../typings/dataContracts";
 import { action, observable } from "mobx";
 import { routingStore } from "../../../stores/routingStore";
@@ -26,7 +26,7 @@ export class SignUpStudentStore {
 
     public signUp = async () => {
         try {
-            await AccountApi.signUp(
+            await AccountService.signUpStudent(
                 SignUpStudentDataDto.fromJS({
                     email: this.email,
                     password: this.password,

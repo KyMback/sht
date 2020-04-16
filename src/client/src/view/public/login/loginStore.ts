@@ -1,5 +1,5 @@
 import { observable } from "mobx";
-import { AccountApi } from "../../../core/api/accountApi";
+import { AccountService } from "../../../services/accountService";
 import { SignInDataDto, UserType } from "../../../typings/dataContracts";
 import { userContextStore } from "../../../stores/userContextStore";
 import { routingStore } from "../../../stores/routingStore";
@@ -12,7 +12,7 @@ export class LoginStore {
 
     public signIn = async () => {
         try {
-            const result = await AccountApi.signIn(
+            const result = await AccountService.signIn(
                 SignInDataDto.fromJS({
                     login: this.login,
                     password: this.password,

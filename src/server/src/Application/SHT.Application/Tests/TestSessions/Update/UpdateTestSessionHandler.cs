@@ -35,7 +35,7 @@ namespace SHT.Application.Tests.TestSessions.Update
             TestSessionDetailsDto data = request.Data;
             var queryParameters = new TestSessionQueryParameters
             {
-                Id = request.Id,
+                Id = data.Id,
                 InstructorId = _executionContextAccessor.GetCurrentUserId(),
                 IsReadOnly = false,
             };

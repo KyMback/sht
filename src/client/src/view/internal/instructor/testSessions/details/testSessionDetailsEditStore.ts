@@ -1,4 +1,4 @@
-import { TestSessionApi } from "../../../../../core/api/testSessionApi";
+import { TestSessionsService } from "../../../../../services/testSessionsService";
 import { Lookup, StudentGroupedGroupDto, TestSessionDetailsDto } from "../../../../../typings/dataContracts";
 import { routingStore } from "../../../../../stores/routingStore";
 import { action, observable, runInAction } from "mobx";
@@ -38,10 +38,10 @@ export class TestSessionDetailsEditStore {
 
     public save = async () => {
         if (this.id) {
-            await TestSessionApi.update(this.mapToDto(), this.id);
+            await TestSessionsService.update(this.mapToDto());
             this.cancel();
         } else {
-            const result = await TestSessionApi.create(this.mapToDto());
+            const result = await TestSessionsService.create(this.mapToDto());
             routingStore.goto(`/test-session/${result.id}`);
         }
     };
@@ -58,6 +58,16 @@ export class TestSessionDetailsEditStore {
         const { groups, testSession, variants } = await loadData(this.id);
 
         runInAction(() => {
+            this.groupedGroups = groups.reduce((dict, g) => {
+                dict[g.groupName] = g.studentsIds;
+                return dict;
+            }, {} as Dictionary<Array<string>>);
+            this.groups = groups.map(e => ({
+                value: e.groupName,
+                text: e.groupName,
+            }));
+            this.testVariantsItems = [...variants];
+
             if (testSession) {
                 this.name = testSession.name;
                 const groups: Array<string> = [];
@@ -69,21 +79,12 @@ export class TestSessionDetailsEditStore {
                 this.selectedGroups = groups;
                 this.testVariants = testSession.testVariants;
             }
-
-            this.groupedGroups = groups.reduce((dict, g) => {
-                dict[g.groupName] = g.studentsIds;
-                return dict;
-            }, {} as Dictionary<Array<string>>);
-            this.groups = groups.map(e => ({
-                value: e.groupName,
-                text: e.groupName,
-            }));
-            this.testVariantsItems = [...variants];
         });
     };
 
     private mapToDto = (): TestSessionDetailsDto => {
         return TestSessionDetailsDto.fromJS({
+            id: this.id,
             name: this.name,
             studentsIds: this.selectedGroups.map(g => this.groupedGroups[g]).flat(),
             testVariants: this.testVariants,

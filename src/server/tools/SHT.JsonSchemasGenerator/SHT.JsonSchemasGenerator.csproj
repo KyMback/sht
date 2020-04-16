@@ -9,8 +9,8 @@
     <Import Project="$(SolutionDir)/common/CodeAnalysis/CodeAnalysis.props" />
 
     <ItemGroup>
-        <PackageReference Include="NJsonSchema" Version="10.1.8" />
-        <PackageReference Include="NJsonSchema.CodeGeneration.TypeScript" Version="10.1.8" />
+        <PackageReference Include="NJsonSchema" Version="10.1.12" />
+        <PackageReference Include="NJsonSchema.CodeGeneration.TypeScript" Version="10.1.12" />
     </ItemGroup>
 
     <ItemGroup>

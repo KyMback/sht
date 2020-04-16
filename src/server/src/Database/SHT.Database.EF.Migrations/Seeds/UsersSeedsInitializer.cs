@@ -25,7 +25,8 @@ namespace SHT.Database.EF.Migrations.Seeds
             },
         };
 
-        private static readonly IReadOnlyCollection<Student> Students = new[]
+        private static readonly IReadOnlyCollection<Student> Students
+            = new[]
         {
             new Student
             {
