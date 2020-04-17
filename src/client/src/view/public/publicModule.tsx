@@ -14,7 +14,7 @@ const routes: Array<Route> = [
         component: Login,
     },
     {
-        path: "/signUp",
+        path: "/sign-up",
         component: SignUpStudent,
     },
 ];

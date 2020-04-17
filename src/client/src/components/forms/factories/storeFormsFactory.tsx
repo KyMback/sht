@@ -93,7 +93,9 @@ export class StoreFormsFactory<TStore = any> {
 }
 
 function createDefaultOnChange<TStore, TValue>(valueAccessor: keyof TStore): StoreProps<TStore, (v: TValue) => void> {
-    return (store: TStore) => v => ((store as any)[valueAccessor] = v);
+    return (store: TStore) => v => {
+        (store as any)[valueAccessor] = v;
+    };
 }
 
 function convertToValue<TStore, TValue>(store: TStore, value: StorePropsOrDefault<TStore, TValue>): TValue {

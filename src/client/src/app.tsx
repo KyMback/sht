@@ -12,6 +12,8 @@ import { localStore } from "./stores/localStore";
 import { LoadingAnimationWrapper } from "./components/layouts/loading/loadingAnimationWrapper";
 import { NotificationsContainer } from "./components/notifications/notifications";
 import { ApiErrorHandler } from "./core/api/http/apiErrorHandler";
+import { ConfirmationContainer } from "./components/modals/confirmationContainer";
+import { stores } from "./stores";
 
 export const App = observer(() => {
     const [isContextLoaded, setIsContextLoaded] = useState<boolean>(false);
@@ -27,6 +29,7 @@ export const App = observer(() => {
                     <MainLayout>{isContextLoaded && <RootModule />}</MainLayout>
                 </ApiErrorHandler>
             </Router>
+            <ConfirmationContainer store={stores.confirmationManager} />
             <NotificationsContainer />
             <LoadingAnimationWrapper />
         </RawIntlProvider>

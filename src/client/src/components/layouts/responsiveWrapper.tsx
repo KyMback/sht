@@ -12,7 +12,7 @@ export const ResponsiveWrapper = ({ children, colsInRow }: Props) => {
     return (
         <Row>
             {children.map((item, index) => (
-                <Col key={index} xs={size}>
+                <Col key={index} lg={size}>
                     {item}
                 </Col>
             ))}

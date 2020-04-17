@@ -1,4 +1,4 @@
-import React, { FormEvent, PropsWithChildren, useCallback, useRef } from "react";
+import React, { FormEvent, forwardRef, PropsWithChildren, Ref, useCallback, useImperativeHandle, useRef } from "react";
 import { Form as FormComponent } from "reactstrap";
 import { ValidationProvider, ValidationProviderHandlers } from "./validationProvider";
 
@@ -8,23 +8,36 @@ interface Props {
     className?: string;
 }
 
-export const Form = ({ onValidSubmit, children, className }: PropsWithChildren<Props>) => {
-    const validationProvider = useRef<ValidationProviderHandlers>(null);
+export interface FormActions {
+    isValid: () => boolean;
+}
 
-    const submit = useCallback(
-        (e: FormEvent) => {
-            e.preventDefault();
+export const Form = forwardRef(
+    ({ onValidSubmit, children, className }: PropsWithChildren<Props>, ref: Ref<FormActions>) => {
+        const validationProvider = useRef<ValidationProviderHandlers>(null);
+        useImperativeHandle(
+            ref,
+            () => ({
+                isValid: validationProvider.current!.isValid,
+            }),
+            [],
+        );
 
-            if (validationProvider.current!.isValid()) {
-                onValidSubmit && onValidSubmit();
-            }
-        },
-        [onValidSubmit],
-    );
+        const submit = useCallback(
+            (e: FormEvent) => {
+                e.preventDefault();
 
-    return (
-        <FormComponent onSubmit={submit} className={className}>
-            <ValidationProvider ref={validationProvider}>{children}</ValidationProvider>
-        </FormComponent>
-    );
-};
+                if (validationProvider.current!.isValid()) {
+                    onValidSubmit && onValidSubmit();
+                }
+            },
+            [onValidSubmit],
+        );
+
+        return (
+            <FormComponent onSubmit={submit} className={className}>
+                <ValidationProvider ref={validationProvider}>{children}</ValidationProvider>
+            </FormComponent>
+        );
+    },
+);
