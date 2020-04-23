@@ -1,4 +1,4 @@
-import { IconButton } from "../../buttons/iconButton/iconButton";
+import { GenericButton } from "../../buttons/genericButton/genericButton";
 import React from "react";
 import { CardSectionActionProps } from "./cardSection";
 
@@ -10,7 +10,7 @@ export const CardSectionBottomActions = ({ actions }: Props) => {
     return (
         <div className="card-section-bottom-actions">
             {actions.map((item, index) => (
-                <IconButton {...item} key={index} />
+                <GenericButton {...item} key={index} />
             ))}
         </div>
     );

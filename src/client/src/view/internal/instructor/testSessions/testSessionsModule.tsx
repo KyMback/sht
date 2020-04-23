@@ -23,7 +23,7 @@ const routes: Array<Route> = [
         component: TestSessionEditDetails,
     },
     {
-        path: "/test-session/:id",
+        path: "/test-session/dashboard/:id",
         component: TestSessionDashboard,
     },
 ];

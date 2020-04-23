@@ -12,7 +12,7 @@ export class TestSessionDetailsEditStore {
     @observable name?: string;
     @observable groupedGroups: Dictionary<Array<string>> = {};
     @observable groups: Array<SelectItem<string>> = [];
-    @observable selectedGroups: Array<string> = [];
+    @observable selectedGroups: Array<SelectItem<string>> = [];
     @observable testVariantsItems: Array<SelectItem<string>> = [];
     @observable testVariants: Array<TestVariant> = [];
 
@@ -21,7 +21,7 @@ export class TestSessionDetailsEditStore {
     }
 
     @action setName = (value?: string) => (this.name = value);
-    @action setSelectedGroups = (value?: Array<string>) => {
+    @action setSelectedGroups = (value?: Array<SelectItem<string>>) => {
         this.selectedGroups = value || [];
     };
     @action setTestVariantsIds = (value: Array<TestVariant>) => (this.testVariants = value);
@@ -39,7 +39,6 @@ export class TestSessionDetailsEditStore {
     public save = async () => {
         if (this.id) {
             await TestSessionsService.update(this.mapToDto());
-            this.cancel();
         } else {
             const result = await TestSessionsService.create(this.mapToDto());
             routingStore.goto(`/test-session/${result.id}`);
@@ -76,7 +75,7 @@ export class TestSessionDetailsEditStore {
                         groups.push(key);
                     }
                 });
-                this.selectedGroups = groups;
+                this.selectedGroups = this.groups.filter(e => groups.includes(e.value));
                 this.testVariants = testSession.testVariants;
             }
         });
@@ -86,7 +85,10 @@ export class TestSessionDetailsEditStore {
         return TestSessionDetailsDto.fromJS({
             id: this.id,
             name: this.name,
-            studentsIds: this.selectedGroups.map(g => this.groupedGroups[g]).flat(),
+            studentsIds: this.selectedGroups
+                .map(g => g.value)
+                .map(g => this.groupedGroups[g])
+                .flat(),
             testVariants: this.testVariants,
         });
     };

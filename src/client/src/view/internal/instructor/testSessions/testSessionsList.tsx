@@ -9,9 +9,9 @@ import { routingStore } from "../../../../stores/routingStore";
 import { dateAndTime } from "../../../../core/utils/dateTimeUtil";
 import { HttpApi } from "../../../../core/api/http/httpApi";
 import { TableResult } from "../../../../core/api/tableResult";
-import { IconButtonProps } from "../../../../components/buttons/iconButton/iconButton";
+import { GenericButtonProps } from "../../../../components/buttons/genericButton/genericButton";
 
-const actions: Array<IconButtonProps> = [
+const actions: Array<GenericButtonProps> = [
     {
         icon: icons.add,
         onClick: () => routingStore.goto("/test-session/add"),
@@ -35,7 +35,7 @@ export const TestSessionsList = () => {
                             key={index}
                             className="clickable"
                             action
-                            onClick={() => routingStore.goto(`/test-session/${item.id}`)}
+                            onClick={() => routingStore.goto(`/test-session/dashboard/${item.id}`)}
                         >
                             <ListGroupItemHeading>{item.name}</ListGroupItemHeading>
                             <div>{item.state}</div>

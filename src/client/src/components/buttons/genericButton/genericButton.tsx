@@ -1,17 +1,17 @@
 import { Button } from "reactstrap";
-import { Icon } from "../../icons/icon";
+import { Icon, IconsType } from "../../icons/icon";
 import React from "react";
 import { Color, KeyOrJSX } from "../../../typings/customTypings";
 import { ensureLocal } from "../../../core/localization/local";
 
-export interface IconButtonProps {
+export interface GenericButtonProps {
     color?: Color;
-    icon?: string;
+    icon?: IconsType;
     text?: KeyOrJSX;
     onClick?: () => void;
 }
 
-export const IconButton = ({ icon, onClick, color, text }: IconButtonProps) => {
+export const GenericButton = ({ icon, onClick, color, text }: GenericButtonProps) => {
     return (
         <Button color={color} onClick={onClick}>
             {icon && <Icon icon={icon} />}

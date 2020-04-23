@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardTitle } from "reactstrap";
 import { KeyOrJSX } from "../../../typings/customTypings";
 import { ensureLocal } from "../../../core/localization/local";
-import { IconButton, IconButtonProps } from "../../buttons/iconButton/iconButton";
+import { GenericButton, GenericButtonProps } from "../../buttons/genericButton/genericButton";
 import { CardSectionBottomActions } from "./cardSectionBottomActions";
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
     bottomActions?: Array<CardSectionActionProps>;
 }
 
-export type CardSectionActionProps = IconButtonProps;
+export type CardSectionActionProps = GenericButtonProps;
 
 export const CardSection = ({ title, className, children, actions, bottomActions }: Props) => {
     return (
@@ -24,7 +24,7 @@ export const CardSection = ({ title, className, children, actions, bottomActions
                     {actions && (
                         <div className="actions">
                             {actions.map((item, index) => (
-                                <IconButton {...item} key={index} />
+                                <GenericButton {...item} key={index} />
                             ))}
                         </div>
                     )}

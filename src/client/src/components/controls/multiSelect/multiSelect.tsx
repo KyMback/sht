@@ -1,66 +1,53 @@
 import { ControlProps } from "../index";
-import React, { useMemo } from "react";
+import React from "react";
 import ReactSelect from "react-select";
 import { KeyOrJSX } from "../../../typings/customTypings";
 import { ensureLocal, Local } from "../../../core/localization/local";
-import { isEmpty, some } from "lodash";
 
-export interface MultiSelectProps<TData = any> extends ControlProps<Array<TData> | undefined> {
+export interface MultiSelectProps<TData = any> extends ControlProps<Array<SelectItem<TData>> | undefined> {
     options: Array<SelectItem<TData>>;
     placeholder?: KeyOrJSX;
     className?: string;
+    isSearchable?: boolean;
 }
 
 export interface SelectItem<TData> {
     text: string;
     value: TData;
+    valueKey?: string;
 }
 
-interface InternalOption {
-    label: string;
-    value?: any;
-}
-
-export const MultiSelect = <TData extends any>({
+export function MultiSelect<TData extends any>({
     value,
     onChange,
     options,
     valid,
     placeholder,
     className,
-}: MultiSelectProps<TData>) => {
-    const selectOptions = useMemo(() => mapSelectItemToOption(options), [options]);
-
+    isSearchable,
+}: MultiSelectProps<TData>) {
     return (
-        <ReactSelect
+        <ReactSelect<SelectItem<TData>>
             className={`multi-select ${valid ? "is-valid" : valid === false ? "is-invalid" : ""} ${className || ""}`}
-            isSearchable
+            isSearchable={isSearchable}
             isMulti
             backspaceRemovesValue
             placeholder={placeholder ? ensureLocal(placeholder) : <Local id="SelectItems" />}
-            options={selectOptions}
+            options={options}
             onChange={v => onChange(handleChange<TData>(v))}
-            value={
-                isEmpty(value) ? undefined : mapSelectItemToOption(options.filter(i => some(value, v => v === i.value)))
-            }
+            getOptionValue={e => e.valueKey || (e.value as any)}
+            getOptionLabel={e => e.text}
+            value={value}
         />
     );
-};
-
-function mapSelectItemToOption<TData>(items: Array<SelectItem<TData>>): Array<InternalOption> {
-    return items.map(o => ({ value: o.value, label: o.text }));
 }
 
-const handleChange = <TData extends any>(options: any): Array<TData> => {
-    let selectItems: Array<TData> = [];
-
+const handleChange = <TData extends any>(options: any): Array<SelectItem<TData>> => {
     if (Array.isArray(options)) {
-        selectItems = options.map(o => o.value);
-    } else {
-        if (options) {
-            selectItems = [options.value];
-        }
+        return options;
+    } else if (options) {
+        return [options];
     }
 
-    return selectItems;
+    return [];
 };

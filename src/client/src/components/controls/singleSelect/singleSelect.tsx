@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import ReactSelect from "react-select";
 import { ensureLocal, Local } from "../../../core/localization/local";
 import { SelectItem } from "../multiSelect/multiSelect";
@@ -10,9 +10,10 @@ export interface SingleSelectProps<TData = any> extends ControlProps<TData | und
     placeholder?: KeyOrJSX;
     className?: string;
     isClearable?: boolean;
+    isSearchable?: boolean;
 }
 
-export const SingleSelect = <TData extends any>({
+export function SingleSelect<TData extends any>({
     value,
     onChange,
     options,
@@ -20,25 +21,22 @@ export const SingleSelect = <TData extends any>({
     placeholder,
     className,
     isClearable,
-}: SingleSelectProps<TData>) => {
-    const selectOptions = useMemo(() => mapSelectItemToOption(options), [options]);
-
+    isSearchable,
+}: SingleSelectProps<TData>) {
     return (
-        <ReactSelect
+        <ReactSelect<SelectItem<TData>>
             className={`single-select ${valid ? "is-valid" : valid === false ? "is-invalid" : ""} ${className || ""}`}
-            isSearchable
+            isSearchable={isSearchable}
             isClearable={isClearable}
             backspaceRemovesValue
             placeholder={placeholder ? ensureLocal(placeholder) : <Local id="Select" />}
-            options={selectOptions}
+            options={options}
             onChange={v => onChange(handleChange<TData>(v))}
-            value={selectOptions.find(e => e.value === value)}
+            getOptionValue={e => e.valueKey || (e.value as any)}
+            getOptionLabel={e => e.text}
+            value={options.find(e => e.value === value)}
         />
     );
-};
-
-function mapSelectItemToOption<TData>(items: Array<SelectItem<TData>>): Array<any> {
-    return items.map(o => ({ value: o.value, label: o.text }));
 }
 
 const handleChange = <TData extends any>(option: any): TData | undefined => {

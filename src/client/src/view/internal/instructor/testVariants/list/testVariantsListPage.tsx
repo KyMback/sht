@@ -7,9 +7,9 @@ import { routingStore } from "../../../../../stores/routingStore";
 import { TestVariantsListPageStore } from "./testVariantsListPageStore";
 import { icons } from "../../../../../components/icons/icon";
 import useAsyncEffect from "use-async-effect";
-import { IconButtonProps } from "../../../../../components/buttons/iconButton/iconButton";
+import { GenericButtonProps } from "../../../../../components/buttons/genericButton/genericButton";
 
-const actions: Array<IconButtonProps> = [
+const actions: Array<GenericButtonProps> = [
     {
         icon: icons.add,
         onClick: () => routingStore.goto("/test-variants/add"),
