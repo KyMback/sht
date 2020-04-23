@@ -14,7 +14,7 @@ export const MainLayout = observer((props: Props) => {
         <div className="layout">
             <Header navItems={rootViewStore.navItems} accountItems={rootViewStore.accountMenuItems} />
             <main>
-                <Container fluid>{props.children}</Container>
+                <Container className="content-container" fluid>{props.children}</Container>
             </main>
             <Footer />
         </div>
