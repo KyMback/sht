@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./styles/styles.scss";
-import { MainLayout } from "./components/layouts/mainLayout";
+import { MainLayout } from "./view/common/mainLayout";
 import { Router } from "react-router-dom";
 import { routingStore } from "./stores/routingStore";
 import { RootModule } from "./view/rootModule";

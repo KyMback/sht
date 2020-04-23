@@ -3,14 +3,15 @@ import React, { useState } from "react";
 import useAsyncEffect from "use-async-effect";
 import { TestSessionListItemDto } from "../../../../typings/dataContracts";
 import { CardSectionsGroup } from "../../../../components/layouts/sections/cardSectionsGroup";
-import { CardSection, SectionActionProps } from "../../../../components/layouts/sections/cardSection";
+import { CardSection } from "../../../../components/layouts/sections/cardSection";
 import { icons } from "../../../../components/icons/icon";
 import { routingStore } from "../../../../stores/routingStore";
 import { dateAndTime } from "../../../../core/utils/dateTimeUtil";
 import { HttpApi } from "../../../../core/api/http/httpApi";
 import { TableResult } from "../../../../core/api/tableResult";
+import { IconButtonProps } from "../../../../components/buttons/iconButton/iconButton";
 
-const actions: Array<SectionActionProps> = [
+const actions: Array<IconButtonProps> = [
     {
         icon: icons.add,
         onClick: () => routingStore.goto("/test-session/add"),

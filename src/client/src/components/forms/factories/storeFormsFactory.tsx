@@ -6,6 +6,7 @@ import React from "react";
 import { ValidationFunction } from "../formControlWrapper";
 import { InputControlProps } from "../../controls/inputControl";
 import { ResponsiveWrapper } from "../../layouts/responsiveWrapper";
+import { SubSection } from "../../layouts/sections/subSection";
 
 type StoreProps<TStore, TValue> = (store: TStore) => TValue;
 type StorePropsOrDefault<TStore, TValue> = StoreProps<TStore, TValue> | TValue;
@@ -47,6 +48,23 @@ export class StoreFormsFactory<TStore = any> {
                     <Control key={index} store={store} />
                 ))}
             </div>
+        ));
+
+        return this;
+    };
+
+    public inSubSection = (
+        title: StorePropsOrDefault<TStore, KeyOrJSX>,
+        builder: StoreFormsFactoryBuilder<TStore>,
+    ): StoreFormsFactory<TStore> => {
+        const factory = new StoreFormsFactory<TStore>();
+        builder(factory);
+        this.controls.push(({ store }: PropsWithStore<TStore>) => (
+            <SubSection title={convertToValue(store, title)}>
+                {factory.controls.map((Control, index) => (
+                    <Control key={index} store={store} />
+                ))}
+            </SubSection>
         ));
 
         return this;

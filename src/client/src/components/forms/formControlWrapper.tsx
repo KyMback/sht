@@ -5,6 +5,7 @@ import { FormGroup } from "reactstrap";
 import { ValidationContext } from "./validationProvider";
 import { Icon, icons } from "../icons/icon";
 import { KeyOrJSX } from "../../typings/customTypings";
+import { required } from "./validations";
 
 export interface FormWrapperProps<TValue, TControlProps extends ControlProps<TValue>> {
     label?: KeyOrJSX;
@@ -60,12 +61,15 @@ function withValidation<TValue, TControlProps extends ControlProps<TValue>>(
         };
 
         public render = () => {
+            const validations = this.props.validations;
+
             return (
                 <Control
                     {...this.props}
                     {...this.state}
-                    error={validate(this.props.controlProps.value, this.props.validations)}
+                    error={validate(this.props.controlProps.value, validations)}
                     controlProps={{ ...this.props.controlProps, onChange: this.onChange }}
+                    isRequired={validations ? validations.some(e => e === required) : false}
                 />
             );
         };
@@ -74,6 +78,7 @@ function withValidation<TValue, TControlProps extends ControlProps<TValue>>(
 
 interface ValidationResultProps {
     isUsed: boolean;
+    isRequired: boolean;
     error?: ValidationError;
 }
 
@@ -85,6 +90,7 @@ export const FormControlWrapper = withValidation(
         controlProps,
         isUsed,
         error,
+        isRequired,
     }: FormWrapperProps<TValue, TControlProps> & ValidationResultProps) => {
         const errorMessage = useMemo(() => isUsed && error && <ErrorMessage error={error} />, [error, isUsed]);
         const labelComponent = useMemo(() => label && ensureLocal(label), [label]);
@@ -92,7 +98,7 @@ export const FormControlWrapper = withValidation(
         return (
             <FormGroup className={`form-control-wrapper ${getClassNames(isUsed, error)}`}>
                 <label htmlFor={name}>{labelComponent}</label>
-                <Control id={name} {...controlProps} valid={!isUsed ? undefined : !error} />
+                <Control id={name} {...controlProps} valid={!isUsed ? undefined : !error} isRequired={isRequired} />
                 {errorMessage}
             </FormGroup>
         );

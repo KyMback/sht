@@ -1,14 +1,15 @@
 import React from "react";
 import { observer, useLocalStore } from "mobx-react-lite";
 import { CardSectionsGroup } from "../../../../../components/layouts/sections/cardSectionsGroup";
-import { CardSection, SectionActionProps } from "../../../../../components/layouts/sections/cardSection";
+import { CardSection } from "../../../../../components/layouts/sections/cardSection";
 import { ListGroup, ListGroupItem, ListGroupItemHeading } from "reactstrap";
 import { routingStore } from "../../../../../stores/routingStore";
 import { TestVariantsListPageStore } from "./testVariantsListPageStore";
 import { icons } from "../../../../../components/icons/icon";
 import useAsyncEffect from "use-async-effect";
+import { IconButtonProps } from "../../../../../components/buttons/iconButton/iconButton";
 
-const actions: Array<SectionActionProps> = [
+const actions: Array<IconButtonProps> = [
     {
         icon: icons.add,
         onClick: () => routingStore.goto("/test-variants/add"),

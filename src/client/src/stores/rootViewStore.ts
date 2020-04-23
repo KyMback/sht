@@ -48,7 +48,7 @@ const defaultAccountActions: Array<AccountMenuItem> = [
     },
     {
         title: "SignUp",
-        onClick: () => routingStore.goto("/signUp"),
+        onClick: () => routingStore.goto("/sign-up"),
     },
 ];
 

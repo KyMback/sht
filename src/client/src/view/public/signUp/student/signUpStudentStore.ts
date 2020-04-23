@@ -1,9 +1,9 @@
-import { AccountService } from "../../../services/accountService";
-import { SignUpStudentDataDto, UserType } from "../../../typings/dataContracts";
+import { AccountService } from "../../../../services/accountService";
+import { SignUpStudentDataDto, UserType } from "../../../../typings/dataContracts";
 import { computed, observable } from "mobx";
-import { routingStore } from "../../../stores/routingStore";
-import { notifications } from "../../../components/notifications/notifications";
-import { apiErrors, isExpected } from "../../../core/api/http/apiError";
+import { routingStore } from "../../../../stores/routingStore";
+import { notifications } from "../../../../components/notifications/notifications";
+import { apiErrors, isExpected } from "../../../../core/api/http/apiError";
 
 export class SignUpStudentStore {
     @observable public email?: string;

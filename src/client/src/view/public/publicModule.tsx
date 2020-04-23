@@ -1,7 +1,7 @@
 import { Route, RoutesModule } from "../../core/routing/routesModule";
 import React from "react";
 import { Login } from "./login/login";
-import { SignUpStudent } from "./signUpStudent/signUpStudent";
+import { SignUpPage } from "./signUp/signUpPage";
 
 const routes: Array<Route> = [
     {
@@ -15,7 +15,7 @@ const routes: Array<Route> = [
     },
     {
         path: "/sign-up",
-        component: SignUpStudent,
+        component: SignUpPage,
     },
 ];
 

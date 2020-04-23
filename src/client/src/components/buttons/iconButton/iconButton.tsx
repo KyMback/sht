@@ -1,18 +1,21 @@
 import { Button } from "reactstrap";
 import { Icon } from "../../icons/icon";
 import React from "react";
-import { Color } from "../../../typings/customTypings";
+import { Color, KeyOrJSX } from "../../../typings/customTypings";
+import { ensureLocal } from "../../../core/localization/local";
 
-interface Props {
+export interface IconButtonProps {
     color?: Color;
-    icon: string;
-    onClick: () => void;
+    icon?: string;
+    text?: KeyOrJSX;
+    onClick?: () => void;
 }
 
-export const IconButton = ({ icon, onClick, color }: Props) => {
+export const IconButton = ({ icon, onClick, color, text }: IconButtonProps) => {
     return (
         <Button color={color} onClick={onClick}>
-            <Icon icon={icon} />
+            {icon && <Icon icon={icon} />}
+            {text && ensureLocal(text)}
         </Button>
     );
 };

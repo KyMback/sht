@@ -5,7 +5,7 @@
         justify-content: flex-end;
 
         & > *:not(:last-child) {
-            margin-right: .5rem;
+            margin-right: 0.5rem;
         }
     }
 
@@ -14,7 +14,7 @@
         justify-content: flex-end;
 
         & > *:not(:last-child) {
-            margin-right: .5rem;
+            margin-right: 0.5rem;
         }
     }
 
@@ -26,6 +26,16 @@
         .title {
             font-size: 20px;
             font-weight: bold;
+        }
+
+        .card-section-bottom-actions {
+            display: flex;
+            margin-top: 1rem;
+            justify-content: flex-end;
+
+            .btn:not(:last-child) {
+                margin-right: 0.5rem;
+            }
         }
     }
 }

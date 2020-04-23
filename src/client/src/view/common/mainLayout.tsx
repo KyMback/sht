@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
-import { Header } from "./header/header";
-import { Footer } from "./footer/footer";
+import { Header } from "../../components/layouts/header/header";
+import { Footer } from "../../components/layouts/footer/footer";
 import { Container } from "reactstrap";
 import { rootViewStore } from "../../stores/rootViewStore";
 import { observer } from "mobx-react-lite";
