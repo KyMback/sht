@@ -6,6 +6,7 @@ import { nameShouldBeUniq, required } from "../../../../../components/forms/vali
 import React from "react";
 import { TestSessionDetailsEditStore, TestVariant } from "./testSessionDetailsEditStore";
 import { observer } from "mobx-react-lite";
+import { DefaultCol } from "../../../../../components/layouts/defaultCol";
 
 interface Props {
     store: TestSessionDetailsEditStore;
@@ -19,15 +20,15 @@ export const SessionTestVariantItem = observer(({ data, store }: Props) => {
                 <ActionIcon icon={icons.close} onClick={() => store.removeTestVariant(data)} tooltip="Remove" />
             </div>
             <Row>
-                <Col>
+                <DefaultCol>
                     <FormInput
                         label="TestSession_TestVariantName"
                         value={data.name}
                         onChange={v => (data.name = v)}
                         validations={[required, nameShouldBeUniq(store.testVariants.map(e => e.name))]}
                     />
-                </Col>
-                <Col>
+                </DefaultCol>
+                <DefaultCol>
                     <FormSingleSelect
                         label="TestSession_Variant"
                         isClearable
@@ -36,7 +37,7 @@ export const SessionTestVariantItem = observer(({ data, store }: Props) => {
                         onChange={v => (data.testVariantId = v)}
                         validations={[required]}
                     />
-                </Col>
+                </DefaultCol>
             </Row>
         </ListGroupItem>
     );

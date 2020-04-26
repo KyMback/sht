@@ -1,7 +1,7 @@
 import { ensureLocal, Local } from "../../core/localization/local";
 import React, { useMemo } from "react";
 import { ControlProps } from "../controls";
-import { FormGroup } from "reactstrap";
+import { FormGroup, Label } from "reactstrap";
 import { ValidationContext } from "./validationProvider";
 import { Icon, icons } from "../icons/icon";
 import { KeyOrJSX } from "../../typings/customTypings";
@@ -97,7 +97,10 @@ export const FormControlWrapper = withValidation(
 
         return (
             <FormGroup className={`form-control-wrapper ${getClassNames(isUsed, error)}`}>
-                <label htmlFor={name}>{labelComponent}</label>
+                <Label required={true} aria-required={isRequired} htmlFor={name}>
+                    {labelComponent}
+                    <span className="text-danger">{isRequired ? "*" : ""}</span>
+                </Label>
                 <Control id={name} {...controlProps} valid={!isUsed ? undefined : !error} isRequired={isRequired} />
                 {errorMessage}
             </FormGroup>

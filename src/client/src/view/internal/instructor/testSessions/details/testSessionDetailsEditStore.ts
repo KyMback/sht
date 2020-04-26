@@ -71,12 +71,12 @@ export class TestSessionDetailsEditStore {
                 this.name = testSession.name;
                 const groups: Array<string> = [];
                 Object.entries(this.groupedGroups).forEach(([key, values]) => {
-                    if (!isEmpty(intersection(values, testSession.studentsIds))) {
+                    if (!isEmpty(intersection(values, testSession.studentsIds!))) {
                         groups.push(key);
                     }
                 });
                 this.selectedGroups = this.groups.filter(e => groups.includes(e.value));
-                this.testVariants = testSession.testVariants;
+                this.testVariants = testSession.testVariants!;
             }
         });
     };
