@@ -1,4 +1,4 @@
-import { Col, ListGroupItem, Row } from "reactstrap";
+import { ListGroupItem, Row } from "reactstrap";
 import { ActionIcon } from "../../../../../components/buttons/actionIcon/actionIcon";
 import { icons } from "../../../../../components/icons/icon";
 import { FormInput, FormSingleSelect } from "../../../../../components/forms";

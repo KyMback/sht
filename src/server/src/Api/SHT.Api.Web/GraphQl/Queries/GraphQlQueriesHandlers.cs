@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using HotChocolate;
@@ -9,7 +10,7 @@ using SHT.Application.Tests.StudentQuestions.Contracts;
 using SHT.Application.Tests.StudentsTestSessions.Contracts;
 using SHT.Application.Tests.TestSessions.Contracts;
 using SHT.Application.TestVariants.Contracts;
-using SHT.Application.Users.Accounts.GetContext;
+using SHT.Application.Users.Accounts.Contracts;
 using SHT.Application.Users.Students.Contracts;
 using SHT.Domain.Models.Tests;
 using SHT.Domain.Models.Tests.Students;
@@ -37,9 +38,13 @@ namespace SHT.Api.Web.GraphQl.Queries
             if (data != null)
             {
                 data.IsAuthenticated = true;
+                data.Culture = CultureInfo.CurrentCulture.Name;
             }
 
-            return data ?? new UserContextDto();
+            return data ?? new UserContextDto
+            {
+                Culture = CultureInfo.CurrentCulture.Name,
+            };
         }
 
         public IQueryable<TestSessionListItemDto> GetTestSessionListItems(

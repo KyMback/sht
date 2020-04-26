@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 using SHT.Application.Common;
 using SHT.Domain.Models.Users;
 
-namespace SHT.Application.Users.Accounts.GetContext
+namespace SHT.Application.Users.Accounts.Contracts
 {
     [ApiDataContract]
     public class UserContextDto
@@ -19,5 +19,7 @@ namespace SHT.Application.Users.Accounts.GetContext
         public UserType? UserType { get; set; }
 
         public bool IsAuthenticated { get; set; }
+
+        public string Culture { get; set; }
     }
 }

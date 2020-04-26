@@ -1,11 +1,15 @@
 import { action, computed, observable } from "mobx";
 import en from "./../static/localizations/en.json";
+import ru from "./../static/localizations/ru.json";
 import { Dictionary } from "../typings/customTypings";
 import { IntlShape, createIntl } from "react-intl";
 
 const messages: Dictionary = {
     en: en,
+    ru: ru,
 };
+
+const defaultLanguage = "ru";
 
 class LocalStore {
     @observable private language: string;
@@ -17,12 +21,16 @@ class LocalStore {
     }
 
     constructor() {
-        this.language = "en";
+        this.language = defaultLanguage;
         this.intlShape = this.createIntl();
     }
 
     @action
-    public setLanguage = (value: string) => {
+    public setLanguage = (value: string = defaultLanguage) => {
+        if (value === this.language) {
+            return;
+        }
+
         this.language = value;
         this.intlShape = this.createIntl();
     };

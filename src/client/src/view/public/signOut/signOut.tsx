@@ -3,13 +3,12 @@ import { Local } from "../../../core/localization/local";
 import useAsyncEffect from "use-async-effect";
 import { AccountService } from "../../../services/accountService";
 import { routingStore } from "../../../stores/routingStore";
-import { userContextStore } from "../../../stores/userContextStore";
 
 export const SignOut = () => {
     useAsyncEffect(async () => {
         try {
             await AccountService.sightOut();
-            await userContextStore.loadContext();
+            await AccountService.updateUserContext();
         } finally {
             routingStore.gotoBase();
         }

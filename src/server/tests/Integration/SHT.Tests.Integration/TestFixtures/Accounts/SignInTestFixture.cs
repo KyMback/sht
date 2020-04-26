@@ -2,7 +2,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using AutoFixture.Xunit2;
 using FluentAssertions;
-using SHT.Application.Users.Accounts.GetContext;
+using SHT.Application.Users.Accounts.Contracts;
 using SHT.Application.Users.Accounts.SignIn;
 using SHT.Tests.Integration.Extensions;
 using SHT.Tests.Integration.Utils;

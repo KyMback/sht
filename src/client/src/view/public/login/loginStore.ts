@@ -19,7 +19,7 @@ export class LoginStore {
                 }),
             );
             if (result.succeeded) {
-                await userContextStore.loadContext();
+                await AccountService.updateUserContext();
                 await routingStore.gotoBase();
                 if (userContextStore.userType === UserType.Student) {
                     notifications.success("SuccessfullySignIn");

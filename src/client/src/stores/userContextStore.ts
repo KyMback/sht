@@ -1,6 +1,6 @@
-import { action, computed, observable, runInAction } from "mobx";
-import { UserContextDto, UserType } from "../typings/dataContracts";
-import { HttpApi } from "../core/api/http/httpApi";
+import { action, computed, observable } from "mobx";
+import { UserType } from "../typings/dataContracts";
+import { localStore } from "./localStore";
 
 class UserContextStore {
     @observable public isAuthenticated: boolean;
@@ -22,27 +22,17 @@ class UserContextStore {
     }
 
     @action
-    public loadContext = async () => {
-        const result = await loadContext();
-
-        runInAction(() => {
-            Object.assign(this, result);
-        });
+    public setContext = (data: ContextData) => {
+        Object.assign(this, data);
+        localStore.setLanguage(data.culture);
     };
 }
 
 export const userContextStore = new UserContextStore();
 
-async function loadContext(): Promise<UserContextDto> {
-    const query = `
-        {
-          userContext {
-            id
-            isAuthenticated
-            userType
-          }
-        }
-        `;
-    const { userContext } = await HttpApi.graphQl<{ userContext: UserContextDto }>(query);
-    return userContext;
+interface ContextData {
+    id?: string;
+    userType?: UserType;
+    isAuthenticated: boolean;
+    culture?: string;
 }

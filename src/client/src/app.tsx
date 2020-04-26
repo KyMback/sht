@@ -5,7 +5,6 @@ import { Router } from "react-router-dom";
 import { routingStore } from "./stores/routingStore";
 import { RootModule } from "./view/rootModule";
 import { useAsyncEffect } from "use-async-effect";
-import { userContextStore } from "./stores/userContextStore";
 import { observer } from "mobx-react-lite";
 import { RawIntlProvider } from "react-intl";
 import { localStore } from "./stores/localStore";
@@ -14,11 +13,12 @@ import { NotificationsContainer } from "./components/notifications/notifications
 import { ApiErrorHandler } from "./core/api/http/apiErrorHandler";
 import { ConfirmationContainer } from "./components/modals/confirmationContainer";
 import { stores } from "./stores";
+import { AccountService } from "./services/accountService";
 
 export const App = observer(() => {
     const [isContextLoaded, setIsContextLoaded] = useState<boolean>(false);
     useAsyncEffect(async () => {
-        await userContextStore.loadContext();
+        await AccountService.updateUserContext();
         setIsContextLoaded(true);
     }, []);
 

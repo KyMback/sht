@@ -10,7 +10,7 @@ import { Form } from "../../../../../components/forms/form";
 import { FormInput, FormMultiSelect } from "../../../../../components/forms";
 import { required } from "../../../../../components/forms/validations";
 import useAsyncEffect from "use-async-effect";
-import { Col, ListGroup, Row } from "reactstrap";
+import { ListGroup, Row } from "reactstrap";
 import { icons } from "../../../../../components/icons/icon";
 import { SessionTestVariantItem } from "./sessionTestVariantItem";
 import { useParams } from "react-router-dom";
