@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using SHT.Domain.Models.Tests;
 
 namespace SHT.JsonSchemasGenerator
 {
@@ -13,6 +14,7 @@ namespace SHT.JsonSchemasGenerator
             }
 
             await Generator.Generate(args[0], args[1]);
+            ConstantsGenerator.Generate(typeof(TestSessionStates), args[0]);
         }
     }
 }

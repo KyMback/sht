@@ -8,7 +8,7 @@ using NJsonSchema.Generation;
 
 namespace SHT.JsonSchemasGenerator
 {
-public static class TsFileGenerator
+    public static class TsFileGenerator
     {
         public static void GenerateTsFile(
             string destinationPath,

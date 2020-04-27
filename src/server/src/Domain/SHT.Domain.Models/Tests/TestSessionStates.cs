@@ -2,10 +2,10 @@ namespace SHT.Domain.Models.Tests
 {
     public static class TestSessionStates
     {
-        public static readonly string Pending = nameof(Pending);
+        public const string Pending = nameof(Pending);
 
-        public static readonly string Started = nameof(Started);
+        public const string Started = nameof(Started);
 
-        public static readonly string Ended = nameof(Ended);
+        public const string Ended = nameof(Ended);
     }
 }
