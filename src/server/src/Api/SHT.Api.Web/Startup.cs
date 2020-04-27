@@ -2,6 +2,7 @@ using Autofac;
 using CorrelationId;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,6 +35,7 @@ namespace SHT.Api.Web
         {
             services
                 .AddDataProtection()
+                .PersistKeysToDbContext<DefaultDbContext>()
                 .Services
                 .AddCustomOptions(_configuration)
                 .AddCustomSecurity(_configuration)

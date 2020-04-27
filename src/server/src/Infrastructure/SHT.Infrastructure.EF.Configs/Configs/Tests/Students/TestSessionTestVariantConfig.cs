@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SHT.Domain.Models.Tests;
 
@@ -20,11 +21,13 @@ namespace SHT.Infrastructure.EF.Configs.Configs.Tests.Students
             builder
                 .HasOne(e => e.TestSession)
                 .WithMany(e => e.TestSessionTestVariants)
-                .HasForeignKey(e => e.TestSessionId);
+                .HasForeignKey(e => e.TestSessionId)
+                .OnDelete(DeleteBehavior.ClientCascade);
             builder
                 .HasOne(e => e.TestVariant)
                 .WithMany(e => e.TestSessionTestVariants)
-                .HasForeignKey(e => e.TestVariantId);
+                .HasForeignKey(e => e.TestVariantId)
+                .OnDelete(DeleteBehavior.ClientCascade);
         }
     }
 }

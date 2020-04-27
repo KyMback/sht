@@ -13,7 +13,11 @@ namespace SHT.Infrastructure.EF.Configs.Configs.Tests.Students
         {
             builder.Property(e => e.State).HasMaxLength(LengthConstants.Medium).IsRequired();
             builder.Property(e => e.Name).HasMaxLength(LengthConstants.Medium).IsRequired();
-            builder.HasOne<Instructor>().WithMany().HasForeignKey(e => e.InstructorId);
+            builder
+                .HasOne<Instructor>()
+                .WithMany()
+                .HasForeignKey(e => e.InstructorId)
+                .OnDelete(DeleteBehavior.ClientCascade);
 
             builder
                 .HasMany(e => e.TestSessionTestVariants)

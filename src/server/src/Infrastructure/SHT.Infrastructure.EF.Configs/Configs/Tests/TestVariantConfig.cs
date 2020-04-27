@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SHT.Domain.Models.Tests;
 
@@ -11,7 +12,11 @@ namespace SHT.Infrastructure.EF.Configs.Configs.Tests
         {
             builder.Property(e => e.Name).HasMaxLength(LengthConstants.Medium).IsRequired();
 
-            builder.HasOne(e => e.CreatedBy).WithMany().HasForeignKey(e => e.CreatedById);
+            builder
+                .HasOne(e => e.CreatedBy)
+                .WithMany()
+                .HasForeignKey(e => e.CreatedById)
+                .OnDelete(DeleteBehavior.ClientCascade);
         }
     }
 }

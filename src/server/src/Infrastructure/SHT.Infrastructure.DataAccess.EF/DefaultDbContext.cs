@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -12,7 +13,7 @@ using SHT.Infrastructure.EF.Configs;
 
 namespace SHT.Infrastructure.DataAccess.EF
 {
-    public class DefaultDbContext : DbContext, Abstractions.IQueryProvider, IUnitOfWork, IEntitiesTracker
+    public class DefaultDbContext : DbContext, Abstractions.IQueryProvider, IUnitOfWork, IEntitiesTracker, IDataProtectionKeyContext
     {
         private readonly IOptions<DataAccessOptions> _dataAccessOptions;
         private readonly Lazy<IEnumerable<IBeforeCommitHandler>> _beforeCommitHandlers;
@@ -27,6 +28,8 @@ namespace SHT.Infrastructure.DataAccess.EF
             _beforeCommitHandlers = beforeCommitHandlers;
             _loggerFactory = loggerFactory;
         }
+
+        public DbSet<DataProtectionKey> DataProtectionKeys { get; set; }
 
         public IQueryable<TEntity> Queryable<TEntity>()
             where TEntity : class =>

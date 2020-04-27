@@ -15,6 +15,7 @@ namespace SHT.Infrastructure.DataAccess.EF
                 .As<IQueryProvider>()
                 .As<IUnitOfWork>()
                 .As<DbContext>()
+                .AsSelf()
                 .InstancePerLifetimeScope();
         }
     }

@@ -14,7 +14,12 @@ namespace SHT.Infrastructure.EF.Configs.Configs.Tests.Students
             builder.Property(e => e.State).HasMaxLength(LengthConstants.Medium).IsRequired();
             builder.Property(e => e.TestVariant).HasMaxLength(LengthConstants.Medium);
 
-            builder.HasOne<Student>().WithMany().HasForeignKey(e => e.StudentId);
+            builder
+                .HasOne<Student>()
+                .WithMany()
+                .HasForeignKey(e => e.StudentId)
+                .OnDelete(DeleteBehavior.ClientCascade);
+
             builder
                 .HasMany(e => e.Questions)
                 .WithOne(e => e.StudentTestSession)
