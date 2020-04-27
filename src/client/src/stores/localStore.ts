@@ -12,7 +12,18 @@ const messages: Dictionary = {
 const defaultLanguage = "ru";
 
 class LocalStore {
-    @observable private language: string;
+    public readonly supportedLanguages: Array<LanguageItem> = [
+        {
+            abbr: "ru",
+            name: "Русский",
+        },
+        {
+            abbr: "en",
+            name: "English",
+        },
+    ];
+
+    @observable public language: string;
     @observable public intlShape: IntlShape;
 
     @computed
@@ -47,6 +58,11 @@ class LocalStore {
             locale: this.language,
         });
     };
+}
+
+interface LanguageItem {
+    abbr: string;
+    name: string;
 }
 
 export const localStore = new LocalStore();

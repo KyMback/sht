@@ -1,14 +1,17 @@
-.account-menu {
-    & > .account-toggler {
+.localization-menu {
+    & > .localization-toggler {
         background-color: transparent;
         border: 0;
-        font-size: 30px;
-        line-height: 30px;
         box-shadow: none;
 
         i {
             font-size: 30px;
             line-height: 30px;
+        }
+
+        .language-abbr {
+            display: inline-block;
+            min-width: 25px;
         }
 
         &:hover, &:focus, &:active {

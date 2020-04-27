@@ -10,6 +10,7 @@ using SHT.Application.Tests.TestSessions.Create;
 using SHT.Application.Tests.TestSessions.StateTransition;
 using SHT.Application.Tests.TestSessions.Update;
 using SHT.Application.Users.Accounts.ConfirmEmail;
+using SHT.Application.Users.Accounts.SetCulture;
 using SHT.Application.Users.Accounts.SignIn;
 using SHT.Application.Users.Accounts.SignOut;
 using SHT.Application.Users.Students.SignUp;
@@ -23,6 +24,11 @@ namespace SHT.Api.Web.GraphQl.Mutations
         public GraphQlMutationHandlers(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        public Task<Unit> SetCulture(string culture)
+        {
+            return _mediator.Send(new SetCultureRequest(culture));
         }
 
         public Task<SignInResponse> SingIn(SignInDataDto data)

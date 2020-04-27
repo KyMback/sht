@@ -33,8 +33,11 @@ mutation {
     userType
     culture
   }
-}
-`,
+}`,
+    setCulture: `
+mutation($culture: String!) {
+  setCulture(culture: $culture)
+}`,
 };
 
 export class AccountService {
@@ -57,6 +60,10 @@ export class AccountService {
 
     public static sightOut = async () => {
         return HttpApi.graphQl(queries.sightOut);
+    };
+
+    public static setCulture = async (culture: string) => {
+        return HttpApi.graphQl(queries.setCulture, { culture });
     };
 
     public static async updateUserContext() {

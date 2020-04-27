@@ -1,27 +1,14 @@
 import React, { useState } from "react";
-import {
-    Collapse,
-    DropdownItem,
-    DropdownMenu,
-    DropdownToggle,
-    Nav,
-    Navbar,
-    NavbarBrand,
-    NavbarToggler,
-    NavItem,
-    NavLink,
-    UncontrolledDropdown,
-} from "reactstrap";
+import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from "reactstrap";
 import { routingStore } from "../../../stores/routingStore";
 import { KeyOrJSX } from "../../../typings/customTypings";
 import { ensureLocal } from "../../../core/localization/local";
-import { Icon, icons } from "../../icons/icon";
 import { useLocation } from "react-router-dom";
 
 interface Props {
     logo?: KeyOrJSX;
     navItems?: Array<NavItemConfig>;
-    accountItems?: Array<AccountMenuItem>;
+    additionalItem: React.ReactNode;
 }
 
 export interface NavItemConfig {
@@ -35,7 +22,7 @@ export interface AccountMenuItem {
     withDivider?: boolean;
 }
 
-export const Header = ({ logo, navItems, accountItems }: Props) => {
+export const Header = ({ logo, navItems, additionalItem }: Props) => {
     const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
 
     return (
@@ -47,21 +34,7 @@ export const Header = ({ logo, navItems, accountItems }: Props) => {
                 <NavbarToggler onClick={_ => setIsCollapsed(!isCollapsed)} className="mr-2" />
                 <Collapse isOpen={isCollapsed} navbar className="justify-content-between">
                     <NavBar navItems={navItems} />
-                    {accountItems && (
-                        <UncontrolledDropdown className="account-menu">
-                            <DropdownToggle className="account-toggler">
-                                <Icon icon={icons.account} />
-                            </DropdownToggle>
-                            <DropdownMenu right>
-                                {accountItems.map((value, index) => (
-                                    <div key={index}>
-                                        {value.withDivider && <DropdownItem divider />}
-                                        <DropdownItem onClick={value.onClick}>{ensureLocal(value.title)}</DropdownItem>
-                                    </div>
-                                ))}
-                            </DropdownMenu>
-                        </UncontrolledDropdown>
-                    )}
+                    <div className="d-flex flex-row">{additionalItem}</div>
                 </Collapse>
             </Navbar>
         </header>

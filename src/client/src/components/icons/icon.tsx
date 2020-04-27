@@ -12,6 +12,7 @@ export const icons = {
     error: "error_outline",
     delete: "delete_forever",
     close: "close",
+    language: "language",
 } as const;
 
 export const Icon = ({ icon }: Props) => {

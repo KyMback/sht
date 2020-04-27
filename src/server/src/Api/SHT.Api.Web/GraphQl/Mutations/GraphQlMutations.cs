@@ -9,6 +9,11 @@ namespace SHT.Api.Web.GraphQl.Mutations
     {
         protected override void Configure(IObjectTypeDescriptor<GraphQlMutationHandlers> descriptor)
         {
+            descriptor.Field(e => e.SetCulture(default))
+                .Type<VoidType>()
+                .Argument("culture", argumentDescriptor =>
+                    argumentDescriptor.Type<NonNullType<StringType>>());
+
             descriptor.Field(e => e.SingIn(default))
                 .Type<NonNullType<SignInResponseGraphType>>()
                 .Name("signIn")
