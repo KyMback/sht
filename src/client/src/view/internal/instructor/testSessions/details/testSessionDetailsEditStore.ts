@@ -1,5 +1,10 @@
 import { TestSessionsService } from "../../../../../services/testSessionsService";
-import { Lookup, StudentGroupedGroupDto, TestSessionDetailsDto } from "../../../../../typings/dataContracts";
+import {
+    Lookup,
+    StudentGroupedGroupDto,
+    TestSessionDetailsDto,
+    TestSessionModificationDataDto,
+} from "../../../../../typings/dataContracts";
 import { routingStore } from "../../../../../stores/routingStore";
 import { action, observable, runInAction } from "mobx";
 import { SelectItem } from "../../../../../components/controls/multiSelect/multiSelect";
@@ -38,10 +43,11 @@ export class TestSessionDetailsEditStore {
 
     public save = async () => {
         if (this.id) {
-            await TestSessionsService.update(this.mapToDto());
+            await TestSessionsService.update(this.getDto(), this.id!);
+            routingStore.goto(`/test-session/dashboard/${this.id}`);
         } else {
-            const result = await TestSessionsService.create(this.mapToDto());
-            routingStore.goto(`/test-session/${result.id}`);
+            const result = await TestSessionsService.create(this.getDto());
+            routingStore.goto(`/test-session/dashboard/${result.id}`);
         }
     };
 
@@ -81,9 +87,8 @@ export class TestSessionDetailsEditStore {
         });
     };
 
-    private mapToDto = (): TestSessionDetailsDto => {
-        return TestSessionDetailsDto.fromJS({
-            id: this.id,
+    private getDto = (): TestSessionModificationDataDto => {
+        return TestSessionModificationDataDto.fromJS({
             name: this.name,
             studentsIds: this.selectedGroups
                 .map(g => g.value)

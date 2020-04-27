@@ -54,6 +54,8 @@ namespace SHT.Api.Web
         public void ConfigureContainer(ContainerBuilder builder)
         {
             builder
+                .UseAutoMapper()
+                .UseAfterBuildInitializers()
                 .AddTypeAssembly<WebApiModule>()
                 .AddTypeAssembly<ApplicationModule>()
                 .AddTypeAssembly<DomainServicesModule>()

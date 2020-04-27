@@ -14,6 +14,7 @@ namespace SHT.Api.Web
             RegisterMiddleware(builder);
 
             builder
+                .AddAutoMapperTypes(ThisAssembly)
                 .AddSingleAsImplementedInterfaces<WebSafeInjectionResolver>()
                 .AddScopedAsImplementedInterfaces<WebExecutionContextAccessor>()
                 .AddScopedAsImplementedInterfaces<WebAuthenticationService>();

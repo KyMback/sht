@@ -2,7 +2,6 @@ using HotChocolate.Types;
 using SHT.Api.Web.GraphQl.Common;
 using SHT.Api.Web.GraphQl.Mutations.Types;
 using SHT.Api.Web.Security.Constants;
-using SHT.Application.Tests.TestSessions.Contracts;
 
 namespace SHT.Api.Web.GraphQl.Mutations
 {
@@ -56,14 +55,16 @@ namespace SHT.Api.Web.GraphQl.Mutations
                 .Type<NonNullType<CreatedEntityResponseGraphType>>()
                 .Authorize(AuthorizationPolicyNames.InstructorsOnly)
                 .Argument("data", argumentDescriptor =>
-                    argumentDescriptor.Type<NonNullType<TestSessionDtoGraphInputType>>());
+                    argumentDescriptor.Type<NonNullType<TestSessionModificationDataDtoInputGraphType>>());
 
-            descriptor.Field(e => e.UpdateTestSession(default))
+            descriptor.Field(e => e.UpdateTestSession(default, default))
                 .Name("updateTestSession")
                 .Type<VoidType>()
                 .Authorize(AuthorizationPolicyNames.InstructorsOnly)
+                .Argument("testSessionId", argumentDescriptor =>
+                    argumentDescriptor.Type<NonNullType<IdType>>())
                 .Argument("data", argumentDescriptor =>
-                    argumentDescriptor.Type<NonNullType<TestSessionDtoGraphInputType>>());
+                    argumentDescriptor.Type<NonNullType<TestSessionModificationDataDtoInputGraphType>>());
 
             descriptor.Field(e => e.TestSessionStateTransition(default, default))
                 .Name("testSessionStateTransition")
@@ -73,29 +74,6 @@ namespace SHT.Api.Web.GraphQl.Mutations
                     argumentDescriptor.Type<NonNullType<UuidType>>())
                 .Argument("trigger", argumentDescriptor =>
                     argumentDescriptor.Type<NonNullType<StringType>>());
-        }
-    }
-
-    #pragma warning disable
-    public class TestSessionDtoGraphInputType : InputObjectType<TestSessionDetailsDto>
-    {
-        protected override void Configure(IInputObjectTypeDescriptor<TestSessionDetailsDto> descriptor)
-        {
-            // add separate models for update and create
-            descriptor.Field(e => e.Id).Type<UuidType>();
-            descriptor.Field(e => e.Name).Type<NonNullType<StringType>>();
-            descriptor.Field(e => e.StudentsIds).Type<NonNullType<ListType<NonNullType<UuidType>>>>();
-            descriptor.Field(e => e.TestVariants)
-                .Type<NonNullType<ListType<NonNullType<TestSessionVariantDataDtoInputGraphType>>>>();
-        }
-    }
-
-    public class TestSessionVariantDataDtoInputGraphType : InputObjectType<TestSessionVariantDataDto>
-    {
-        protected override void Configure(IInputObjectTypeDescriptor<TestSessionVariantDataDto> descriptor)
-        {
-            descriptor.Field(e => e.Name).Type<NonNullType<StringType>>();
-            descriptor.Field(e => e.TestVariantId).Type<UuidType>();
         }
     }
 }

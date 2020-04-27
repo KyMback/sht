@@ -1,5 +1,7 @@
-using System.Linq;
+using System;
 using System.Threading.Tasks;
+using AutoMapper;
+using MoreLinq;
 using SHT.Domain.Models.Tests;
 using SHT.Domain.Models.Tests.Students;
 using SHT.Infrastructure.Common;
@@ -11,54 +13,45 @@ namespace SHT.Domain.Services.Tests
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IExecutionContextAccessor _executionContextAccessor;
+        private readonly IMapper _mapper;
 
         public TestSessionService(
             IUnitOfWork unitOfWork,
-            IExecutionContextAccessor executionContextAccessor)
+            IExecutionContextAccessor executionContextAccessor,
+            IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _executionContextAccessor = executionContextAccessor;
+            _mapper = mapper;
         }
 
-        public Task<TestSession> CreateTestSession(string name)
+        public async Task<TestSession> Create(TestSessionModificationData data)
         {
-            var session = new TestSession
-            {
-                Name = name,
-                State = TestSessionStates.Pending,
-                InstructorId = _executionContextAccessor.GetCurrentUserId(),
-            };
+            var session = _mapper.Map<TestSession>(data);
+            session.State = TestSessionStates.Pending;
+            session.InstructorId = _executionContextAccessor.GetCurrentUserId();
+            session.StudentTestSessions.ForEach(e => e.State = StudentTestSessionState.Pending);
 
-            return _unitOfWork.Add(session);
+            var result = await _unitOfWork.Add(session);
+            await _unitOfWork.Commit();
+
+            return result;
         }
 
-        public async Task LinkStudents(StudentTestSessionLinkData linkData)
+        public async Task<TestSession> Update(TestSession original, TestSessionModificationData data)
         {
-            // TODO: can be optimized
-            await _unitOfWork.DeleteRange(linkData.TestSession.StudentTestSessions);
-
-            linkData.TestSession.StudentTestSessions = linkData.StudentIds.Select(e => new StudentTestSession
+            if (original.State != TestSessionStates.Pending)
             {
-                State = StudentTestSessionState.Pending,
-                StudentId = e,
-                TestSessionId = linkData.TestSession.Id,
-            }).ToList();
+                throw new InvalidOperationException("Can't update not pending test session");
+            }
 
-            await _unitOfWork.Update(linkData.TestSession);
-        }
+            _mapper.Map(data, original);
+            original.StudentTestSessions.ForEach(e => e.State = StudentTestSessionState.Pending);
 
-        public async Task LinkVariants(TestSessionVariantsLinkData linkData)
-        {
-            // TODO: can be optimized
-            await _unitOfWork.DeleteRange(linkData.TestSession.TestSessionTestVariants);
-            linkData.TestSession.TestSessionTestVariants = linkData.TestVariants.Select(e => new TestSessionTestVariant
-            {
-                Name = e.Key,
-                TestSessionId = linkData.TestSession.Id,
-                TestVariantId = e.Value,
-            }).ToList();
+            await _unitOfWork.Update(original);
+            await _unitOfWork.Commit();
 
-            await _unitOfWork.Update(linkData.TestSession);
+            return original;
         }
     }
 }

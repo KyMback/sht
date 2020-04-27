@@ -1,7 +1,6 @@
 import { ListGroup, ListGroupItem, ListGroupItemHeading } from "reactstrap";
 import React, { useState } from "react";
 import useAsyncEffect from "use-async-effect";
-import { TestSessionListItemDto } from "../../../../typings/dataContracts";
 import { CardSectionsGroup } from "../../../../components/layouts/sections/cardSectionsGroup";
 import { CardSection } from "../../../../components/layouts/sections/cardSection";
 import { icons } from "../../../../components/icons/icon";
@@ -20,7 +19,7 @@ const actions: Array<GenericButtonProps> = [
 ];
 
 export const TestSessionsList = () => {
-    const [testSessions, setTestSessions] = useState<Array<TestSessionListItemDto>>([]);
+    const [testSessions, setTestSessions] = useState<Array<Data>>([]);
     useAsyncEffect(async () => {
         const result = await loadData(1, 100);
         setTestSessions(result.items);
@@ -48,6 +47,13 @@ export const TestSessionsList = () => {
     );
 };
 
+interface Data {
+    id: string;
+    createdAt: Date;
+    name: string;
+    state: string;
+}
+
 async function loadData(pageNumber: number, pageSize: number) {
     const query = `
 {
@@ -62,6 +68,6 @@ async function loadData(pageNumber: number, pageSize: number) {
   }
 }
         `;
-    const { items } = await HttpApi.graphQl<{ items: TableResult<TestSessionListItemDto> }>(query);
+    const { items } = await HttpApi.graphQl<{ items: TableResult<Data> }>(query);
     return items;
 }

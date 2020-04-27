@@ -5,10 +5,8 @@ namespace SHT.Domain.Services.Tests
 {
     public interface ITestSessionService
     {
-        Task<TestSession> CreateTestSession(string name);
+        Task<TestSession> Create(TestSessionModificationData data);
 
-        Task LinkStudents(StudentTestSessionLinkData linkData);
-
-        Task LinkVariants(TestSessionVariantsLinkData linkData);
+        Task<TestSession> Update(TestSession original, TestSessionModificationData data);
     }
 }

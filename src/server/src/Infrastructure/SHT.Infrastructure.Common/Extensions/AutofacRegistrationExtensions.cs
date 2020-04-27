@@ -1,12 +1,58 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using Autofac;
+using AutoMapper;
 using FluentValidation;
+using SHT.Infrastructure.Common.AutoMapper;
 
 namespace SHT.Infrastructure.Common.Extensions
 {
     public static class AutofacRegistrationExtensions
     {
+        public static ContainerBuilder AddAutoMapperTypes(this ContainerBuilder builder, Assembly assembly)
+        {
+            builder.RegisterAssemblyTypes(assembly)
+                .As<Profile>()
+                .SingleInstance();
+
+            builder.RegisterAssemblyTypes(assembly)
+                .AsClosedTypesOf(typeof(IMemberValueResolver<,,,>))
+                .AsImplementedInterfaces();
+
+            builder.RegisterAssemblyTypes(assembly)
+                .AsClosedTypesOf(typeof(IValueResolver<,,>))
+                .AsImplementedInterfaces();
+
+            return builder;
+        }
+
+        public static ContainerBuilder UseAutoMapper(this ContainerBuilder builder)
+        {
+            builder
+                .Register(
+                    context =>
+                        new MapperConfiguration(cfg => cfg.AddProfiles(context.Resolve<IEnumerable<Profile>>())))
+                .AsSelf()
+                .SingleInstance();
+
+            builder
+                .Register(
+                    tempContext =>
+                    {
+                        // HACK: IComponentContext needs to be resolved again as 'tempContext' is only temporary.
+                        // See https://kevsoft.net/2016/02/24/automapper-and-autofac-revisited.html and http://stackoverflow.com/a/5386634/718053
+                        var ctx = tempContext.Resolve<IComponentContext>();
+                        return ctx.Resolve<MapperConfiguration>().CreateMapper();
+                    })
+                .As<IMapper>()
+                .SingleInstance();
+
+            builder.AddSingleAsImplementedInterfaces<AutoMapperInitializer>();
+
+            return builder;
+        }
+
         public static ContainerBuilder RegisterFluentValidators(this ContainerBuilder builder, Assembly assembly)
         {
             builder.RegisterAssemblyTypes(assembly)
@@ -14,6 +60,21 @@ namespace SHT.Infrastructure.Common.Extensions
                 .AsImplementedInterfaces()
                 .AsSelf()
                 .SingleInstance();
+
+            return builder;
+        }
+
+        public static ContainerBuilder UseAfterBuildInitializers(this ContainerBuilder builder)
+        {
+            builder.RegisterBuildCallback(scope =>
+            {
+                var inits = scope.Resolve<IEnumerable<IInitializable>>();
+
+                foreach (var initializable in inits)
+                {
+                    initializable.Init();
+                }
+            });
 
             return builder;
         }

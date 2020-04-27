@@ -3,9 +3,9 @@ using SHT.Application.Tests.TestSessions.Contracts;
 
 namespace SHT.Application.Tests.TestSessions.Create
 {
-    public class CreateTestSessionRequest : BaseRequest<TestSessionDetailsDto, CreatedEntityResponse>
+    public class CreateTestSessionRequest : BaseRequest<TestSessionModificationDataDto, CreatedEntityResponse>
     {
-        public CreateTestSessionRequest(TestSessionDetailsDto data)
+        public CreateTestSessionRequest(TestSessionModificationDataDto data)
             : base(data)
         {
         }

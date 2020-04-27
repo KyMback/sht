@@ -19,18 +19,20 @@ export interface CardSectionActionConfigs {
 export const CardSectionsGroup = ({ children, actions, topActions, title }: Props) => {
     return (
         <div className="card-sections-group">
-            <div className="top-actions justify-content-between align-items-center">
-                {title && <h3>{ensureLocal(title)}</h3>}
-                {topActions && (
-                    <ButtonGroup>
-                        {topActions.map((v, index) => (
-                            <Button key={index} color={v.color} onClick={v.onClick}>
-                                {ensureLocal(v.title)}
-                            </Button>
-                        ))}
-                    </ButtonGroup>
-                )}
-            </div>
+            {(title || topActions) && (
+                <div className="top-actions justify-content-between align-items-center">
+                    <h3>{ensureLocal(title)}</h3>
+                    {topActions && (
+                        <ButtonGroup>
+                            {topActions.map((v, index) => (
+                                <Button key={index} color={v.color} onClick={v.onClick}>
+                                    {ensureLocal(v.title)}
+                                </Button>
+                            ))}
+                        </ButtonGroup>
+                    )}
+                </div>
+            )}
             {children}
             {actions && (
                 <div className="actions">

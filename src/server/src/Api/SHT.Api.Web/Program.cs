@@ -9,7 +9,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Core;
-using Serilog.Extensions.Logging;
 using SHT.Api.Web.Extensions;
 using SHT.Api.Web.Options;
 using SHT.Common;

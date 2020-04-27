@@ -59,14 +59,14 @@ namespace SHT.Api.Web.GraphQl.Mutations
                 new StudentTestSessionStateTransitionRequest(studentTestSessionId, trigger, serializedData));
         }
 
-        public Task<CreatedEntityResponse> CreateTestSession(TestSessionDetailsDto data)
+        public Task<CreatedEntityResponse> CreateTestSession(TestSessionModificationDataDto data)
         {
             return _mediator.Send(new CreateTestSessionRequest(data));
         }
 
-        public Task<Unit> UpdateTestSession(TestSessionDetailsDto data)
+        public Task<Unit> UpdateTestSession(TestSessionModificationDataDto data, Guid testSessionId)
         {
-            return _mediator.Send(new UpdateTestSessionRequest(data));
+            return _mediator.Send(new UpdateTestSessionRequest(data, testSessionId));
         }
 
         public Task<Unit> TestSessionStateTransition(Guid testSessionId, string trigger)

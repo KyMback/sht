@@ -19,6 +19,7 @@ namespace SHT.Infrastructure.Common
                 .SingleInstance();
 
             builder
+                .AddAutoMapperTypes(ThisAssembly)
                 .AddSingleAsImplementedInterfaces<DateTimeProvider>();
         }
     }

@@ -15,6 +15,7 @@ namespace SHT.Domain.Services
         {
             builder
                 .RegisterFluentValidators(ThisAssembly)
+                .AddAutoMapperTypes(ThisAssembly)
                 .AddScopedAsImplementedInterfaces<TestSessionService>()
                 .AddScopedAsImplementedInterfaces<UserEmailService>()
                 .AddScopedAsImplementedInterfaces<UserAccountService>()

@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SHT.Domain.Models.Tests.Students;
 using SHT.Domain.Models.Users;
@@ -14,7 +15,11 @@ namespace SHT.Infrastructure.EF.Configs.Configs.Tests.Students
             builder.Property(e => e.TestVariant).HasMaxLength(LengthConstants.Medium);
 
             builder.HasOne<Student>().WithMany().HasForeignKey(e => e.StudentId);
-            builder.HasOne(e => e.TestSession).WithMany(e => e.StudentTestSessions).HasForeignKey(e => e.TestSessionId);
+            builder
+                .HasMany(e => e.Questions)
+                .WithOne(e => e.StudentTestSession)
+                .HasForeignKey(e => e.StudentTestSessionId)
+                .OnDelete(DeleteBehavior.ClientCascade);
         }
     }
 }

@@ -1,7 +1,6 @@
 import { action, observable, runInAction } from "mobx";
 import { TestSessionsService } from "../../../../../services/testSessionsService";
 import moment from "moment";
-import { TestSessionDto } from "../../../../../typings/dataContracts";
 import { HttpApi } from "../../../../../core/api/http/httpApi";
 
 export class TestSessionDashboardStore {
@@ -35,7 +34,21 @@ export class TestSessionDashboardStore {
     };
 }
 
-async function loadData(id: string): Promise<{ testSession: TestSessionDto; triggers: Array<string> }> {
+interface LoadedData {
+    testSession: {
+        id: string;
+        name: string;
+        studentsIds: Array<string>;
+        state: string;
+        testVariants: Array<{
+            name: string;
+            testVariantId: string;
+        }>;
+    };
+    triggers: Array<string>;
+}
+
+async function loadData(id: string): Promise<LoadedData> {
     const query = `
 query q($id:Uuid!) {
   testSession:testSessionDetails(where:{ id:$id }) {
@@ -52,5 +65,5 @@ query q($id:Uuid!) {
   triggers:testSessionTriggers(testSessionId:$id)
 }
     `;
-    return HttpApi.graphQl<{ testSession: TestSessionDto; triggers: Array<string> }>(query, { id });
+    return HttpApi.graphQl<LoadedData>(query, { id });
 }

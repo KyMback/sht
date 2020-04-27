@@ -11,7 +11,9 @@ namespace SHT.Application
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterFluentValidators(ThisAssembly);
+            builder
+                .AddAutoMapperTypes(ThisAssembly)
+                .RegisterFluentValidators(ThisAssembly);
             RegisterMediator(builder);
             RegisterStateMachine(builder);
         }

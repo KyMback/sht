@@ -1,13 +1,19 @@
-using SHT.Application.Common;
+using System;
+using MediatR;
 using SHT.Application.Tests.TestSessions.Contracts;
 
 namespace SHT.Application.Tests.TestSessions.Update
 {
-    public class UpdateTestSessionRequest : BaseRequest<TestSessionDetailsDto>
+    public class UpdateTestSessionRequest : IRequest
     {
-        public UpdateTestSessionRequest(TestSessionDetailsDto data)
-            : base(data)
+        public UpdateTestSessionRequest(TestSessionModificationDataDto data, Guid testSessionId)
         {
+            Data = data;
+            TestSessionId = testSessionId;
         }
+
+        public Guid TestSessionId { get; set; }
+
+        public TestSessionModificationDataDto Data { get; set; }
     }
 }

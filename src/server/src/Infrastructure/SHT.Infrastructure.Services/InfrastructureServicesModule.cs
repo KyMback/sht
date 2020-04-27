@@ -8,7 +8,9 @@ namespace SHT.Infrastructure.Services
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.AddScopedAsImplementedInterfaces<Mailer>();
+            builder
+                .AddAutoMapperTypes(ThisAssembly)
+                .AddScopedAsImplementedInterfaces<Mailer>();
         }
     }
 }

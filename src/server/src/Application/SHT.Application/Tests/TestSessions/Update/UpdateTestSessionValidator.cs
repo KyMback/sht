@@ -9,7 +9,7 @@ namespace SHT.Application.Tests.TestSessions.Update
     {
         public UpdateTestSessionValidator()
         {
-            RuleFor(e => e.Data).SetValidator(new TestSessionDetailsDtoValidator());
+            RuleFor(e => e.Data).SetValidator(new TestSessionModificationDataDtoValidator());
         }
     }
 }
