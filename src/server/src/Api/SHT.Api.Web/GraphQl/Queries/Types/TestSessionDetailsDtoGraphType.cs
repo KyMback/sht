@@ -10,6 +10,7 @@ namespace SHT.Api.Web.GraphQl.Queries.Types
             descriptor.Field(e => e.Id);
             descriptor.Field(e => e.State).Type<NonNullType<StringType>>();
             descriptor.Field(e => e.Name).Type<NonNullType<StringType>>();
+            descriptor.Field(e => e.CreatedAt);
             descriptor.Field(e => e.StudentsIds).Type<NonNullType<ListType<NonNullType<UuidType>>>>();
             descriptor.Field(e => e.TestVariants)
                 .Type<NonNullType<ListType<NonNullType<TestSessionVariantDataDtoGraphType>>>>();

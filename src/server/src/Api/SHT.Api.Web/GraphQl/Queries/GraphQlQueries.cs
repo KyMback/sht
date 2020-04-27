@@ -36,20 +36,20 @@ namespace SHT.Api.Web.GraphQl.Queries
                 .UseSelection();
 
             descriptor
-                .Field(f => f.GetTestSessionListItems(default, default))
+                .Field(f => f.GetTestSessionListItems())
                 .Authorize(AuthorizationPolicyNames.InstructorsOnly)
-                .Type<NonNullType<ListType<NonNullType<TestSessionListItemDtoGraphType>>>>()
+                .Type<NonNullType<ListType<NonNullType<TestSessionDetailsDtoGraphType>>>>()
                 .Name("testSessionListItems")
-                .UseOffsetBasedPaging<TestSessionListItemDtoGraphType, TestSessionListItemDto>()
-                .UseCustomSelection<TestSessionListItemDto>()
-                .UseSorting<TestSessionListItemDto>(typeDescriptor =>
+                .UseOffsetBasedPaging<TestSessionDetailsDtoGraphType, TestSessionDetailsDto>()
+                .UseCustomSelection<TestSessionDetailsDto>()
+                .UseSorting<TestSessionDetailsDto>(typeDescriptor =>
                 {
                     typeDescriptor.BindFieldsExplicitly();
                     typeDescriptor.Sortable(e => e.CreatedAt);
                 });
 
             descriptor
-                .Field(f => f.GetTestSessionDetails(default, default))
+                .Field(f => f.GetTestSessionDetails())
                 .Authorize(AuthorizationPolicyNames.InstructorsOnly)
                 .Type<TestSessionDetailsDtoGraphType>()
                 .Name("testSessionDetails")
@@ -59,27 +59,27 @@ namespace SHT.Api.Web.GraphQl.Queries
                     filterDescriptor.Filter(p => p.Id).AllowEquals());
 
             descriptor
-                .Field(f => f.GetTestSessionTriggers(default, default, default))
+                .Field(f => f.GetTestSessionTriggers(default))
                 .Authorize(AuthorizationPolicyNames.InstructorsOnly)
                 .Type<NonNullType<ListType<NonNullType<StringType>>>>()
                 .Name("testSessionTriggers")
                 .Argument("testSessionId", argumentDescriptor => argumentDescriptor.Type<NonNullType<UuidType>>());
 
             descriptor
-                .Field(f => f.GetVariantsLookups(default, default))
+                .Field(f => f.GetVariantsLookups())
                 .Authorize(AuthorizationPolicyNames.InstructorsOnly)
                 .Type<NonNullType<ListType<NonNullType<LookupGraphType>>>>()
                 .Name("testVariantLookups")
                 .UseSelection();
 
             descriptor
-                .Field(f => f.GetStudentsGroups(default))
+                .Field(f => f.GetStudentsGroups())
                 .Authorize()
                 .Type<NonNullType<ListType<NonNullType<StudentGroupedGroupDtoGraphType>>>>()
                 .Name("studentsGroups");
 
             descriptor
-                .Field(f => f.GetStudentsTestSessions(default, default))
+                .Field(f => f.GetStudentsTestSessions())
                 .Authorize(AuthorizationPolicyNames.StudentsOnly)
                 .Type<NonNullType<ListType<NonNullType<StudentTestSessionDtoGraphType>>>>()
                 .Name("studentTestSessions")
@@ -92,7 +92,7 @@ namespace SHT.Api.Web.GraphQl.Queries
                 });
 
             descriptor
-                .Field(f => f.GetStudentsTestSessions2(default, default))
+                .Field(f => f.GetStudentsTestSessions2())
                 .Authorize(AuthorizationPolicyNames.StudentsOnly)
                 .Type<StudentTestSessionDtoGraphType>()
                 .Name("studentTestSession")
@@ -102,14 +102,14 @@ namespace SHT.Api.Web.GraphQl.Queries
                     filterDescriptor.Filter(e => e.Id).AllowEquals());
 
             descriptor
-                .Field(f => f.GetStudentTestSessionTriggers(default, default, default, default))
+                .Field(f => f.GetStudentTestSessionTriggers(default))
                 .Authorize(AuthorizationPolicyNames.StudentsOnly)
                 .Type<NonNullType<ListType<NonNullType<StringType>>>>()
                 .Name("studentTestSessionTriggers")
                 .Argument("testSessionId", argumentDescriptor => argumentDescriptor.Type<NonNullType<UuidType>>());
 
             descriptor
-                .Field(f => f.GetStudentTestQuestions(default, default))
+                .Field(f => f.GetStudentTestQuestions())
                 .Authorize(AuthorizationPolicyNames.StudentsOnly)
                 .Type<NonNullType<ListType<NonNullType<StudentTestQuestionDtoGraphType>>>>()
                 .Name("studentTestQuestions")
@@ -122,7 +122,7 @@ namespace SHT.Api.Web.GraphQl.Queries
                 });
 
             descriptor
-                .Field(f => f.GetStudentTestQuestion(default, default))
+                .Field(f => f.GetStudentTestQuestion())
                 .Authorize(AuthorizationPolicyNames.StudentsOnly)
                 .Type<StudentTestQuestionDtoGraphType>()
                 .Name("studentTestQuestion")
@@ -131,13 +131,13 @@ namespace SHT.Api.Web.GraphQl.Queries
                 .UseFiltering<StudentTestQuestionDtoFilterInputType>();
 
             descriptor
-                .Field(f => f.GetStudentTestSessionVariants(default, default, default))
+                .Field(f => f.GetStudentTestSessionVariants(default))
                 .Authorize(AuthorizationPolicyNames.StudentsOnly)
                 .Type<NonNullType<ListType<NonNullType<StringType>>>>()
                 .Name("studentTestSessionVariants")
                 .Argument("studentTestSessionId", argumentDescriptor => argumentDescriptor.Type<NonNullType<UuidType>>());
 
-            descriptor.Field(f => f.GetTestVariant(default, default))
+            descriptor.Field(f => f.GetTestVariant())
                 .Authorize(AuthorizationPolicyNames.InstructorsOnly)
                 .Type<TestVariantDtoGraphType>()
                 .Name("testVariant")
@@ -145,7 +145,7 @@ namespace SHT.Api.Web.GraphQl.Queries
                 .UseFiltering<TestVariantDto>(filterDescriptor =>
                     filterDescriptor.Filter(e => e.Id).AllowEquals());
 
-            descriptor.Field(f => f.GetTestVariants(default, default))
+            descriptor.Field(f => f.GetTestVariants())
                 .Authorize(AuthorizationPolicyNames.InstructorsOnly)
                 .Type<NonNullType<ListType<NonNullType<TestVariantDtoGraphType>>>>()
                 .Name("testVariants")

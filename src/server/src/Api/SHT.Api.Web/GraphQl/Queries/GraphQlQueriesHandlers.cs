@@ -2,30 +2,27 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HotChocolate;
 using MediatR;
 using SHT.Application.Common;
-using SHT.Application.StateMachineConfigs.Core;
 using SHT.Application.Tests.StudentQuestions.Contracts;
+using SHT.Application.Tests.StudentQuestions.GetAll;
 using SHT.Application.Tests.StudentsTestSessions.Contracts;
+using SHT.Application.Tests.StudentsTestSessions.GetAll;
+using SHT.Application.Tests.StudentsTestSessions.GetTriggers;
+using SHT.Application.Tests.StudentsTestSessions.GetVariants;
 using SHT.Application.Tests.TestSessions.Contracts;
+using SHT.Application.Tests.TestSessions.GetAll;
+using SHT.Application.Tests.TestSessions.GetTriggers;
 using SHT.Application.TestVariants.Contracts;
+using SHT.Application.TestVariants.GetAll;
+using SHT.Application.TestVariants.GetLookups;
 using SHT.Application.Users.Accounts.Contracts;
 using SHT.Application.Users.Accounts.GetUserContext;
 using SHT.Application.Users.Instructors.Contracts;
 using SHT.Application.Users.Instructors.GetProfile;
 using SHT.Application.Users.Students.Contracts;
+using SHT.Application.Users.Students.GetGroups;
 using SHT.Application.Users.Students.GetProfile;
-using SHT.Domain.Models.Tests;
-using SHT.Domain.Models.Tests.Students;
-using SHT.Domain.Services.Tests;
-using SHT.Domain.Services.Tests.Student;
-using SHT.Domain.Services.Tests.Student.Questions;
-using SHT.Domain.Services.Tests.Variants;
-using SHT.Domain.Services.Users;
-using SHT.Infrastructure.Common;
-using SHT.Infrastructure.DataAccess.Abstractions;
-using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.IQueryProvider;
 
 namespace SHT.Api.Web.GraphQl.Queries
 {
@@ -53,167 +50,72 @@ namespace SHT.Api.Web.GraphQl.Queries
             return _mediator.Send(new GetStudentProfileRequest());
         }
 
-        public IQueryable<TestSessionListItemDto> GetTestSessionListItems(
-            [Service] IExecutionContextAccessor executionContextAccessor,
-            [Service] IQueryProvider queryProvider)
+        public Task<IQueryable<TestSessionDetailsDto>> GetTestSessionListItems()
         {
-            var queryParameters = new TestSessionQueryParameters
-            {
-                InstructorId = executionContextAccessor.GetCurrentUserId(),
-            };
-
-            return queryParameters.ToQuery(queryProvider).Select(TestSessionListItemDto.Selector);
+            return _mediator.Send(new GetAllTestSessionsRequest());
         }
 
-        public IQueryable<TestSessionDetailsDto> GetTestSessionDetails(
-            [Service] IExecutionContextAccessor executionContextAccessor,
-            [Service] IQueryProvider queryProvider)
+        public Task<IQueryable<TestSessionDetailsDto>> GetTestSessionDetails()
         {
-            var queryParameters = new TestSessionQueryParameters
-            {
-                InstructorId = executionContextAccessor.GetCurrentUserId(),
-            };
-
-            return queryParameters.ToQuery(queryProvider).Select(TestSessionDetailsDto.Selector);
+            return _mediator.Send(new GetAllTestSessionsRequest());
         }
 
-        public async Task<IReadOnlyCollection<string>> GetTestSessionTriggers(
-            Guid testSessionId,
-            [Service] IStateManager<TestSession> stateManager,
-            [Service] IUnitOfWork unitOfWork)
+        public Task<IReadOnlyCollection<string>> GetTestSessionTriggers(Guid testSessionId)
         {
-            var queryParameters = new TestSessionQueryParameters(testSessionId);
-            var testSession = await unitOfWork.GetSingle(queryParameters);
-            return await stateManager.GetAvailableTriggers(testSession);
+            return _mediator.Send(new GetTestSessionTriggersRequest(testSessionId));
         }
 
-        public IQueryable<Lookup> GetVariantsLookups(
-            [Service] IExecutionContextAccessor executionContextAccessor,
-            [Service] IQueryProvider queryProvider)
+        public Task<IQueryable<Lookup>> GetVariantsLookups()
         {
-            var queryParameters = new TestVariantQueryParameters
-            {
-                CreatedById = executionContextAccessor.GetCurrentUserId(),
-            };
-
-            return queryParameters.ToQuery(queryProvider).Select(LookupSelectors.VariantSelector);
+            return _mediator.Send(new GetTestVariantsLookupsRequest());
         }
 
-        public async Task<IReadOnlyCollection<StudentGroupedGroupDto>> GetStudentsGroups(
-            [Service] IUnitOfWork unitOfWork)
+        public Task<IReadOnlyCollection<StudentGroupedGroupDto>> GetStudentsGroups()
         {
-            var queryParameters = new StudentQueryParameters
-            {
-                IsUniq = true,
-            };
-
-            var result = await unitOfWork.GetAll(queryParameters, student => new
-            {
-                student.Id,
-                student.Group,
-            });
-
-            return result
-                .GroupBy(e => e.Group, arg => arg.Id)
-                .Select(group =>
-                    new StudentGroupedGroupDto
-                    {
-                        GroupName = group.Key,
-                        StudentsIds = group.ToArray(),
-                    }).ToArray();
+            return _mediator.Send(new GetStudentsGroupsRequest());
         }
 
-        public IQueryable<StudentTestSessionDto> GetStudentsTestSessions(
-            [Service] IExecutionContextAccessor executionContextAccessor,
-            [Service] IQueryProvider queryProvider)
+        public Task<IQueryable<StudentTestSessionDto>> GetStudentsTestSessions()
         {
-            var queryParameters = new StudentTestSessionQueryParameters
-            {
-                StudentId = executionContextAccessor.GetCurrentUserId(),
-                ExceptTestSessionState = TestSessionStates.Pending,
-            };
-
-            return queryParameters.ToQuery(queryProvider).Select(StudentTestSessionDto.Selector);
+            return _mediator.Send(new GetAllStudentTestSessionsRequest());
         }
 
         // Just because can't use the same method for different fields
-        public IQueryable<StudentTestSessionDto> GetStudentsTestSessions2(
-            [Service] IExecutionContextAccessor executionContextAccessor,
-            [Service] IQueryProvider queryProvider)
+        public Task<IQueryable<StudentTestSessionDto>> GetStudentsTestSessions2()
         {
-            return GetStudentsTestSessions(executionContextAccessor, queryProvider);
+            return _mediator.Send(new GetAllStudentTestSessionsRequest());
         }
 
-        public async Task<IReadOnlyCollection<string>> GetStudentTestSessionTriggers(
-            Guid testSessionId,
-            [Service] IExecutionContextAccessor executionContextAccessor,
-            [Service] IStateManager<StudentTestSession> stateManager,
-            [Service] IUnitOfWork unitOfWork)
+        public Task<IReadOnlyCollection<string>> GetStudentTestSessionTriggers(Guid testSessionId)
         {
-            var queryParameters = new StudentTestSessionQueryParameters(testSessionId)
-            {
-                StudentId = executionContextAccessor.GetCurrentUserId(),
-            };
-            var testSession = await unitOfWork.GetSingle(queryParameters);
-            return await stateManager.GetAvailableTriggers(testSession);
+            return _mediator.Send(new GetStudentTestSessionTriggersRequest(testSessionId));
         }
 
-        public IQueryable<StudentTestQuestionDto> GetStudentTestQuestions(
-            [Service] IExecutionContextAccessor executionContextAccessor,
-            [Service] IQueryProvider queryProvider)
+        public Task<IQueryable<StudentTestQuestionDto>> GetStudentTestQuestions()
         {
-            var queryParameters = new StudentQuestionQueryParameters
-            {
-                StudentId = executionContextAccessor.GetCurrentUserId(),
-            };
-
-            return queryParameters.ToQuery(queryProvider).Select(StudentTestQuestionDto.Selector);
+            return _mediator.Send(new GetAllStudentTestQuestionsRequest());
         }
 
         // Just because can't use the same method for different fields
-        public IQueryable<StudentTestQuestionDto> GetStudentTestQuestion(
-            [Service] IExecutionContextAccessor executionContextAccessor,
-            [Service] IQueryProvider queryProvider)
+        public Task<IQueryable<StudentTestQuestionDto>> GetStudentTestQuestion()
         {
-            return GetStudentTestQuestions(executionContextAccessor, queryProvider);
+            return _mediator.Send(new GetAllStudentTestQuestionsRequest());
         }
 
-        public async Task<IReadOnlyCollection<string>> GetStudentTestSessionVariants(
-            Guid studentTestSessionId,
-            [Service] IExecutionContextAccessor executionContextAccessor,
-            [Service] IUnitOfWork unitOfWork)
+        public Task<IReadOnlyCollection<string>> GetStudentTestSessionVariants(Guid studentTestSessionId)
         {
-            var queryParameters = new StudentTestSessionQueryParameters
-            {
-                Id = studentTestSessionId,
-                StudentId = executionContextAccessor.GetCurrentUserId(),
-            };
-
-            var result = await unitOfWork.GetSingle(
-                queryParameters,
-                session => session.TestSession.TestSessionTestVariants.Select(e => e.Name).ToArray());
-
-            return result;
+            return _mediator.Send(new GetStudentTestSessionVariantsRequest(studentTestSessionId));
         }
 
-        public IQueryable<TestVariantDto> GetTestVariants(
-            [Service] IExecutionContextAccessor executionContextAccessor,
-            [Service] IQueryProvider queryProvider)
+        public Task<IQueryable<TestVariantDto>> GetTestVariants()
         {
-            var queryParameters = new TestVariantQueryParameters
-            {
-                CreatedById = executionContextAccessor.GetCurrentUserId(),
-            };
-
-            return queryParameters.ToQuery(queryProvider).Select(TestVariantDto.Selector);
+            return _mediator.Send(new GetAllTestVariantsRequest());
         }
 
         // Just because can't use the same method for different fields
-        public IQueryable<TestVariantDto> GetTestVariant(
-            [Service] IExecutionContextAccessor executionContextAccessor,
-            [Service] IQueryProvider queryProvider)
+        public Task<IQueryable<TestVariantDto>> GetTestVariant()
         {
-            return GetTestVariants(executionContextAccessor, queryProvider);
+            return _mediator.Send(new GetAllTestVariantsRequest());
         }
     }
 }

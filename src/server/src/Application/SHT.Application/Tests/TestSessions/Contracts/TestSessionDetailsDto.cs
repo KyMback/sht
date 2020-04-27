@@ -23,6 +23,7 @@ namespace SHT.Application.Tests.TestSessions.Contracts
                     StudentsIds = session.StudentTestSessions.Select(e => e.StudentId).ToArray(),
                     TestVariants = session.TestSessionTestVariants.Select(e => TestSessionVariantDataDto.Selector.Invoke(e))
                         .ToArray(),
+                    CreatedAt = session.CreatedAt,
                 });
 
         public Guid Id { get; set; }
@@ -34,5 +35,7 @@ namespace SHT.Application.Tests.TestSessions.Contracts
         public IReadOnlyCollection<Guid> StudentsIds { get; set; }
 
         public IReadOnlyCollection<TestSessionVariantDataDto> TestVariants { get; set; }
+
+        public DateTime CreatedAt { get; set; }
     }
 }

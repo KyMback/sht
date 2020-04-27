@@ -4,8 +4,6 @@ using MediatR;
 using SHT.Api.Web.GraphQl.Common;
 using SHT.Api.Web.GraphQl.Mutations;
 using SHT.Api.Web.GraphQl.Queries;
-using SHT.Api.Web.GraphQl.Queries.Types;
-using SHT.Api.Web.GraphQl.Queries.Types.StudentTestSessions;
 
 namespace SHT.Api.Web.GraphQl
 {
@@ -19,12 +17,6 @@ namespace SHT.Api.Web.GraphQl
                 .AddType(new PaginationAmountType(100))
                 .ModifyOptions(e => e.DefaultBindingBehavior = BindingBehavior.Explicit)
                 .BindClrType<Unit, VoidType>()
-                .AddType<UserContextGraphType>()
-                .AddType<TestSessionListItemDtoGraphType>()
-                .AddType<TestSessionDetailsDtoGraphType>()
-                .AddType<TestSessionVariantDataDtoGraphType>()
-                .AddType<LookupGraphType>()
-                .AddType<StudentGroupedGroupDtoGraphType>()
                 .AddMutationType<GraphQlMutations>()
                 .AddQueryType<GraphQlQueries>();
         }

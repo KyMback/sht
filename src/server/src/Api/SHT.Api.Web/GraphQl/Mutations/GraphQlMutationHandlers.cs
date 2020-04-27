@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using HotChocolate;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using SHT.Application.Common;
 using SHT.Application.Tests.StudentQuestions.Answer;
 using SHT.Application.Tests.StudentsTestSessions.StateTransition;
