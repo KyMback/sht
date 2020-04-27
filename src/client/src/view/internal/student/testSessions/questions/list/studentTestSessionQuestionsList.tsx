@@ -1,8 +1,5 @@
 import React, { useContext } from "react";
-import {
-    CardSectionActionConfigs,
-    CardSectionsGroup,
-} from "../../../../../../components/layouts/sections/cardSectionsGroup";
+import { CardSectionsGroup } from "../../../../../../components/layouts/sections/cardSectionsGroup";
 import { CardSection } from "../../../../../../components/layouts/sections/cardSection";
 import { observer } from "mobx-react-lite";
 import { ListGroup, ListGroupItem, ListGroupItemHeading } from "reactstrap";
@@ -10,12 +7,13 @@ import { routingStore } from "../../../../../../stores/routingStore";
 import { enumeration, EnumLocal, Local } from "../../../../../../core/localization/local";
 import { QuestionType } from "../../../../../../typings/dataContracts";
 import { studentQuestionsContext } from "../studentQuestionsModule";
+import { GenericButtonProps } from "../../../../../../components/buttons/genericButton/genericButton";
 
 export const StudentTestSessionQuestionsList = observer(() => {
     const store = useContext(studentQuestionsContext)!;
-    const actions: Array<CardSectionActionConfigs> = [
+    const actions: Array<GenericButtonProps> = [
         {
-            title: "OpenTestDashboard",
+            text: "OpenTestDashboard",
             color: "primary",
             onClick: () => routingStore.goto(`/test-session/${store.sessionId}`),
         },

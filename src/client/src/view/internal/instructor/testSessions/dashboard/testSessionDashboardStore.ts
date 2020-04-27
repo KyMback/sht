@@ -1,4 +1,4 @@
-import { action, observable, runInAction } from "mobx";
+import { action, computed, observable, runInAction } from "mobx";
 import { TestSessionsService } from "../../../../../services/testSessionsService";
 import moment from "moment";
 import { HttpApi } from "../../../../../core/api/http/httpApi";
@@ -9,6 +9,11 @@ export class TestSessionDashboardStore {
     @observable public createdAt: moment.Moment;
     @observable public state: string;
     @observable public triggers: Array<string> = [];
+
+    @computed
+    public get canEdit(): boolean {
+        return this.state === "Pending";
+    }
 
     constructor(id: string) {
         this.id = id;

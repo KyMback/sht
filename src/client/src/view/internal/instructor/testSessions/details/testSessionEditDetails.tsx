@@ -1,7 +1,4 @@
-import {
-    CardSectionActionConfigs,
-    CardSectionsGroup,
-} from "../../../../../components/layouts/sections/cardSectionsGroup";
+import { CardSectionsGroup } from "../../../../../components/layouts/sections/cardSectionsGroup";
 import { CardSection } from "../../../../../components/layouts/sections/cardSection";
 import React from "react";
 import { observer, useLocalStore } from "mobx-react-lite";
@@ -16,26 +13,16 @@ import { SessionTestVariantItem } from "./sessionTestVariantItem";
 import { useParams } from "react-router-dom";
 import { IdParams } from "../../../../../typings/customTypings";
 import { DefaultCol } from "../../../../../components/layouts/defaultCol";
+import { GuardedActions, GuardsApplier } from "../../../../../core/guarding";
 
 export const TestSessionEditDetails = observer(() => {
     const params = useParams<IdParams>();
     const store = useLocalStore(() => new TestSessionDetailsEditStore(params.id));
     useAsyncEffect(store.loadData, []);
-    const actions: Array<CardSectionActionConfigs> = [
-        {
-            title: "Cancel",
-            color: "secondary",
-            onClick: store.cancel,
-        },
-        {
-            title: "Save",
-            color: "primary",
-        },
-    ];
 
     return (
         <Form onValidSubmit={store.save}>
-            <CardSectionsGroup actions={actions}>
+            <CardSectionsGroup actions={GuardsApplier.applyGuardedArrays(store, guardedActions)}>
                 <CardSection title="TestSession_Details">
                     <Row>
                         <DefaultCol>
@@ -46,7 +33,7 @@ export const TestSessionEditDetails = observer(() => {
                                 validations={[required]}
                             />
                         </DefaultCol>
-                        <DefaultCol xs={12} md={6} lg={4} xl={3}>
+                        <DefaultCol>
                             <FormMultiSelect
                                 label="TestSession_StudentGroups"
                                 value={store.selectedGroups}
@@ -77,3 +64,19 @@ export const TestSessionEditDetails = observer(() => {
         </Form>
     );
 });
+
+const guardedActions: GuardedActions<TestSessionDetailsEditStore> = [
+    {
+        data: store => [
+            {
+                text: "Cancel",
+                color: "secondary",
+                onClick: store.cancel,
+            },
+            {
+                text: "Save",
+                color: "primary",
+            },
+        ],
+    },
+];

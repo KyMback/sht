@@ -4,20 +4,18 @@ import { useParams } from "react-router-dom";
 import { observer, useLocalStore } from "mobx-react-lite";
 import { StudentTestSessionDashboardStore } from "./studentTestSessionDashboardStore";
 import useAsyncEffect from "use-async-effect";
-import {
-    CardSectionActionConfigs,
-    CardSectionsGroup,
-} from "../../../../../components/layouts/sections/cardSectionsGroup";
+import { CardSectionsGroup } from "../../../../../components/layouts/sections/cardSectionsGroup";
 import { CardSection } from "../../../../../components/layouts/sections/cardSection";
 import { routingStore } from "../../../../../stores/routingStore";
 import { Local } from "../../../../../core/localization/local";
 import { LabeledText } from "../../../../../components/labels/labeled";
 import { StartStudentTestModal } from "./stateTransition/startTest/startStudentTestModal";
+import { GenericButtonProps } from "../../../../../components/buttons/genericButton/genericButton";
 
-const actions: Array<CardSectionActionConfigs> = [
+const actions: Array<GenericButtonProps> = [
     {
         color: "secondary" as Color,
-        title: "Cancel",
+        text: "Cancel",
         onClick: () => routingStore.goto(`/test-session`),
     },
 ];
@@ -27,19 +25,19 @@ export const StudentTestSessionDashboard = observer(() => {
     const store = useLocalStore(() => new StudentTestSessionDashboardStore(params.id!));
     useAsyncEffect(store.loadData, []);
 
-    const topActions: Array<CardSectionActionConfigs> = store.isQuestionsAvailable
+    const topActions: Array<GenericButtonProps> = store.isQuestionsAvailable
         ? [
               {
-                  title: "StudentTestSession_OpenQuestions",
+                  text: "StudentTestSession_OpenQuestions",
                   onClick: () => routingStore.goto(`/test-session/${params.id}/questions`),
                   color: "primary",
               },
           ]
         : [];
 
-    const stateTransitionOptions: Array<CardSectionActionConfigs> = store.stateTransitions.map(item => ({
+    const stateTransitionOptions: Array<GenericButtonProps> = store.stateTransitions.map(item => ({
         color: "primary",
-        title: `StudentTestSession_Trigger_${item}`,
+        text: `StudentTestSession_Trigger_${item}`,
         onClick: () => store.stateTransition(item),
     }));
 

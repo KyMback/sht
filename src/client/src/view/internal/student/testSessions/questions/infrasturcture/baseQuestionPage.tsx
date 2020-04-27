@@ -1,8 +1,5 @@
 import { Form } from "../../../../../../components/forms/form";
-import {
-    CardSectionActionConfigs,
-    CardSectionsGroup,
-} from "../../../../../../components/layouts/sections/cardSectionsGroup";
+import { CardSectionsGroup } from "../../../../../../components/layouts/sections/cardSectionsGroup";
 import { CardSection } from "../../../../../../components/layouts/sections/cardSection";
 import { Local } from "../../../../../../core/localization/local";
 import React, { useContext, useMemo } from "react";
@@ -16,6 +13,7 @@ import { routingStore } from "../../../../../../stores/routingStore";
 import { observer } from "mobx-react-lite";
 import { FreeTextQuestionStore } from "../freeTextQuestion/freeTextQuestionStore";
 import { DisableCopyPasteWrapper } from "../../../../../../components/common/disableCopyPasteWrapper";
+import { GenericButtonProps } from "../../../../../../components/buttons/genericButton/genericButton";
 
 export const BaseQuestionPage = observer(() => {
     const params = useParams<IdParams>();
@@ -23,17 +21,17 @@ export const BaseQuestionPage = observer(() => {
     const store = context.getOrCreateStore(params.id!);
     const component = useMemo(() => getComponent(store), [store]);
 
-    const topActions: Array<CardSectionActionConfigs> = [
+    const topActions: Array<GenericButtonProps> = [
         {
             color: "primary",
-            title: "BackToQuestionsList",
+            text: "BackToQuestionsList",
             onClick: () => routingStore.goto(`/test-session/${context.sessionId}/questions`),
         },
     ];
-    const actions: Array<CardSectionActionConfigs> = [
+    const actions: Array<GenericButtonProps> = [
         {
             color: "primary",
-            title: "Submit",
+            text: "Submit",
         },
     ];
 

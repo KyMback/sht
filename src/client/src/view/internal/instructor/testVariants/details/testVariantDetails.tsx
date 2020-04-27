@@ -4,24 +4,22 @@ import { TestVariantDetailsStore } from "./testVariantDetailsStore";
 import { useParams } from "react-router-dom";
 import { IdParams } from "../../../../../typings/customTypings";
 import useAsyncEffect from "use-async-effect";
-import {
-    CardSectionActionConfigs,
-    CardSectionsGroup,
-} from "../../../../../components/layouts/sections/cardSectionsGroup";
+import { CardSectionsGroup } from "../../../../../components/layouts/sections/cardSectionsGroup";
 import { routingStore } from "../../../../../stores/routingStore";
 import { CardSection } from "../../../../../components/layouts/sections/cardSection";
 import { Form } from "../../../../../components/forms/form";
 import { FormInput } from "../../../../../components/forms";
 import { required } from "../../../../../components/forms/validations";
+import { GenericButtonProps } from "../../../../../components/buttons/genericButton/genericButton";
 
-const actions: Array<CardSectionActionConfigs> = [
+const actions: Array<GenericButtonProps> = [
     {
-        title: "Cancel",
+        text: "Cancel",
         color: "secondary",
         onClick: () => routingStore.goto("/test-variants/list"),
     },
     {
-        title: "Save",
+        text: "Save",
         color: "primary",
     },
 ];

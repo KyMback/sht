@@ -1,19 +1,14 @@
 import React from "react";
-import { Button, ButtonGroup } from "reactstrap";
-import { Color, KeyOrJSX } from "../../../typings/customTypings";
+import { ButtonGroup } from "reactstrap";
+import { KeyOrJSX } from "../../../typings/customTypings";
 import { ensureLocal } from "../../../core/localization/local";
+import { GenericButton, GenericButtonProps } from "../../buttons/genericButton/genericButton";
 
 interface Props {
     children: React.ReactNode | React.ReactNodeArray;
-    actions?: Array<CardSectionActionConfigs>;
-    topActions?: Array<CardSectionActionConfigs>;
+    actions?: Array<GenericButtonProps>;
+    topActions?: Array<GenericButtonProps>;
     title?: KeyOrJSX;
-}
-
-export interface CardSectionActionConfigs {
-    title: KeyOrJSX;
-    onClick?: () => void;
-    color?: Color;
 }
 
 export const CardSectionsGroup = ({ children, actions, topActions, title }: Props) => {
@@ -25,9 +20,7 @@ export const CardSectionsGroup = ({ children, actions, topActions, title }: Prop
                     {topActions && (
                         <ButtonGroup>
                             {topActions.map((v, index) => (
-                                <Button key={index} color={v.color} onClick={v.onClick}>
-                                    {ensureLocal(v.title)}
-                                </Button>
+                                <GenericButton key={index} {...v} />
                             ))}
                         </ButtonGroup>
                     )}
@@ -37,9 +30,7 @@ export const CardSectionsGroup = ({ children, actions, topActions, title }: Prop
             {actions && (
                 <div className="actions">
                     {actions.map((v, index) => (
-                        <Button color={v.color} key={index} onClick={v.onClick}>
-                            {ensureLocal(v.title)}
-                        </Button>
+                        <GenericButton key={index} {...v} />
                     ))}
                 </div>
             )}
