@@ -1,11 +1,12 @@
 import { ensureLocal, Local } from "../../core/localization/local";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { ControlProps } from "../controls";
 import { FormGroup, Label } from "reactstrap";
 import { ValidationContext } from "./validationProvider";
 import { Icon, icons } from "../icons/icon";
 import { KeyOrJSX } from "../../typings/customTypings";
 import { required } from "./validations";
+import { uniqId } from "../../core/utils/uniqIdUtil";
 
 export interface FormWrapperProps<TValue, TControlProps extends ControlProps<TValue>> {
     label?: KeyOrJSX;
@@ -54,7 +55,7 @@ function withValidation<TValue, TControlProps extends ControlProps<TValue>>(
         };
 
         private onChange = (value: TValue) => {
-            this.props.controlProps.onChange(value);
+            this.props.controlProps.onChange && this.props.controlProps.onChange(value);
             this.setState({
                 isUsed: true,
             });
@@ -94,14 +95,15 @@ export const FormControlWrapper = withValidation(
     }: FormWrapperProps<TValue, TControlProps> & ValidationResultProps) => {
         const errorMessage = useMemo(() => isUsed && error && <ErrorMessage error={error} />, [error, isUsed]);
         const labelComponent = useMemo(() => label && ensureLocal(label), [label]);
+        const [id] = useState(name || uniqId("control-"));
 
         return (
             <FormGroup className={`form-control-wrapper ${getClassNames(isUsed, error)}`}>
-                <Label required={true} aria-required={isRequired} htmlFor={name}>
+                <Label required={true} aria-required={isRequired} htmlFor={id}>
                     {labelComponent}
                     <span className="text-danger">{isRequired ? "*" : ""}</span>
                 </Label>
-                <Control id={name} {...controlProps} valid={!isUsed ? undefined : !error} isRequired={isRequired} />
+                <Control id={id} {...controlProps} valid={!isUsed ? undefined : !error} isRequired={isRequired} />
                 {errorMessage}
             </FormGroup>
         );

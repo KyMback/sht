@@ -8,7 +8,7 @@ import { PublicModule } from "./public/publicModule";
 
 const routes: Array<Route> = [
     {
-        path: "/signOut",
+        path: "/sign-out",
         component: SignOut,
     },
     {

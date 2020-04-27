@@ -1,6 +1,7 @@
 import { ControlProps } from "../controls";
 import React from "react";
 import { FormControlWrapper, FormWrapperProps } from "./formControlWrapper";
+import { ViewModesSwitcher } from "./view/core/viewModesSwitcher";
 
 export type FormControlProps<TValue, TProps extends ControlProps<TValue>> = Omit<
     FormWrapperProps<TValue, TProps>,
@@ -10,8 +11,9 @@ export type FormControlProps<TValue, TProps extends ControlProps<TValue>> = Omit
 
 export function makeFormControl<TProps extends ControlProps<TValue>, TValue>(
     control: React.FC<TProps>,
+    view?: React.FC<TProps>,
 ): React.FC<FormControlProps<TValue, TProps>> {
-    return (props: FormControlProps<TValue, TProps>) => {
+    const editControl = (props: FormControlProps<TValue, TProps>) => {
         return (
             // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
             // @ts-ignore
@@ -23,4 +25,6 @@ export function makeFormControl<TProps extends ControlProps<TValue>, TValue>(
             />
         );
     };
+
+    return view ? props => <ViewModesSwitcher edit={editControl} view={view} props={props} /> : editControl;
 }

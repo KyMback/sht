@@ -27,15 +27,23 @@ const navItemsDictionary: Dictionary<Array<NavItemConfig>> = {
 const accountMenuItemsDictionary: Dictionary<Array<AccountMenuItem>> = {
     [UserType.Instructor]: [
         {
+            title: "Profile",
+            onClick: () => routingStore.goto("/profile"),
+        },
+        {
             title: "SignOut",
-            onClick: () => routingStore.goto("/signOut"),
+            onClick: () => routingStore.goto("/sign-out"),
             withDivider: true,
         },
     ],
     [UserType.Student]: [
         {
+            title: "Profile",
+            onClick: () => routingStore.goto("/profile"),
+        },
+        {
             title: "SignOut",
-            onClick: () => routingStore.goto("/signOut"),
+            onClick: () => routingStore.goto("/sign-out"),
             withDivider: true,
         },
     ],

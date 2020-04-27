@@ -2,6 +2,7 @@ import { Route, RoutesModule } from "../../../core/routing/routesModule";
 import React from "react";
 import { TestSessionsModule } from "./testSessions/testSessionsModule";
 import { TestVariantsModule } from "./testVariants/testVariantsModule";
+import { InstructorProfilePage } from "./profile/instructorProfilePage";
 
 const routes: Array<Route> = [
     {
@@ -20,6 +21,10 @@ const routes: Array<Route> = [
     {
         path: "/questions",
         component: () => <></>,
+    },
+    {
+        path: "/profile",
+        component: InstructorProfilePage,
     },
 ];
 

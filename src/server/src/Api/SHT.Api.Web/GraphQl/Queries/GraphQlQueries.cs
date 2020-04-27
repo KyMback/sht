@@ -15,9 +15,25 @@ namespace SHT.Api.Web.GraphQl.Queries
         protected override void Configure(IObjectTypeDescriptor<GraphQlQueriesHandlers> descriptor)
         {
             descriptor
-                .Field(f => f.GetUserContext(default, default))
+                .Field(f => f.GetUserContext())
                 .Type<NonNullType<UserContextGraphType>>()
                 .Name("userContext");
+
+            descriptor
+                .Field(f => f.GetInstructorProfile())
+                .Authorize(AuthorizationPolicyNames.InstructorsOnly)
+                .Type<NonNullType<InstructorProfileDtoGraphType>>()
+                .Name("instructorProfile")
+                .UseSingleOrDefault()
+                .UseSelection();
+
+            descriptor
+                .Field(f => f.GetStudentProfile())
+                .Authorize(AuthorizationPolicyNames.StudentsOnly)
+                .Type<NonNullType<StudentProfileDtoGraphType>>()
+                .Name("studentProfile")
+                .UseSingleOrDefault()
+                .UseSelection();
 
             descriptor
                 .Field(f => f.GetTestSessionListItems(default, default))

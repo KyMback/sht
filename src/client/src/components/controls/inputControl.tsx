@@ -1,5 +1,5 @@
 import { Input } from "reactstrap";
-import React from "react";
+import React, { useCallback } from "react";
 import { ControlProps } from "./index";
 
 export interface InputControlProps extends ControlProps<string | undefined> {
@@ -9,6 +9,13 @@ export interface InputControlProps extends ControlProps<string | undefined> {
 }
 
 export const InputControl = ({ onChange, value, className, type, valid }: InputControlProps) => {
+    const onChangeCallback = useCallback(
+        e => {
+            onChange && onChange(e.target.value);
+        },
+        [onChange],
+    );
+
     return (
         <Input
             invalid={valid === undefined ? undefined : !valid}
@@ -16,7 +23,7 @@ export const InputControl = ({ onChange, value, className, type, valid }: InputC
             type={type || "text"}
             className={className}
             value={value || ""}
-            onChange={e => onChange(e.target.value)}
+            onChange={onChangeCallback}
         />
     );
 };

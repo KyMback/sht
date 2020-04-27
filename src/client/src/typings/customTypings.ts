@@ -10,4 +10,12 @@ export interface IdParams {
     id?: string;
 }
 
+export interface AsyncInitializable {
+    init: () => Promise<void>;
+}
+
+export interface Disposable {
+    dispose: () => void;
+}
+
 export type PropsWithStore<TStore> = { store: TStore };

@@ -1,5 +1,5 @@
 import { ControlProps } from "../index";
-import React from "react";
+import React, { useCallback } from "react";
 import ReactSelect from "react-select";
 import { KeyOrJSX } from "../../../typings/customTypings";
 import { ensureLocal, Local } from "../../../core/localization/local";
@@ -26,6 +26,13 @@ export function MultiSelect<TData extends any>({
     className,
     isSearchable,
 }: MultiSelectProps<TData>) {
+    const onChangeCallback = useCallback(
+        v => {
+            onChange && onChange(handleChange<TData>(v));
+        },
+        [onChange],
+    );
+
     return (
         <ReactSelect<SelectItem<TData>>
             className={`multi-select ${valid ? "is-valid" : valid === false ? "is-invalid" : ""} ${className || ""}`}
@@ -34,7 +41,7 @@ export function MultiSelect<TData extends any>({
             backspaceRemovesValue
             placeholder={placeholder ? ensureLocal(placeholder) : <Local id="SelectItems" />}
             options={options}
-            onChange={v => onChange(handleChange<TData>(v))}
+            onChange={onChangeCallback}
             getOptionValue={e => e.valueKey || (e.value as any)}
             getOptionLabel={e => e.text}
             value={value}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import ReactSelect from "react-select";
 import { ensureLocal, Local } from "../../../core/localization/local";
 import { SelectItem } from "../multiSelect/multiSelect";
@@ -23,6 +23,13 @@ export function SingleSelect<TData extends any>({
     isClearable,
     isSearchable,
 }: SingleSelectProps<TData>) {
+    const onChangeCallback = useCallback(
+        v => {
+            onChange && onChange(handleChange<TData>(v));
+        },
+        [onChange],
+    );
+
     return (
         <ReactSelect<SelectItem<TData>>
             className={`single-select ${valid ? "is-valid" : valid === false ? "is-invalid" : ""} ${className || ""}`}
@@ -31,7 +38,7 @@ export function SingleSelect<TData extends any>({
             backspaceRemovesValue
             placeholder={placeholder ? ensureLocal(placeholder) : <Local id="Select" />}
             options={options}
-            onChange={v => onChange(handleChange<TData>(v))}
+            onChange={onChangeCallback}
             getOptionValue={e => e.valueKey || (e.value as any)}
             getOptionLabel={e => e.text}
             value={options.find(e => e.value === value)}

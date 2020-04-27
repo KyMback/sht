@@ -23,6 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 
 dataContracts.ts
+schema.graphql
 schemas.json
 
 .idea

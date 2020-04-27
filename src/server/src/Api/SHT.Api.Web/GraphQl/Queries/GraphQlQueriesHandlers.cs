@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using HotChocolate;
+using MediatR;
 using SHT.Application.Common;
 using SHT.Application.StateMachineConfigs.Core;
 using SHT.Application.Tests.StudentQuestions.Contracts;
@@ -11,7 +11,11 @@ using SHT.Application.Tests.StudentsTestSessions.Contracts;
 using SHT.Application.Tests.TestSessions.Contracts;
 using SHT.Application.TestVariants.Contracts;
 using SHT.Application.Users.Accounts.Contracts;
+using SHT.Application.Users.Accounts.GetUserContext;
+using SHT.Application.Users.Instructors.Contracts;
+using SHT.Application.Users.Instructors.GetProfile;
 using SHT.Application.Users.Students.Contracts;
+using SHT.Application.Users.Students.GetProfile;
 using SHT.Domain.Models.Tests;
 using SHT.Domain.Models.Tests.Students;
 using SHT.Domain.Services.Tests;
@@ -19,7 +23,6 @@ using SHT.Domain.Services.Tests.Student;
 using SHT.Domain.Services.Tests.Student.Questions;
 using SHT.Domain.Services.Tests.Variants;
 using SHT.Domain.Services.Users;
-using SHT.Domain.Services.Users.Accounts;
 using SHT.Infrastructure.Common;
 using SHT.Infrastructure.DataAccess.Abstractions;
 using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.IQueryProvider;
@@ -28,23 +31,26 @@ namespace SHT.Api.Web.GraphQl.Queries
 {
     public class GraphQlQueriesHandlers
     {
-        public async Task<UserContextDto> GetUserContext(
-            [Service] IUnitOfWork unitOfWork,
-            [Service] IExecutionContextAccessor executionContextAccessor)
+        private readonly IMediator _mediator;
+
+        public GraphQlQueriesHandlers(IMediator mediator)
         {
-            var queryParameters = new AccountQueryParameters(executionContextAccessor.GetCurrentUserId());
-            var data = await unitOfWork.GetSingleOrDefault(queryParameters, UserContextDto.Selector);
+            _mediator = mediator;
+        }
 
-            if (data != null)
-            {
-                data.IsAuthenticated = true;
-                data.Culture = CultureInfo.CurrentCulture.Name;
-            }
+        public Task<UserContextDto> GetUserContext()
+        {
+            return _mediator.Send(new GetUserContextRequest());
+        }
 
-            return data ?? new UserContextDto
-            {
-                Culture = CultureInfo.CurrentCulture.Name,
-            };
+        public Task<IQueryable<InstructorProfileDto>> GetInstructorProfile()
+        {
+            return _mediator.Send(new GetInstructorProfileRequest());
+        }
+
+        public Task<IQueryable<StudentProfileDto>> GetStudentProfile()
+        {
+            return _mediator.Send(new GetStudentProfileRequest());
         }
 
         public IQueryable<TestSessionListItemDto> GetTestSessionListItems(
