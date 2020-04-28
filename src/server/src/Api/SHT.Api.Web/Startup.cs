@@ -41,7 +41,6 @@ namespace SHT.Api.Web
                 .AddCustomSecurity(_configuration)
                 .AddCorrelationIdFluent()
                 .AddRouting()
-                .AddCustomSwagger()
                 .AddHttpContextAccessor()
                 .AddCustomGraphQl()
                 .AddMvcCore()
@@ -70,7 +69,7 @@ namespace SHT.Api.Web
         {
             app
                 .UseCorrelationId()
-                .UseIf(_hostingEnvironment.IsDevelopment(), builder => builder.UseGraphQlPlayground())
+                .UseGraphQlPlayground()
                 .UseRequestLocalization(
                     RequestLocalizationConfigurator.GetRequestLocalizationOptions(app.ApplicationServices))
                 .UseMiddleware<SpaRoutingMiddleware>()
@@ -81,8 +80,6 @@ namespace SHT.Api.Web
                 .UseRouting()
                 .UseAuthorization()
                 .UseDefaultFiles()
-                .UseSwagger()
-                .UseCustomSwaggerUi()
                 .UseMiddleware<ExceptionHandlingMiddleware>()
                 .UseGraphQlEndpoint()
                 .UseCustomEndpoints();

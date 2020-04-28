@@ -1,5 +1,4 @@
 using System;
-using System.Reflection;
 using CorrelationId;
 using HotChocolate;
 using HotChocolate.Execution;
@@ -10,19 +9,15 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
 using SHT.Api.Web.Constants;
 using SHT.Api.Web.GraphQl;
-using SHT.Api.Web.OperationFilters;
 using SHT.Api.Web.Options;
 using SHT.Api.Web.Security;
-using SHT.Api.Web.Services;
 using SHT.Infrastructure.Common.Localization.Options;
 using SHT.Infrastructure.Common.Options;
 using SHT.Infrastructure.DataAccess.Abstractions.Options;
 using SHT.Infrastructure.Services.Abstractions;
 using SHT.Resources;
-using Path = System.IO.Path;
 
 namespace SHT.Api.Web.Extensions
 {
@@ -75,32 +70,6 @@ namespace SHT.Api.Web.Extensions
                 .AddSingleton(x => x.GetRequiredService<IOptions<LocalizationOptions>>().Value);
 
             return services;
-        }
-
-        public static IServiceCollection AddCustomSwagger(this IServiceCollection services)
-        {
-            return services.AddSwaggerGen(
-                options =>
-                {
-                    options.DescribeAllParametersInCamelCase();
-                    options.OperationFilter<CorrelationIdOperationFilter>();
-                    options.OperationFilter<InternalServerErrorOperationFilter>();
-
-                    var versionString = $"v{AssemblyProvider.GetVersion()}";
-
-                    var info = new OpenApiInfo
-                    {
-                        Title = AssemblyProvider.GetProductName(),
-                        Description = AssemblyProvider.GetDescription(),
-                        Version = versionString,
-                    };
-
-                    options.SwaggerDoc(versionString, info);
-
-                    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                    options.IncludeXmlComments(xmlPath);
-                });
         }
 
         private static void CreateLocalizationOptions(LocalizationOptions options)

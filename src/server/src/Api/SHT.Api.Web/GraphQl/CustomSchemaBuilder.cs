@@ -15,12 +15,14 @@ namespace SHT.Api.Web.GraphQl
                 .AddAuthorizeDirectiveType()
                 // To restrict max number of fields in one page
                 .AddType(new PaginationAmountType(100))
-                .ModifyOptions(e => e.DefaultBindingBehavior = BindingBehavior.Explicit)
+                .ModifyOptions(e =>
+                {
+                    e.DefaultBindingBehavior = BindingBehavior.Explicit;
+                    e.UseXmlDocumentation = true;
+                })
                 .BindClrType<Unit, VoidType>()
                 .AddMutationType<GraphQlMutations>()
                 .AddQueryType<GraphQlQueries>();
         }
     }
-
-    #pragma warning disable
 }
