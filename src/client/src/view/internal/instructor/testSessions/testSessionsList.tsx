@@ -9,6 +9,7 @@ import { dateAndTime } from "../../../../core/utils/dateTimeUtil";
 import { HttpApi } from "../../../../core/api/http/httpApi";
 import { TableResult } from "../../../../core/api/tableResult";
 import { GenericButtonProps } from "../../../../components/buttons/genericButton/genericButton";
+import { TestSessionStateLocal, TestSessionStateType } from "../../../../services/testSessions/testSessionUtils";
 
 const actions: Array<GenericButtonProps> = [
     {
@@ -37,7 +38,9 @@ export const TestSessionsList = () => {
                             onClick={() => routingStore.goto(`/test-session/dashboard/${item.id}`)}
                         >
                             <ListGroupItemHeading>{item.name}</ListGroupItemHeading>
-                            <div>{item.state}</div>
+                            <div>
+                                <TestSessionStateLocal state={item.state} />
+                            </div>
                             <div>{dateAndTime(item.createdAt)}</div>
                         </ListGroupItem>
                     ))}
@@ -51,7 +54,7 @@ interface Data {
     id: string;
     createdAt: Date;
     name: string;
-    state: string;
+    state: TestSessionStateType;
 }
 
 async function loadData(pageNumber: number, pageSize: number) {

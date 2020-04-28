@@ -1,4 +1,4 @@
-import { TestSessionsService } from "../../../../../services/testSessionsService";
+import { TestSessionsService } from "../../../../../services/testSessions/testSessionsService";
 import {
     Lookup,
     StudentGroupedGroupDto,
@@ -11,6 +11,7 @@ import { SelectItem } from "../../../../../components/controls/multiSelect/multi
 import { Dictionary } from "../../../../../typings/customTypings";
 import { pull, intersection, isEmpty } from "lodash";
 import { HttpApi } from "../../../../../core/api/http/httpApi";
+import { notifications } from "../../../../../components/notifications/notifications";
 
 export class TestSessionDetailsEditStore {
     @observable id?: string;
@@ -42,13 +43,15 @@ export class TestSessionDetailsEditStore {
     };
 
     public save = async () => {
+        let id = this.id;
         if (this.id) {
             await TestSessionsService.update(this.getDto(), this.id!);
-            routingStore.goto(`/test-session/dashboard/${this.id}`);
         } else {
             const result = await TestSessionsService.create(this.getDto());
-            routingStore.goto(`/test-session/dashboard/${result.id}`);
+            id = result.id;
         }
+        notifications.successfullySaved();
+        routingStore.goto(`/test-session/dashboard/${id}`);
     };
 
     public cancel = () => {

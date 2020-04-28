@@ -28,7 +28,7 @@ namespace SHT.JsonSchemasGenerator
         private static string GetContent(Type type, string content)
         {
             return $"/* eslint-disable */{Environment.NewLine}" +
-                   $"export const {type.Name} = {content};{Environment.NewLine}";
+                   $"export const {type.Name} = {content} as const;{Environment.NewLine}";
         }
     }
 }

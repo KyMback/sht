@@ -73,5 +73,8 @@
     "Student": "Student",
     "Instructor": "Instructor",
     "NotImplementedYet": "Not implemented yet",
-    "Profile": "Profile"
+    "Profile": "Profile",
+    "TestSessionState_Pending": "Pending",
+    "TestSessionState_Started": "Started",
+    "TestSessionState_Ended": "Ended"
 }

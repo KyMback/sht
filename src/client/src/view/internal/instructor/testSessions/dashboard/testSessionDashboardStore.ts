@@ -1,14 +1,15 @@
 import { action, computed, observable, runInAction } from "mobx";
-import { TestSessionsService } from "../../../../../services/testSessionsService";
+import { TestSessionsService } from "../../../../../services/testSessions/testSessionsService";
 import moment from "moment";
 import { HttpApi } from "../../../../../core/api/http/httpApi";
 import { TestSessionStates } from "../../../../../typings/testSessionStates";
+import { TestSessionStateType } from "../../../../../services/testSessions/testSessionUtils";
 
 export class TestSessionDashboardStore {
     @observable public id: string;
     @observable public name: string;
     @observable public createdAt: moment.Moment;
-    @observable public state: string;
+    @observable public state: TestSessionStateType;
     @observable public triggers: Array<string> = [];
 
     @computed
@@ -19,7 +20,7 @@ export class TestSessionDashboardStore {
     constructor(id: string) {
         this.id = id;
         this.name = "";
-        this.state = "";
+        this.state = "Ended";
         this.createdAt = moment();
     }
 

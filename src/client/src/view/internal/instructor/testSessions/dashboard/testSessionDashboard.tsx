@@ -9,6 +9,7 @@ import { LabeledText } from "../../../../../components/labels/labeled";
 import { Color, IdParams } from "../../../../../typings/customTypings";
 import { routingStore } from "../../../../../stores/routingStore";
 import { GuardedActions, GuardsApplier } from "../../../../../core/guarding";
+import { localizeTestSessionState } from "../../../../../services/testSessions/testSessionUtils";
 
 export const TestSessionDashboard = observer(() => {
     const params = useParams<IdParams>();
@@ -19,7 +20,7 @@ export const TestSessionDashboard = observer(() => {
         <CardSectionsGroup topActions={GuardsApplier.applyGuardedArrays(store, guardedActions)}>
             <CardSection title="TestSession_Details">
                 <LabeledText title="TestSessionDashboard_Name" value={store.name} />
-                <LabeledText title="TestSession_State" value={store.state} />
+                <LabeledText title="TestSession_State" value={localizeTestSessionState(store.state)} />
             </CardSection>
         </CardSectionsGroup>
     );

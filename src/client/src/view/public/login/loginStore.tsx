@@ -6,8 +6,6 @@ import { routingStore } from "../../../stores/routingStore";
 import { notifications } from "../../../components/notifications/notifications";
 import { apiErrors, isExpected, LocalError } from "../../../core/api/http/apiError";
 import React from "react";
-import { Link } from "react-router-dom";
-import { Local } from "../../../core/localization/local";
 import { LinkButton } from "../../../components/buttons/linkButton";
 
 export class LoginStore {

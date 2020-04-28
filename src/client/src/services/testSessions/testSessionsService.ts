@@ -1,5 +1,5 @@
-import { CreatedEntityResponse, TestSessionModificationDataDto } from "../typings/dataContracts";
-import { HttpApi } from "../core/api/http/httpApi";
+import { CreatedEntityResponse, TestSessionModificationDataDto } from "../../typings/dataContracts";
+import { HttpApi } from "../../core/api/http/httpApi";
 
 const mutations = {
     create: `
