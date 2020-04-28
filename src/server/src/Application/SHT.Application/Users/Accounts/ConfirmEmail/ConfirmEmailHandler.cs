@@ -23,7 +23,7 @@ namespace SHT.Application.Users.Accounts.ConfirmEmail
         {
             await _userAccountService.ConfirmEmail(request.Data.Email, request.Data.Token);
             await _unitOfWork.Commit();
-            return Unit.Value;
+            return default;
         }
     }
 }

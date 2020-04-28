@@ -10,5 +10,7 @@ namespace SHT.Domain.Services.Users
         Task SignOut();
 
         Task<Account> SignUp(RegistrationData data);
+
+        PasswordRules GetPasswordRules();
     }
 }

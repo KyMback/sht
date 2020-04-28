@@ -20,6 +20,11 @@ namespace SHT.Api.Web.GraphQl.Queries
                 .Name("userContext");
 
             descriptor
+                .Field(f => f.GetPasswordRules())
+                .Type<NonNullType<PasswordRulesDtoGraphType>>()
+                .Name("passwordRules");
+
+            descriptor
                 .Field(f => f.GetInstructorProfile())
                 .Authorize(AuthorizationPolicyNames.InstructorsOnly)
                 .Type<NonNullType<InstructorProfileDtoGraphType>>()

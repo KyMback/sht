@@ -1,5 +1,6 @@
 using FluentValidation;
 using JetBrains.Annotations;
+using SHT.Application.Users.Accounts.Contracts;
 
 namespace SHT.Application.Users.Accounts.ConfirmEmail
 {

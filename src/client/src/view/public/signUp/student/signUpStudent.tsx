@@ -9,6 +9,7 @@ import { StoreFormsFactory } from "../../../../components/forms/factories/storeF
 import { emailValidation, required } from "../../../../components/forms/validations";
 import { SubSection } from "../../../../components/layouts/sections/subSection";
 import { Col, Row } from "reactstrap";
+import { useStoreLifeCycle } from "../../../../core/hooks/useStoreLifeCycle";
 
 const actions: Array<CardSectionActionProps> = [
     {
@@ -24,7 +25,7 @@ const actions: Array<CardSectionActionProps> = [
 
 const AccountInfo = StoreFormsFactory.new<SignUpStudentStore>()
     .input("Email", "email", undefined, [required, emailValidation], { type: "email" })
-    .input("Password", "password", undefined, store => [required, store.repeatPasswordValidation], {
+    .input("Password", "password", undefined, store => store.passwordValidations, {
         type: "password",
     })
     .input("RepeatPassword", "repeatPassword", undefined, store => [required, store.repeatPasswordValidation], {
@@ -40,6 +41,8 @@ const AdditionalInfo = StoreFormsFactory.new<SignUpStudentStore>()
 
 export const SignUpStudent = observer(() => {
     const store = useLocalStore(() => new SignUpStudentStore());
+    useStoreLifeCycle(store);
+
     return (
         <Form onValidSubmit={store.signUp}>
             <Row>

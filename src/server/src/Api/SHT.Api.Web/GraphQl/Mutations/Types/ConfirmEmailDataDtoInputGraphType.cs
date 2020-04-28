@@ -1,5 +1,6 @@
 using HotChocolate.Types;
 using SHT.Application.Users.Accounts.ConfirmEmail;
+using SHT.Application.Users.Accounts.Contracts;
 
 namespace SHT.Api.Web.GraphQl.Mutations.Types
 {

@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using JetBrains.Annotations;
 using MediatR;
 using SHT.Domain.Services.Users;
@@ -10,19 +11,17 @@ namespace SHT.Application.Users.Accounts.SignIn
     internal class SignInHandler : IRequestHandler<SignInRequest, SignInResponse>
     {
         private readonly IAuthenticationService _authenticationService;
+        private readonly IMapper _mapper;
 
-        public SignInHandler(IAuthenticationService authenticationService)
+        public SignInHandler(IAuthenticationService authenticationService, IMapper mapper)
         {
             _authenticationService = authenticationService;
+            _mapper = mapper;
         }
 
         public async Task<SignInResponse> Handle(SignInRequest request, CancellationToken cancellationToken)
         {
-            var result = await _authenticationService.SignIn(new LoginData
-            {
-                Login = request.Data.Login,
-                Password = request.Data.Password,
-            });
+            var result = await _authenticationService.SignIn(_mapper.Map<LoginData>(request.Data));
 
             return new SignInResponse
             {

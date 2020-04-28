@@ -19,7 +19,7 @@ namespace SHT.Application.Users.Accounts.SignOut
         public async Task<Unit> Handle(SignOutRequest request, CancellationToken cancellationToken)
         {
             await _authenticationService.SignOut();
-            return Unit.Value;
+            return default;
         }
     }
 }

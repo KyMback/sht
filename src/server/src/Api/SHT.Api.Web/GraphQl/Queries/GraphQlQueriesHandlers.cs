@@ -17,6 +17,7 @@ using SHT.Application.TestVariants.Contracts;
 using SHT.Application.TestVariants.GetAll;
 using SHT.Application.TestVariants.GetLookups;
 using SHT.Application.Users.Accounts.Contracts;
+using SHT.Application.Users.Accounts.GetPasswordRules;
 using SHT.Application.Users.Accounts.GetUserContext;
 using SHT.Application.Users.Instructors.Contracts;
 using SHT.Application.Users.Instructors.GetProfile;
@@ -38,6 +39,11 @@ namespace SHT.Api.Web.GraphQl.Queries
         public Task<UserContextDto> GetUserContext()
         {
             return _mediator.Send(new GetUserContextRequest());
+        }
+
+        public Task<PasswordRulesDto> GetPasswordRules()
+        {
+            return _mediator.Send(new GetPasswordRulesRequest());
         }
 
         public Task<IQueryable<InstructorProfileDto>> GetInstructorProfile()

@@ -1,9 +1,11 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 using SHT.Api.Web.Security.Constants;
 using SHT.Domain.Models.Users;
 using SHT.Domain.Services.Exceptions;
@@ -20,17 +22,23 @@ namespace SHT.Api.Web.Security.Services
         private readonly UserManager<Account> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IOptions<IdentityOptions> _identityOptions;
+        private readonly IMapper _mapper;
 
         public WebAuthenticationService(
             SignInManager<Account> signInManager,
             UserManager<Account> userManager,
             IHttpContextAccessor httpContextAccessor,
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork,
+            IOptions<IdentityOptions> identityOptions,
+            IMapper mapper)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _httpContextAccessor = httpContextAccessor;
             _unitOfWork = unitOfWork;
+            _identityOptions = identityOptions;
+            _mapper = mapper;
         }
 
         public async Task<bool> SignIn(LoginData data)
@@ -72,6 +80,11 @@ namespace SHT.Api.Web.Security.Services
             }
 
             return account;
+        }
+
+        public PasswordRules GetPasswordRules()
+        {
+            return _mapper.Map<PasswordRules>(_identityOptions.Value.Password);
         }
     }
 }

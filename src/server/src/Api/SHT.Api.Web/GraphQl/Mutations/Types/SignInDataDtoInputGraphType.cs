@@ -1,4 +1,5 @@
 using HotChocolate.Types;
+using SHT.Application.Users.Accounts.Contracts;
 using SHT.Application.Users.Accounts.SignIn;
 
 namespace SHT.Api.Web.GraphQl.Mutations.Types

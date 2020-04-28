@@ -1,4 +1,4 @@
-namespace SHT.Application.Users.Accounts.ConfirmEmail
+namespace SHT.Application.Users.Accounts.Contracts
 {
     public class ConfirmEmailDataDto
     {

@@ -10,6 +10,7 @@ using SHT.Application.Tests.TestSessions.Create;
 using SHT.Application.Tests.TestSessions.StateTransition;
 using SHT.Application.Tests.TestSessions.Update;
 using SHT.Application.Users.Accounts.ConfirmEmail;
+using SHT.Application.Users.Accounts.Contracts;
 using SHT.Application.Users.Accounts.SetCulture;
 using SHT.Application.Users.Accounts.SignIn;
 using SHT.Application.Users.Accounts.SignOut;
