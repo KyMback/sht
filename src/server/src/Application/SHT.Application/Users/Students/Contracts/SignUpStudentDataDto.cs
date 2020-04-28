@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using SHT.Application.Common;
 
-namespace SHT.Application.Users.Students.SignUp
+namespace SHT.Application.Users.Students.Contracts
 {
     [ApiDataContract]
     public class SignUpStudentDataDto

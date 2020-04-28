@@ -14,6 +14,7 @@ using SHT.Application.Users.Accounts.Contracts;
 using SHT.Application.Users.Accounts.SetCulture;
 using SHT.Application.Users.Accounts.SignIn;
 using SHT.Application.Users.Accounts.SignOut;
+using SHT.Application.Users.Students.Contracts;
 using SHT.Application.Users.Students.SignUp;
 
 namespace SHT.Api.Web.GraphQl.Mutations

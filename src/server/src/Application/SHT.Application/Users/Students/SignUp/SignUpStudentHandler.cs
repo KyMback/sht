@@ -1,32 +1,28 @@
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using JetBrains.Annotations;
 using MediatR;
-using SHT.Domain.Models.Users;
 using SHT.Domain.Services.Users;
-using SHT.Infrastructure.Common.Transactions;
-using SHT.Infrastructure.DataAccess.Abstractions;
+using SHT.Domain.Services.Users.Students;
 
 namespace SHT.Application.Users.Students.SignUp
 {
     [UsedImplicitly]
     internal class SignUpStudentHandler : IRequestHandler<SignUpStudentRequest>
     {
-        private readonly IAuthenticationService _authenticationService;
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IRegistrationValidationService _registrationValidationService;
-        private readonly IUserAccountService _userAccountService;
+        private readonly IStudentAccountService _studentAccountService;
+        private readonly IMapper _mapper;
 
         public SignUpStudentHandler(
-            IAuthenticationService authenticationService,
-            IUnitOfWork unitOfWork,
             IRegistrationValidationService registrationValidationService,
-            IUserAccountService userAccountService)
+            IStudentAccountService studentAccountService,
+            IMapper mapper)
         {
-            _authenticationService = authenticationService;
-            _unitOfWork = unitOfWork;
             _registrationValidationService = registrationValidationService;
-            _userAccountService = userAccountService;
+            _studentAccountService = studentAccountService;
+            _mapper = mapper;
         }
 
         public async Task<Unit> Handle(
@@ -35,27 +31,9 @@ namespace SHT.Application.Users.Students.SignUp
         {
             var data = request.Data;
             await _registrationValidationService.TrowsIfEmailIsNotUniq(data.Email);
-            using var scope = TransactionsFactory.Create();
-            var account = await _authenticationService.SignUp(new RegistrationData
-            {
-                Email = data.Email,
-                Password = data.Password,
-                UserType = UserType.Student,
-            });
+            await _studentAccountService.Create(_mapper.Map<StudentCreationData>(data));
 
-            await _unitOfWork.Add(new Student
-            {
-                Account = account,
-                FirstName = data.FirstName,
-                LastName = data.LastName,
-                Group = data.Group,
-            });
-
-            await _unitOfWork.Commit();
-            await _userAccountService.SendEmailConfirmation(account);
-            scope.Complete();
-
-            return Unit.Value;
+            return default;
         }
     }
 }

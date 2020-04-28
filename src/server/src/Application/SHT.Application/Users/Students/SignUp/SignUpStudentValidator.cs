@@ -1,5 +1,6 @@
 using FluentValidation;
 using JetBrains.Annotations;
+using SHT.Application.Users.Students.Contracts;
 
 namespace SHT.Application.Users.Students.SignUp
 {

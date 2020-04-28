@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SHT.Domain.Models.Users;
+using SHT.Infrastructure.EF.Configs.Extensions;
 
 namespace SHT.Infrastructure.EF.Configs.Configs
 {
@@ -9,8 +10,9 @@ namespace SHT.Infrastructure.EF.Configs.Configs
     {
         protected override void ConfigureEntity(EntityTypeBuilder<Account> builder)
         {
-            builder.Property(e => e.Email).HasMaxLength(LengthConstants.Medium).IsRequired();
-            builder.Property(e => e.Password).HasMaxLength(LengthConstants.Medium).IsRequired();
+            builder.Property(e => e.Email).HasMediumMaxLength().IsRequired();
+            builder.Property(e => e.Password).HasMediumMaxLength().IsRequired();
+            builder.Property(e => e.SecurityStamp).HasSmallMaxLength().IsRequired();
 
             builder.HasIndex(e => e.Email).IsUnique();
         }

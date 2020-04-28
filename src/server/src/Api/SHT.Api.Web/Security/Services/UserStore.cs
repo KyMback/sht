@@ -8,7 +8,7 @@ using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Api.Web.Security.Services
 {
-    internal class UserStore : IUserPasswordStore<Account>, IUserEmailStore<Account>
+    internal class UserStore : IUserPasswordStore<Account>, IUserEmailStore<Account>, IUserSecurityStampStore<Account>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -17,10 +17,11 @@ namespace SHT.Api.Web.Security.Services
             _unitOfWork = unitOfWork;
         }
 
-        public Task<IdentityResult> CreateAsync(Account account, CancellationToken cancellationToken)
+        public async Task<IdentityResult> CreateAsync(Account account, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            return Task.FromResult(IdentityResult.Success);
+            await _unitOfWork.Add(account);
+            return IdentityResult.Success;
         }
 
         public Task<IdentityResult> DeleteAsync(Account account, CancellationToken cancellationToken)
@@ -130,13 +131,25 @@ namespace SHT.Api.Web.Security.Services
         {
             cancellationToken.ThrowIfCancellationRequested();
             user.IsEmailConfirmed = confirmed;
-            _unitOfWork.Update(user);
-            return Task.CompletedTask;
+            return _unitOfWork.Update(user);
         }
 
         public Task SetNormalizedEmailAsync(Account user, string normalizedEmail, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
+            return Task.CompletedTask;
+        }
+
+        public Task<string> GetSecurityStampAsync(Account user, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            return Task.FromResult(user.SecurityStamp);
+        }
+
+        public Task SetSecurityStampAsync(Account user, string stamp, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            user.SecurityStamp = stamp;
             return Task.CompletedTask;
         }
 

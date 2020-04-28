@@ -1,8 +1,8 @@
 using SHT.Domain.Models.Users;
 
-namespace SHT.Domain.Services.Users
+namespace SHT.Domain.Services.Users.Accounts
 {
-    public class RegistrationData
+    public class AccountCreationData
     {
         public string Email { get; set; }
 

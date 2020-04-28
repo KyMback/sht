@@ -4,6 +4,8 @@ using SHT.Domain.Services.Tests.Student;
 using SHT.Domain.Services.Tests.Student.Questions;
 using SHT.Domain.Services.Tests.Variants;
 using SHT.Domain.Services.Users;
+using SHT.Domain.Services.Users.Accounts;
+using SHT.Domain.Services.Users.Students;
 using SHT.Infrastructure.Common.Extensions;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
@@ -19,6 +21,7 @@ namespace SHT.Domain.Services
                 .AddScopedAsImplementedInterfaces<TestSessionService>()
                 .AddScopedAsImplementedInterfaces<UserEmailService>()
                 .AddScopedAsImplementedInterfaces<UserAccountService>()
+                .AddScopedAsImplementedInterfaces<StudentAccountService>()
                 .AddScopedAsImplementedInterfaces<StudentTestSessionService>()
                 .AddScopedAsImplementedInterfaces<StudentQuestionService>()
                 .AddScopedAsImplementedInterfaces<StudentQuestionValidationService>()

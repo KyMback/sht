@@ -65,23 +65,6 @@ namespace SHT.Api.Web.Security.Services
             return _httpContextAccessor.HttpContext.SignOutAsync(AuthenticationDefaults.AuthenticationScheme);
         }
 
-        public async Task<Account> SignUp(RegistrationData data)
-        {
-            var account = new Account
-            {
-                Email = data.Email,
-                UserType = data.UserType,
-            };
-            var result = await _userManager.CreateAsync(account, data.Password);
-
-            if (!result.Succeeded)
-            {
-                throw new Exception(result.Errors.Aggregate(string.Empty, (s, error) => s + error.Description));
-            }
-
-            return account;
-        }
-
         public PasswordRules GetPasswordRules()
         {
             return _mapper.Map<PasswordRules>(_identityOptions.Value.Password);

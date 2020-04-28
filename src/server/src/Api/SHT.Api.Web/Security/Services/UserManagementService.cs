@@ -2,6 +2,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using SHT.Api.Web.Security.Constants;
+using SHT.Common;
 using SHT.Domain.Services.Users;
 
 namespace SHT.Api.Web.Security.Services
@@ -18,6 +19,18 @@ namespace SHT.Api.Web.Security.Services
         {
             _userManager = userManager;
             _emailConfirmationTokenProvider = emailConfirmationTokenProvider;
+        }
+
+        public async Task<CommonResult> Create(TUser user, string password)
+        {
+            IdentityResult result = await _userManager.CreateAsync(user, password);
+            return MapResults(result);
+        }
+
+        public async Task<CommonResult> UpdateUserTokens(TUser user)
+        {
+            IdentityResult result = await _userManager.UpdateSecurityStampAsync(user);
+            return MapResults(result);
         }
 
         public Task<bool> ValidateResetPasswordToken(TUser user, string token)
@@ -42,6 +55,11 @@ namespace SHT.Api.Web.Security.Services
                 Succeeded = result.Succeeded,
                 Errors = result.Errors.Select(e => e.Code).ToArray(),
             };
+        }
+
+        private CommonResult MapResults(IdentityResult result)
+        {
+            return new CommonResult(result.Succeeded, result.Errors?.Select(e => e.Code).ToArray());
         }
     }
 }

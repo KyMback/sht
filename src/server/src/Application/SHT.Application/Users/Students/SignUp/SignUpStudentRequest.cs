@@ -1,4 +1,5 @@
 using SHT.Application.Common;
+using SHT.Application.Users.Students.Contracts;
 
 namespace SHT.Application.Users.Students.SignUp
 {
