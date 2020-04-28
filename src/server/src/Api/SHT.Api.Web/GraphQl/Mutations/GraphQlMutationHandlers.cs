@@ -11,6 +11,7 @@ using SHT.Application.Tests.TestSessions.StateTransition;
 using SHT.Application.Tests.TestSessions.Update;
 using SHT.Application.Users.Accounts.ConfirmEmail;
 using SHT.Application.Users.Accounts.Contracts;
+using SHT.Application.Users.Accounts.ResendEmailConfirmation;
 using SHT.Application.Users.Accounts.SetCulture;
 using SHT.Application.Users.Accounts.SignIn;
 using SHT.Application.Users.Accounts.SignOut;
@@ -53,6 +54,11 @@ namespace SHT.Api.Web.GraphQl.Mutations
             return _mediator.Send(new ConfirmEmailRequest(data));
         }
 
+        public Task<Unit> ResendEmailConfirmation(string email)
+        {
+            return _mediator.Send(new ResendEmailConfirmationRequest(email));
+        }
+
         public Task<Unit> AnswerStudentQuestion(AnswerStudentQuestionDto data)
         {
             return _mediator.Send(new AnswerStudentQuestionRequest(data));
@@ -63,8 +69,7 @@ namespace SHT.Api.Web.GraphQl.Mutations
             string trigger,
             IDictionary<string, string> serializedData)
         {
-            return _mediator.Send(
-                new StudentTestSessionStateTransitionRequest(studentTestSessionId, trigger, serializedData));
+            return _mediator.Send(new StudentTestSessionStateTransitionRequest(studentTestSessionId, trigger, serializedData));
         }
 
         public Task<CreatedEntityResponse> CreateTestSession(TestSessionModificationDataDto data)

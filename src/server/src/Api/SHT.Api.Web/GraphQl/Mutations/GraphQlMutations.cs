@@ -36,6 +36,12 @@ namespace SHT.Api.Web.GraphQl.Mutations
                 .Argument("data", argumentDescriptor =>
                     argumentDescriptor.Type<NonNullType<ConfirmEmailDataDtoInputGraphType>>());
 
+            descriptor.Field(e => e.ResendEmailConfirmation(default))
+                .Name("resendEmailConfirmation")
+                .Type<VoidType>()
+                .Argument("email", argumentDescriptor =>
+                    argumentDescriptor.Type<NonNullType<StringType>>());
+
             descriptor.Field(e => e.AnswerStudentQuestion(default))
                 .Name("answerStudentQuestion")
                 .Type<VoidType>()

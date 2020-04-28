@@ -1,1 +1,36 @@
+@import "src/styles/variables";
 @import "~react-toastify/scss/main";
+
+$custom-colors: (
+    "error": color("error-lighten-2"),
+    "success": color("success-lighten-2"),
+    "warning": color("warning-lighten-2"),
+);
+
+.notifications-container {
+    @media (min-width: media-min("lg")) {
+        width: 500px !important;
+    }
+}
+
+.notification-toast {
+    padding: 0.75rem 1.25rem !important;
+    text-align: center;
+    border: 1px solid transparent !important;
+    border-radius: 0.25rem !important;
+
+    @mixin toastColor($color) {
+        &,
+        .Toastify__close-button {
+            color: color($color, "darken-1") !important;
+        }
+        border-color: color($color, "lighten-1") !important;
+        background-color: map-get($custom-colors, $color);
+    }
+
+    @each $color in "error", "warning", "success" {
+        &.Toastify__toast--#{$color} {
+            @include toastColor($color);
+        }
+    }
+}

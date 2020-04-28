@@ -21,20 +21,14 @@ namespace SHT.Api.Web.GraphQl
         {
         }
 
-        public GraphQlException(IReadOnlyCollection<IError> errors)
+        public GraphQlException(Exception innerException)
+            : this(default, innerException)
         {
-            Errors = errors;
         }
-
-        public IReadOnlyCollection<IError> Errors { get; set; }
 
         public override string ToString()
         {
-            var errors = string.Join(
-                Environment.NewLine,
-                Errors.Select(e =>
-                    e.Message + (e.Exception != null ? Environment.NewLine + e.Exception : string.Empty)));
-            return errors + Environment.NewLine + base.ToString();
+            return Message + Environment.NewLine + InnerException;
         }
     }
 }

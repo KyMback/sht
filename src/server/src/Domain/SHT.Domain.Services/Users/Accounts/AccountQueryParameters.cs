@@ -24,7 +24,7 @@ namespace SHT.Domain.Services.Users.Accounts
             FilterIfHasValue(Id, account => account.Id == Id.Value);
             FilterIfHasValue(Email, account => account.Email == Email);
 #pragma warning disable CA1304 // Specify CultureInfo
-            FilterIfHasValue(NormalizedEmail, account => account.Email.ToUpper() == NormalizedEmail);
+            FilterIfHasValue(NormalizedEmail, account => account.Email.ToUpper() == NormalizedEmail.ToUpperInvariant());
 #pragma warning restore CA1304 // Specify CultureInfo
         }
     }

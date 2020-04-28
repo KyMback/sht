@@ -27,6 +27,8 @@
     "ErrorCode_9": "Срок действия ссылки истек.",
     "ErrorCode_10": "Сначала подтвердите адрес электронной почты.",
     "ErrorCode_11": "Тестовая сессия была закончена.",
+    "ResendEmailConfirmation": "Нажмите, чтобы отправить email ещё раз.",
+    "ResendEmailConfirmationSuccess": "Письмо было успешно отправлено.",
     "SignOut": "Выход",
     "TestSessions": "Тестовые сессии",
     "TestVariants": "Тестовые варианты",

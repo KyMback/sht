@@ -11,16 +11,23 @@ namespace SHT.Domain.Services.Users.Students
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserAccountService _userAccountService;
         private readonly IMapper _mapper;
+        private readonly IRegistrationValidationService _registrationValidationService;
 
-        public StudentAccountService(IUnitOfWork unitOfWork, IUserAccountService userAccountService, IMapper mapper)
+        public StudentAccountService(
+            IUnitOfWork unitOfWork,
+            IUserAccountService userAccountService,
+            IMapper mapper,
+            IRegistrationValidationService registrationValidationService)
         {
             _unitOfWork = unitOfWork;
             _userAccountService = userAccountService;
             _mapper = mapper;
+            _registrationValidationService = registrationValidationService;
         }
 
         public async Task<Student> Create(StudentCreationData data)
         {
+            await _registrationValidationService.TrowsIfEmailIsNotUniq(data.Email);
             var account = await _userAccountService.Create(_mapper.Map<AccountCreationData>(data));
             var student = await _unitOfWork.Add(new Student
             {

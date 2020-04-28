@@ -27,6 +27,8 @@
     "ErrorCode_9": "Link expired.",
     "ErrorCode_10": "Confirm email first.",
     "ErrorCode_11": "Test Session was ended.",
+    "ResendEmailConfirmation": "Click to resend email confirmation.",
+    "ResendEmailConfirmationSuccess": "Email was successfully sent.",
     "SignOut": "Sign Out",
     "TestSessions": "Test Sessions",
     "TestVariants": "Test Variants",

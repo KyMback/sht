@@ -47,14 +47,15 @@ namespace SHT.Api.Web.Security.Services
             return _userManager.GenerateEmailConfirmationTokenAsync(user);
         }
 
-        public async Task<UserOperationResult> ConfirmEmail(TUser user, string token)
+        public async Task<CommonResult> ConfirmEmail(TUser user, string token)
         {
             var result = await _userManager.ConfirmEmailAsync(user, token);
-            return new UserOperationResult
+            if (!result.Succeeded)
             {
-                Succeeded = result.Succeeded,
-                Errors = result.Errors.Select(e => e.Code).ToArray(),
-            };
+                return MapResults(result);
+            }
+
+            return await UpdateUserTokens(user);
         }
 
         private CommonResult MapResults(IdentityResult result)

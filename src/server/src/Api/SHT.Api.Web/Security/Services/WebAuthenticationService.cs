@@ -43,7 +43,7 @@ namespace SHT.Api.Web.Security.Services
 
         public async Task<bool> SignIn(LoginData data)
         {
-            var queryParameters = new AccountQueryParameters(email: data.Login);
+            var queryParameters = new AccountQueryParameters(normalizedEmail: data.Login);
             var user = await _unitOfWork.GetSingleOrDefault(queryParameters);
 
             if (user == null)

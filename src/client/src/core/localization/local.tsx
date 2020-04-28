@@ -2,7 +2,7 @@ import { FormattedMessage } from "react-intl";
 import { Dictionary, KeyOrJSX } from "../../typings/customTypings";
 import React from "react";
 
-interface Props {
+export interface LocalProps {
     id: string;
     values?: Dictionary;
 }
@@ -14,7 +14,7 @@ interface EnumLocalProps {
 
 const enumsMap: Map<any, string> = new Map<any, string>();
 
-export const Local = (props: Props) => <FormattedMessage {...props} />;
+export const Local = (props: LocalProps) => <FormattedMessage {...props} />;
 export const EnumLocal = ({ enumObject, value }: EnumLocalProps) => (
     <FormattedMessage id={getEnumKey(enumObject, value)} />
 );

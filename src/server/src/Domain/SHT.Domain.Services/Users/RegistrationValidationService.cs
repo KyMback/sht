@@ -16,7 +16,7 @@ namespace SHT.Domain.Services.Users
 
         public async Task TrowsIfEmailIsNotUniq(string email)
         {
-            if (await _unitOfWork.Any(new AccountQueryParameters(email: email)))
+            if (await _unitOfWork.Any(new AccountQueryParameters(normalizedEmail: email)))
             {
                 throw new CodedException(ErrorCode.LoginIsNotUniq);
             }

@@ -14,6 +14,6 @@ namespace SHT.Domain.Services.Users
 
         Task<string> GenerateEmailConfirmToken(TUser user);
 
-        Task<UserOperationResult> ConfirmEmail(TUser user, string token);
+        Task<CommonResult> ConfirmEmail(TUser user, string token);
     }
 }

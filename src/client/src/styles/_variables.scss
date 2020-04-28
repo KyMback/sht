@@ -1,14 +1,49 @@
 $colors: (
-    "background": #F8F7F9,
+    "background": #f8f7f9,
+    "info": rgba(45, 91, 232, 0.91),
     "primary": #4e5191,
     "error": #ff1a26,
+    "error-darken-1": #721c24,
+    "error-lighten-1": #f5c6cb,
+    "error-lighten-2": #f8d7da,
     "success": #54a941,
     "border-color": #9799c7,
+    "warning-darken-1": #856404,
+    "warning-lighten-1": #ffeeba,
+    "warning-lighten-2": #fff3cd,
+    "success-darken-1": #155724,
+    "success-lighten-1": #c3e6cb,
+    "success-lighten-2": #d4edda
 );
 
-@function color($color) {
+@function color($color, $suffix: "") {
+    @if ($suffix != "") {
+        @return map-get($colors, "#{$color}-#{$suffix}");
+    }
     @return map-get($colors, $color);
 }
 
+$media-max: (
+    "xs": 575px,
+    "sm": 767px,
+    "md": 991px,
+    "lg": 1199px,
+);
+
+$media-min: (
+    "sm": 576px,
+    "md": 768px,
+    "lg": 992px,
+    "xl": 1200px,
+);
+
+@function media-max($name) {
+    @return map-get($media-max, $name);
+}
+
+@function media-min($name) {
+    @return map-get($media-min, $name);
+}
+
 $header-height: 61px;
-$control-focus-width: .2rem;
+$control-focus-width: 0.2rem;

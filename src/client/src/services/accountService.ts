@@ -8,6 +8,11 @@ mutation($data: ConfirmEmailDataDtoInput!) {
   confirmEmail(data: $data)
 }
     `,
+    resendEmailConfirmation: `
+mutation($email: String!) {
+  resendEmailConfirmation(email: $email)
+}
+    `,
     signIn: `
 mutation($data: SignInDataDtoInput!) {
   signIn(data: $data) {
@@ -41,6 +46,12 @@ mutation($culture: String!) {
 };
 
 export class AccountService {
+    public static resendEmailConfirmation = async (email: string) => {
+        return HttpApi.graphQl(queries.resendEmailConfirmation, {
+            email,
+        });
+    };
+
     public static confirmEmail = async (email: string, token: string) => {
         return HttpApi.graphQl(queries.confirmEmail, {
             data: { email, token },
