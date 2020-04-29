@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SHT.Domain.Models.Tests;
 using SHT.Domain.Models.Users;
+using SHT.Infrastructure.EF.Configs.Extensions;
 
 namespace SHT.Infrastructure.EF.Configs.Configs.Tests
 {
@@ -11,7 +12,8 @@ namespace SHT.Infrastructure.EF.Configs.Configs.Tests
     {
         protected override void ConfigureEntity(EntityTypeBuilder<QuestionTemplate> builder)
         {
-            builder.Property(e => e.Text).HasMaxLength(LengthConstants.Large).IsRequired();
+            builder.Property(e => e.Name).HasMediumMaxLength().IsRequired();
+            builder.Property(e => e.Text).HasLargeMaxLength().IsRequired();
 
             builder
                 .HasOne<Instructor>()

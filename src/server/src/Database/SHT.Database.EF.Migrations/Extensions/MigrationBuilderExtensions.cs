@@ -9,6 +9,7 @@ namespace SHT.Database.EF.Migrations.Extensions
             this MigrationBuilder migrationBuilder,
             [NotNull] string name,
             [NotNull] string table,
+            string type = default,
             int? maxLength = null,
             [CanBeNull] string schema = null,
             bool nullable = false,
@@ -18,6 +19,7 @@ namespace SHT.Database.EF.Migrations.Extensions
         {
             migrationBuilder.AddColumn<TColumn>(
                 name: name,
+                type: type,
                 schema: schema,
                 table: table,
                 maxLength: maxLength,
@@ -45,6 +47,7 @@ namespace SHT.Database.EF.Migrations.Extensions
                     name: name,
                     schema: schema,
                     table: table,
+                    type: type,
                     maxLength: maxLength,
                     nullable: false,
                     oldMaxLength: maxLength,

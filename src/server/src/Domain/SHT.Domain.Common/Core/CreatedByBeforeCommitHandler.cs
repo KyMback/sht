@@ -18,9 +18,10 @@ namespace SHT.Domain.Common.Core
 
         public Task Handle(IEntitiesTracker entitiesTracker)
         {
+            var currentUserId = _executionContextAccessor.GetCurrentUserId();
             foreach (var entity in entitiesTracker.GetTrackedEntities<IHasCreatedBy>(TrackedEntityStates.Added))
             {
-                entity.CreatedById = _executionContextAccessor.GetCurrentUserId();
+                entity.CreatedById = currentUserId;
             }
 
             return Task.CompletedTask;

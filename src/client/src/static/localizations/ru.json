@@ -76,5 +76,6 @@
     "Profile": "Профиль",
     "TestSessionState_Pending": "В ожидании",
     "TestSessionState_Started": "Началась",
-    "TestSessionState_Ended": "Закончилась"
+    "TestSessionState_Ended": "Закончилась",
+    "Questions": "Вопросы"
 }

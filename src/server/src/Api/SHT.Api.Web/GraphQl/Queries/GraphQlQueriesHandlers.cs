@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using SHT.Application.Common;
+using SHT.Application.Questions.Contracts;
+using SHT.Application.Questions.GetAll;
 using SHT.Application.Tests.StudentQuestions.Contracts;
 using SHT.Application.Tests.StudentQuestions.GetAll;
 using SHT.Application.Tests.StudentsTestSessions.Contracts;
@@ -122,6 +124,11 @@ namespace SHT.Api.Web.GraphQl.Queries
         public Task<IQueryable<TestVariantDto>> GetTestVariant()
         {
             return _mediator.Send(new GetAllTestVariantsRequest());
+        }
+
+        public Task<IQueryable<QuestionDto>> GetQuestions()
+        {
+            return _mediator.Send(new GetAllQuestionsRequest());
         }
     }
 }

@@ -18,9 +18,10 @@ namespace SHT.Domain.Common.Core
 
         public Task Handle(IEntitiesTracker entitiesTracker)
         {
+            var utcNow = _dateTimeProvider.UtcNow;
             foreach (var entity in entitiesTracker.GetTrackedEntities<IHasCreatedAt>(TrackedEntityStates.Added))
             {
-                entity.CreatedAt = _dateTimeProvider.UtcNow;
+                entity.CreatedAt = utcNow;
             }
 
             return Task.CompletedTask;

@@ -15,6 +15,10 @@ const navItemsDictionary: Dictionary<Array<NavItemConfig>> = {
             title: "TestVariants",
             href: "/test-variants",
         },
+        {
+            title: "Questions",
+            href: "/questions",
+        },
     ],
     [UserType.Student]: [
         {

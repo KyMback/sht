@@ -32,8 +32,7 @@ namespace SHT.Infrastructure.DataAccess.EF
         public DbSet<DataProtectionKey> DataProtectionKeys { get; set; }
 
         public IQueryable<TEntity> Queryable<TEntity>()
-            where TEntity : class =>
-            Set<TEntity>().AsQueryable();
+            where TEntity : class => Set<TEntity>().AsQueryable();
 
         public async Task Commit()
         {

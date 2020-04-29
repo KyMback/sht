@@ -3,6 +3,7 @@ using SHT.Api.Web.GraphQl.Extensions;
 using SHT.Api.Web.GraphQl.Queries.Types;
 using SHT.Api.Web.GraphQl.Queries.Types.StudentTestSessions;
 using SHT.Api.Web.Security.Constants;
+using SHT.Application.Questions.Contracts;
 using SHT.Application.Tests.StudentQuestions.Contracts;
 using SHT.Application.Tests.StudentsTestSessions.Contracts;
 using SHT.Application.Tests.TestSessions.Contracts;
@@ -156,6 +157,13 @@ namespace SHT.Api.Web.GraphQl.Queries
                 .Name("testVariants")
                 .UseOffsetBasedPaging<TestVariantDtoGraphType, TestVariantDto>()
                 .UseCustomSelection<TestVariantDto>();
+
+            descriptor.Field(f => f.GetQuestions())
+                .Authorize(AuthorizationPolicyNames.InstructorsOnly)
+                .Type<NonNullType<ListType<NonNullType<QuestionDtoGraphType>>>>()
+                .Name("questions")
+                .UseOffsetBasedPaging<QuestionDtoGraphType, QuestionDto>()
+                .UseCustomSelection<QuestionDto>();
         }
     }
 }

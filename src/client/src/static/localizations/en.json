@@ -76,5 +76,6 @@
     "Profile": "Profile",
     "TestSessionState_Pending": "Pending",
     "TestSessionState_Started": "Started",
-    "TestSessionState_Ended": "Ended"
+    "TestSessionState_Ended": "Ended",
+    "Questions": "Questions"
 }
