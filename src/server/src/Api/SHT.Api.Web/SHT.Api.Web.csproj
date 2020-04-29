@@ -12,7 +12,7 @@
     <ItemGroup>
         <ProjectReference Include="..\..\Application\SHT.Application\SHT.Application.csproj" />
         <ProjectReference Include="..\..\Common\SHT.Resources\SHT.Resources.csproj" />
-        <ProjectReference Include="..\..\Domain\SHT.Domain.Services\SHT.Domain.Services.csproj" />
+        <ProjectReference Include="..\..\Domain\SHT.Domain.Tests\SHT.Domain.Tests.csproj" />
         <ProjectReference Include="..\..\Infrastructure\SHT.Infrastructure.Common\SHT.Infrastructure.Common.csproj" />
         <ProjectReference Include="..\..\Infrastructure\SHT.Infrastructure.DataAccess.EF\SHT.Infrastructure.DataAccess.EF.csproj" />
         <ProjectReference Include="..\..\Infrastructure\SHT.Infrastructure.Services\SHT.Infrastructure.Services.csproj" />

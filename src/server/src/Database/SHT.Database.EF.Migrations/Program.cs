@@ -21,7 +21,7 @@ namespace SHT.Database.EF.Migrations
             if (options.Recreate)
             {
                 Console.WriteLine("Dropping db...");
-                dbContext.Database.EnsureDeleted();
+                await dbContext.Database.EnsureDeletedAsync();
                 Console.WriteLine("Db successfully dropped.");
             }
 

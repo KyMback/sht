@@ -6,14 +6,15 @@
     </PropertyGroup>
     <Import Project="$(SolutionDir)/common/Common.props" />
     <Import Project="$(SolutionDir)/common/CodeAnalysis/CodeAnalysis.props" />
-
-    <ItemGroup>
-        <ProjectReference Include="..\..\Domain\SHT.Domain.Services\SHT.Domain.Services.csproj" />
-    </ItemGroup>
     
     <ItemGroup>
       <PackageReference Include="MediatR" Version="8.0.1" />
       <PackageReference Include="Stateless" Version="5.1.1" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\..\Domain\SHT.Domain.Tests\SHT.Domain.Tests.csproj" />
+      <ProjectReference Include="..\..\Domain\SHT.Domain.Users\SHT.Domain.Users.csproj" />
     </ItemGroup>
 
 </Project>

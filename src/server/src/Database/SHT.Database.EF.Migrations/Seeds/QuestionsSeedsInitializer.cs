@@ -9,9 +9,9 @@ namespace SHT.Database.EF.Migrations.Seeds
 {
     internal class QuestionsSeedsInitializer : ISeedsInitializer
     {
-        private static readonly IReadOnlyCollection<Question> TestVariants = new[]
+        private static readonly IReadOnlyCollection<QuestionTemplate> TestVariants = new[]
         {
-            new Question
+            new QuestionTemplate
             {
                 Id = QuestionsDefaults.FreeTextQuestion.Id,
                 Text = QuestionsDefaults.FreeTextQuestion.Text,

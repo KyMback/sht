@@ -7,8 +7,11 @@ WORKDIR /usr/src/db-migration
 COPY /server/src/Database/SHT.Database.EF.Migrations/SHT.Database.EF.Migrations.csproj ./src/Database/SHT.Database.EF.Migrations/
 COPY /server/src/Database/SHT.Database.Defaults/SHT.Database.Defaults.csproj ./src/Database/SHT.Database.Defaults/
 
-COPY /server/src/Domain/SHT.Domain.Services/SHT.Domain.Services.csproj ./src/Domain/SHT.Domain.Services/
+COPY /server/src/Domain/SHT.Domain.Common/SHT.Domain.Common.csproj ./src/Domain/SHT.Domain.Common/
 COPY /server/src/Domain/SHT.Domain.Models/SHT.Domain.Models.csproj ./src/Domain/SHT.Domain.Models/
+COPY /server/src/Domain/SHT.Domain.Questions/SHT.Domain.Questions.csproj ./src/Domain/SHT.Domain.Questions/
+COPY /server/src/Domain/SHT.Domain.Tests/SHT.Domain.Tests.csproj ./src/Domain/SHT.Domain.Tests/
+COPY /server/src/Domain/SHT.Domain.Users/SHT.Domain.Users.csproj ./src/Domain/SHT.Domain.Users/
 
 COPY /server/src/Infrastructure/SHT.Infrastructure.Common/SHT.Infrastructure.Common.csproj ./src/Infrastructure/SHT.Infrastructure.Common/
 COPY /server/src/Infrastructure/SHT.Infrastructure.Services/SHT.Infrastructure.Services.csproj ./src/Infrastructure/SHT.Infrastructure.Services/

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <SolutionDir Condition="'$(SolutionDir)'==''">../../../</SolutionDir>
+    </PropertyGroup>
+    <Import Project="$(SolutionDir)/common/Common.props" />
+    <Import Project="$(SolutionDir)/common/CodeAnalysis/CodeAnalysis.props" />
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Infrastructure\SHT.Infrastructure.Common\SHT.Infrastructure.Common.csproj" />
+      <ProjectReference Include="..\..\Infrastructure\SHT.Infrastructure.DataAccess.Abstractions\SHT.Infrastructure.DataAccess.Abstractions.csproj" />
+      <ProjectReference Include="..\..\Infrastructure\SHT.Infrastructure.Services.Abstractions\SHT.Infrastructure.Services.Abstractions.csproj" />
+      <ProjectReference Include="..\SHT.Domain.Models\SHT.Domain.Models.csproj" />
+    </ItemGroup>
+
+</Project>

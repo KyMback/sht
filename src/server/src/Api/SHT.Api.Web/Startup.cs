@@ -12,7 +12,10 @@ using SHT.Api.Web.Extensions;
 using SHT.Api.Web.Middleware;
 using SHT.Api.Web.Security;
 using SHT.Application;
+using SHT.Domain.Common;
+using SHT.Domain.Questions;
 using SHT.Domain.Services;
+using SHT.Domain.Users;
 using SHT.Infrastructure.Common;
 using SHT.Infrastructure.Common.Extensions;
 using SHT.Infrastructure.DataAccess.EF;
@@ -59,7 +62,10 @@ namespace SHT.Api.Web
                 .UseAfterBuildInitializers()
                 .AddTypeAssembly<WebApiModule>()
                 .AddTypeAssembly<ApplicationModule>()
-                .AddTypeAssembly<DomainServicesModule>()
+                .AddTypeAssembly<DomainQuestionsModule>()
+                .AddTypeAssembly<DomainTestsModule>()
+                .AddTypeAssembly<DomainUsersModule>()
+                .AddTypeAssembly<DomainCommonModule>()
                 .AddTypeAssembly<InfrastructureServicesModule>()
                 .AddTypeAssembly<InfrastructureCommonModule>()
                 .AddTypeAssembly<DataAccessModule>();

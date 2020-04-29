@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using SHT.Api.Web.Constants;
 using SHT.Api.Web.GraphQl;
-using SHT.Domain.Services.Exceptions;
+using SHT.Domain.Common.Exceptions;
 using SHT.Infrastructure.Common.Exceptions;
 
 namespace SHT.Api.Web.Middleware

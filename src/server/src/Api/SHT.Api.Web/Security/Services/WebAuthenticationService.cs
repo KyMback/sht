@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication;
@@ -7,8 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using SHT.Api.Web.Security.Constants;
+using SHT.Domain.Common.Exceptions;
 using SHT.Domain.Models.Users;
-using SHT.Domain.Services.Exceptions;
 using SHT.Domain.Services.Users;
 using SHT.Domain.Services.Users.Accounts;
 using SHT.Infrastructure.DataAccess.Abstractions;
