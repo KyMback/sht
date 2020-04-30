@@ -2,11 +2,10 @@ import { observer, useLocalStore } from "mobx-react-lite";
 import React from "react";
 import { CardSectionsGroup } from "../../../../components/layouts/sections/cardSectionsGroup";
 import { CardSection } from "../../../../components/layouts/sections/cardSection";
-import { ViewContextProps, withViewContext } from "../../../../components/forms/view/core/withViewContext";
-import { PropsWithStore } from "../../../../typings/customTypings";
 import { FormInput } from "../../../../components/forms";
 import { InstructorProfileStore } from "./instructorProfileStore";
 import { useStoreLifeCycle } from "../../../../core/hooks/useStoreLifeCycle";
+import { ViewContextWrapper } from "../../../../components/forms/view/core/viewContextWrapper";
 
 export const InstructorProfilePage = observer(() => {
     const store = useLocalStore(() => new InstructorProfileStore());
@@ -15,14 +14,10 @@ export const InstructorProfilePage = observer(() => {
     return (
         <CardSectionsGroup title="Profile">
             <CardSection>
-                <InstructorProfileDetails store={store} mode={store.viewModeType} />
+                <ViewContextWrapper mode={store.viewModeType}>
+                    <FormInput value={store.email} label="Email" />
+                </ViewContextWrapper>
             </CardSection>
         </CardSectionsGroup>
     );
 });
-
-const InstructorProfileDetails = withViewContext(
-    observer(({ store }: PropsWithStore<InstructorProfileStore> & ViewContextProps) => {
-        return <FormInput value={store.email} label="Email" />;
-    }),
-);

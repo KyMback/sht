@@ -14,7 +14,7 @@ import { EnumLocal } from "../../../../core/localization/local";
 const actions: Array<GenericButtonProps> = [
     {
         icon: icons.add,
-        onClick: () => routingStore.goto("/question/add"),
+        onClick: () => routingStore.goto("/questions/add"),
         color: "primary",
     },
 ];
@@ -35,7 +35,7 @@ export const QuestionsListPage = () => {
                             key={index}
                             className="clickable"
                             action
-                            onClick={() => routingStore.goto(`/question/${item.id}`)}
+                            onClick={() => routingStore.goto(`/questions/${item.id}`)}
                         >
                             <ListGroupItemHeading>{item.name}</ListGroupItemHeading>
                             <div>
