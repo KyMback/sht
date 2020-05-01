@@ -99,7 +99,7 @@ export const FormControlWrapper = withValidation(
 
         return (
             <FormGroup className={`form-control-wrapper ${getClassNames(isUsed, error)}`}>
-                <Label required={true} aria-required={isRequired} htmlFor={id}>
+                <Label className="text-bold" required={true} aria-required={isRequired} htmlFor={id}>
                     {labelComponent}
                     <span className="text-danger">{isRequired ? "*" : ""}</span>
                 </Label>
