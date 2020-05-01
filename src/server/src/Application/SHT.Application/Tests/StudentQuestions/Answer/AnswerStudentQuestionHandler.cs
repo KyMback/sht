@@ -2,7 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using MediatR;
-using SHT.Domain.Services.Tests.Student.Questions;
+using SHT.Domain.Services.Student.Questions;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Application.Tests.StudentQuestions.Answer

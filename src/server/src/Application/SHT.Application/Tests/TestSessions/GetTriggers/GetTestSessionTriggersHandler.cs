@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 using MediatR;
 using SHT.Application.StateMachineConfigs.Core;
 using SHT.Domain.Models.Tests;
-using SHT.Domain.Services.Tests;
+using SHT.Domain.Services;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Application.Tests.TestSessions.GetTriggers

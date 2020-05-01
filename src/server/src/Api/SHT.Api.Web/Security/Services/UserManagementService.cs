@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using SHT.Api.Web.Security.Constants;
 using SHT.Common;
-using SHT.Domain.Services.Users;
+using SHT.Domain.Users;
 
 namespace SHT.Api.Web.Security.Services
 {

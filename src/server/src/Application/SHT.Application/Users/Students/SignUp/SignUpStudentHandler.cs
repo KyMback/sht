@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using JetBrains.Annotations;
 using MediatR;
-using SHT.Domain.Services.Users.Students;
+using SHT.Domain.Users.Students;
 
 namespace SHT.Application.Users.Students.SignUp
 {

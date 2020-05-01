@@ -7,7 +7,7 @@ using SHT.Domain.Models.Tests;
 using SHT.Domain.Questions.Templates;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
-namespace SHT.Domain.Services.Tests.Variants
+namespace SHT.Domain.Services.Variants
 {
     internal class TestVariantService : ITestVariantService
     {
@@ -85,7 +85,6 @@ namespace SHT.Domain.Services.Tests.Variants
 
             return _unitOfWork.GetSingle(questionQueryParameters, q => new QuestionData
             {
-                Text = q.Text,
                 Type = q.Type,
             });
         }

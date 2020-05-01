@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using SHT.Domain.Models.Users;
 
-namespace SHT.Domain.Services.Users.Accounts
+namespace SHT.Domain.Users.Accounts
 {
     public interface IUserAccountService
     {

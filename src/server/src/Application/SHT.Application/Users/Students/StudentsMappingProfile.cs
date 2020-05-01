@@ -1,7 +1,7 @@
 using AutoMapper;
 using JetBrains.Annotations;
 using SHT.Application.Users.Students.Contracts;
-using SHT.Domain.Services.Users.Students;
+using SHT.Domain.Users.Students;
 
 namespace SHT.Application.Users.Students
 {

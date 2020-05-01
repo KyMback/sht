@@ -130,5 +130,11 @@ namespace SHT.Api.Web.GraphQl.Queries
         {
             return _mediator.Send(new GetAllQuestionsRequest());
         }
+
+        // Just because can't use the same method for different fields
+        public Task<IQueryable<QuestionDto>> GetQuestion()
+        {
+            return _mediator.Send(new GetAllQuestionsRequest());
+        }
     }
 }

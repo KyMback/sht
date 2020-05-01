@@ -4,7 +4,7 @@ using AutoMapper;
 using JetBrains.Annotations;
 using MediatR;
 using SHT.Domain.Models.Tests;
-using SHT.Domain.Services.Tests;
+using SHT.Domain.Services;
 using SHT.Infrastructure.Common;
 using SHT.Infrastructure.DataAccess.Abstractions;
 

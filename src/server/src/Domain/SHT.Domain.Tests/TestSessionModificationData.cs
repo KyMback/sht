@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace SHT.Domain.Services.Tests
+namespace SHT.Domain.Services
 {
     public class TestSessionModificationData
     {

@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using SHT.Domain.Models.Users;
-using SHT.Domain.Services.Users.Accounts;
+using SHT.Domain.Users.Accounts;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Api.Web.Security.Services

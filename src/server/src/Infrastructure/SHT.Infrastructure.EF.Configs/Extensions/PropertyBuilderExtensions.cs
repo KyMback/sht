@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SHT.Domain.Models;
 
 namespace SHT.Infrastructure.EF.Configs.Extensions
 {

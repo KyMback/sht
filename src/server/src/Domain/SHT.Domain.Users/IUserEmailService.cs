@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace SHT.Domain.Services.Users
+namespace SHT.Domain.Users
 {
     public interface IUserEmailService
     {

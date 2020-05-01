@@ -2,7 +2,7 @@ using AutoMapper;
 using JetBrains.Annotations;
 using SHT.Application.Users.Accounts.Contracts;
 using SHT.Application.Users.Accounts.GetPasswordRules;
-using SHT.Domain.Services.Users;
+using SHT.Domain.Users;
 
 namespace SHT.Application.Users.Accounts
 {

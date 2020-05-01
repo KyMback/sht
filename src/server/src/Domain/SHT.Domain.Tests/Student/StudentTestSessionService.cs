@@ -2,10 +2,10 @@ using System;
 using System.Threading.Tasks;
 using SHT.Domain.Common.Exceptions;
 using SHT.Domain.Models.Tests.Students;
-using SHT.Domain.Services.Tests.Student.Questions;
+using SHT.Domain.Services.Student.Questions;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
-namespace SHT.Domain.Services.Tests.Student
+namespace SHT.Domain.Services.Student
 {
     internal class StudentTestSessionService : IStudentTestSessionService
     {

@@ -7,14 +7,14 @@ using Microsoft.Extensions.Options;
 using SHT.Api.Web.Security.Constants;
 using SHT.Domain.Common.Exceptions;
 using SHT.Domain.Models.Users;
-using SHT.Domain.Services.Users;
-using SHT.Domain.Services.Users.Accounts;
+using SHT.Domain.Users;
+using SHT.Domain.Users.Accounts;
 using SHT.Infrastructure.DataAccess.Abstractions;
-using IAuthenticationService = SHT.Domain.Services.Users.IAuthenticationService;
+using IAuthenticationService = SHT.Domain.Users.IAuthenticationService;
 
 namespace SHT.Api.Web.Security.Services
 {
-    internal class WebAuthenticationService : IAuthenticationService
+    internal class WebAuthenticationService : Domain.Users.IAuthenticationService
     {
         private readonly SignInManager<Account> _signInManager;
         private readonly UserManager<Account> _userManager;

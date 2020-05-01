@@ -1,7 +1,7 @@
 using AutoMapper;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
-using SHT.Domain.Services.Users;
+using SHT.Domain.Users;
 
 namespace SHT.Api.Web.Security
 {

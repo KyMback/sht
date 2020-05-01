@@ -4,7 +4,7 @@ using JetBrains.Annotations;
 using MediatR;
 using SHT.Application.Common;
 using SHT.Application.TestVariants.Contracts;
-using SHT.Domain.Services.Tests.Variants;
+using SHT.Domain.Services.Variants;
 using SHT.Infrastructure.Common.Transactions;
 using SHT.Infrastructure.DataAccess.Abstractions;
 

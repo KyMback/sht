@@ -1,6 +1,7 @@
 import { FormattedMessage } from "react-intl";
 import { Dictionary, KeyOrJSX } from "../../typings/customTypings";
 import React from "react";
+import { localStore } from "../../stores/localStore";
 
 export interface LocalProps {
     id: string;
@@ -18,6 +19,10 @@ export const Local = (props: LocalProps) => <FormattedMessage {...props} />;
 export const EnumLocal = ({ enumObject, value }: EnumLocalProps) => (
     <FormattedMessage id={getEnumKey(enumObject, value)} />
 );
+
+export function getEnumValue(enumObject: any, value: string) {
+    return localStore.getLocalizedMessage(getEnumKey(enumObject, value));
+}
 
 function getEnumKey(enumObject: any, value: string): string {
     const enumValue = enumsMap.get(enumObject);

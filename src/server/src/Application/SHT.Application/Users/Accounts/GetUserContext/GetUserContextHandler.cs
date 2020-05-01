@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 using MediatR;
 using SHT.Application.Users.Accounts.Contracts;
-using SHT.Domain.Services.Users.Accounts;
+using SHT.Domain.Users.Accounts;
 using SHT.Infrastructure.Common;
 using SHT.Infrastructure.DataAccess.Abstractions;
 

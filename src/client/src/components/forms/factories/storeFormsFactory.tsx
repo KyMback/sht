@@ -1,4 +1,4 @@
-import { FormInput } from "../index";
+import { FormEnumSelect, FormInput, FormSingleSelect, FormTextArea } from "../index";
 import { KeyOrJSX, PropsWithStore } from "../../../typings/customTypings";
 import { FormControlProps } from "../formControls";
 import { Observer } from "mobx-react-lite";
@@ -7,6 +7,10 @@ import { ValidationFunction } from "../formControlWrapper";
 import { InputControlProps } from "../../controls/inputControl";
 import { ResponsiveWrapper } from "../../layouts/responsiveWrapper";
 import { SubSection } from "../../layouts/sections/subSection";
+import { TextAreaProps } from "../../controls/textArea/textArea";
+import { SingleSelectProps, SingleSelectValue } from "../../controls/singleSelect/singleSelect";
+import { SelectItem } from "../../controls/multiSelect/multiSelect";
+import { EnumSelectProps, EnumSelectValue } from "../../controls/enumSelect/enumSelect";
 
 type StoreProps<TStore, TValue> = (store: TStore) => TValue;
 type StorePropsOrDefault<TStore, TValue> = StoreProps<TStore, TValue> | TValue;
@@ -79,6 +83,64 @@ export class StoreFormsFactory<TStore = any> {
     ): StoreFormsFactory<TStore> => {
         this.pushControl<FormControlProps<TextInputValue, InputControlProps>>(FormInput, store => ({
             label: convertToValue(store, label),
+            value: store[valueAccessor] as any,
+            onChange: onChange(store),
+            validations: convertToValue(store, validations),
+            ...convertToValue(store, options),
+        }));
+
+        return this;
+    };
+
+    public textArea = (
+        label: StorePropsOrDefault<TStore, KeyOrJSX>,
+        valueAccessor: keyof TStore,
+        onChange: StoreProps<TStore, (v: TextInputValue) => void> = createDefaultOnChange(valueAccessor),
+        validations: StorePropsOrDefault<TStore, Array<ValidationFunction<TextInputValue>>> = [],
+        options: StorePropsOrDefault<TStore, Partial<FormControlProps<TextInputValue, TextAreaProps>>> = {},
+    ): StoreFormsFactory<TStore> => {
+        this.pushControl<FormControlProps<TextInputValue, TextAreaProps>>(FormTextArea, store => ({
+            label: convertToValue(store, label),
+            value: store[valueAccessor] as any,
+            onChange: onChange(store),
+            validations: convertToValue(store, validations),
+            ...convertToValue(store, options),
+        }));
+
+        return this;
+    };
+
+    public select = (
+        label: StorePropsOrDefault<TStore, KeyOrJSX>,
+        items: StorePropsOrDefault<TStore, Array<SelectItem<any>>>,
+        valueAccessor: keyof TStore,
+        onChange: StoreProps<TStore, (v: SingleSelectValue<any>) => void> = createDefaultOnChange(valueAccessor),
+        validations: StorePropsOrDefault<TStore, Array<ValidationFunction<SingleSelectValue<any>>>> = [],
+        options: StorePropsOrDefault<TStore, Partial<FormControlProps<SingleSelectValue<any>, SingleSelectProps>>> = {},
+    ): StoreFormsFactory<TStore> => {
+        this.pushControl<FormControlProps<SingleSelectValue<any>, SingleSelectProps>>(FormSingleSelect, store => ({
+            label: convertToValue(store, label),
+            options: convertToValue(store, items),
+            value: store[valueAccessor] as any,
+            onChange: onChange(store),
+            validations: convertToValue(store, validations),
+            ...convertToValue(store, options),
+        }));
+
+        return this;
+    };
+
+    public enumSelect = (
+        label: StorePropsOrDefault<TStore, KeyOrJSX>,
+        enumObject: any,
+        valueAccessor: keyof TStore,
+        onChange: StoreProps<TStore, (v: EnumSelectValue) => void> = createDefaultOnChange(valueAccessor),
+        validations: StorePropsOrDefault<TStore, Array<ValidationFunction<EnumSelectValue>>> = [],
+        options: StorePropsOrDefault<TStore, Partial<FormControlProps<EnumSelectValue, SingleSelectProps>>> = {},
+    ): StoreFormsFactory<TStore> => {
+        this.pushControl<FormControlProps<EnumSelectValue, EnumSelectProps>>(FormEnumSelect, store => ({
+            label: convertToValue(store, label),
+            enumObject: enumObject,
             value: store[valueAccessor] as any,
             onChange: onChange(store),
             validations: convertToValue(store, validations),

@@ -2,7 +2,7 @@ using System;
 using SHT.Domain.Common.Core;
 using SHT.Domain.Models.Tests;
 
-namespace SHT.Domain.Services.Tests
+namespace SHT.Domain.Services
 {
     public class TestSessionVariantsQueryParameters : BaseQueryParameters<TestSessionTestVariant>
     {

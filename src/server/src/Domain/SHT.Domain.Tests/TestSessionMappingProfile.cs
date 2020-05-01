@@ -6,7 +6,7 @@ using SHT.Domain.Models.Tests;
 using SHT.Domain.Models.Tests.Students;
 using SHT.Infrastructure.Common.Extensions;
 
-namespace SHT.Domain.Services.Tests
+namespace SHT.Domain.Services
 {
     [UsedImplicitly]
     internal class TestSessionMappingProfile : Profile

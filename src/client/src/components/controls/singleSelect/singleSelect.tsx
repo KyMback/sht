@@ -5,7 +5,9 @@ import { SelectItem } from "../multiSelect/multiSelect";
 import { ControlProps } from "../index";
 import { KeyOrJSX } from "../../../typings/customTypings";
 
-export interface SingleSelectProps<TData = any> extends ControlProps<TData | undefined> {
+export type SingleSelectValue<TData> = TData | undefined;
+
+export interface SingleSelectProps<TData = any> extends ControlProps<SingleSelectValue<TData>> {
     options: Array<SelectItem<TData>>;
     placeholder?: KeyOrJSX;
     className?: string;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using SHT.Domain.Models;
 using SHT.Domain.Models.Tests;
 
 namespace SHT.JsonSchemasGenerator
@@ -13,8 +14,10 @@ namespace SHT.JsonSchemasGenerator
                 throw new ArgumentException($"{nameof(args)} is empty.", nameof(args));
             }
 
-            await Generator.Generate(args[0], args[1]);
-            ConstantsGenerator.Generate(typeof(TestSessionStates), args[0]);
+            var destinationPath = args[0];
+            await Generator.Generate(destinationPath, args[1]);
+            ConstantsGenerator.Generate(typeof(TestSessionStates), destinationPath);
+            ConstantsGenerator.Generate(typeof(LengthConstants), destinationPath);
         }
     }
 }

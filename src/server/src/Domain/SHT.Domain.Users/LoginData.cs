@@ -1,4 +1,4 @@
-namespace SHT.Domain.Services.Users
+namespace SHT.Domain.Users
 {
     public class LoginData
     {

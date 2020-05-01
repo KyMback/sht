@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
 using SHT.Domain.Common.Exceptions;
-using SHT.Domain.Services.Users.Accounts;
+using SHT.Domain.Users.Accounts;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
-namespace SHT.Domain.Services.Users
+namespace SHT.Domain.Users
 {
     internal class RegistrationValidationService : IRegistrationValidationService
     {

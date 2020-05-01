@@ -1,10 +1,10 @@
 using AutoMapper;
 using JetBrains.Annotations;
 using SHT.Domain.Models.Users;
-using SHT.Domain.Services.Users.Accounts;
+using SHT.Domain.Users.Accounts;
 using SHT.Infrastructure.Common.Extensions;
 
-namespace SHT.Domain.Services.Users.Students
+namespace SHT.Domain.Users.Students
 {
     [UsedImplicitly]
     internal class StudentsMappingProfile : Profile

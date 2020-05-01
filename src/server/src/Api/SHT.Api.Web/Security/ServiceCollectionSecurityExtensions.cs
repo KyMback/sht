@@ -10,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SHT.Api.Web.Security.Constants;
 using SHT.Api.Web.Security.Services;
 using SHT.Domain.Models.Users;
-using SHT.Domain.Services.Users;
+using SHT.Domain.Users;
 
 namespace SHT.Api.Web.Security
 {

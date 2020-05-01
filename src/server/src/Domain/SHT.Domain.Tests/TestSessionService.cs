@@ -7,7 +7,7 @@ using SHT.Domain.Models.Tests.Students;
 using SHT.Infrastructure.Common;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
-namespace SHT.Domain.Services.Tests
+namespace SHT.Domain.Services
 {
     internal class TestSessionService : ITestSessionService
     {

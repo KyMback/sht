@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SHT.Domain.Models.Tests;
 using SHT.Domain.Models.Users;
+using SHT.Infrastructure.EF.Configs.Extensions;
 
 namespace SHT.Infrastructure.EF.Configs.Configs.Tests.Students
 {
@@ -11,8 +12,8 @@ namespace SHT.Infrastructure.EF.Configs.Configs.Tests.Students
     {
         protected override void ConfigureEntity(EntityTypeBuilder<TestSession> builder)
         {
-            builder.Property(e => e.State).HasMaxLength(LengthConstants.Medium).IsRequired();
-            builder.Property(e => e.Name).HasMaxLength(LengthConstants.Medium).IsRequired();
+            builder.Property(e => e.State).HasMediumMaxLength().IsRequired();
+            builder.Property(e => e.Name).HasMediumMaxLength().IsRequired();
             builder
                 .HasOne<Instructor>()
                 .WithMany()

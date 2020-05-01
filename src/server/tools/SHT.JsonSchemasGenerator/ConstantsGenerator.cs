@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using SHT.Common.Utils;
-using SHT.Domain.Models.Tests;
 
 namespace SHT.JsonSchemasGenerator
 {
@@ -11,7 +10,7 @@ namespace SHT.JsonSchemasGenerator
     {
         public static void Generate(Type type, string destinationPath)
         {
-            IReadOnlyDictionary<string, object> fields = TypeUtils.GetAllConstFields(typeof(TestSessionStates));
+            IReadOnlyDictionary<string, object> fields = TypeUtils.GetAllConstFields(type);
             var content = GetContent(type, JsonConvert.SerializeObject(fields, Formatting.Indented));
 
             string path = GetPath(destinationPath, type);

@@ -1,8 +1,9 @@
 import { ControlProps } from "../index";
 import React, { useCallback } from "react";
 import TextareaAutosize from "react-textarea-autosize";
+import { TextInputValue } from "../inputControl";
 
-export interface TextAreaProps extends ControlProps<string | undefined> {
+export interface TextAreaProps extends ControlProps<TextInputValue> {
     className?: string;
     minRows?: number;
     disabled?: boolean;

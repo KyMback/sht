@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 using SHT.Domain.Models.Users;
 using SHT.Infrastructure.Common.Extensions;
 
-namespace SHT.Domain.Services.Users.Accounts
+namespace SHT.Domain.Users.Accounts
 {
     [UsedImplicitly]
     internal class AccountsMappingProfile : Profile

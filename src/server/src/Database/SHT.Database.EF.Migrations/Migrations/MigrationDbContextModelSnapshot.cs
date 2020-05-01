@@ -37,7 +37,7 @@ namespace SHT.Database.EF.Migrations.Migrations
                     b.ToTable("DataProtectionKeys");
                 });
 
-            modelBuilder.Entity("SHT.Domain.Models.Tests.QuestionTemplate", b =>
+            modelBuilder.Entity("SHT.Domain.Models.Questions.QuestionTemplate", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -50,11 +50,6 @@ namespace SHT.Database.EF.Migrations.Migrations
                         .IsRequired()
                         .HasColumnType("character varying(255)")
                         .HasMaxLength(255);
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("character varying(4000)")
-                        .HasMaxLength(4000);
 
                     b.Property<int>("Type")
                         .HasColumnType("integer");
@@ -310,13 +305,38 @@ namespace SHT.Database.EF.Migrations.Migrations
                     b.ToTable("Student");
                 });
 
-            modelBuilder.Entity("SHT.Domain.Models.Tests.QuestionTemplate", b =>
+            modelBuilder.Entity("SHT.Domain.Models.Questions.QuestionTemplate", b =>
                 {
                     b.HasOne("SHT.Domain.Models.Users.Instructor", null)
                         .WithMany()
                         .HasForeignKey("CreatedById")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
+
+                    b.OwnsOne("SHT.Domain.Models.Questions.FreeTextQuestionTemplate", "FreeTextQuestionTemplate", b1 =>
+                        {
+                            b1.Property<Guid>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("uuid");
+
+                            b1.Property<string>("Question")
+                                .IsRequired()
+                                .HasColumnType("character varying(4000)")
+                                .HasMaxLength(4000);
+
+                            b1.Property<Guid>("QuestionTemplateId")
+                                .HasColumnType("uuid");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("QuestionTemplateId")
+                                .IsUnique();
+
+                            b1.ToTable("FreeTextQuestionTemplate");
+
+                            b1.WithOwner()
+                                .HasForeignKey("QuestionTemplateId");
+                        });
                 });
 
             modelBuilder.Entity("SHT.Domain.Models.Tests.Students.StudentQuestion", b =>

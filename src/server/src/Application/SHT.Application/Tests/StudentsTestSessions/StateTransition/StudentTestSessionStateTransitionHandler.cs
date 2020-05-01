@@ -4,7 +4,7 @@ using JetBrains.Annotations;
 using MediatR;
 using SHT.Application.StateMachineConfigs.Core;
 using SHT.Domain.Models.Tests.Students;
-using SHT.Domain.Services.Tests.Student;
+using SHT.Domain.Services.Student;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Application.Tests.StudentsTestSessions.StateTransition

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using SHT.Domain.Models.Tests;
 
-namespace SHT.Domain.Services.Tests.Variants
+namespace SHT.Domain.Services.Variants
 {
     public interface ITestVariantService
     {

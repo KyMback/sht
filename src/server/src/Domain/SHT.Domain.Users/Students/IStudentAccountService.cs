@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using SHT.Domain.Models.Users;
 
-namespace SHT.Domain.Services.Users.Students
+namespace SHT.Domain.Users.Students
 {
     public interface IStudentAccountService
     {

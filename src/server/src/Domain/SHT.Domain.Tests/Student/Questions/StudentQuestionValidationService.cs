@@ -4,7 +4,7 @@ using SHT.Domain.Common.Exceptions;
 using SHT.Domain.Models.Tests.Students;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
-namespace SHT.Domain.Services.Tests.Student.Questions
+namespace SHT.Domain.Services.Student.Questions
 {
     internal class StudentQuestionValidationService : IStudentQuestionValidationService
     {

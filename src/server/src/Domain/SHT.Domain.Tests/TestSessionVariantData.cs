@@ -1,6 +1,6 @@
 using System;
 
-namespace SHT.Domain.Services.Tests
+namespace SHT.Domain.Services
 {
     public class TestSessionVariantData
     {

@@ -6,7 +6,7 @@ using SHT.Domain.Common.Exceptions;
 using SHT.Domain.Models.Users;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
-namespace SHT.Domain.Services.Users.Accounts
+namespace SHT.Domain.Users.Accounts
 {
     internal class UserAccountService : IUserAccountService
     {

@@ -1,5 +1,5 @@
 import React from "react";
-import { Local } from "../../core/localization/local";
+import { EnumLocal, Local } from "../../core/localization/local";
 import { LabelWrapper } from "./labelWrapper";
 
 interface Props<TValue> {
@@ -7,9 +7,17 @@ interface Props<TValue> {
     value?: TValue;
 }
 
-export const LabeledText = (props: Props<string>) => {
+export function LabeledText(props: Props<string>) {
     return <LabelWrapper title={props.title}>{props.value || NoneContent}</LabelWrapper>;
-};
+}
+
+export function LabeledEnum<TEnum extends string>({ value, enumObject, title }: Props<TEnum> & { enumObject: any }) {
+    return (
+        <LabelWrapper title={title}>
+            {value ? <EnumLocal enumObject={enumObject} value={value} /> : NoneContent}
+        </LabelWrapper>
+    );
+}
 
 export const LabeledDateTime = ({ value, title }: Props<string>) => {
     return <LabelWrapper title={title}>{value || NoneContent}</LabelWrapper>;

@@ -4,7 +4,7 @@ using SHT.Infrastructure.Common.Options;
 using SHT.Infrastructure.Common.Utils;
 using SHT.Infrastructure.Services.Abstractions;
 
-namespace SHT.Domain.Services.Users
+namespace SHT.Domain.Users
 {
     internal class UserEmailService : IUserEmailService
     {

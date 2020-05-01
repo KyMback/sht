@@ -4,7 +4,7 @@ using System.Linq;
 using SHT.Domain.Common.Core;
 using SHT.Domain.Models.Tests.Students;
 
-namespace SHT.Domain.Services.Tests.Student
+namespace SHT.Domain.Services.Student
 {
     public class StudentTestSessionQueryParameters : BaseQueryParameters<StudentTestSession>
     {

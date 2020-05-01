@@ -77,5 +77,8 @@
     "TestSessionState_Pending": "Pending",
     "TestSessionState_Started": "Started",
     "TestSessionState_Ended": "Ended",
-    "Questions": "Questions"
+    "Questions": "Questions",
+    "Name": "Name",
+    "QuestionText": "Question Text",
+    "Type": "Type"
 }

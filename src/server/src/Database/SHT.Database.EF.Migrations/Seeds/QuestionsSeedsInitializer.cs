@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SHT.Database.Defaults;
 using SHT.Database.EF.Migrations.Seeds.Core;
+using SHT.Domain.Models.Questions;
 using SHT.Domain.Models.Tests;
 
 namespace SHT.Database.EF.Migrations.Seeds
@@ -14,9 +15,12 @@ namespace SHT.Database.EF.Migrations.Seeds
             new QuestionTemplate
             {
                 Id = QuestionsDefaults.FreeTextQuestion.Id,
-                Text = QuestionsDefaults.FreeTextQuestion.Text,
                 Type = QuestionType.FreeText,
-                CreatedById = UsersDefaults.Instructor.Id
+                CreatedById = UsersDefaults.Instructor.Id,
+                FreeTextQuestionTemplate = new FreeTextQuestionTemplate
+                {
+                    Question = QuestionsDefaults.FreeTextQuestion.Text,
+                }
             },
         };
 

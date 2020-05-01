@@ -2,7 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using MediatR;
-using SHT.Domain.Services.Users;
+using SHT.Domain.Users;
 
 namespace SHT.Application.Users.Accounts.SignOut
 {

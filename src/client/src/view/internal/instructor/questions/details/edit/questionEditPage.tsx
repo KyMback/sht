@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { IdParams } from "../../../../../../typings/customTypings";
+import { IdParams, PropsWithStore } from "../../../../../../typings/customTypings";
 import { observer, useLocalStore } from "mobx-react-lite";
 import { useStoreLifeCycle } from "../../../../../../core/hooks/useStoreLifeCycle";
 import { Form } from "../../../../../../components/forms/form";
@@ -7,6 +7,13 @@ import { CardSectionsGroup } from "../../../../../../components/layouts/sections
 import React from "react";
 import { GuardedActions, GuardsApplier } from "../../../../../../core/guarding";
 import { QuestionEditStore } from "./questionEditStore";
+import { CardSection } from "../../../../../../components/layouts/sections/cardSection";
+import { FreeTextQuestionEditSection } from "./sections/freeText/freeTextQuestionEditSection";
+import { maxMediumLength, required } from "../../../../../../components/forms/validations";
+import { QuestionType } from "../../../../../../typings/dataContracts";
+import { Row } from "reactstrap";
+import { DefaultCol } from "../../../../../../components/layouts/defaultCol";
+import { FormEnumSelect, FormInput } from "../../../../../../components/forms";
 
 const actions: GuardedActions<QuestionEditStore> = [
     {
@@ -34,10 +41,42 @@ export const QuestionEditPage = observer(() => {
     useStoreLifeCycle(store);
 
     return (
-        <Form>
-            <CardSectionsGroup actions={GuardsApplier.applyGuardedArrays(store, actions)}>
-                {/*<CardSection></CardSection>*/}
+        <Form onValidSubmit={store.save}>
+            <CardSectionsGroup title="Question" topActions={GuardsApplier.applyGuardedArrays(store, actions)}>
+                <CardSection>
+                    <Row>
+                        <DefaultCol>
+                            <FormInput
+                                label="Name"
+                                value={store.name}
+                                onChange={store.setName}
+                                validations={[required, maxMediumLength]}
+                            />
+                        </DefaultCol>
+                    </Row>
+                    <Row>
+                        <DefaultCol>
+                            <FormEnumSelect
+                                label="Type"
+                                enumObject={QuestionType}
+                                value={store.type}
+                                onChange={store.setType}
+                                validations={[required]}
+                            />
+                        </DefaultCol>
+                    </Row>
+                </CardSection>
+                <QuestionSpecialSection store={store} />
             </CardSectionsGroup>
         </Form>
     );
+});
+
+const QuestionSpecialSection = observer(({ store }: PropsWithStore<QuestionEditStore>) => {
+    switch (store.type) {
+        case QuestionType.FreeText:
+            return <FreeTextQuestionEditSection store={store.freeTextStore!} />;
+        default:
+            return null;
+    }
 });

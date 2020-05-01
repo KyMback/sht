@@ -1,8 +1,7 @@
 using Autofac;
-using SHT.Domain.Services.Tests;
-using SHT.Domain.Services.Tests.Student;
-using SHT.Domain.Services.Tests.Student.Questions;
-using SHT.Domain.Services.Tests.Variants;
+using SHT.Domain.Services.Student;
+using SHT.Domain.Services.Student.Questions;
+using SHT.Domain.Services.Variants;
 using SHT.Infrastructure.Common.Extensions;
 using SHT.Infrastructure.DataAccess.Abstractions;
 

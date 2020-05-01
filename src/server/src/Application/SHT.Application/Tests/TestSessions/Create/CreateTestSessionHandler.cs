@@ -4,7 +4,7 @@ using AutoMapper;
 using JetBrains.Annotations;
 using MediatR;
 using SHT.Application.Common;
-using SHT.Domain.Services.Tests;
+using SHT.Domain.Services;
 
 namespace SHT.Application.Tests.TestSessions.Create
 {

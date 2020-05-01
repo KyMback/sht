@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 using MediatR;
 using SHT.Application.Users.Students.Contracts;
-using SHT.Domain.Services.Users;
+using SHT.Domain.Users;
 using SHT.Infrastructure.Common;
 using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.IQueryProvider;
 

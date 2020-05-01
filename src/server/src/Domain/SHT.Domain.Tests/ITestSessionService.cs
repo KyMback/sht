@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using SHT.Domain.Models.Tests;
 
-namespace SHT.Domain.Services.Tests
+namespace SHT.Domain.Services
 {
     public interface ITestSessionService
     {

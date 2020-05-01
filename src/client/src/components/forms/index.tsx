@@ -1,11 +1,13 @@
-import { InputControl, InputControlProps } from "../controls/inputControl";
+import { InputControl, InputControlProps, TextInputValue } from "../controls/inputControl";
 import { makeFormControl } from "./formControls";
 import { MultiSelect, MultiSelectProps } from "../controls/multiSelect/multiSelect";
-import { SingleSelect, SingleSelectProps } from "../controls/singleSelect/singleSelect";
+import { SingleSelect, SingleSelectProps, SingleSelectValue } from "../controls/singleSelect/singleSelect";
 import { TextArea, TextAreaProps } from "../controls/textArea/textArea";
 import { FormInputView } from "./view";
+import { EnumSelect, EnumSelectProps, EnumSelectValue } from "../controls/enumSelect/enumSelect";
 
-export const FormInput = makeFormControl<InputControlProps, string | undefined>(InputControl, FormInputView);
-export const FormTextArea = makeFormControl<TextAreaProps, string | undefined>(TextArea);
+export const FormInput = makeFormControl<InputControlProps, TextInputValue>(InputControl, FormInputView);
+export const FormTextArea = makeFormControl<TextAreaProps, TextInputValue>(TextArea);
 export const FormMultiSelect = makeFormControl<MultiSelectProps, Array<any> | undefined>(MultiSelect);
-export const FormSingleSelect = makeFormControl<SingleSelectProps, any | undefined>(SingleSelect);
+export const FormSingleSelect = makeFormControl<SingleSelectProps, SingleSelectValue<any>>(SingleSelect);
+export const FormEnumSelect = makeFormControl<EnumSelectProps, EnumSelectValue>(EnumSelect);

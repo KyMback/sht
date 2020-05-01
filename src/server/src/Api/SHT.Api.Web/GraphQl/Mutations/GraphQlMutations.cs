@@ -9,6 +9,13 @@ namespace SHT.Api.Web.GraphQl.Mutations
     {
         protected override void Configure(IObjectTypeDescriptor<GraphQlMutationHandlers> descriptor)
         {
+            ConfigureAccount(descriptor);
+            ConfigureTestSessions(descriptor);
+            ConfigureQuestions(descriptor);
+        }
+
+        private void ConfigureAccount(IObjectTypeDescriptor<GraphQlMutationHandlers> descriptor)
+        {
             descriptor.Field(e => e.SetCulture(default))
                 .Type<VoidType>()
                 .Argument("culture", argumentDescriptor =>
@@ -41,7 +48,10 @@ namespace SHT.Api.Web.GraphQl.Mutations
                 .Type<VoidType>()
                 .Argument("email", argumentDescriptor =>
                     argumentDescriptor.Type<NonNullType<StringType>>());
+        }
 
+        private void ConfigureTestSessions(IObjectTypeDescriptor<GraphQlMutationHandlers> descriptor)
+        {
             descriptor.Field(e => e.AnswerStudentQuestion(default))
                 .Name("answerStudentQuestion")
                 .Type<VoidType>()
@@ -85,6 +95,25 @@ namespace SHT.Api.Web.GraphQl.Mutations
                     argumentDescriptor.Type<NonNullType<UuidType>>())
                 .Argument("trigger", argumentDescriptor =>
                     argumentDescriptor.Type<NonNullType<StringType>>());
+        }
+
+        private void ConfigureQuestions(IObjectTypeDescriptor<GraphQlMutationHandlers> descriptor)
+        {
+            descriptor.Field(e => e.CreateQuestion(default))
+                .Name("createQuestion")
+                .Type<NonNullType<CreatedEntityResponseGraphType>>()
+                .Authorize(AuthorizationPolicyNames.InstructorsOnly)
+                .Argument("data", argumentDescriptor =>
+                    argumentDescriptor.Type<NonNullType<QuestionEditDetailsDtoInputGraphType>>());
+
+            descriptor.Field(e => e.UpdateQuestion(default, default))
+                .Name("updateQuestion")
+                .Type<VoidType>()
+                .Authorize(AuthorizationPolicyNames.InstructorsOnly)
+                .Argument("id", argumentDescriptor =>
+                    argumentDescriptor.Type<NonNullType<UuidType>>())
+                .Argument("data", argumentDescriptor =>
+                    argumentDescriptor.Type<NonNullType<QuestionEditDetailsDtoInputGraphType>>());
         }
     }
 }

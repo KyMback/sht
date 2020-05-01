@@ -4,12 +4,11 @@ import { CardSectionsGroup } from "../../../../components/layouts/sections/cardS
 import { CardSection } from "../../../../components/layouts/sections/cardSection";
 import { ListGroup, ListGroupItem, ListGroupItemHeading } from "reactstrap";
 import { routingStore } from "../../../../stores/routingStore";
-import { HttpApi } from "../../../../core/api/http/httpApi";
-import { TableResult } from "../../../../core/api/tableResult";
 import { GenericButtonProps } from "../../../../components/buttons/genericButton/genericButton";
 import { icons } from "../../../../components/icons/icon";
 import { QuestionType } from "../../../../typings/dataContracts";
 import { EnumLocal } from "../../../../core/localization/local";
+import { QuestionListItem, QuestionsActionsService } from "../../../../services/questions/questionsActionsService";
 
 const actions: Array<GenericButtonProps> = [
     {
@@ -20,9 +19,9 @@ const actions: Array<GenericButtonProps> = [
 ];
 
 export const QuestionsListPage = () => {
-    const [testSessions, setTestSessions] = useState<Array<Question>>([]);
+    const [testSessions, setTestSessions] = useState<Array<QuestionListItem>>([]);
     useAsyncEffect(async () => {
-        const result = await loadData(1, 100);
+        const result = await QuestionsActionsService.getListItems(1, 100);
         setTestSessions(result.items);
     }, []);
 
@@ -48,29 +47,3 @@ export const QuestionsListPage = () => {
         </CardSectionsGroup>
     );
 };
-
-interface Question {
-    id: string;
-    createdById: string;
-    name: string;
-    type: QuestionType;
-}
-
-const query = `
-query($pageNumber: Int!, $pageSize: Int!) {
-  questions(pageNumber: $pageNumber, pageSize: $pageSize) {
-    items {
-      id
-      createdById
-      name
-      type
-    }
-    total
-  }
-}
-`;
-
-async function loadData(pageNumber: number, pageSize: number) {
-    const { questions } = await HttpApi.graphQl<{ questions: TableResult<Question> }>(query, { pageNumber, pageSize });
-    return questions;
-}

@@ -2,7 +2,7 @@ using System;
 using SHT.Domain.Common.Core;
 using SHT.Domain.Models.Tests.Students;
 
-namespace SHT.Domain.Services.Tests.Student.Questions
+namespace SHT.Domain.Services.Student.Questions
 {
     public class StudentQuestionQueryParameters : BaseQueryParameters<StudentQuestion>
     {

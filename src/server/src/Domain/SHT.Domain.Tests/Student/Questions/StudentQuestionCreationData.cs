@@ -1,6 +1,6 @@
 using System;
 
-namespace SHT.Domain.Services.Tests.Student.Questions
+namespace SHT.Domain.Services.Student.Questions
 {
     public class StudentQuestionCreationData
     {

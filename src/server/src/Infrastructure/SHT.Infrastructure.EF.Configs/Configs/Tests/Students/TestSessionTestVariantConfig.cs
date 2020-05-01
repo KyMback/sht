@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SHT.Domain.Models.Tests;
+using SHT.Infrastructure.EF.Configs.Extensions;
 
 namespace SHT.Infrastructure.EF.Configs.Configs.Tests.Students
 {
@@ -10,7 +11,7 @@ namespace SHT.Infrastructure.EF.Configs.Configs.Tests.Students
     {
         protected override void ConfigureEntity(EntityTypeBuilder<TestSessionTestVariant> builder)
         {
-            builder.Property(e => e.Name).HasMaxLength(LengthConstants.Medium).IsRequired();
+            builder.Property(e => e.Name).HasMediumMaxLength().IsRequired();
 
             builder.HasIndex(e => new
             {

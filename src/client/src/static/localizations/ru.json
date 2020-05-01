@@ -77,5 +77,8 @@
     "TestSessionState_Pending": "В ожидании",
     "TestSessionState_Started": "Началась",
     "TestSessionState_Ended": "Закончилась",
-    "Questions": "Вопросы"
+    "Questions": "Вопросы",
+    "QuestionText": "Текст вопроса",
+    "Name": "Имя",
+    "Type": "Тип"
 }

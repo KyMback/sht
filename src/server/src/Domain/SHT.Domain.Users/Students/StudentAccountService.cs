@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using SHT.Domain.Models.Users;
-using SHT.Domain.Services.Users.Accounts;
+using SHT.Domain.Users.Accounts;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
-namespace SHT.Domain.Services.Users.Students
+namespace SHT.Domain.Users.Students
 {
     internal class StudentAccountService : IStudentAccountService
     {

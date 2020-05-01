@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using SHT.Common;
 
-namespace SHT.Domain.Services.Users
+namespace SHT.Domain.Users
 {
     public interface IUserManagementService<in TUser>
         where TUser : class

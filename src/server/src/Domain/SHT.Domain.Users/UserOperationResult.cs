@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace SHT.Domain.Services.Users
+namespace SHT.Domain.Users
 {
     public class UserOperationResult
     {

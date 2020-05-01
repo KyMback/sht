@@ -15,32 +15,14 @@ namespace SHT.Api.Web.GraphQl.Queries
     {
         protected override void Configure(IObjectTypeDescriptor<GraphQlQueriesHandlers> descriptor)
         {
-            descriptor
-                .Field(f => f.GetUserContext())
-                .Type<NonNullType<UserContextGraphType>>()
-                .Name("userContext");
+            ConfigureAccountInfo(descriptor);
+            ConfigureTestSessions(descriptor);
+            ConfigureTestVariants(descriptor);
+            ConfigureQuestions(descriptor);
+        }
 
-            descriptor
-                .Field(f => f.GetPasswordRules())
-                .Type<NonNullType<PasswordRulesDtoGraphType>>()
-                .Name("passwordRules");
-
-            descriptor
-                .Field(f => f.GetInstructorProfile())
-                .Authorize(AuthorizationPolicyNames.InstructorsOnly)
-                .Type<NonNullType<InstructorProfileDtoGraphType>>()
-                .Name("instructorProfile")
-                .UseSingleOrDefault()
-                .UseSelection();
-
-            descriptor
-                .Field(f => f.GetStudentProfile())
-                .Authorize(AuthorizationPolicyNames.StudentsOnly)
-                .Type<NonNullType<StudentProfileDtoGraphType>>()
-                .Name("studentProfile")
-                .UseSingleOrDefault()
-                .UseSelection();
-
+        private void ConfigureTestSessions(IObjectTypeDescriptor<GraphQlQueriesHandlers> descriptor)
+        {
             descriptor
                 .Field(f => f.GetTestSessionListItems())
                 .Authorize(AuthorizationPolicyNames.InstructorsOnly)
@@ -70,19 +52,6 @@ namespace SHT.Api.Web.GraphQl.Queries
                 .Type<NonNullType<ListType<NonNullType<StringType>>>>()
                 .Name("testSessionTriggers")
                 .Argument("testSessionId", argumentDescriptor => argumentDescriptor.Type<NonNullType<UuidType>>());
-
-            descriptor
-                .Field(f => f.GetVariantsLookups())
-                .Authorize(AuthorizationPolicyNames.InstructorsOnly)
-                .Type<NonNullType<ListType<NonNullType<LookupGraphType>>>>()
-                .Name("testVariantLookups")
-                .UseSelection();
-
-            descriptor
-                .Field(f => f.GetStudentsGroups())
-                .Authorize()
-                .Type<NonNullType<ListType<NonNullType<StudentGroupedGroupDtoGraphType>>>>()
-                .Name("studentsGroups");
 
             descriptor
                 .Field(f => f.GetStudentsTestSessions())
@@ -135,7 +104,45 @@ namespace SHT.Api.Web.GraphQl.Queries
                 .UseSingleOrDefault()
                 .UseSelection()
                 .UseFiltering<StudentTestQuestionDtoFilterInputType>();
+        }
 
+        private void ConfigureAccountInfo(IObjectTypeDescriptor<GraphQlQueriesHandlers> descriptor)
+        {
+            descriptor
+                .Field(f => f.GetUserContext())
+                .Type<NonNullType<UserContextGraphType>>()
+                .Name("userContext");
+
+            descriptor
+                .Field(f => f.GetPasswordRules())
+                .Type<NonNullType<PasswordRulesDtoGraphType>>()
+                .Name("passwordRules");
+
+            descriptor
+                .Field(f => f.GetInstructorProfile())
+                .Authorize(AuthorizationPolicyNames.InstructorsOnly)
+                .Type<NonNullType<InstructorProfileDtoGraphType>>()
+                .Name("instructorProfile")
+                .UseSingleOrDefault()
+                .UseSelection();
+
+            descriptor
+                .Field(f => f.GetStudentProfile())
+                .Authorize(AuthorizationPolicyNames.StudentsOnly)
+                .Type<NonNullType<StudentProfileDtoGraphType>>()
+                .Name("studentProfile")
+                .UseSingleOrDefault()
+                .UseSelection();
+
+            descriptor
+                .Field(f => f.GetStudentsGroups())
+                .Authorize()
+                .Type<NonNullType<ListType<NonNullType<StudentGroupedGroupDtoGraphType>>>>()
+                .Name("studentsGroups");
+        }
+
+        private void ConfigureTestVariants(IObjectTypeDescriptor<GraphQlQueriesHandlers> descriptor)
+        {
             descriptor
                 .Field(f => f.GetStudentTestSessionVariants(default))
                 .Authorize(AuthorizationPolicyNames.StudentsOnly)
@@ -148,8 +155,16 @@ namespace SHT.Api.Web.GraphQl.Queries
                 .Type<TestVariantDtoGraphType>()
                 .Name("testVariant")
                 .UseSingleOrDefault()
+                .UseSelection()
                 .UseFiltering<TestVariantDto>(filterDescriptor =>
                     filterDescriptor.Filter(e => e.Id).AllowEquals());
+
+            descriptor
+                .Field(f => f.GetVariantsLookups())
+                .Authorize(AuthorizationPolicyNames.InstructorsOnly)
+                .Type<NonNullType<ListType<NonNullType<LookupGraphType>>>>()
+                .Name("testVariantLookups")
+                .UseSelection();
 
             descriptor.Field(f => f.GetTestVariants())
                 .Authorize(AuthorizationPolicyNames.InstructorsOnly)
@@ -157,13 +172,25 @@ namespace SHT.Api.Web.GraphQl.Queries
                 .Name("testVariants")
                 .UseOffsetBasedPaging<TestVariantDtoGraphType, TestVariantDto>()
                 .UseCustomSelection<TestVariantDto>();
+        }
 
+        private void ConfigureQuestions(IObjectTypeDescriptor<GraphQlQueriesHandlers> descriptor)
+        {
             descriptor.Field(f => f.GetQuestions())
                 .Authorize(AuthorizationPolicyNames.InstructorsOnly)
                 .Type<NonNullType<ListType<NonNullType<QuestionDtoGraphType>>>>()
                 .Name("questions")
                 .UseOffsetBasedPaging<QuestionDtoGraphType, QuestionDto>()
                 .UseCustomSelection<QuestionDto>();
+
+            descriptor.Field(f => f.GetQuestion())
+                .Authorize(AuthorizationPolicyNames.InstructorsOnly)
+                .Type<QuestionDtoGraphType>()
+                .Name("question")
+                .UseSingleOrDefault()
+                .UseSelection()
+                .UseFiltering<QuestionDto>(filterDescriptor =>
+                    filterDescriptor.Filter(e => e.Id).AllowEquals());
         }
     }
 }

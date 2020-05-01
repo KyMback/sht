@@ -4,7 +4,7 @@ using SHT.Application.StateMachineConfigs.Core;
 using SHT.Application.StateMachineConfigs.StudentTestSessions;
 using SHT.Domain.Models.Tests;
 using SHT.Domain.Models.Tests.Students;
-using SHT.Domain.Services.Tests.Student;
+using SHT.Domain.Services.Student;
 using SHT.Infrastructure.Common.Transactions;
 using SHT.Infrastructure.DataAccess.Abstractions;
 

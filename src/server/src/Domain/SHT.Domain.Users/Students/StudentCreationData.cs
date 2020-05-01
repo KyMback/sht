@@ -1,4 +1,4 @@
-namespace SHT.Domain.Services.Users.Students
+namespace SHT.Domain.Users.Students
 {
     public class StudentCreationData
     {

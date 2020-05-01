@@ -2,7 +2,9 @@ import { Input } from "reactstrap";
 import React, { useCallback } from "react";
 import { ControlProps } from "./index";
 
-export interface InputControlProps extends ControlProps<string | undefined> {
+export type TextInputValue = string | undefined;
+
+export interface InputControlProps extends ControlProps<TextInputValue> {
     className?: string;
     type?: "password" | "text" | "email";
     valid?: boolean;

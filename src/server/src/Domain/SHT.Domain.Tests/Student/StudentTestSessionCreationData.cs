@@ -1,6 +1,6 @@
 using System;
 
-namespace SHT.Domain.Services.Tests.Student
+namespace SHT.Domain.Services.Student
 {
     public class StudentTestSessionCreationData
     {

@@ -1,7 +1,6 @@
 using Autofac;
-using SHT.Domain.Services.Users;
-using SHT.Domain.Services.Users.Accounts;
-using SHT.Domain.Services.Users.Students;
+using SHT.Domain.Users.Accounts;
+using SHT.Domain.Users.Students;
 using SHT.Infrastructure.Common.Extensions;
 
 namespace SHT.Domain.Users

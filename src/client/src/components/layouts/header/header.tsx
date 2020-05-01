@@ -27,7 +27,7 @@ export const Header = ({ logo, navItems, additionalItem }: Props) => {
 
     return (
         <header>
-            <Navbar dark color="primary" expand>
+            <Navbar className="header-navbar" dark color="primary" expand>
                 <NavbarBrand className="clickable" onClick={routingStore.gotoBase}>
                     {logo ? ensureLocal(logo) : "Logo"}
                 </NavbarBrand>

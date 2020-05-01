@@ -1,11 +1,11 @@
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SHT.Domain.Models.Tests;
+using SHT.Domain.Models.Questions;
 using SHT.Domain.Models.Users;
 using SHT.Infrastructure.EF.Configs.Extensions;
 
-namespace SHT.Infrastructure.EF.Configs.Configs.Tests
+namespace SHT.Infrastructure.EF.Configs.Configs.Questions
 {
     [UsedImplicitly]
     internal class QuestionTemplateConfig : BaseEntityConfig<QuestionTemplate>
@@ -13,7 +13,13 @@ namespace SHT.Infrastructure.EF.Configs.Configs.Tests
         protected override void ConfigureEntity(EntityTypeBuilder<QuestionTemplate> builder)
         {
             builder.Property(e => e.Name).HasMediumMaxLength().IsRequired();
-            builder.Property(e => e.Text).HasLargeMaxLength().IsRequired();
+
+            builder.OwnsOne(e => e.FreeTextQuestionTemplate, navigationBuilder =>
+            {
+                navigationBuilder.ToTable("FreeTextQuestionTemplate");
+                navigationBuilder.HasKey(e => e.Id);
+                navigationBuilder.Property(e => e.Question).HasLargeMaxLength().IsRequired();
+            });
 
             builder
                 .HasOne<Instructor>()

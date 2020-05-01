@@ -1,6 +1,6 @@
 using System;
 using SHT.Domain.Common.Core;
-using SHT.Domain.Models.Tests;
+using SHT.Domain.Models.Questions;
 
 namespace SHT.Domain.Questions.Templates
 {
@@ -8,9 +8,12 @@ namespace SHT.Domain.Questions.Templates
     {
         public Guid? Id { get; set; }
 
+        public Guid? CreatedById { get; set; }
+
         protected override void AddFilters()
         {
             FilterIfHasValue(Id, question => question.Id == Id.Value);
+            FilterIfHasValue(CreatedById, question => question.CreatedById == CreatedById.Value);
         }
     }
 }

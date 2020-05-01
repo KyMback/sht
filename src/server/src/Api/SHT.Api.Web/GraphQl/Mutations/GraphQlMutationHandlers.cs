@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using MediatR;
 using SHT.Application.Common;
+using SHT.Application.Questions.Contracts;
+using SHT.Application.Questions.Create;
+using SHT.Application.Questions.Update;
 using SHT.Application.Tests.StudentQuestions.Answer;
 using SHT.Application.Tests.StudentsTestSessions.StateTransition;
 using SHT.Application.Tests.TestSessions.Contracts;
@@ -85,6 +88,16 @@ namespace SHT.Api.Web.GraphQl.Mutations
         public Task<Unit> TestSessionStateTransition(Guid testSessionId, string trigger)
         {
             return _mediator.Send(new TestSessionStateTransitionRequest(testSessionId, trigger));
+        }
+
+        public Task<CreatedEntityResponse> CreateQuestion(QuestionEditDetailsDto data)
+        {
+            return _mediator.Send(new CreateQuestionRequest(data));
+        }
+
+        public Task<Unit> UpdateQuestion(Guid id, QuestionEditDetailsDto data)
+        {
+            return _mediator.Send(new UpdateQuestionRequest(data, id));
         }
     }
 }

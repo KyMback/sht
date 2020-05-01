@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using SHT.Application.StateMachineConfigs.Core;
 using SHT.Domain.Models.Tests;
 using SHT.Domain.Models.Tests.Students;
-using SHT.Domain.Services.Tests;
+using SHT.Domain.Services;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Application.StateMachineConfigs.StudentTestSessions.Guards

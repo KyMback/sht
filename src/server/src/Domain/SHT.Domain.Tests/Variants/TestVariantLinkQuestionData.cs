@@ -1,6 +1,6 @@
 using System;
 
-namespace SHT.Domain.Services.Tests.Variants
+namespace SHT.Domain.Services.Variants
 {
     public class TestVariantLinkQuestionData
     {

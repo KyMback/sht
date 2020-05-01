@@ -2,7 +2,7 @@ using System;
 using SHT.Domain.Common.Core;
 using SHT.Domain.Models.Users;
 
-namespace SHT.Domain.Services.Users.Accounts
+namespace SHT.Domain.Users.Accounts
 {
     public class AccountQueryParameters : BaseQueryParameters<Account>
     {
