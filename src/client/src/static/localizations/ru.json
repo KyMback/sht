@@ -1,5 +1,5 @@
 {
-    "UnexpectedErrorHappened": "Проищошла непредвиденная ошибка.\n Идентификатор: {id}\n Код: {code}",
+    "UnexpectedErrorHappened": "Произошла непредвиденная ошибка.\n Идентификатор: {id}\n Код: {code}",
     "validation_required": "Это поле обязательно к заполнению.",
     "validation_repeatPasswordNotEqual": "Пароли должны быть одинаковыми.",
     "validation_invalidEmailAddress": "Неверный адрес электронной почты.",
@@ -63,6 +63,7 @@
     "OpenTestDashboard": "Открыть панель управления тестом",
     "StudentQuestions_Questions": "Вопросы",
     "QuestionType_FreeText": "Свободный ответ",
+    "QuestionType_QuestionWithChoice": "Вопрос с выбором",
     "Question_TitleTemplate": "Вопрос: {number}",
     "BackToQuestionsList": "Вернуться к списку вопросов",
     "Question": "Вопрос",

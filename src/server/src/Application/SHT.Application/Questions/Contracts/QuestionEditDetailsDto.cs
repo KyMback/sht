@@ -11,5 +11,7 @@ namespace SHT.Application.Questions.Contracts
         public QuestionType Type { get; set; }
 
         public FreeTextQuestionDto FreeTextQuestionData { get; set; }
+
+        public ChoiceQuestionDto ChoiceQuestionData { get; set; }
     }
 }

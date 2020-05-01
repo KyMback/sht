@@ -180,15 +180,15 @@ namespace SHT.Api.Web.GraphQl.Queries
                 .Authorize(AuthorizationPolicyNames.InstructorsOnly)
                 .Type<NonNullType<ListType<NonNullType<QuestionDtoGraphType>>>>()
                 .Name("questions")
-                .UseOffsetBasedPaging<QuestionDtoGraphType, QuestionDto>()
-                .UseCustomSelection<QuestionDto>();
+                .UseOffsetBasedPaging<QuestionDtoGraphType, QuestionDto>();
 
             descriptor.Field(f => f.GetQuestion())
                 .Authorize(AuthorizationPolicyNames.InstructorsOnly)
                 .Type<QuestionDtoGraphType>()
                 .Name("question")
                 .UseSingleOrDefault()
-                .UseSelection()
+                // TODO: currently exists issue with creating expression to nested owned entities
+                // .UseSelection()
                 .UseFiltering<QuestionDto>(filterDescriptor =>
                     filterDescriptor.Filter(e => e.Id).AllowEquals());
         }

@@ -16,6 +16,21 @@ mutation($data: QuestionEditDetailsDtoInput!, $id: Uuid!) {
 }
 `;
 
+interface QuestionsDetails {
+    name: string;
+    type: QuestionType;
+    freeTextQuestion: {
+        question: string;
+    };
+    choiceQuestion: {
+        options: Array<{
+            id: string;
+            isCorrect: boolean;
+            text: string;
+        }>;
+    };
+}
+
 const getQuestionDetailsQuery = `
 query($id: Uuid!) {
   question(where: { id: $id }) {
@@ -24,9 +39,34 @@ query($id: Uuid!) {
     freeTextQuestion {
       question
     }
+    choiceQuestion {
+      options {
+        id
+        isCorrect
+        text
+      }
+    }
   }
 }
 `;
+
+interface QuestionsExtendedDetails {
+    name: string;
+    type: QuestionType;
+    createdBy: {
+        id: string;
+        email: string;
+    };
+    freeTextQuestion: {
+        question: string;
+    };
+    choiceQuestion: {
+        options: Array<{
+            isCorrect: boolean;
+            text: string;
+        }>;
+    };
+}
 
 const getQuestionExtendedDetailsQuery = `
 query($id: Uuid!) {
@@ -40,9 +80,25 @@ query($id: Uuid!) {
     freeTextQuestion {
       question
     }
+    choiceQuestion {
+      options {
+        isCorrect
+        text
+      }
+      questionText
+    }
   }
 }
 `;
+
+export interface QuestionListItem {
+    id: string;
+    createdBy: {
+        email: string;
+    };
+    name: string;
+    type: QuestionType;
+}
 
 const getListItemsQuery = `
 query($pageNumber: Int!, $pageSize: Int!) {
@@ -59,35 +115,6 @@ query($pageNumber: Int!, $pageSize: Int!) {
   }
 }
 `;
-
-interface QuestionsDetails {
-    name: string;
-    type: QuestionType;
-    freeTextQuestion: {
-        question: string;
-    };
-}
-
-interface QuestionsExtendedDetails {
-    name: string;
-    type: QuestionType;
-    createdBy: {
-        id: string;
-        email: string;
-    };
-    freeTextQuestion: {
-        question: string;
-    };
-}
-
-export interface QuestionListItem {
-    id: string;
-    createdBy: {
-        email: string;
-    };
-    name: string;
-    type: QuestionType;
-}
 
 export class QuestionsActionsService {
     public static getExtendedDetails = async (id: string): Promise<QuestionsExtendedDetails> => {

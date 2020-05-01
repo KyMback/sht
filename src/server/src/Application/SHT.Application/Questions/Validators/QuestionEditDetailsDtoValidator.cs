@@ -14,6 +14,10 @@ namespace SHT.Application.Questions.Validators
             {
                 RuleFor(e => e.FreeTextQuestionData).NotNull().SetValidator(new FreeTextQuestionDtoValidator());
             });
+            When(e => e.Type == QuestionType.QuestionWithChoice, () =>
+            {
+                RuleFor(e => e.ChoiceQuestionData).NotNull().SetValidator(new ChoiceQuestionDtoValidator());
+            });
         }
     }
 }

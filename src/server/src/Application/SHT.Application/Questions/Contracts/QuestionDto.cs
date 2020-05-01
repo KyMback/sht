@@ -17,7 +17,12 @@ namespace SHT.Application.Questions.Contracts
                     Id = question.Id,
                     Name = question.Name,
                     Type = question.Type,
-                    FreeTextQuestion = FreeTextQuestionDto.Selector.Invoke(question.FreeTextQuestionTemplate),
+                    FreeTextQuestion = question.FreeTextQuestionTemplate != null
+                        ? FreeTextQuestionDto.Selector.Invoke(question.FreeTextQuestionTemplate)
+                        : null,
+                    ChoiceQuestion = question.ChoiceQuestionTemplate != null
+                        ? ChoiceQuestionDto.Selector.Invoke(question.ChoiceQuestionTemplate)
+                        : null,
                     CreatedBy = InstructorDto.Selector.Invoke(question.CreatedBy),
                 });
 
@@ -26,6 +31,8 @@ namespace SHT.Application.Questions.Contracts
         public string Name { get; set; }
 
         public FreeTextQuestionDto FreeTextQuestion { get; set; }
+
+        public ChoiceQuestionDto ChoiceQuestion { get; set; }
 
         public QuestionType Type { get; set; }
 

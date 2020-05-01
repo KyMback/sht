@@ -20,6 +20,18 @@ namespace SHT.Infrastructure.EF.Configs.Configs.Questions
                 navigationBuilder.Property(e => e.Question).HasLargeMaxLength().IsRequired();
             });
 
+            builder.OwnsOne(e => e.ChoiceQuestionTemplate, navigationBuilder =>
+            {
+                navigationBuilder.ToTable("ChoiceQuestionTemplate");
+                navigationBuilder.HasKey(e => e.Id);
+                navigationBuilder.Property(e => e.QuestionText).HasLargeMaxLength().IsRequired();
+                navigationBuilder.OwnsMany(e => e.Options, ownedNavigationBuilder =>
+                {
+                    ownedNavigationBuilder.ToTable("ChoiceQuestionTemplateOption");
+                    ownedNavigationBuilder.Property(e => e.Text).HasLargeMaxLength().IsRequired();
+                });
+            });
+
             builder
                 .HasOne(e => e.CreatedBy)
                 .WithMany()

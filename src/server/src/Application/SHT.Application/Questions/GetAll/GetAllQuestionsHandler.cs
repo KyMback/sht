@@ -22,6 +22,7 @@ namespace SHT.Application.Questions.GetAll
         public Task<IQueryable<QuestionDto>> Handle(GetAllQuestionsRequest request, CancellationToken cancellationToken)
         {
             var queryParameters = new QuestionTemplateQueryParameters();
+            var s = QuestionDto.Selector;
 
             return Task.FromResult(queryParameters.ToQuery(_queryProvider).Select(QuestionDto.Selector));
         }
