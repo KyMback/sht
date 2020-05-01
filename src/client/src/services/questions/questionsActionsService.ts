@@ -33,7 +33,10 @@ query($id: Uuid!) {
   question(where: { id: $id }) {
     name
     type
-    createdById
+    createdBy {
+      id
+      email
+    }
     freeTextQuestion {
       question
     }
@@ -46,7 +49,9 @@ query($pageNumber: Int!, $pageSize: Int!) {
   questions(pageNumber: $pageNumber, pageSize: $pageSize) {
     items {
       id
-      createdById
+      createdBy {
+        email
+      }
       name
       type
     }
@@ -66,7 +71,10 @@ interface QuestionsDetails {
 interface QuestionsExtendedDetails {
     name: string;
     type: QuestionType;
-    createdById: string;
+    createdBy: {
+        id: string;
+        email: string;
+    };
     freeTextQuestion: {
         question: string;
     };
@@ -74,7 +82,9 @@ interface QuestionsExtendedDetails {
 
 export interface QuestionListItem {
     id: string;
-    createdById: string;
+    createdBy: {
+        email: string;
+    };
     name: string;
     type: QuestionType;
 }

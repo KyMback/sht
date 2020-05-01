@@ -40,6 +40,7 @@ export const QuestionsListPage = () => {
                             <div>
                                 <EnumLocal enumObject={QuestionType} value={item.type} />
                             </div>
+                            <div>{item.createdBy.email}</div>
                         </ListGroupItem>
                     ))}
                 </ListGroup>

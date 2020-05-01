@@ -80,5 +80,6 @@
     "Questions": "Questions",
     "Name": "Name",
     "QuestionText": "Question Text",
-    "Type": "Type"
+    "Type": "Type",
+    "Owner": "Owner"
 }

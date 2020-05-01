@@ -53,6 +53,11 @@ export const QuestionViewPage = observer(() => {
                         <LabeledEnum title="Type" enumObject={QuestionType} value={store.type} />
                     </DefaultCol>
                 </Row>
+                <Row>
+                    <DefaultCol>
+                        <LabeledText title="Owner" value={store.createdByEmail} />
+                    </DefaultCol>
+                </Row>
             </CardSection>
             <QuestionSpecialSection store={store} />
         </CardSectionsGroup>

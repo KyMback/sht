@@ -2,7 +2,6 @@ using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SHT.Domain.Models.Questions;
-using SHT.Domain.Models.Users;
 using SHT.Infrastructure.EF.Configs.Extensions;
 
 namespace SHT.Infrastructure.EF.Configs.Configs.Questions
@@ -22,7 +21,7 @@ namespace SHT.Infrastructure.EF.Configs.Configs.Questions
             });
 
             builder
-                .HasOne<Instructor>()
+                .HasOne(e => e.CreatedBy)
                 .WithMany()
                 .HasForeignKey(e => e.CreatedById)
                 .OnDelete(DeleteBehavior.ClientCascade);

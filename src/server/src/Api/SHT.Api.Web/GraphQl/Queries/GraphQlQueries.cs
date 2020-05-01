@@ -121,7 +121,7 @@ namespace SHT.Api.Web.GraphQl.Queries
             descriptor
                 .Field(f => f.GetInstructorProfile())
                 .Authorize(AuthorizationPolicyNames.InstructorsOnly)
-                .Type<NonNullType<InstructorProfileDtoGraphType>>()
+                .Type<NonNullType<InstructorDtoGraphType>>()
                 .Name("instructorProfile")
                 .UseSingleOrDefault()
                 .UseSelection();

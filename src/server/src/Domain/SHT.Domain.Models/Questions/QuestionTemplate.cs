@@ -1,6 +1,7 @@
 using System;
 using SHT.Domain.Models.Common;
 using SHT.Domain.Models.Tests;
+using SHT.Domain.Models.Users;
 
 namespace SHT.Domain.Models.Questions
 {
@@ -11,6 +12,8 @@ namespace SHT.Domain.Models.Questions
         public QuestionType Type { get; set; }
 
         public Guid CreatedById { get; set; }
+
+        public virtual Instructor CreatedBy { get; set; }
 
         public virtual FreeTextQuestionTemplate FreeTextQuestionTemplate { get; set; }
     }

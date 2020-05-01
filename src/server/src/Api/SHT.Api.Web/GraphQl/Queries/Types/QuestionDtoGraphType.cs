@@ -11,7 +11,7 @@ namespace SHT.Api.Web.GraphQl.Queries.Types
             descriptor.Field(e => e.Name).Type<NonNullType<StringType>>();
             descriptor.Field(e => e.FreeTextQuestion).Type<FreeTextQuestionDtoGraphType>();
             descriptor.Field(e => e.Type).Type<QuestionTypeGraphType>();
-            descriptor.Field(e => e.CreatedById);
+            descriptor.Field(e => e.CreatedBy).Type<NonNullType<InstructorDtoGraphType>>();
         }
     }
 }

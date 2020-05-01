@@ -12,7 +12,7 @@ namespace SHT.Application.Users.Instructors.GetProfile
 {
     [UsedImplicitly]
     internal class GetInstructorProfileHandler :
-        IRequestHandler<GetInstructorProfileRequest, IQueryable<InstructorProfileDto>>
+        IRequestHandler<GetInstructorProfileRequest, IQueryable<InstructorDto>>
     {
         private readonly IQueryProvider _queryProvider;
         private readonly IExecutionContextAccessor _executionContextAccessor;
@@ -25,11 +25,11 @@ namespace SHT.Application.Users.Instructors.GetProfile
             _executionContextAccessor = executionContextAccessor;
         }
 
-        public Task<IQueryable<InstructorProfileDto>> Handle(GetInstructorProfileRequest request, CancellationToken cancellationToken)
+        public Task<IQueryable<InstructorDto>> Handle(GetInstructorProfileRequest request, CancellationToken cancellationToken)
         {
             var queryParameters = new InstructorQueryParameters(_executionContextAccessor.GetCurrentUserId());
 
-            return Task.FromResult(queryParameters.ToQuery(_queryProvider).Select(InstructorProfileDto.Selector));
+            return Task.FromResult(queryParameters.ToQuery(_queryProvider).Select(InstructorDto.Selector));
         }
     }
 }

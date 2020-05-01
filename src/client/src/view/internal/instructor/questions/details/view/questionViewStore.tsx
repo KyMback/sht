@@ -11,6 +11,7 @@ export class QuestionViewStore implements AsyncInitializable {
     @observable public name: string = "";
     @observable public type?: QuestionType;
     @observable public createdById?: string;
+    @observable public createdByEmail?: string;
 
     @observable public freeTextQuestionStore?: FreeTextQuestionViewSectionStore;
 
@@ -41,7 +42,8 @@ export class QuestionViewStore implements AsyncInitializable {
         runInAction(() => {
             this.name = data.name;
             this.type = data.type;
-            this.createdById = data.createdById;
+            this.createdById = data.createdBy.id;
+            this.createdByEmail = data.createdBy.email;
 
             switch (data.type) {
                 case QuestionType.FreeText:

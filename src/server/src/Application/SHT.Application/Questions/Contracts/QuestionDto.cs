@@ -1,6 +1,7 @@
 using System;
 using System.Linq.Expressions;
 using LinqKit;
+using SHT.Application.Users.Instructors.Contracts;
 using SHT.Common.Utils;
 using SHT.Domain.Models.Questions;
 using SHT.Domain.Models.Tests;
@@ -17,7 +18,7 @@ namespace SHT.Application.Questions.Contracts
                     Name = question.Name,
                     Type = question.Type,
                     FreeTextQuestion = FreeTextQuestionDto.Selector.Invoke(question.FreeTextQuestionTemplate),
-                    CreatedById = question.CreatedById,
+                    CreatedBy = InstructorDto.Selector.Invoke(question.CreatedBy),
                 });
 
         public Guid Id { get; set; }
@@ -28,6 +29,6 @@ namespace SHT.Application.Questions.Contracts
 
         public QuestionType Type { get; set; }
 
-        public Guid CreatedById { get; set; }
+        public InstructorDto CreatedBy { get; set; }
     }
 }

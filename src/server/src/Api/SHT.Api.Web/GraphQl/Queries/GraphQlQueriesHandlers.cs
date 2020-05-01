@@ -48,7 +48,7 @@ namespace SHT.Api.Web.GraphQl.Queries
             return _mediator.Send(new GetPasswordRulesRequest());
         }
 
-        public Task<IQueryable<InstructorProfileDto>> GetInstructorProfile()
+        public Task<IQueryable<InstructorDto>> GetInstructorProfile()
         {
             return _mediator.Send(new GetInstructorProfileRequest());
         }
