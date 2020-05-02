@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SHT.Domain.Models.Questions;
+using SHT.Domain.Models.Questions.WithChoice;
 using SHT.Infrastructure.EF.Configs.Extensions;
 
 namespace SHT.Infrastructure.EF.Configs.Configs.Questions
@@ -13,24 +14,15 @@ namespace SHT.Infrastructure.EF.Configs.Configs.Questions
         {
             builder.Property(e => e.Name).HasMediumMaxLength().IsRequired();
 
-            builder.OwnsOne(e => e.FreeTextQuestionTemplate, navigationBuilder =>
-            {
-                navigationBuilder.ToTable("FreeTextQuestionTemplate");
-                navigationBuilder.HasKey(e => e.Id);
-                navigationBuilder.Property(e => e.Question).HasLargeMaxLength().IsRequired();
-            });
+            builder.HasOne(e => e.FreeTextQuestionTemplate)
+                .WithOne()
+                .HasForeignKey<FreeTextQuestionTemplate>(e => e.QuestionTemplateId)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            builder.OwnsOne(e => e.ChoiceQuestionTemplate, navigationBuilder =>
-            {
-                navigationBuilder.ToTable("ChoiceQuestionTemplate");
-                navigationBuilder.HasKey(e => e.Id);
-                navigationBuilder.Property(e => e.QuestionText).HasLargeMaxLength().IsRequired();
-                navigationBuilder.OwnsMany(e => e.Options, ownedNavigationBuilder =>
-                {
-                    ownedNavigationBuilder.ToTable("ChoiceQuestionTemplateOption");
-                    ownedNavigationBuilder.Property(e => e.Text).HasLargeMaxLength().IsRequired();
-                });
-            });
+            builder.HasOne(e => e.ChoiceQuestionTemplate)
+                .WithOne()
+                .HasForeignKey<ChoiceQuestionTemplate>(e => e.QuestionTemplateId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder
                 .HasOne(e => e.CreatedBy)
