@@ -23,6 +23,7 @@ interface QuestionsDetails {
         question: string;
     };
     choiceQuestion: {
+        questionText: string;
         options: Array<{
             id: string;
             isCorrect: boolean;
@@ -40,6 +41,7 @@ query($id: Uuid!) {
       question
     }
     choiceQuestion {
+      questionText
       options {
         id
         isCorrect

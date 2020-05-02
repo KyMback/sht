@@ -12,10 +12,12 @@ namespace SHT.Application.Questions.Validators
             RuleFor(e => e.Name).NotEmpty().MaximumLength(LengthConstants.Medium);
             When(e => e.Type == QuestionType.FreeText, () =>
             {
+                RuleFor(e => e.ChoiceQuestionData).Null();
                 RuleFor(e => e.FreeTextQuestionData).NotNull().SetValidator(new FreeTextQuestionDtoValidator());
             });
             When(e => e.Type == QuestionType.QuestionWithChoice, () =>
             {
+                RuleFor(e => e.FreeTextQuestionData).Null();
                 RuleFor(e => e.ChoiceQuestionData).NotNull().SetValidator(new ChoiceQuestionDtoValidator());
             });
         }

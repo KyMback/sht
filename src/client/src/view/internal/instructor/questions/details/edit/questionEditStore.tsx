@@ -5,6 +5,7 @@ import { QuestionEditDetailsDto, QuestionType } from "../../../../../../typings/
 import { FreeTextQuestionEditSectionStore } from "./sections/freeText/freeTextQuestionEditSectionStore";
 import { QuestionsActionsService } from "../../../../../../services/questions/questionsActionsService";
 import { notifications } from "../../../../../../components/notifications/notifications";
+import { QuestionWithChoiceEditSectionStore } from "./sections/withChoice/questionWithChoiceEditSectionStore";
 
 export class QuestionEditStore implements AsyncInitializable {
     @observable public id?: string;
@@ -12,6 +13,7 @@ export class QuestionEditStore implements AsyncInitializable {
     @observable public type?: QuestionType;
 
     @observable public freeTextStore?: FreeTextQuestionEditSectionStore;
+    @observable public choiceQuestionStore?: QuestionWithChoiceEditSectionStore;
 
     @computed
     public get isNew(): boolean {
@@ -79,6 +81,10 @@ export class QuestionEditStore implements AsyncInitializable {
             switch (data.type) {
                 case QuestionType.FreeText:
                     this.freeTextStore!.setData(data.freeTextQuestion!);
+                    break;
+                case QuestionType.QuestionWithChoice:
+                    this.choiceQuestionStore!.setData(data.choiceQuestion!);
+                    break;
             }
         });
     };
@@ -88,6 +94,7 @@ export class QuestionEditStore implements AsyncInitializable {
             type: this.type,
             name: this.name,
             freeTextQuestionData: this.freeTextStore && this.freeTextStore.getDto(),
+            choiceQuestionData: this.choiceQuestionStore && this.choiceQuestionStore.getDto(),
         });
     };
 
@@ -95,6 +102,11 @@ export class QuestionEditStore implements AsyncInitializable {
         switch (type) {
             case QuestionType.FreeText:
                 this.freeTextStore = new FreeTextQuestionEditSectionStore();
+                this.choiceQuestionStore = undefined;
+                return;
+            case QuestionType.QuestionWithChoice:
+                this.choiceQuestionStore = new QuestionWithChoiceEditSectionStore();
+                this.freeTextStore = undefined;
                 return;
             default:
                 throw new Error(`Not supported question type: ${type}`);

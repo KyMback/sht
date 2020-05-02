@@ -1,3 +1,4 @@
+using System.Linq;
 using AutoMapper;
 using JetBrains.Annotations;
 using MoreLinq;
@@ -17,16 +18,8 @@ namespace SHT.Application.Questions
             CreateMap<QuestionEditDetailsDto, QuestionTemplate>()
                 .Map(d => d.Name, s => s.Name)
                 .Map(d => d.Type, s => s.Type)
-                .ForMember(d => d.FreeTextQuestionTemplate, o =>
-                {
-                    o.Condition(dto => dto.Type == QuestionType.FreeText);
-                    o.MapFrom(s => s.FreeTextQuestionData);
-                })
-                .ForMember(d => d.ChoiceQuestionTemplate, o =>
-                {
-                    o.Condition(dto => dto.Type == QuestionType.QuestionWithChoice);
-                    o.MapFrom(s => s.ChoiceQuestionData);
-                })
+                .ForMember(d => d.FreeTextQuestionTemplate,  o => o.MapFrom(s => s.FreeTextQuestionData))
+                .ForMember(d => d.ChoiceQuestionTemplate, o => o.MapFrom(s => s.ChoiceQuestionData))
                 .IgnoreAllOther();
 
             CreateMap<FreeTextQuestionDto, FreeTextQuestionTemplate>()
@@ -37,12 +30,12 @@ namespace SHT.Application.Questions
                 .Map(d => d.QuestionText, s => s.QuestionText)
                 .AfterMap((dto, template, ctx) =>
                 {
-                    dto.Options.LeftJoin(
+                    template.Options = dto.Options.LeftJoin(
                         template.Options,
                         optionDto => optionDto.Id,
                         option => option.Id,
                         optionDto => ctx.Mapper.Map<ChoiceQuestionTemplateOption>(optionDto),
-                        (optionDto, option) => ctx.Mapper.Map(optionDto, option));
+                        (optionDto, option) => ctx.Mapper.Map(optionDto, option)).ToList();
                 })
                 .IgnoreAllOther();
 

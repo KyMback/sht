@@ -13,6 +13,8 @@ export const icons = {
     delete: "delete_forever",
     close: "close",
     language: "language",
+    checked: "check_box",
+    unchecked: "check_box_outline_blank",
 } as const;
 
 export const Icon = ({ icon }: Props) => {

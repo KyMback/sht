@@ -82,5 +82,10 @@
     "QuestionText": "Текст вопроса",
     "Name": "Имя",
     "Type": "Тип",
-    "Owner": "Владелец"
+    "Owner": "Владелец",
+    "AnswersVariants": "Варианты ответов",
+    "Text": "Текст",
+    "IsCorrect": "Верный ответ",
+    "AddNewAnswerVariant": "Добавить новый вариант ответа",
+    "AnswerVariantText": "Текст варианта ответа"
 }

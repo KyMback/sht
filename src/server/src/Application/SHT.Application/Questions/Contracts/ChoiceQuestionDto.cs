@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
 using LinqKit;
@@ -22,6 +23,7 @@ namespace SHT.Application.Questions.Contracts
 
         public string QuestionText { get; set; }
 
+        [Required]
         public IList<ChoiceQuestionOptionDto> Options { get; set; }
     }
 }

@@ -14,6 +14,7 @@ import { QuestionType } from "../../../../../../typings/dataContracts";
 import { Row } from "reactstrap";
 import { DefaultCol } from "../../../../../../components/layouts/defaultCol";
 import { FormEnumSelect, FormInput } from "../../../../../../components/forms";
+import { QuestionWithChoiceEditSection } from "./sections/withChoice/questionWithChoiceEditSection";
 
 const actions: GuardedActions<QuestionEditStore> = [
     {
@@ -76,6 +77,8 @@ const QuestionSpecialSection = observer(({ store }: PropsWithStore<QuestionEditS
     switch (store.type) {
         case QuestionType.FreeText:
             return <FreeTextQuestionEditSection store={store.freeTextStore!} />;
+        case QuestionType.QuestionWithChoice:
+            return <QuestionWithChoiceEditSection store={store.choiceQuestionStore!} />;
         default:
             return null;
     }

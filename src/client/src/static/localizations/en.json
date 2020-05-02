@@ -82,5 +82,10 @@
     "Name": "Name",
     "QuestionText": "Question Text",
     "Type": "Type",
-    "Owner": "Owner"
+    "Owner": "Owner",
+    "AnswersVariants": "Answers Variants",
+    "Text": "Text",
+    "IsCorrect": "Is Correct",
+    "AddNewAnswerVariant": "Add New Answer Variant",
+    "AnswerVariantText": "Answer Variant Text"
 }
