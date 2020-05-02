@@ -2,19 +2,18 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using SHT.Infrastructure.DataAccess.Abstractions;
-using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.IQueryProvider;
+using SHT.Infrastructure.DataAccess.Abstractions.QueryParameters;
 
 namespace SHT.Infrastructure.DataAccess.EF
 {
     public static class QueryParametersApplier
     {
         public static IQueryable<TEntity> ApplyQueryParameters<TEntity>(
-            IQueryProvider queryProvider,
+            IQueryable<TEntity> queryable,
             IQueryParameters<TEntity> queryParameters)
             where TEntity : class
         {
-            var queryable = ApplyCommonQueryParameters(queryProvider, queryParameters);
+            queryable = ApplyCommonQueryParameters(queryable, queryParameters);
 
             if (queryParameters.IsUniq)
             {
@@ -25,27 +24,40 @@ namespace SHT.Infrastructure.DataAccess.EF
         }
 
         public static IQueryable<TData> ApplyQueryParameters<TEntity, TData>(
-            IQueryProvider queryProvider,
+            IQueryable<TEntity> queryable,
             IQueryParameters<TEntity> queryParameters,
             Expression<Func<TEntity, TData>> selector)
             where TEntity : class
         {
-            var queryable = ApplyCommonQueryParameters(queryProvider, queryParameters).Select(selector);
+            var selectQueryable = ApplyCommonQueryParameters(queryable, queryParameters).Select(selector);
 
             if (queryParameters.IsUniq)
             {
-                queryable = queryable.Distinct();
+                selectQueryable = selectQueryable.Distinct();
             }
 
-            return queryable;
+            return selectQueryable;
         }
 
         private static IQueryable<TEntity> ApplyCommonQueryParameters<TEntity>(
-            IQueryProvider queryProvider,
+            IQueryable<TEntity> queryable,
             IQueryParameters<TEntity> queryParameters)
             where TEntity : class
         {
-            var queryable = queryParameters.ToQuery(queryProvider);
+            queryParameters.ApplyRules();
+
+            foreach (var filter in queryParameters.Filters)
+            {
+                queryable = queryable.Where(filter);
+            }
+
+            foreach (var queryParametersSort in queryParameters.Sorts)
+            {
+                queryable = queryParametersSort.Type == SortType.Ascending
+                    ? queryable.OrderBy(queryParametersSort.SortExpression)
+                    : queryable.OrderByDescending(queryParametersSort.SortExpression);
+            }
+
             foreach (var expression in queryParameters.Included)
             {
                 queryable = queryable.Include(expression);

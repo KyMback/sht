@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 using MediatR;
 using SHT.Application.Questions.Contracts;
 using SHT.Domain.Questions.Templates;
-using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.IQueryProvider;
+using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.QueryParameters.IQueryProvider;
 
 namespace SHT.Application.Questions.GetAll
 {
@@ -24,7 +24,7 @@ namespace SHT.Application.Questions.GetAll
             var queryParameters = new QuestionTemplateQueryParameters();
             var s = QuestionDto.Selector;
 
-            return Task.FromResult(queryParameters.ToQuery(_queryProvider).Select(QuestionDto.Selector));
+            return Task.FromResult(_queryProvider.Queryable(queryParameters).Select(QuestionDto.Selector));
         }
     }
 }

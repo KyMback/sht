@@ -6,7 +6,7 @@ using MediatR;
 using SHT.Application.Users.Instructors.Contracts;
 using SHT.Domain.Users;
 using SHT.Infrastructure.Common;
-using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.IQueryProvider;
+using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.QueryParameters.IQueryProvider;
 
 namespace SHT.Application.Users.Instructors.GetProfile
 {
@@ -29,7 +29,7 @@ namespace SHT.Application.Users.Instructors.GetProfile
         {
             var queryParameters = new InstructorQueryParameters(_executionContextAccessor.GetCurrentUserId());
 
-            return Task.FromResult(queryParameters.ToQuery(_queryProvider).Select(InstructorDto.Selector));
+            return Task.FromResult(_queryProvider.Queryable(queryParameters).Select(InstructorDto.Selector));
         }
     }
 }

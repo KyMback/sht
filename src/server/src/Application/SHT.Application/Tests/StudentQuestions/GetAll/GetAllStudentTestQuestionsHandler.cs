@@ -6,7 +6,7 @@ using MediatR;
 using SHT.Application.Tests.StudentQuestions.Contracts;
 using SHT.Domain.Services.Student.Questions;
 using SHT.Infrastructure.Common;
-using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.IQueryProvider;
+using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.QueryParameters.IQueryProvider;
 
 namespace SHT.Application.Tests.StudentQuestions.GetAll
 {
@@ -34,7 +34,7 @@ namespace SHT.Application.Tests.StudentQuestions.GetAll
                 StudentId = _executionContextAccessor.GetCurrentUserId(),
             };
 
-            return Task.FromResult(queryParameters.ToQuery(_queryProvider).Select(StudentTestQuestionDto.Selector));
+            return Task.FromResult(_queryProvider.Queryable(queryParameters).Select(StudentTestQuestionDto.Selector));
         }
     }
 }

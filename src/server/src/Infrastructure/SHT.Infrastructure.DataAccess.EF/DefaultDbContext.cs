@@ -9,11 +9,13 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SHT.Infrastructure.DataAccess.Abstractions;
 using SHT.Infrastructure.DataAccess.Abstractions.Options;
+using SHT.Infrastructure.DataAccess.Abstractions.QueryParameters;
 using SHT.Infrastructure.EF.Configs;
+using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.QueryParameters.IQueryProvider;
 
 namespace SHT.Infrastructure.DataAccess.EF
 {
-    public class DefaultDbContext : DbContext, Abstractions.IQueryProvider, IUnitOfWork, IEntitiesTracker, IDataProtectionKeyContext
+    public class DefaultDbContext : DbContext, IQueryProvider, IUnitOfWork, IEntitiesTracker, IDataProtectionKeyContext
     {
         private readonly IOptions<DataAccessOptions> _dataAccessOptions;
         private readonly Lazy<IEnumerable<IBeforeCommitHandler>> _beforeCommitHandlers;
@@ -33,6 +35,12 @@ namespace SHT.Infrastructure.DataAccess.EF
 
         public IQueryable<TEntity> Queryable<TEntity>()
             where TEntity : class => Set<TEntity>().AsQueryable();
+
+        public IQueryable<TEntity> Queryable<TEntity>(IQueryParameters<TEntity> queryParameters)
+            where TEntity : class
+        {
+            return Query(queryParameters);
+        }
 
         public async Task Commit()
         {
@@ -181,7 +189,7 @@ namespace SHT.Infrastructure.DataAccess.EF
         private IQueryable<TEntity> Query<TEntity>(IQueryParameters<TEntity> queryParameters)
             where TEntity : class
         {
-            return QueryParametersApplier.ApplyQueryParameters(this, queryParameters);
+            return QueryParametersApplier.ApplyQueryParameters(Queryable<TEntity>(), queryParameters);
         }
 
         private IQueryable<TData> Query<TEntity, TData>(
@@ -189,7 +197,7 @@ namespace SHT.Infrastructure.DataAccess.EF
             Expression<Func<TEntity, TData>> selector)
             where TEntity : class
         {
-            return QueryParametersApplier.ApplyQueryParameters(this, queryParameters, selector);
+            return QueryParametersApplier.ApplyQueryParameters(Queryable<TEntity>(), queryParameters, selector);
         }
     }
 }

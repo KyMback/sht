@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
+using SHT.Infrastructure.DataAccess.Abstractions.QueryParameters;
 
 namespace SHT.Infrastructure.DataAccess.Abstractions
 {

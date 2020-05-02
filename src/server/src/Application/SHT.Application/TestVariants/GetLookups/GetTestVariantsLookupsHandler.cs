@@ -6,7 +6,7 @@ using MediatR;
 using SHT.Application.Common;
 using SHT.Domain.Services.Variants;
 using SHT.Infrastructure.Common;
-using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.IQueryProvider;
+using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.QueryParameters.IQueryProvider;
 
 namespace SHT.Application.TestVariants.GetLookups
 {
@@ -31,7 +31,7 @@ namespace SHT.Application.TestVariants.GetLookups
                 CreatedById = _executionContextAccessor.GetCurrentUserId(),
             };
 
-            return Task.FromResult(queryParameters.ToQuery(_queryProvider).Select(LookupSelectors.VariantSelector));
+            return Task.FromResult(_queryProvider.Queryable(queryParameters).Select(LookupSelectors.VariantSelector));
         }
     }
 }

@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 
-namespace SHT.Infrastructure.DataAccess.Abstractions
+namespace SHT.Infrastructure.DataAccess.Abstractions.QueryParameters
 {
     public interface IQueryParameters<TEntity>
         where TEntity : class
@@ -16,6 +15,10 @@ namespace SHT.Infrastructure.DataAccess.Abstractions
 
         IList<Expression<Func<TEntity, object>>> Included { get; set; }
 
-        IQueryable<TEntity> ToQuery(IQueryProvider queryProvider);
+        IList<Expression<Func<TEntity, bool>>> Filters { get; set; }
+
+        IList<SortOptions<TEntity>> Sorts { get; set; }
+
+        void ApplyRules();
     }
 }

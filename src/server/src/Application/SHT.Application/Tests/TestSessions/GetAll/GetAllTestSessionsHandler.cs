@@ -6,7 +6,7 @@ using MediatR;
 using SHT.Application.Tests.TestSessions.Contracts;
 using SHT.Domain.Services;
 using SHT.Infrastructure.Common;
-using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.IQueryProvider;
+using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.QueryParameters.IQueryProvider;
 
 namespace SHT.Application.Tests.TestSessions.GetAll
 {
@@ -29,7 +29,7 @@ namespace SHT.Application.Tests.TestSessions.GetAll
                 InstructorId = _executionContextAccessor.GetCurrentUserId(),
             };
 
-            return Task.FromResult(queryParameters.ToQuery(_queryProvider).Select(TestSessionDetailsDto.Selector));
+            return Task.FromResult(_queryProvider.Queryable(queryParameters).Select(TestSessionDetailsDto.Selector));
         }
     }
 }

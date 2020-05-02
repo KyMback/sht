@@ -2,6 +2,7 @@ using Autofac;
 using Microsoft.EntityFrameworkCore;
 using SHT.Infrastructure.Common.Extensions;
 using SHT.Infrastructure.DataAccess.Abstractions;
+using SHT.Infrastructure.DataAccess.Abstractions.QueryParameters;
 
 namespace SHT.Infrastructure.DataAccess.EF
 {

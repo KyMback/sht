@@ -7,7 +7,7 @@ using SHT.Application.Tests.StudentsTestSessions.Contracts;
 using SHT.Domain.Models.Tests;
 using SHT.Domain.Services.Student;
 using SHT.Infrastructure.Common;
-using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.IQueryProvider;
+using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.QueryParameters.IQueryProvider;
 
 namespace SHT.Application.Tests.StudentsTestSessions.GetAll
 {
@@ -35,7 +35,7 @@ namespace SHT.Application.Tests.StudentsTestSessions.GetAll
                 ExceptTestSessionState = TestSessionStates.Pending,
             };
 
-            return Task.FromResult(queryParameters.ToQuery(_queryProvider).Select(StudentTestSessionDto.Selector));
+            return Task.FromResult(_queryProvider.Queryable(queryParameters).Select(StudentTestSessionDto.Selector));
         }
     }
 }

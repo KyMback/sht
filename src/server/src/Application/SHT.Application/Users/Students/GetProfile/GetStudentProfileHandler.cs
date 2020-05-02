@@ -6,7 +6,7 @@ using MediatR;
 using SHT.Application.Users.Students.Contracts;
 using SHT.Domain.Users;
 using SHT.Infrastructure.Common;
-using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.IQueryProvider;
+using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.QueryParameters.IQueryProvider;
 
 namespace SHT.Application.Users.Students.GetProfile
 {
@@ -27,7 +27,7 @@ namespace SHT.Application.Users.Students.GetProfile
         public Task<IQueryable<StudentProfileDto>> Handle(GetStudentProfileRequest request, CancellationToken cancellationToken)
         {
             var queryParameters = new StudentQueryParameters(_executionContextAccessor.GetCurrentUserId());
-            return Task.FromResult(queryParameters.ToQuery(_queryProvider).Select(StudentProfileDto.Selector));
+            return Task.FromResult(_queryProvider.Queryable(queryParameters).Select(StudentProfileDto.Selector));
         }
     }
 }

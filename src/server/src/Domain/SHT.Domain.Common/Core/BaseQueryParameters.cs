@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using SHT.Common.Extensions;
 using SHT.Infrastructure.DataAccess.Abstractions;
-using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.IQueryProvider;
+using SHT.Infrastructure.DataAccess.Abstractions.QueryParameters;
 
 namespace SHT.Domain.Common.Core
 {
@@ -20,16 +19,18 @@ namespace SHT.Domain.Common.Core
         IList<Expression<Func<TEntity, object>>> IQueryParameters<TEntity>.Included { get; set; } =
             new List<Expression<Func<TEntity, object>>>();
 
-        protected IQueryable<TEntity> Queryable { get; private set; }
+        IList<Expression<Func<TEntity, bool>>> IQueryParameters<TEntity>.Filters { get; set; } =
+            new List<Expression<Func<TEntity, bool>>>();
 
-        public IQueryable<TEntity> ToQuery(IQueryProvider queryProvider)
+        IList<SortOptions<TEntity>> IQueryParameters<TEntity>.Sorts { get; set; } = new List<SortOptions<TEntity>>();
+
+        private IQueryParameters<TEntity> QueryParameters => this;
+
+        public void ApplyRules()
         {
-            Queryable = queryProvider.Queryable<TEntity>();
-
             AddFilters();
             AddSorting();
-
-            return Queryable;
+            AddIncluded();
         }
 
         protected void FilterIfHasValue<TValue>(TValue? value, Expression<Func<TEntity, bool>> predicate)
@@ -58,22 +59,22 @@ namespace SHT.Domain.Common.Core
 
         protected void Filter(Expression<Func<TEntity, bool>> predicate)
         {
-            Queryable = Queryable.Where(predicate);
+            QueryParameters.Filters.Add(predicate);
         }
 
-        protected void SortAscIf<TKey>(bool predicate, Expression<Func<TEntity, TKey>> keySelector)
+        protected void SortAscIf(bool predicate, Expression<Func<TEntity, object>> keySelector)
         {
             if (predicate)
             {
-                Queryable = Queryable.OrderBy(keySelector);
+                QueryParameters.Sorts.Add(new SortOptions<TEntity>(SortType.Ascending, keySelector));
             }
         }
 
-        protected void SortDescIf<TKey>(bool predicate, Expression<Func<TEntity, TKey>> keySelector)
+        protected void SortDescIf(bool predicate, Expression<Func<TEntity, object>> keySelector)
         {
             if (predicate)
             {
-                Queryable = Queryable.OrderByDescending(keySelector);
+                QueryParameters.Sorts.Add(new SortOptions<TEntity>(SortType.Descending, keySelector));
             }
         }
 
@@ -81,7 +82,7 @@ namespace SHT.Domain.Common.Core
         {
             if (predicate)
             {
-                ((IQueryParameters<TEntity>)this).Included.Add(expression);
+                QueryParameters.Included.Add(expression);
             }
         }
 
