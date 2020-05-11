@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using SHT.Application.StateMachineConfigs.Core;
-using SHT.Domain.Models.Tests.Students;
+using SHT.Domain.Models.TestSessions.Students;
 using SHT.Domain.Services;
 using SHT.Infrastructure.Common;
 using SHT.Infrastructure.DataAccess.Abstractions;

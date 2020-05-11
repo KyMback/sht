@@ -1,6 +1,7 @@
 using System;
 using SHT.Domain.Common.Core;
 using SHT.Domain.Models.Tests;
+using SHT.Domain.Models.TestSessions;
 
 namespace SHT.Domain.Services
 {

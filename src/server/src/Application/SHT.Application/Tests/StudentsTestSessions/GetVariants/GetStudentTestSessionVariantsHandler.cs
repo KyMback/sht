@@ -33,7 +33,7 @@ namespace SHT.Application.Tests.StudentsTestSessions.GetVariants
 
             var result = await _unitOfWork.GetSingle(
                 queryParameters,
-                session => session.TestSession.TestSessionTestVariants.Select(e => e.Name).ToArray());
+                session => session.TestSession.Variants.Select(e => e.Name).ToArray());
 
             return result;
         }

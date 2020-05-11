@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using SHT.Domain.Models.Tests.Students;
+using SHT.Domain.Models.TestSessions.Students;
 using SHT.Domain.Services.Variants;
 using SHT.Infrastructure.Common;
 using SHT.Infrastructure.DataAccess.Abstractions;

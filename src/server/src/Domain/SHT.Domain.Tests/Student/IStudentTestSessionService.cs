@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using SHT.Domain.Models.Tests.Students;
+using SHT.Domain.Models.TestSessions.Students;
 
 namespace SHT.Domain.Services.Student
 {

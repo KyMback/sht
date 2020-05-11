@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using SHT.Domain.Models;
 using SHT.Domain.Models.Tests;
+using SHT.Domain.Models.TestSessions;
 
 namespace SHT.JsonSchemasGenerator
 {

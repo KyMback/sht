@@ -58,12 +58,12 @@ namespace SHT.Api.Web.GraphQl.Queries
             return _mediator.Send(new GetStudentProfileRequest());
         }
 
-        public Task<IQueryable<TestSessionDetailsDto>> GetTestSessionListItems()
+        public Task<IQueryable<TestSessionDto>> GetTestSessionListItems()
         {
             return _mediator.Send(new GetAllTestSessionsRequest());
         }
 
-        public Task<IQueryable<TestSessionDetailsDto>> GetTestSessionDetails()
+        public Task<IQueryable<TestSessionDto>> GetTestSessionDetails()
         {
             return _mediator.Send(new GetAllTestSessionsRequest());
         }

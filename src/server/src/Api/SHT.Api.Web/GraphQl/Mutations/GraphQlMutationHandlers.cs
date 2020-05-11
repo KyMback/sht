@@ -9,6 +9,7 @@ using SHT.Application.Questions.Update;
 using SHT.Application.Tests.StudentQuestions.Answer;
 using SHT.Application.Tests.StudentsTestSessions.StateTransition;
 using SHT.Application.Tests.TestSessions.Contracts;
+using SHT.Application.Tests.TestSessions.Contracts.Edit;
 using SHT.Application.Tests.TestSessions.Create;
 using SHT.Application.Tests.TestSessions.StateTransition;
 using SHT.Application.Tests.TestSessions.Update;
@@ -75,12 +76,12 @@ namespace SHT.Api.Web.GraphQl.Mutations
             return _mediator.Send(new StudentTestSessionStateTransitionRequest(studentTestSessionId, trigger, serializedData));
         }
 
-        public Task<CreatedEntityResponse> CreateTestSession(TestSessionModificationDataDto data)
+        public Task<CreatedEntityResponse> CreateTestSession(TestSessionModificationData data)
         {
             return _mediator.Send(new CreateTestSessionRequest(data));
         }
 
-        public Task<Unit> UpdateTestSession(TestSessionModificationDataDto data, Guid testSessionId)
+        public Task<Unit> UpdateTestSession(TestSessionModificationData data, Guid testSessionId)
         {
             return _mediator.Send(new UpdateTestSessionRequest(data, testSessionId));
         }

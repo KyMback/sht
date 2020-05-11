@@ -49,7 +49,7 @@ interface LoadedData {
         state: string;
         testVariants: Array<{
             name: string;
-            testVariantId: string;
+            id: string;
         }>;
     };
     triggers: Array<string>;
@@ -58,14 +58,14 @@ interface LoadedData {
 async function loadData(id: string): Promise<LoadedData> {
     const query = `
 query q($id:Uuid!) {
-  testSession:testSessionDetails(where:{ id:$id }) {
+  testSession(where:{ id:$id }) {
     id
     name
     studentsIds
     state
     testVariants {
       name
-      testVariantId
+      id
     }
   }
   

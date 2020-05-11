@@ -2,8 +2,9 @@ import React from "react";
 import { Card, CardTitle } from "reactstrap";
 import { KeyOrJSX } from "../../../typings/customTypings";
 import { ensureLocal } from "../../../core/localization/local";
-import { GenericButton, GenericButtonProps } from "../../buttons/genericButton/genericButton";
+import { GenericButtonProps } from "../../buttons/genericButton/genericButton";
 import { CardSectionBottomActions } from "./cardSectionBottomActions";
+import { ActionsGroup } from "../actions/actionsGroup";
 
 interface Props {
     title?: KeyOrJSX;
@@ -21,13 +22,7 @@ export const CardSection = ({ title, className, children, actions, bottomActions
             {(title || actions) && (
                 <CardTitle className="d-flex justify-content-between">
                     {title && <div className="title">{ensureLocal(title)}</div>}
-                    {actions && (
-                        <div className="actions">
-                            {actions.map((item, index) => (
-                                <GenericButton {...item} key={index} />
-                            ))}
-                        </div>
-                    )}
+                    {actions && <ActionsGroup actions={actions} />}
                 </CardTitle>
             )}
             {children}

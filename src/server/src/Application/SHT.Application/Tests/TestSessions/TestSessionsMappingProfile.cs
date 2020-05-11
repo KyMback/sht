@@ -1,7 +1,13 @@
+using System.Linq;
 using AutoMapper;
 using JetBrains.Annotations;
-using SHT.Application.Tests.TestSessions.Contracts;
-using SHT.Domain.Services;
+using MoreLinq.Extensions;
+using SHT.Application.Tests.TestSessions.Contracts.Edit;
+using SHT.Domain.Models.TestSessions;
+using SHT.Domain.Models.TestSessions.Students;
+using SHT.Domain.Models.TestSessions.Variants;
+using SHT.Domain.Models.TestSessions.Variants.Questions;
+using SHT.Infrastructure.Common.Extensions;
 
 namespace SHT.Application.Tests.TestSessions
 {
@@ -10,8 +16,77 @@ namespace SHT.Application.Tests.TestSessions
     {
         public TestSessionsMappingProfile()
         {
-            CreateMap<TestSessionModificationDataDto, TestSessionModificationData>();
-            CreateMap<TestSessionVariantDataDto, TestSessionVariantData>();
+            CreateMap<TestSessionModificationData, TestSession>()
+                .Map(d => d.Name, s => s.Name)
+                .AfterMap((source, destination, ctx) =>
+                {
+                    destination.StudentTestSessions = source.StudentsIds.LeftJoin(
+                        destination.StudentTestSessions,
+                        s => s,
+                        d => d.StudentId,
+                        s => new StudentTestSession
+                        {
+                            StudentId = s,
+                        },
+                        (s, d) => d)
+                        .ToList();
+
+                    destination.Variants = source.Variants.LeftJoin(
+                        destination.Variants,
+                        e => e.Id,
+                        e => e.Id,
+                        e => ctx.Mapper.Map<TestSessionVariant>(e),
+                        (dto, testVariant) => ctx.Mapper.Map(dto, testVariant))
+                        .ToList();
+                })
+                .IgnoreAllOther();
+
+            CreateMap<TestSessionVariantModificationData, TestSessionVariant>()
+                .Map(d => d.Name, s => s.Name)
+                .Map(d => d.IsRandomOrder, s => s.IsRandomOrder)
+                .AfterMap((source, destination, ctx) =>
+                {
+                    destination.Questions = source.Questions.LeftJoin(
+                            destination.Questions,
+                            s => s.Id,
+                            d => d.Id,
+                            s => ctx.Mapper.Map<TestSessionVariantQuestion>(s),
+                            (s, d) => ctx.Mapper.Map(s, d))
+                        .ToList();
+                })
+                .IgnoreAllOther();
+
+            CreateMap<TestSessionVariantQuestionModificationData, TestSessionVariantQuestion>()
+                .Map(d => d.Name, s => s.Name)
+                .Map(d => d.Order, s => s.Order)
+                .Map(d => d.Type, s => s.Type)
+                .Map(d => d.ChoiceQuestion, s => s.ChoiceQuestion)
+                .Map(d => d.FreeTextQuestion, s => s.FreeTextQuestion)
+                .Map(d => d.SourceQuestionId, s => s.SourceQuestionId)
+                .IgnoreAllOther();
+
+            CreateMap<TestSessionVariantFreeTextQuestionModificationData, TestSessionVariantFreeTextQuestion>()
+                .Map(d => d.QuestionText, s => s.QuestionText)
+                .IgnoreAllOther();
+
+            CreateMap<TestSessionVariantChoiceQuestionModificationData, TestSessionVariantChoiceQuestion>()
+                .Map(d => d.QuestionText, s => s.QuestionText)
+                .AfterMap((source, destination, ctx) =>
+                {
+                    destination.Options = source.Options.LeftJoin(
+                            destination.Options,
+                            s => s.Id,
+                            d => d.Id,
+                            s => ctx.Mapper.Map<TestSessionVariantChoiceQuestionOption>(s),
+                            (s, d) => ctx.Mapper.Map(s, d))
+                        .ToList();
+                })
+                .IgnoreAllOther();
+
+            CreateMap<TestSessionVariantChoiceQuestionOptionModificationData, TestSessionVariantChoiceQuestionOption>()
+                .Map(d => d.Text, s => s.Text)
+                .Map(d => d.IsCorrect, s => s.IsCorrect)
+                .IgnoreAllOther();
         }
     }
 }

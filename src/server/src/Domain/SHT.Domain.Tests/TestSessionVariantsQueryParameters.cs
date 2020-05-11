@@ -1,10 +1,12 @@
 using System;
 using SHT.Domain.Common.Core;
 using SHT.Domain.Models.Tests;
+using SHT.Domain.Models.TestSessions;
+using SHT.Domain.Models.TestSessions.Variants;
 
 namespace SHT.Domain.Services
 {
-    public class TestSessionVariantsQueryParameters : BaseQueryParameters<TestSessionTestVariant>
+    public class TestSessionVariantsQueryParameters : BaseQueryParameters<TestSessionVariant>
     {
         public string Name { get; set; }
 

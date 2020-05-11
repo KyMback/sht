@@ -9,9 +9,6 @@ namespace SHT.Domain.Models.Tests
     {
         public string Name { get; set; }
 
-        public virtual IList<TestSessionTestVariant> TestSessionTestVariants { get; set; } =
-            new List<TestSessionTestVariant>();
-
         public virtual IList<TestVariantQuestion> Questions { get; set; } = new List<TestVariantQuestion>();
 
         public Guid CreatedById { get; set; }

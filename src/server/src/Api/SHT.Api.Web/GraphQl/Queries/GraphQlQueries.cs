@@ -2,6 +2,7 @@ using HotChocolate.Types;
 using SHT.Api.Web.GraphQl.Extensions;
 using SHT.Api.Web.GraphQl.Queries.Types;
 using SHT.Api.Web.GraphQl.Queries.Types.StudentTestSessions;
+using SHT.Api.Web.GraphQl.Queries.Types.TestSessions;
 using SHT.Api.Web.Security.Constants;
 using SHT.Application.Questions.Contracts;
 using SHT.Application.Tests.StudentQuestions.Contracts;
@@ -26,11 +27,11 @@ namespace SHT.Api.Web.GraphQl.Queries
             descriptor
                 .Field(f => f.GetTestSessionListItems())
                 .Authorize(AuthorizationPolicyNames.InstructorsOnly)
-                .Type<NonNullType<ListType<NonNullType<TestSessionDetailsDtoGraphType>>>>()
+                .Type<NonNullType<ListType<NonNullType<TestSessionDtoGraphType>>>>()
                 .Name("testSessionListItems")
-                .UseOffsetBasedPaging<TestSessionDetailsDtoGraphType, TestSessionDetailsDto>()
-                .UseCustomSelection<TestSessionDetailsDto>()
-                .UseSorting<TestSessionDetailsDto>(typeDescriptor =>
+                .UseOffsetBasedPaging<TestSessionDtoGraphType, TestSessionDto>()
+                .UseCustomSelection<TestSessionDto>()
+                .UseSorting<TestSessionDto>(typeDescriptor =>
                 {
                     typeDescriptor.BindFieldsExplicitly();
                     typeDescriptor.Sortable(e => e.CreatedAt);
@@ -39,11 +40,11 @@ namespace SHT.Api.Web.GraphQl.Queries
             descriptor
                 .Field(f => f.GetTestSessionDetails())
                 .Authorize(AuthorizationPolicyNames.InstructorsOnly)
-                .Type<TestSessionDetailsDtoGraphType>()
-                .Name("testSessionDetails")
+                .Type<TestSessionDtoGraphType>()
+                .Name("testSession")
                 .UseSingleOrDefault()
-                .UseSelection()
-                .UseFiltering<TestSessionDetailsDto>(filterDescriptor =>
+                // .UseSelection()
+                .UseFiltering<TestSessionDto>(filterDescriptor =>
                     filterDescriptor.Filter(p => p.Id).AllowEquals());
 
             descriptor

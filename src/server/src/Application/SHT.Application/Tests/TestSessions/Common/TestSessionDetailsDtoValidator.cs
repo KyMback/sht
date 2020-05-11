@@ -3,7 +3,7 @@ using SHT.Application.Tests.TestSessions.Contracts;
 
 namespace SHT.Application.Tests.TestSessions.Common
 {
-    internal class TestSessionDetailsDtoValidator : AbstractValidator<TestSessionDetailsDto>
+    internal class TestSessionDetailsDtoValidator : AbstractValidator<TestSessionDto>
     {
         public TestSessionDetailsDtoValidator()
         {

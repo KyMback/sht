@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using SHT.Domain.Common.Exceptions;
-using SHT.Domain.Models.Tests.Students;
+using SHT.Domain.Models.TestSessions.Students;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Domain.Services.Student.Questions

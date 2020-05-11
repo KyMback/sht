@@ -46,10 +46,13 @@ class LocalStore {
         this.intlShape = this.createIntl();
     };
 
-    public getLocalizedMessage = (key: string): string => {
-        return this.intlShape.formatMessage({
-            id: key,
-        });
+    public getLocalizedMessage = (key: string, values?: any): string => {
+        return this.intlShape.formatMessage(
+            {
+                id: key,
+            },
+            values,
+        );
     };
 
     private createIntl = (): IntlShape => {

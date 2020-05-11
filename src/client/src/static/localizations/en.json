@@ -11,6 +11,7 @@
     "validation_passwordRequireNonAlphanumeric": "Require at least one non alphanumeric symbol.",
     "SuccessfullySaved": "Successfully Saved",
     "Login": "Login",
+    "Add": "Add",
     "Password": "Password",
     "SignIn": "Sign in",
     "SignUp": "Sign up",
@@ -87,5 +88,9 @@
     "Text": "Text",
     "IsCorrect": "Is Correct",
     "AddNewAnswerVariant": "Add New Answer Variant",
-    "AnswerVariantText": "Answer Variant Text"
+    "AnswerVariantText": "Answer Variant Text",
+    "QuestionLookupItemTemplate": "{type} - {name}",
+    "AddNewQuestion": "Add New Question",
+    "TestSession_IsRandomOrder": "Random order",
+    "ExpandDetails": "Expand Details"
 }

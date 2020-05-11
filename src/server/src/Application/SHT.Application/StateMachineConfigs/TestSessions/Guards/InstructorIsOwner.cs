@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using SHT.Application.StateMachineConfigs.Core;
 using SHT.Domain.Models.Tests;
+using SHT.Domain.Models.TestSessions;
 using SHT.Infrastructure.Common;
 
 namespace SHT.Application.StateMachineConfigs.TestSessions.Guards

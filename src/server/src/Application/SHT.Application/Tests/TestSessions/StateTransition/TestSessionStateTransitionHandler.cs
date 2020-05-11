@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 using MediatR;
 using SHT.Application.StateMachineConfigs.Core;
 using SHT.Domain.Models.Tests;
+using SHT.Domain.Models.TestSessions;
 using SHT.Domain.Services;
 using SHT.Infrastructure.DataAccess.Abstractions;
 

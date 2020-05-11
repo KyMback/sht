@@ -13,9 +13,9 @@ export interface GenericButtonProps {
 
 export const GenericButton = ({ icon, onClick, color, text }: GenericButtonProps) => {
     return (
-        <Button color={color} onClick={onClick}>
+        <Button color={color} onClick={onClick} className="d-flex">
             {icon && <Icon icon={icon} />}
-            {text && ensureLocal(text)}
+            <span>{text && ensureLocal(text)}</span>
         </Button>
     );
 };

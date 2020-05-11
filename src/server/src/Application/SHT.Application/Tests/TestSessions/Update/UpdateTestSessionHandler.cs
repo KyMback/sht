@@ -3,7 +3,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using JetBrains.Annotations;
 using MediatR;
+using SHT.Application.Tests.TestSessions.Contracts.Edit;
 using SHT.Domain.Models.Tests;
+using SHT.Domain.Models.TestSessions;
 using SHT.Domain.Services;
 using SHT.Infrastructure.Common;
 using SHT.Infrastructure.DataAccess.Abstractions;
@@ -32,7 +34,6 @@ namespace SHT.Application.Tests.TestSessions.Update
 
         public async Task<Unit> Handle(UpdateTestSessionRequest request, CancellationToken cancellationToken)
         {
-            var data = _mapper.Map<TestSessionModificationData>(request.Data);
             var queryParameters = new TestSessionQueryParameters
             {
                 Id = request.TestSessionId,
@@ -40,7 +41,8 @@ namespace SHT.Application.Tests.TestSessions.Update
                 IsReadOnly = false,
             };
             TestSession testSession = await _unitOfWork.GetSingle(queryParameters);
-            await _testSessionService.Update(testSession, data);
+            _mapper.Map(request.Data, testSession);
+            await _testSessionService.Update(testSession);
 
             return default;
         }

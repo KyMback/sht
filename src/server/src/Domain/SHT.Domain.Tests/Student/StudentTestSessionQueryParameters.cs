@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using SHT.Domain.Common.Core;
-using SHT.Domain.Models.Tests.Students;
+using SHT.Domain.Models.TestSessions.Students;
 
 namespace SHT.Domain.Services.Student
 {

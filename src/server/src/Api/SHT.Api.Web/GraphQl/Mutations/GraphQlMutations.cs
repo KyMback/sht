@@ -1,6 +1,7 @@
 using HotChocolate.Types;
 using SHT.Api.Web.GraphQl.Common;
 using SHT.Api.Web.GraphQl.Mutations.Types;
+using SHT.Api.Web.GraphQl.Mutations.Types.TestSession;
 using SHT.Api.Web.Security.Constants;
 
 namespace SHT.Api.Web.GraphQl.Mutations
@@ -76,7 +77,7 @@ namespace SHT.Api.Web.GraphQl.Mutations
                 .Type<NonNullType<CreatedEntityResponseGraphType>>()
                 .Authorize(AuthorizationPolicyNames.InstructorsOnly)
                 .Argument("data", argumentDescriptor =>
-                    argumentDescriptor.Type<NonNullType<TestSessionModificationDataDtoInputGraphType>>());
+                    argumentDescriptor.Type<NonNullType<TestSessionInputGraphType>>());
 
             descriptor.Field(e => e.UpdateTestSession(default, default))
                 .Name("updateTestSession")
@@ -85,7 +86,7 @@ namespace SHT.Api.Web.GraphQl.Mutations
                 .Argument("testSessionId", argumentDescriptor =>
                     argumentDescriptor.Type<NonNullType<IdType>>())
                 .Argument("data", argumentDescriptor =>
-                    argumentDescriptor.Type<NonNullType<TestSessionModificationDataDtoInputGraphType>>());
+                    argumentDescriptor.Type<NonNullType<TestSessionInputGraphType>>());
 
             descriptor.Field(e => e.TestSessionStateTransition(default, default))
                 .Name("testSessionStateTransition")

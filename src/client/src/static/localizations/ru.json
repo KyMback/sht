@@ -11,6 +11,7 @@
     "validation_passwordRequireNonAlphanumeric": "Требуется хотя бы один не буквенно-цифровой символ.",
     "SuccessfullySaved": "Успешно сохранено",
     "Login": "Логин",
+    "Add": "Добавить",
     "Password": "Пароль",
     "SignIn": "Войти в систему",
     "SignUp": "Зарегистрироваться",
@@ -87,5 +88,9 @@
     "Text": "Текст",
     "IsCorrect": "Верный ответ",
     "AddNewAnswerVariant": "Добавить новый вариант ответа",
-    "AnswerVariantText": "Текст варианта ответа"
+    "AnswerVariantText": "Текст варианта ответа",
+    "QuestionLookupItemTemplate": "{type} - {name}",
+    "AddNewQuestion": "Добавить новый вопрос",
+    "TestSession_IsRandomOrder": "Случайный порядок",
+    "ExpandDetails": "Развернуть детали"
 }

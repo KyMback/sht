@@ -1,0 +1,7 @@
+.actions-group {
+    display: flex;
+
+    .btn:not(:last-child) {
+        margin-right: 0.5rem;
+    }
+}

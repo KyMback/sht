@@ -9,7 +9,7 @@ import { required } from "../../../../../components/forms/validations";
 import useAsyncEffect from "use-async-effect";
 import { ListGroup, Row } from "reactstrap";
 import { icons } from "../../../../../components/icons/icon";
-import { SessionTestVariantItem } from "./sessionTestVariantItem";
+import { TestSessionVariant } from "./variants/testSessionVariant";
 import { useParams } from "react-router-dom";
 import { IdParams } from "../../../../../typings/customTypings";
 import { DefaultCol } from "../../../../../components/layouts/defaultCol";
@@ -56,7 +56,7 @@ export const TestSessionEditDetails = observer(() => {
                 >
                     <ListGroup>
                         {store.testVariants.map((tv, index) => (
-                            <SessionTestVariantItem key={index} data={tv} store={store} />
+                            <TestSessionVariant key={index} store={tv} />
                         ))}
                     </ListGroup>
                 </CardSection>

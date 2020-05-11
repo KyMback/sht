@@ -11,7 +11,7 @@ using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.QueryParameter
 namespace SHT.Application.Tests.TestSessions.GetAll
 {
     [UsedImplicitly]
-    internal class GetAllTestSessionsHandler : IRequestHandler<GetAllTestSessionsRequest, IQueryable<TestSessionDetailsDto>>
+    internal class GetAllTestSessionsHandler : IRequestHandler<GetAllTestSessionsRequest, IQueryable<TestSessionDto>>
     {
         private readonly IQueryProvider _queryProvider;
         private readonly IExecutionContextAccessor _executionContextAccessor;
@@ -22,14 +22,14 @@ namespace SHT.Application.Tests.TestSessions.GetAll
             _executionContextAccessor = executionContextAccessor;
         }
 
-        public Task<IQueryable<TestSessionDetailsDto>> Handle(GetAllTestSessionsRequest request, CancellationToken cancellationToken)
+        public Task<IQueryable<TestSessionDto>> Handle(GetAllTestSessionsRequest request, CancellationToken cancellationToken)
         {
             var queryParameters = new TestSessionQueryParameters
             {
                 InstructorId = _executionContextAccessor.GetCurrentUserId(),
             };
 
-            return Task.FromResult(_queryProvider.Queryable(queryParameters).Select(TestSessionDetailsDto.Selector));
+            return Task.FromResult(_queryProvider.Queryable(queryParameters).Select(TestSessionDto.Selector));
         }
     }
 }

@@ -10,5 +10,5 @@ export type CheckboxProps = ControlProps<boolean>;
 export const Checkbox = ({ value, onChange }: CheckboxProps) => {
     const icon = value ? icons.checked : icons.unchecked;
 
-    return <ActionIcon icon={icon} onClick={() => onChange && onChange(!value)} />;
+    return <ActionIcon className="text-primary" icon={icon} onClick={() => onChange && onChange(!value)} />;
 };

@@ -1,16 +1,16 @@
-import { CreatedEntityResponse, TestSessionModificationDataDto } from "../../typings/dataContracts";
+import { CreatedEntityResponse, TestSessionModificationData } from "../../typings/dataContracts";
 import { HttpApi } from "../../core/api/http/httpApi";
 
 const mutations = {
     create: `
-mutation($data: TestSessionModificationDataDtoInput!) {
+mutation($data: TestSessionModificationDataInput!) {
   createTestSession(data: $data) {
     id
   }
 }
 `,
     update: `
-mutation($data: TestSessionModificationDataDtoInput!, $testSessionId: ID!) {
+mutation($data: TestSessionModificationDataInput!, $testSessionId: ID!) {
   updateTestSession(data: $data, testSessionId: $testSessionId)
 }
 `,
@@ -22,7 +22,7 @@ mutation($trigger: String!, $testSessionId: Uuid!) {
 };
 
 export class TestSessionsService {
-    public static create = async (data: TestSessionModificationDataDto): Promise<CreatedEntityResponse> => {
+    public static create = async (data: TestSessionModificationData): Promise<CreatedEntityResponse> => {
         const { createTestSession } = await HttpApi.graphQl<{ createTestSession: CreatedEntityResponse }>(
             mutations.create,
             { data },
@@ -30,7 +30,7 @@ export class TestSessionsService {
         return createTestSession;
     };
 
-    public static update = async (data: TestSessionModificationDataDto, testSessionId: string) => {
+    public static update = async (data: TestSessionModificationData, testSessionId: string) => {
         return HttpApi.graphQl(mutations.update, { data, testSessionId });
     };
 

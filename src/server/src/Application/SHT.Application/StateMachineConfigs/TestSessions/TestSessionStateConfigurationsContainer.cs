@@ -3,6 +3,7 @@ using SHT.Application.StateMachineConfigs.Core;
 using SHT.Application.StateMachineConfigs.TestSessions.Guards;
 using SHT.Application.StateMachineConfigs.TestSessions.Handlers;
 using SHT.Domain.Models.Tests;
+using SHT.Domain.Models.TestSessions;
 
 namespace SHT.Application.StateMachineConfigs.TestSessions
 {

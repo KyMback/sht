@@ -2,7 +2,7 @@ using System;
 using System.Linq.Expressions;
 using SHT.Application.Common;
 using SHT.Domain.Models.Tests;
-using SHT.Domain.Models.Tests.Students;
+using SHT.Domain.Models.TestSessions.Students;
 
 namespace SHT.Application.Tests.StudentQuestions.Contracts
 {

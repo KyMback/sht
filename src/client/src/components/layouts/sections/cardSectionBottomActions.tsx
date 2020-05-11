@@ -1,17 +1,11 @@
-import { GenericButton } from "../../buttons/genericButton/genericButton";
 import React from "react";
 import { CardSectionActionProps } from "./cardSection";
+import { ActionsGroup } from "../actions/actionsGroup";
 
 interface Props {
     actions: Array<CardSectionActionProps>;
 }
 
 export const CardSectionBottomActions = ({ actions }: Props) => {
-    return (
-        <div className="card-section-bottom-actions">
-            {actions.map((item, index) => (
-                <GenericButton {...item} key={index} />
-            ))}
-        </div>
-    );
+    return <ActionsGroup actions={actions} className="card-section-bottom-actions" />;
 };

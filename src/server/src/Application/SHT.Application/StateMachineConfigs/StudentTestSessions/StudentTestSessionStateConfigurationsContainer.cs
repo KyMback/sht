@@ -2,7 +2,7 @@ using JetBrains.Annotations;
 using SHT.Application.StateMachineConfigs.Core;
 using SHT.Application.StateMachineConfigs.StudentTestSessions.Guards;
 using SHT.Application.StateMachineConfigs.StudentTestSessions.Handlers;
-using SHT.Domain.Models.Tests.Students;
+using SHT.Domain.Models.TestSessions.Students;
 
 namespace SHT.Application.StateMachineConfigs.StudentTestSessions
 {

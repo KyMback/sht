@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 using MediatR;
 using SHT.Application.StateMachineConfigs.Core;
-using SHT.Domain.Models.Tests.Students;
+using SHT.Domain.Models.TestSessions.Students;
 using SHT.Domain.Services.Student;
 using SHT.Infrastructure.DataAccess.Abstractions;
 

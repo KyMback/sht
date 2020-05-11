@@ -29,13 +29,8 @@
         }
 
         .card-section-bottom-actions {
-            display: flex;
             margin-top: 1rem;
             justify-content: flex-end;
-
-            .btn:not(:last-child) {
-                margin-right: 0.5rem;
-            }
         }
     }
 }

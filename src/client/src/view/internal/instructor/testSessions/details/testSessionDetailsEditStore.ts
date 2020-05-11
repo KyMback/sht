@@ -1,9 +1,8 @@
 import { TestSessionsService } from "../../../../../services/testSessions/testSessionsService";
 import {
-    Lookup,
+    QuestionType,
     StudentGroupedGroupDto,
-    TestSessionDetailsDto,
-    TestSessionModificationDataDto,
+    TestSessionModificationData,
 } from "../../../../../typings/dataContracts";
 import { routingStore } from "../../../../../stores/routingStore";
 import { action, observable, runInAction } from "mobx";
@@ -12,15 +11,15 @@ import { Dictionary } from "../../../../../typings/customTypings";
 import { pull, intersection, isEmpty } from "lodash";
 import { HttpApi } from "../../../../../core/api/http/httpApi";
 import { notifications } from "../../../../../components/notifications/notifications";
+import { TestSessionVariantStore } from "./variants/testSessionVariantStore";
 
 export class TestSessionDetailsEditStore {
-    @observable id?: string;
-    @observable name?: string;
-    @observable groupedGroups: Dictionary<Array<string>> = {};
-    @observable groups: Array<SelectItem<string>> = [];
-    @observable selectedGroups: Array<SelectItem<string>> = [];
-    @observable testVariantsItems: Array<SelectItem<string>> = [];
-    @observable testVariants: Array<TestVariant> = [];
+    @observable public id?: string;
+    @observable public name?: string;
+    @observable public groupedGroups: Dictionary<Array<string>> = {};
+    @observable public groups: Array<SelectItem<string>> = [];
+    @observable public selectedGroups: Array<SelectItem<string>> = [];
+    @observable public testVariants: Array<TestSessionVariantStore> = [];
 
     constructor(id?: string) {
         this.id = id;
@@ -30,16 +29,15 @@ export class TestSessionDetailsEditStore {
     @action setSelectedGroups = (value?: Array<SelectItem<string>>) => {
         this.selectedGroups = value || [];
     };
-    @action setTestVariantsIds = (value: Array<TestVariant>) => (this.testVariants = value);
 
     @action
     public addNewTestVariant = () => {
-        this.testVariants.push({});
+        this.testVariants.push(new TestSessionVariantStore(this.removeTestVariant));
     };
 
     @action
-    public removeTestVariant = (v: TestVariant) => {
-        this.testVariants = pull(this.testVariants, v);
+    public removeTestVariant = (v: TestSessionVariantStore) => {
+        pull(this.testVariants, v);
     };
 
     public save = async () => {
@@ -63,7 +61,7 @@ export class TestSessionDetailsEditStore {
     };
 
     public loadData = async () => {
-        const { groups, testSession, variants } = await loadData(this.id);
+        const { groups, testSession } = await loadData(this.id);
 
         runInAction(() => {
             this.groupedGroups = groups.reduce((dict, g) => {
@@ -74,53 +72,110 @@ export class TestSessionDetailsEditStore {
                 value: e.groupName,
                 text: e.groupName,
             }));
-            this.testVariantsItems = [...variants];
 
             if (testSession) {
-                this.name = testSession.name;
-                const groups: Array<string> = [];
-                Object.entries(this.groupedGroups).forEach(([key, values]) => {
-                    if (!isEmpty(intersection(values, testSession.studentsIds!))) {
-                        groups.push(key);
-                    }
-                });
-                this.selectedGroups = this.groups.filter(e => groups.includes(e.value));
-                this.testVariants = testSession.testVariants!;
+                this.setData(testSession);
             }
         });
     };
 
-    private getDto = (): TestSessionModificationDataDto => {
-        return TestSessionModificationDataDto.fromJS({
+    @action
+    private setData = (data: TestSessionData) => {
+        this.name = data.name;
+        const groups: Array<string> = [];
+        Object.entries(this.groupedGroups).forEach(([key, values]) => {
+            if (!isEmpty(intersection(values, data.studentsIds!))) {
+                groups.push(key);
+            }
+        });
+        this.selectedGroups = this.groups.filter(e => groups.includes(e.value));
+        this.testVariants = data.testVariants.map(e => {
+            const store = new TestSessionVariantStore(this.removeTestVariant);
+            store.setData(e);
+            return store;
+        });
+    };
+
+    private getDto = (): TestSessionModificationData => {
+        return TestSessionModificationData.fromJS({
+            id: this.id,
             name: this.name,
             studentsIds: this.selectedGroups
                 .map(g => g.value)
                 .map(g => this.groupedGroups[g])
                 .flat(),
-            testVariants: this.testVariants,
+            variants: this.testVariants.map(e => e.getDto()),
         });
     };
 }
 
-export interface TestVariant {
-    testVariantId?: string;
-    name?: string;
-}
-
 interface LoadedData {
-    testSession?: TestSessionDetailsDto;
-    variants: Array<Lookup>;
+    testSession?: TestSessionData;
     groups: Array<StudentGroupedGroupDto>;
 }
 
+interface TestSessionData {
+    id: string;
+    name: string;
+    studentsIds: string[];
+    testVariants: TestVariantData[];
+}
+
+interface TestVariantData {
+    id: string;
+    name: string;
+    isRandomOrder: boolean;
+    questions: Array<{
+        id: string;
+        name: string;
+        order?: number;
+        type: QuestionType;
+        sourceQuestionId: string;
+        choiceQuestion: {
+            id: string;
+            questionText: string;
+            options: Array<{
+                id: string;
+                isCorrect: boolean;
+                text: string;
+            }>;
+        };
+        freeTextQuestion: {
+            id: string;
+            questionText: string;
+        };
+    }>;
+}
+
 const testSessionDetailsQuery = `
-  testSession:testSessionDetails(where:{ id:$id }) {
+  testSession(where:{ id:$id }) {
     id
     name
     studentsIds
     testVariants {
       name
-      testVariantId
+      id
+      isRandomOrder
+      questions {
+        id
+        name
+        order
+        type
+        sourceQuestionId
+        choiceQuestion {
+          id
+          questionText
+          options {
+            id
+            isCorrect
+            text
+          }
+        }
+        freeTextQuestion {
+          id
+          questionText
+        }
+      }
     }
   }
 `;
@@ -129,11 +184,6 @@ async function loadData(id?: string): Promise<LoadedData> {
     const query = `
 query q${id ? "($id:Uuid!)" : ""} {
 ${id ? testSessionDetailsQuery : ""}
-
-  variants:testVariantLookups {
-    text
-    value
-  }
 
   groups:studentsGroups {
     groupName

@@ -1,6 +1,6 @@
 using System;
 using SHT.Domain.Common.Core;
-using SHT.Domain.Models.Tests.Students;
+using SHT.Domain.Models.TestSessions.Students;
 
 namespace SHT.Domain.Services.Student.Questions
 {

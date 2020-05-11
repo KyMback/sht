@@ -15,6 +15,8 @@ export const icons = {
     language: "language",
     checked: "check_box",
     unchecked: "check_box_outline_blank",
+    expand: "expand_more",
+    unExpand: "expand_less",
 } as const;
 
 export const Icon = ({ icon }: Props) => {

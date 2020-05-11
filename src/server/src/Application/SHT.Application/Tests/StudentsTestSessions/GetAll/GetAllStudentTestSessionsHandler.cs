@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 using MediatR;
 using SHT.Application.Tests.StudentsTestSessions.Contracts;
 using SHT.Domain.Models.Tests;
+using SHT.Domain.Models.TestSessions;
 using SHT.Domain.Services.Student;
 using SHT.Infrastructure.Common;
 using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.QueryParameters.IQueryProvider;

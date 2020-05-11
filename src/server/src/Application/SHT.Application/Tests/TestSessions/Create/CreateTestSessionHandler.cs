@@ -4,6 +4,7 @@ using AutoMapper;
 using JetBrains.Annotations;
 using MediatR;
 using SHT.Application.Common;
+using SHT.Domain.Models.TestSessions;
 using SHT.Domain.Services;
 
 namespace SHT.Application.Tests.TestSessions.Create
@@ -26,9 +27,7 @@ namespace SHT.Application.Tests.TestSessions.Create
             CreateTestSessionRequest request,
             CancellationToken cancellationToken)
         {
-            var data = _mapper.Map<TestSessionModificationData>(request.Data);
-            var created = await _testSessionService.Create(data);
-
+            var created = await _testSessionService.Create(_mapper.Map<TestSession>(request.Data));
             return new CreatedEntityResponse(created.Id);
         }
     }
