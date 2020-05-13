@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using SHT.Common.Utils;
 using SHT.Domain.Common.Exceptions;
 using SHT.Domain.Models.TestSessions.Students;
-using SHT.Domain.Services.Student.Questions;
+using SHT.Domain.Models.TestSessions.Variants;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Domain.Services.Student
@@ -10,39 +13,50 @@ namespace SHT.Domain.Services.Student
     internal class StudentTestSessionService : IStudentTestSessionService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IStudentQuestionService _studentQuestionService;
 
-        public StudentTestSessionService(
-            IUnitOfWork unitOfWork,
-            IStudentQuestionService studentQuestionService)
+        public StudentTestSessionService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _studentQuestionService = studentQuestionService;
         }
 
-        public Task Start(StudentTestSession studentTestSession, string variant)
+        public async Task Start(StudentTestSession studentTestSession, Guid variantId)
         {
-            return Task.CompletedTask;
-            // var queryParameters = new TestSessionVariantsQueryParameters
-            // {
-            //     Name = variant,
-            //     TestSessionId = studentTestSession.TestSessionId,
-            // };
-            // Guid? testVariantId =
-            //     await _unitOfWork.GetSingleOrDefault(queryParameters, testVariant => (Guid?)testVariant.TestVariantId);
-            //
-            // if (!testVariantId.HasValue)
-            // {
-            //     throw new CodedException(ErrorCode.InvalidVariantName);
-            // }
-            //
-            // studentTestSession.TestVariant = variant;
-            // await _studentQuestionService.AddQuestionsToStudentTestSession(new StudentQuestionCreationData
-            // {
-            //     TestVariantId = testVariantId.Value,
-            //     StudentTestSessionId = studentTestSession.Id,
-            // });
-            // await _unitOfWork.Update(studentTestSession);
+            var queryParams = new TestSessionVariantsQueryParameters
+            {
+                Id = variantId,
+                TestSessionId = studentTestSession.TestSessionId,
+                IsReadOnly = false,
+            };
+
+            var testVariant = await _unitOfWork.GetSingleOrDefault(queryParams);
+            if (testVariant == null)
+            {
+                throw new CodedException(ErrorCode.InvalidVariantName);
+            }
+
+            studentTestSession.TestVariantId = variantId;
+            studentTestSession.Questions = GenerateQuestions(testVariant);
+            await _unitOfWork.Update(studentTestSession);
+        }
+
+        private IList<StudentTestSessionQuestion> GenerateQuestions(TestSessionVariant variant)
+        {
+            var questions = variant.Questions.Select(e => new StudentTestSessionQuestion
+            {
+                QuestionId = e.Id,
+                Order = e.Order ?? default,
+            }).ToList();
+
+            if (variant.IsRandomOrder)
+            {
+                var orderNumbers = RandomUtils.GenerateRandomSequence(1, questions.Count);
+                for (int i = 0; i < orderNumbers.Count; i++)
+                {
+                    questions[i].Order = orderNumbers[i];
+                }
+            }
+
+            return questions;
         }
     }
 }

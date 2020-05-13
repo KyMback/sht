@@ -29,7 +29,7 @@ namespace SHT.Application.Tests.StudentQuestions.GetAll
             GetAllStudentTestQuestionsRequest request,
             CancellationToken cancellationToken)
         {
-            var queryParameters = new StudentQuestionQueryParameters
+            var queryParameters = new StudentTestSessionQuestionQueryParameters
             {
                 StudentId = _executionContextAccessor.GetCurrentUserId(),
             };

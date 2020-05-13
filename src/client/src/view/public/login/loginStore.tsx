@@ -1,7 +1,6 @@
 import { observable } from "mobx";
 import { AccountService } from "../../../services/accountService";
-import { SignInDataDto, UserType } from "../../../typings/dataContracts";
-import { userContextStore } from "../../../stores/userContextStore";
+import { SignInDataDto } from "../../../typings/dataContracts";
 import { routingStore } from "../../../stores/routingStore";
 import { notifications } from "../../../components/notifications/notifications";
 import { apiErrors, isExpected, LocalError } from "../../../core/api/http/apiError";
@@ -23,9 +22,6 @@ export class LoginStore {
             if (result.succeeded) {
                 await AccountService.updateUserContext();
                 await routingStore.gotoBase();
-                if (userContextStore.userType === UserType.Student) {
-                    notifications.success("SuccessfullySignIn");
-                }
             } else {
                 notifications.error("InvalidLoginOrPassword");
             }

@@ -1,4 +1,5 @@
 using HotChocolate.Types;
+using SHT.Api.Web.GraphQl.Queries.Types.StudentTestSessions.Questions;
 using SHT.Application.Tests.StudentsTestSessions.Contracts;
 
 namespace SHT.Api.Web.GraphQl.Queries.Types.StudentTestSessions
@@ -12,6 +13,8 @@ namespace SHT.Api.Web.GraphQl.Queries.Types.StudentTestSessions
             descriptor.Field(e => e.Name).Type<NonNullType<StringType>>();
             descriptor.Field(e => e.TestVariant).Type<StringType>();
             descriptor.Field(e => e.CreatedAt);
+            descriptor.Field(e => e.Questions)
+                .Type<NonNullType<ListType<NonNullType<StudentTestQuestionDtoGraphType>>>>();
         }
     }
 }

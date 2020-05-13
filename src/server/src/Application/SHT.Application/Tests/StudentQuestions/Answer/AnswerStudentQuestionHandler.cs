@@ -1,9 +1,9 @@
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using JetBrains.Annotations;
 using MediatR;
 using SHT.Domain.Services.Student.Questions;
-using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Application.Tests.StudentQuestions.Answer
 {
@@ -11,22 +11,19 @@ namespace SHT.Application.Tests.StudentQuestions.Answer
     internal class AnswerStudentQuestionHandler : IRequestHandler<AnswerStudentQuestionRequest>
     {
         private readonly IStudentQuestionService _studentQuestionService;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public AnswerStudentQuestionHandler(
-            IStudentQuestionService studentQuestionService,
-            IUnitOfWork unitOfWork)
+        public AnswerStudentQuestionHandler(IStudentQuestionService studentQuestionService, IMapper mapper)
         {
             _studentQuestionService = studentQuestionService;
-            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public async Task<Unit> Handle(AnswerStudentQuestionRequest request, CancellationToken cancellationToken)
         {
-            var data = request.Data;
-            await _studentQuestionService.Answer(data.QuestionId, data.Answer);
-            await _unitOfWork.Commit();
-            return Unit.Value;
+            var answer = _mapper.Map<QuestionGenericAnswer>(request.Data);
+            await _studentQuestionService.Answer(request.Data.QuestionId, answer);
+            return default;
         }
     }
 }

@@ -92,5 +92,6 @@
     "QuestionLookupItemTemplate": "{type} - {name}",
     "AddNewQuestion": "Добавить новый вопрос",
     "TestSession_IsRandomOrder": "Случайный порядок",
-    "ExpandDetails": "Развернуть детали"
+    "ExpandDetails": "Развернуть детали",
+    "Back": "Назад"
 }

@@ -5,9 +5,9 @@ import { observer, useLocalStore } from "mobx-react-lite";
 import { useParams } from "react-router-dom";
 import { StudentQuestionsContextStore } from "./infrasturcture/studentQuestionsContextStore";
 import { BaseQuestionPage } from "./infrasturcture/baseQuestionPage";
-import useAsyncEffect from "use-async-effect";
-import { studentTestSessionStates } from "../dashboard/stateTransition/studentTestSessionStates";
 import { routingStore } from "../../../../../stores/routingStore";
+import { StudentTestSessionState } from "../../../../../typings/studentTestSessionState";
+import { useStoreLifeCycle } from "../../../../../core/hooks/useStoreLifeCycle";
 
 const routes: Array<Route> = [
     {
@@ -25,7 +25,7 @@ const routes: Array<Route> = [
     },
 ];
 
-export const studentQuestionsContext = createContext<StudentQuestionsContextStore | undefined>(undefined);
+export const StudentQuestionsContext = createContext<StudentQuestionsContextStore | undefined>(undefined);
 
 interface Params {
     sessionId: string;
@@ -34,16 +34,16 @@ interface Params {
 export const StudentQuestionsModule = observer(() => {
     const params = useParams<Params>();
     const store = useLocalStore(() => new StudentQuestionsContextStore(params.sessionId));
-    useAsyncEffect(store.loadData, [params.sessionId]);
+    useStoreLifeCycle(store);
     useEffect(() => {
-        if (store.sessionState && store.sessionState !== studentTestSessionStates.started) {
+        if (store.sessionState && store.sessionState !== StudentTestSessionState.Started) {
             routingStore.goto(`/test-session/${store.sessionId}`);
         }
     }, [store.sessionId, store.sessionState]);
 
     return (
-        <studentQuestionsContext.Provider value={store}>
-            {store.isDataLoaded && <RoutesModule routes={routes} />}
-        </studentQuestionsContext.Provider>
+        <StudentQuestionsContext.Provider value={store}>
+            {store.initialized && <RoutesModule routes={routes} />}
+        </StudentQuestionsContext.Provider>
     );
 });

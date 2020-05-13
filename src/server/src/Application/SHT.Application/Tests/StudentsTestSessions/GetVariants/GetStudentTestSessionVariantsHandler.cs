@@ -1,41 +1,42 @@
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using MediatR;
-using SHT.Domain.Services.Student;
+using SHT.Application.Common;
+using SHT.Domain.Services;
 using SHT.Infrastructure.Common;
-using SHT.Infrastructure.DataAccess.Abstractions;
+using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.QueryParameters.IQueryProvider;
 
 namespace SHT.Application.Tests.StudentsTestSessions.GetVariants
 {
     [UsedImplicitly]
     internal class GetStudentTestSessionVariantsHandler :
-        IRequestHandler<GetStudentTestSessionVariantsRequest, IReadOnlyCollection<string>>
+        IRequestHandler<GetStudentTestSessionVariantsRequest, IQueryable<Lookup>>
     {
         private readonly IExecutionContextAccessor _executionContextAccessor;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IQueryProvider _queryProvider;
 
-        public GetStudentTestSessionVariantsHandler(IExecutionContextAccessor executionContextAccessor, IUnitOfWork unitOfWork)
+        public GetStudentTestSessionVariantsHandler(
+            IExecutionContextAccessor executionContextAccessor,
+            IQueryProvider queryProvider)
         {
             _executionContextAccessor = executionContextAccessor;
-            _unitOfWork = unitOfWork;
+            _queryProvider = queryProvider;
         }
 
-        public async Task<IReadOnlyCollection<string>> Handle(GetStudentTestSessionVariantsRequest request, CancellationToken cancellationToken)
+        public Task<IQueryable<Lookup>> Handle(
+            GetStudentTestSessionVariantsRequest request,
+            CancellationToken cancellationToken)
         {
-            var queryParameters = new StudentTestSessionQueryParameters
+            var queryParameters = new TestSessionVariantsQueryParameters
             {
-                Id = request.StudentTestSessionId,
+                StudentTestSessionId = request.StudentTestSessionId,
                 StudentId = _executionContextAccessor.GetCurrentUserId(),
             };
 
-            var result = await _unitOfWork.GetSingle(
-                queryParameters,
-                session => session.TestSession.Variants.Select(e => e.Name).ToArray());
-
-            return result;
+            return Task.FromResult(_queryProvider.Queryable(queryParameters)
+                .Select(e => new Lookup(e.Name, e.Id.ToString())));
         }
     }
 }

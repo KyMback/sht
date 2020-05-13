@@ -1,6 +1,6 @@
 using SHT.Application.Common;
 
-namespace SHT.Application.Users.Accounts.GetPasswordRules
+namespace SHT.Application.Users.Accounts.Contracts
 {
     [ApiDataContract]
     public class PasswordRulesDto

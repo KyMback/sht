@@ -1,38 +1,40 @@
 import { observable, runInAction } from "mobx";
-import { Dictionary } from "../../../../../../typings/customTypings";
+import { AsyncInitializable, Dictionary } from "../../../../../../typings/customTypings";
 import { BaseQuestionStore } from "./baseQuestionStore";
-import { QuestionType, StudentTestQuestionDto, StudentTestSessionDto } from "../../../../../../typings/dataContracts";
+import { QuestionType } from "../../../../../../typings/dataContracts";
 import { FreeTextQuestionStore } from "../freeTextQuestion/freeTextQuestionStore";
 import { HttpApi } from "../../../../../../core/api/http/httpApi";
+import { sortBy } from "lodash";
 
-export class StudentQuestionsContextStore {
+export class StudentQuestionsContextStore implements AsyncInitializable {
+    @observable public initialized: boolean = false;
+
     @observable public sessionId: string;
     @observable public sessionState?: string;
     @observable public variant?: string;
-    @observable public isDataLoaded: boolean = false;
-    @observable public questionsList: Array<StudentTestQuestionDto> = [];
+    @observable public questionsList: Array<QuestionData> = [];
     @observable public questionsMap: Dictionary<QuestionMetadata> = {};
 
     constructor(sessionId: string) {
         this.sessionId = sessionId;
     }
 
-    public loadData = async () => {
-        this.isDataLoaded = false;
-        const data = await loadData(this.sessionId);
+    public init = async () => {
+        this.initialized = false;
+        const session = await loadData(this.sessionId);
 
         runInAction(() => {
-            this.sessionState = data.session.state;
-            this.variant = data.session.testVariant;
-            this.questionsList = data.questions;
-            data.questions.forEach(
+            this.sessionState = session.state;
+            this.variant = session.testVariant;
+            this.questionsList = sortBy(session.questions, e => e.order);
+            session.questions.forEach(
                 q =>
                     (this.questionsMap[q.id] = {
                         type: q.type,
                         id: q.id,
                     }),
             );
-            this.isDataLoaded = true;
+            this.initialized = true;
         });
     };
 
@@ -55,33 +57,41 @@ export class StudentQuestionsContextStore {
     };
 }
 
+interface TestSession {
+    state: string;
+    testVariant: string;
+    questions: Array<QuestionData>;
+}
+
 interface QuestionMetadata {
     store?: BaseQuestionStore;
     id: string;
     type: QuestionType;
 }
 
-interface LoadedData {
-    session: StudentTestSessionDto;
-    questions: Array<StudentTestQuestionDto>;
+interface QuestionData {
+    id: string;
+    isAnswered: boolean;
+    order: number;
+    type: QuestionType;
 }
 
 const query = `
-query q($id: Uuid!) {  
-  session: studentTestSession(where: {id: $id}) {
+query q($id: Uuid!) {
+  session: studentTestSession(where: { id: $id }) {
     state
     testVariant
-  }
-  
-  questions: studentTestQuestions(where: {studentTestSessionId:$id}, order_by:{number:ASC}) {
-    id
-    isAnswered
-    number
-    type
+    questions {
+      id
+      isAnswered
+      order
+      type
+    }
   }
 }
 `;
 
-async function loadData(id: string): Promise<LoadedData> {
-    return HttpApi.graphQl<LoadedData>(query, { id });
+async function loadData(id: string): Promise<TestSession> {
+    const { session } = await HttpApi.graphQl<{ session: TestSession }>(query, { id });
+    return session;
 }

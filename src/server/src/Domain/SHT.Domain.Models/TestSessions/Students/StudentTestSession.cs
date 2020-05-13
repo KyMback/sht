@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using SHT.Domain.Models.Common;
+using SHT.Domain.Models.TestSessions.Variants;
 
 namespace SHT.Domain.Models.TestSessions.Students
 {
@@ -12,12 +13,17 @@ namespace SHT.Domain.Models.TestSessions.Students
 
         public virtual TestSession TestSession { get; set; }
 
+        public Guid? TestVariantId { get; set; }
+
+        public virtual TestSessionVariant Variant { get; set; }
+
+        /// <summary>
+        /// Gets or sets current state of student test session
+        /// <see cref="StudentTestSessionState"/> for details
+        /// </summary>
         public string State { get; set; }
 
-        public string TestVariant { get; set; }
-
-        public Guid? SourceTestVariantId { get; set; }
-
-        public virtual IList<StudentQuestion> Questions { get; set; } = new List<StudentQuestion>();
+        public virtual IList<StudentTestSessionQuestion> Questions { get; set; } =
+            new List<StudentTestSessionQuestion>();
     }
 }

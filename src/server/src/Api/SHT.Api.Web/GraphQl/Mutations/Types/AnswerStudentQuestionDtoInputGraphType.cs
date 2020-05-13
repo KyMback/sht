@@ -1,5 +1,5 @@
 using HotChocolate.Types;
-using SHT.Application.Tests.StudentQuestions.Answer;
+using SHT.Application.Tests.StudentQuestions.Contracts;
 
 namespace SHT.Api.Web.GraphQl.Mutations.Types
 {
@@ -7,7 +7,8 @@ namespace SHT.Api.Web.GraphQl.Mutations.Types
     {
         protected override void Configure(IInputObjectTypeDescriptor<AnswerStudentQuestionDto> descriptor)
         {
-            descriptor.Field(e => e.Answer).Type<NonNullType<StringType>>();
+            descriptor.Field(e => e.FreeTextAnswer).Type<FreeTextQuestionAnswerDtoInputGraphType>();
+            descriptor.Field(e => e.ChoiceQuestionAnswer).Type<ChoiceQuestionAnswerDtoInputGraphType>();
             descriptor.Field(e => e.QuestionId);
         }
     }

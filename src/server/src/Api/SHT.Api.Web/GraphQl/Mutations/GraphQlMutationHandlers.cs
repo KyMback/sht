@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 using MediatR;
 using SHT.Application.Common;
@@ -7,6 +8,7 @@ using SHT.Application.Questions.Contracts;
 using SHT.Application.Questions.Create;
 using SHT.Application.Questions.Update;
 using SHT.Application.Tests.StudentQuestions.Answer;
+using SHT.Application.Tests.StudentQuestions.Contracts;
 using SHT.Application.Tests.StudentsTestSessions.StateTransition;
 using SHT.Application.Tests.TestSessions.Contracts;
 using SHT.Application.Tests.TestSessions.Contracts.Edit;
@@ -71,9 +73,12 @@ namespace SHT.Api.Web.GraphQl.Mutations
         public Task<Unit> StudentTestSessionStateTransition(
             Guid studentTestSessionId,
             string trigger,
-            IDictionary<string, string> serializedData)
+            string serializedData)
         {
-            return _mediator.Send(new StudentTestSessionStateTransitionRequest(studentTestSessionId, trigger, serializedData));
+            var data = !string.IsNullOrEmpty(serializedData)
+                ? JsonSerializer.Deserialize<IDictionary<string, string>>(serializedData)
+                : null;
+            return _mediator.Send(new StudentTestSessionStateTransitionRequest(studentTestSessionId, trigger, data));
         }
 
         public Task<CreatedEntityResponse> CreateTestSession(TestSessionModificationData data)

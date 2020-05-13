@@ -3,6 +3,8 @@ using CorrelationId;
 using HotChocolate;
 using HotChocolate.Execution;
 using HotChocolate.Execution.Configuration;
+using HotChocolate.Types;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -11,6 +13,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using SHT.Api.Web.Constants;
 using SHT.Api.Web.GraphQl;
+using SHT.Api.Web.GraphQl.Common;
+using SHT.Api.Web.GraphQl.Mutations;
+using SHT.Api.Web.GraphQl.Queries;
 using SHT.Api.Web.Options;
 using SHT.Api.Web.Security;
 using SHT.Infrastructure.Common.Localization.Options;
@@ -38,8 +43,18 @@ namespace SHT.Api.Web.Extensions
 
             return collection
                 .AddGraphQL(
-                    provider => CustomSchemaBuilder
-                        .Configure()
+                    provider => SchemaBuilder.New()
+                        .AddAuthorizeDirectiveType()
+                        // To restrict max number of fields in one page
+                        .AddType(new PaginationAmountType(100))
+                        .ModifyOptions(e =>
+                        {
+                            e.DefaultBindingBehavior = BindingBehavior.Explicit;
+                            e.UseXmlDocumentation = true;
+                        })
+                        .BindClrType<Unit, VoidType>()
+                        .AddMutationType<GraphQlMutations>()
+                        .AddQueryType<GraphQlQueries>()
                         .AddServices(provider)
                         .Create(),
                     builder => builder

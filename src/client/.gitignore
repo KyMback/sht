@@ -22,10 +22,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-dataContracts.ts
-testSessionStates.ts
-schema.graphql
-schemas.json
+src/typings/**
+!src/typings/customTypings.ts
 
 .idea
 react-app-env.d.ts

@@ -25,10 +25,5 @@ namespace SHT.Api.Web.GraphQl
             : this(default, innerException)
         {
         }
-
-        public override string ToString()
-        {
-            return Message + Environment.NewLine + InnerException;
-        }
     }
 }

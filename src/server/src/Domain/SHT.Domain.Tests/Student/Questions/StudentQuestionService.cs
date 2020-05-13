@@ -1,8 +1,12 @@
 using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using MoreLinq;
+using SHT.Common.Utils;
+using SHT.Domain.Models.Tests;
 using SHT.Domain.Models.TestSessions.Students;
-using SHT.Domain.Services.Variants;
+using SHT.Domain.Models.TestSessions.Students.Answers;
 using SHT.Infrastructure.Common;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
@@ -24,37 +28,88 @@ namespace SHT.Domain.Services.Student.Questions
             _studentQuestionValidationService = studentQuestionValidationService;
         }
 
-        public async Task AddQuestionsToStudentTestSession(StudentQuestionCreationData data)
+        public async Task Answer(Guid questionId, QuestionGenericAnswer answer)
         {
-            var queryParameters = new TestVariantQuestionQueryParameters
-            {
-                TestVariantId = data.TestVariantId,
-            };
-
-            var questions =
-                await _unitOfWork.GetAll(queryParameters, testVariantQuestion => testVariantQuestion);
-            var studentQuestions = questions.Select(question => new StudentQuestion
-            {
-                Number = question.Number,
-                Text = question.Text,
-                Type = question.Type,
-                StudentTestSessionId = data.StudentTestSessionId,
-            }).ToArray();
-            await _unitOfWork.AddRange(studentQuestions);
-        }
-
-        public async Task Answer(Guid questionId, string answer)
-        {
-            var queryParameters = new StudentQuestionQueryParameters
+            // TODO: add includes to optimize query
+            var queryParameters = new StudentTestSessionQuestionQueryParameters
             {
                 StudentId = _executionContextAccessor.GetCurrentUserId(),
                 IsReadOnly = false,
                 Id = questionId,
             };
-            var question = await _unitOfWork.GetSingle(queryParameters);
+            StudentTestSessionQuestion question = await _unitOfWork.GetSingle(queryParameters);
             await _studentQuestionValidationService.ThrowIfTestSessionIsEnded(question.StudentTestSessionId);
-            question.Answer = answer;
+
+            SetAnswer(question, answer);
+
             await _unitOfWork.Update(question);
+            await _unitOfWork.Commit();
+        }
+
+        private void SetAnswer(StudentTestSessionQuestion question, QuestionGenericAnswer answer)
+        {
+            switch (question.Question.Type)
+            {
+                case QuestionType.FreeText:
+                    SetFreeTextAnswer(question, answer.FreeTextAnswer);
+                    return;
+                case QuestionType.QuestionWithChoice:
+                    SetChoiceQuestionAnswer(question, answer.ChoiceQuestionAnswer);
+                    return;
+                default:
+                    throw new InvalidEnumArgumentException(
+                        nameof(question.Question.Type),
+                        (int)question.Question.Type,
+                        typeof(QuestionType));
+            }
+        }
+
+        private void SetFreeTextAnswer(StudentTestSessionQuestion question, QuestionFreeTextAnswer answer)
+        {
+            Assert.NotNull(answer, nameof(answer));
+
+            if (question.Answer == null)
+            {
+                question.Answer = new StudentQuestionAnswer
+                {
+                    FreeTextAnswer = new StudentFreeTextQuestionAnswer
+                    {
+                        Answer = answer.Answer,
+                    },
+                };
+            }
+            else
+            {
+                question.Answer.FreeTextAnswer.Answer = answer.Answer;
+            }
+        }
+
+        private void SetChoiceQuestionAnswer(StudentTestSessionQuestion question, ChoiceQuestionAnswer answer)
+        {
+            Assert.NotNull(answer, nameof(answer));
+
+            if (question.Answer == null)
+            {
+                question.Answer = new StudentQuestionAnswer
+                {
+                    ChoiceQuestionAnswers = answer.Answers.Select(e => new StudentChoiceQuestionAnswer
+                    {
+                        OptionId = e,
+                    }).ToList(),
+                };
+            }
+            else
+            {
+                question.Answer.ChoiceQuestionAnswers = answer.Answers.LeftJoin(
+                    question.Answer.ChoiceQuestionAnswers,
+                    source => source,
+                    destination => destination.OptionId,
+                    source => new StudentChoiceQuestionAnswer
+                    {
+                        OptionId = source,
+                    }, (source, destination) => destination)
+                    .ToList();
+            }
         }
     }
 }

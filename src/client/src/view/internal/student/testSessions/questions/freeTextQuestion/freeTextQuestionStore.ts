@@ -1,6 +1,6 @@
 import { action, observable, runInAction } from "mobx";
 import { BaseQuestionStore } from "../infrasturcture/baseQuestionStore";
-import { AnswerStudentQuestionDto } from "../../../../../../typings/dataContracts";
+import { AnswerStudentQuestionDto, FreeTextQuestionAnswerDto } from "../../../../../../typings/dataContracts";
 import { apiErrors, isExpected } from "../../../../../../core/api/http/apiError";
 import { notifications } from "../../../../../../components/notifications/notifications";
 import { routingStore } from "../../../../../../stores/routingStore";
@@ -18,23 +18,18 @@ export class FreeTextQuestionStore extends BaseQuestionStore {
             return;
         }
 
-        const { question } = await loadData(this.id);
+        const question = await loadData(this.id);
 
         runInAction(() => {
             this.isDataLoaded = true;
-            this.answer = question.answer;
-            this.question = question.question;
+            this.answer = question.answer?.freeTextAnswer.answer;
+            this.question = question.freeTextQuestion.questionText;
         });
     };
 
     public submit = async () => {
         try {
-            await StudentQuestionsService.answer(
-                AnswerStudentQuestionDto.fromJS({
-                    answer: this.answer,
-                    questionId: this.id,
-                }),
-            );
+            await StudentQuestionsService.answer(this.getDto());
             notifications.successfullySaved();
         } catch (e) {
             if (isExpected(e, apiErrors.studentTestSessionEnded)) {
@@ -46,24 +41,44 @@ export class FreeTextQuestionStore extends BaseQuestionStore {
             throw e;
         }
     };
+
+    private getDto = (): AnswerStudentQuestionDto => {
+        return AnswerStudentQuestionDto.fromJS({
+            questionId: this.id,
+            freeTextAnswer: FreeTextQuestionAnswerDto.fromJS({
+                answer: this.answer,
+            }),
+        });
+    };
 }
 
-interface LoadedData {
-    question: {
-        question: string;
-        answer?: string;
+interface QuestionData {
+    freeTextQuestion: {
+        questionText: string;
+    };
+    answer?: {
+        freeTextAnswer: {
+            answer?: string;
+        };
     };
 }
 
 const query = `
 query q($id: Uuid!) {
-  question: studentTestQuestion(where:{id: $id}) {
-    question: text
-    answer
+  question: studentTestQuestion(where: { id: $id }) {
+    freeTextQuestion {
+      questionText
+    }
+    answer {
+      freeTextAnswer {
+        answer
+      }
+    }
   }
 }
 `;
 
-async function loadData(id: string): Promise<LoadedData> {
-    return HttpApi.graphQl<LoadedData>(query, { id });
+async function loadData(id: string): Promise<QuestionData> {
+    const { question } = await HttpApi.graphQl<{ question: QuestionData }>(query, { id });
+    return question;
 }

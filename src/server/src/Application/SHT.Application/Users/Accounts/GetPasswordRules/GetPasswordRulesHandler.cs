@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using JetBrains.Annotations;
 using MediatR;
+using SHT.Application.Users.Accounts.Contracts;
 using SHT.Domain.Users;
 
 namespace SHT.Application.Users.Accounts.GetPasswordRules

@@ -9,10 +9,5 @@ namespace SHT.Application.StateMachineConfigs.Core
             string data = context.SerializedData[key];
             return JsonSerializer.Deserialize<TData>(data);
         }
-
-        public static string DeserializeData(this IStateTransitionContext context, string key)
-        {
-            return context.SerializedData[key];
-        }
     }
 }

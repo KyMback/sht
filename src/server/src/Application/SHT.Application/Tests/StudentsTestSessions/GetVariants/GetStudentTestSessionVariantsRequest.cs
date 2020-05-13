@@ -1,10 +1,11 @@
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using MediatR;
+using SHT.Application.Common;
 
 namespace SHT.Application.Tests.StudentsTestSessions.GetVariants
 {
-    public class GetStudentTestSessionVariantsRequest : IRequest<IReadOnlyCollection<string>>
+    public class GetStudentTestSessionVariantsRequest : IRequest<IQueryable<Lookup>>
     {
         public GetStudentTestSessionVariantsRequest(Guid studentTestSessionId)
         {

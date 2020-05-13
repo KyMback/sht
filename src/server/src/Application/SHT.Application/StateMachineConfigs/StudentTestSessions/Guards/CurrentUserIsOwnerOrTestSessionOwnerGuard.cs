@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using SHT.Application.StateMachineConfigs.Core;
 using SHT.Domain.Models.TestSessions.Students;
@@ -22,7 +23,7 @@ namespace SHT.Application.StateMachineConfigs.StudentTestSessions.Guards
 
         public Task<bool> Check(StudentTestSession entity)
         {
-            var id = _executionContextAccessor.GetCurrentUserId();
+            Guid id = _executionContextAccessor.GetCurrentUserId();
 
             if (entity.StudentId == id)
             {

@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using HotChocolate;
 using HotChocolate.Execution;
 using SHT.Common.Extensions;
 
@@ -29,14 +30,18 @@ namespace SHT.Api.Web.GraphQl
 
             if (context.Exception != null || !context.Result.Errors.IsNullOrEmpty())
             {
-                // For graphql exceptions
                 if (context.Exception != null)
                 {
                     throw new GraphQlException(context.Exception);
                 }
 
-                // For custom exceptions
-                throw context.Result.Errors.First().Exception;
+                IError error = context.Result.Errors.First();
+                if (error.Exception == null)
+                {
+                    throw new GraphQlException(error.Message);
+                }
+
+                throw new GraphQlException(error.Exception);
             }
         }
     }

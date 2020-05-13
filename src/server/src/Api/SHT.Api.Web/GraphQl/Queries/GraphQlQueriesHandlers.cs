@@ -110,7 +110,7 @@ namespace SHT.Api.Web.GraphQl.Queries
             return _mediator.Send(new GetAllStudentTestQuestionsRequest());
         }
 
-        public Task<IReadOnlyCollection<string>> GetStudentTestSessionVariants(Guid studentTestSessionId)
+        public Task<IQueryable<Lookup>> GetStudentTestSessionVariants(Guid studentTestSessionId)
         {
             return _mediator.Send(new GetStudentTestSessionVariantsRequest(studentTestSessionId));
         }

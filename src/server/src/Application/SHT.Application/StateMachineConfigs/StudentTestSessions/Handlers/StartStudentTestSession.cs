@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using SHT.Application.StateMachineConfigs.Core;
 using SHT.Domain.Models.TestSessions.Students;
@@ -21,8 +22,8 @@ namespace SHT.Application.StateMachineConfigs.StudentTestSessions.Handlers
 
         public async Task Transit(StateTransitionContext<StudentTestSession> context)
         {
-            var variant = context.DeserializeData(StudentTestSessionDataKey.TestVariant);
-            await _studentTestSessionService.Start(context.Entity, variant);
+            var variantId = Guid.Parse(context.SerializedData[StudentTestSessionDataKey.TestVariant]);
+            await _studentTestSessionService.Start(context.Entity, variantId);
             await _unitOfWork.Commit();
         }
     }

@@ -6,14 +6,14 @@ import { ListGroup, ListGroupItem, ListGroupItemHeading } from "reactstrap";
 import { routingStore } from "../../../../../../stores/routingStore";
 import { enumeration, EnumLocal, Local } from "../../../../../../core/localization/local";
 import { QuestionType } from "../../../../../../typings/dataContracts";
-import { studentQuestionsContext } from "../studentQuestionsModule";
+import { StudentQuestionsContext } from "../studentQuestionsModule";
 import { GenericButtonProps } from "../../../../../../components/buttons/genericButton/genericButton";
 
 export const StudentTestSessionQuestionsList = observer(() => {
-    const store = useContext(studentQuestionsContext)!;
+    const store = useContext(StudentQuestionsContext)!;
     const actions: Array<GenericButtonProps> = [
         {
-            text: "OpenTestDashboard",
+            text: "Back",
             color: "primary",
             onClick: () => routingStore.goto(`/test-session/${store.sessionId}`),
         },
@@ -34,7 +34,7 @@ export const StudentTestSessionQuestionsList = observer(() => {
                             key={index}
                             onClick={() => routingStore.goto(`/test-session/${store.sessionId}/questions/${item.id}`)}
                         >
-                            <ListGroupItemHeading>{item.number}</ListGroupItemHeading>
+                            <ListGroupItemHeading>{item.order}</ListGroupItemHeading>
                             <EnumLocal enumObject={QuestionType} value={item.type} />
                         </ListGroupItem>
                     ))}

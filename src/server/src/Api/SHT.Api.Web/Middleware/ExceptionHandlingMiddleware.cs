@@ -75,17 +75,24 @@ namespace SHT.Api.Web.Middleware
                 case CodedException businessException:
                     SetBusinessExceptionError(context, StatusCodes.Status400BadRequest, businessException);
                     break;
-                default:
-                    if (ExceptionsDataMap.TryGetValue(exception.GetType(), out var codes))
-                    {
-                        SetError(context, codes.statusCode, codes.errorCode);
-                    }
-                    else
-                    {
-                        SetError(context, StatusCodes.Status500InternalServerError, ErrorCode.UnhandledException);
-                    }
-
+                case GraphQlException graphQlException:
+                    ProcessException(context, graphQlException.InnerException ?? graphQlException);
                     break;
+                default:
+                    ProcessException(context, exception);
+                    break;
+            }
+        }
+
+        private void ProcessException(HttpContext context, Exception exception)
+        {
+            if (ExceptionsDataMap.TryGetValue(exception.GetType(), out var codes))
+            {
+                SetError(context, codes.statusCode, codes.errorCode);
+            }
+            else
+            {
+                SetError(context, StatusCodes.Status500InternalServerError, ErrorCode.UnhandledException);
             }
         }
 

@@ -2,6 +2,7 @@ using HotChocolate.Types;
 using SHT.Api.Web.GraphQl.Extensions;
 using SHT.Api.Web.GraphQl.Queries.Types;
 using SHT.Api.Web.GraphQl.Queries.Types.StudentTestSessions;
+using SHT.Api.Web.GraphQl.Queries.Types.StudentTestSessions.Questions;
 using SHT.Api.Web.GraphQl.Queries.Types.TestSessions;
 using SHT.Api.Web.Security.Constants;
 using SHT.Application.Questions.Contracts;
@@ -60,7 +61,7 @@ namespace SHT.Api.Web.GraphQl.Queries
                 .Type<NonNullType<ListType<NonNullType<StudentTestSessionDtoGraphType>>>>()
                 .Name("studentTestSessions")
                 .UseOffsetBasedPaging<StudentTestSessionDtoGraphType, StudentTestSessionDto>()
-                .UseCustomSelection<StudentTestSessionDto>()
+                // .UseCustomSelection<StudentTestSessionDto>()
                 .UseSorting<StudentTestSessionDto>(typeDescriptor =>
                 {
                     typeDescriptor.BindFieldsExplicitly();
@@ -73,7 +74,7 @@ namespace SHT.Api.Web.GraphQl.Queries
                 .Type<StudentTestSessionDtoGraphType>()
                 .Name("studentTestSession")
                 .UseSingleOrDefault()
-                .UseSelection()
+                // .UseSelection()
                 .UseFiltering<StudentTestSessionDto>(filterDescriptor =>
                     filterDescriptor.Filter(e => e.Id).AllowEquals());
 
@@ -89,12 +90,12 @@ namespace SHT.Api.Web.GraphQl.Queries
                 .Authorize(AuthorizationPolicyNames.StudentsOnly)
                 .Type<NonNullType<ListType<NonNullType<StudentTestQuestionDtoGraphType>>>>()
                 .Name("studentTestQuestions")
-                .UseSelection()
+                // .UseSelection()
                 .UseFiltering<StudentTestQuestionDtoFilterInputType>()
                 .UseSorting<StudentTestQuestionDto>(sortDescriptor =>
                 {
                     sortDescriptor.BindFieldsExplicitly();
-                    sortDescriptor.Sortable(e => e.Number);
+                    sortDescriptor.Sortable(e => e.Order);
                 });
 
             descriptor
@@ -103,7 +104,7 @@ namespace SHT.Api.Web.GraphQl.Queries
                 .Type<StudentTestQuestionDtoGraphType>()
                 .Name("studentTestQuestion")
                 .UseSingleOrDefault()
-                .UseSelection()
+                // .UseSelection()
                 .UseFiltering<StudentTestQuestionDtoFilterInputType>();
         }
 
@@ -147,8 +148,9 @@ namespace SHT.Api.Web.GraphQl.Queries
             descriptor
                 .Field(f => f.GetStudentTestSessionVariants(default))
                 .Authorize(AuthorizationPolicyNames.StudentsOnly)
-                .Type<NonNullType<ListType<NonNullType<StringType>>>>()
+                .Type<NonNullType<ListType<NonNullType<LookupGraphType>>>>()
                 .Name("studentTestSessionVariants")
+                .UseSelection()
                 .Argument("studentTestSessionId", argumentDescriptor => argumentDescriptor.Type<NonNullType<UuidType>>());
 
             descriptor.Field(f => f.GetTestVariant())

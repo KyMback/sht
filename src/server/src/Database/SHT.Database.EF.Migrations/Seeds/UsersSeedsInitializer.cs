@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -20,13 +21,13 @@ namespace SHT.Database.EF.Migrations.Seeds
                     Email = UsersDefaults.Instructor.Email,
                     Password = UsersDefaults.DefaultPasswordHash,
                     IsEmailConfirmed = true,
-                    UserType = UserType.Instructor
-                }
+                    UserType = UserType.Instructor,
+                    SecurityStamp = Guid.NewGuid().ToString()
+                },
             },
         };
 
-        private static readonly IReadOnlyCollection<Student> Students
-            = new[]
+        private static readonly IReadOnlyCollection<Student> Students = new[]
         {
             new Student
             {
@@ -40,7 +41,8 @@ namespace SHT.Database.EF.Migrations.Seeds
                     Email = UsersDefaults.Student.Email,
                     Password = UsersDefaults.DefaultPasswordHash,
                     IsEmailConfirmed = true,
-                    UserType = UserType.Student
+                    UserType = UserType.Student,
+                    SecurityStamp = Guid.NewGuid().ToString()
                 }
             },
         };

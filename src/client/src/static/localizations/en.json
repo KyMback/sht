@@ -92,5 +92,6 @@
     "QuestionLookupItemTemplate": "{type} - {name}",
     "AddNewQuestion": "Add New Question",
     "TestSession_IsRandomOrder": "Random order",
-    "ExpandDetails": "Expand Details"
+    "ExpandDetails": "Expand Details",
+    "Back": "Back"
 }

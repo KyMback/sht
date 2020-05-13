@@ -1,10 +1,6 @@
-import React, { ReactNode, ReactNodeArray } from "react";
+import React, { PropsWithChildren } from "react";
 
-interface Props {
-    children: ReactNode | ReactNodeArray;
-}
-
-export const DisableCopyPasteWrapper = ({ children }: Props) => {
+export const DisableCopyPasteWrapper = ({ children }: PropsWithChildren<{}>) => {
     return (
         <div
             className="disable-copy-paste"

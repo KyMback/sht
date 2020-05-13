@@ -7,7 +7,7 @@ import React from "react";
 import useAsyncEffect from "use-async-effect";
 import { routingStore } from "../../../../stores/routingStore";
 import { dateAndTime } from "../../../../core/utils/dateTimeUtil";
-import { studentTestSessionStates } from "./dashboard/stateTransition/studentTestSessionStates";
+import { StudentTestSessionState } from "../../../../typings/studentTestSessionState";
 
 export const StudentTestSessions = observer(() => {
     const store = useLocalStore(() => new StudentTestSessionsStore());
@@ -38,11 +38,11 @@ export const StudentTestSessions = observer(() => {
 
 function mapStateToColor(state: string): string {
     switch (state) {
-        case studentTestSessionStates.pending:
+        case StudentTestSessionState.Pending:
             return "danger";
-        case studentTestSessionStates.started:
+        case StudentTestSessionState.Started:
             return "warning";
-        case studentTestSessionStates.ended:
+        case StudentTestSessionState.Ended:
             return "success";
         default:
             throw new Error(`Not supported state: ${state}`);

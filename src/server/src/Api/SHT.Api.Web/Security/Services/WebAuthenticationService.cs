@@ -14,7 +14,7 @@ using IAuthenticationService = SHT.Domain.Users.IAuthenticationService;
 
 namespace SHT.Api.Web.Security.Services
 {
-    internal class WebAuthenticationService : Domain.Users.IAuthenticationService
+    internal class WebAuthenticationService : IAuthenticationService
     {
         private readonly SignInManager<Account> _signInManager;
         private readonly UserManager<Account> _userManager;

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using SHT.Application.StateMachineConfigs.StudentTestSessions;
 using SHT.Domain.Models;
 using SHT.Domain.Models.Tests;
 using SHT.Domain.Models.TestSessions;
+using SHT.Domain.Models.TestSessions.Students;
 
 namespace SHT.JsonSchemasGenerator
 {
@@ -17,6 +19,9 @@ namespace SHT.JsonSchemasGenerator
 
             var destinationPath = args[0];
             await Generator.Generate(destinationPath, args[1]);
+            ConstantsGenerator.Generate(typeof(StudentTestSessionTriggers), destinationPath);
+            ConstantsGenerator.Generate(typeof(StudentTestSessionState), destinationPath);
+            ConstantsGenerator.Generate(typeof(StudentTestSessionDataKey), destinationPath);
             ConstantsGenerator.Generate(typeof(TestSessionStates), destinationPath);
             ConstantsGenerator.Generate(typeof(LengthConstants), destinationPath);
         }

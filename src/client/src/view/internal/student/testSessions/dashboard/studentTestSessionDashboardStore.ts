@@ -1,10 +1,11 @@
 import { computed, observable, runInAction } from "mobx";
-import { StudentTestSessionsService } from "../../../../../services/studentTestSessionsService";
-import { StudentTestSessionDto } from "../../../../../typings/dataContracts";
-import { studentTestSessionStateTriggers } from "./stateTransition/studentTestSessionStateTriggers";
-import { StartStudentTestModalStore } from "./stateTransition/startTest/startStudentTestModalStore";
-import { studentTestSessionStates } from "./stateTransition/studentTestSessionStates";
+import { StudentTestSessionsStateTransitionsService } from "../../../../../services/studentTestSessions/studentTestSessionsStateTransitionsService";
+import { StartStudentTestConfirmationStore } from "../../../../../services/studentTestSessions/confirmations/startStudentTestConfirmationStore";
 import { HttpApi } from "../../../../../core/api/http/httpApi";
+import { StudentTestSessionState } from "../../../../../typings/studentTestSessionState";
+import { StudentTestSessionTriggers } from "../../../../../typings/studentTestSessionTriggers";
+import { StudentTestSessionsConfirmationsService } from "../../../../../services/studentTestSessions/studentTestSessionsConfirmationsService";
+import { StudentTestSessionDataKey } from "../../../../../typings/studentTestSessionDataKey";
 
 export class StudentTestSessionDashboardStore {
     @observable public id: string;
@@ -12,11 +13,11 @@ export class StudentTestSessionDashboardStore {
     @observable public state: string = "";
     @observable public testVariant?: string;
     @observable public stateTransitions: Array<string> = [];
-    @observable public startStudentTestModalStore?: StartStudentTestModalStore;
+    @observable public startStudentTestModalStore?: StartStudentTestConfirmationStore;
 
     @computed
     public get isQuestionsAvailable(): boolean {
-        return this.state === studentTestSessionStates.started;
+        return this.state === StudentTestSessionState.Started;
     }
 
     constructor(id: string) {
@@ -33,26 +34,35 @@ export class StudentTestSessionDashboardStore {
     };
 
     public stateTransition = async (trigger: string) => {
-        if (trigger === studentTestSessionStateTriggers.startTest) {
-            this.startStudentTestModalStore = new StartStudentTestModalStore(
-                this.id,
-                this.stateTransitionInternal,
-                () => (this.startStudentTestModalStore = undefined),
-            );
-            this.startStudentTestModalStore.open();
-        } else {
-            await this.stateTransitionInternal(trigger);
+        switch (trigger) {
+            case StudentTestSessionTriggers.StartTest: {
+                const variant = await StudentTestSessionsConfirmationsService.openChooseVariantConfirmation(this.id);
+                if (variant) {
+                    const data = {
+                        [StudentTestSessionDataKey.TestVariant]: variant,
+                    };
+                    await this.stateTransitionInternal(trigger, data);
+                }
+                break;
+            }
+            default:
+                await this.stateTransitionInternal(trigger);
         }
     };
 
     private stateTransitionInternal = async (trigger: string, data?: any) => {
-        await StudentTestSessionsService.stateTransition(this.id, trigger, data);
+        await StudentTestSessionsStateTransitionsService.stateTransition(this.id, trigger, data);
         await this.loadData();
     };
 }
 
 interface LoadedData {
-    details: StudentTestSessionDto;
+    details: {
+        id: string;
+        name: string;
+        state: string;
+        testVariant: string;
+    };
     triggers: Array<string>;
 }
 

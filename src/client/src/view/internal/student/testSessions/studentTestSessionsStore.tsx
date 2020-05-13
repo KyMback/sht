@@ -1,13 +1,12 @@
 import { observable, runInAction } from "mobx";
-import { StudentTestSessionDto } from "../../../../typings/dataContracts";
 import { HttpApi } from "../../../../core/api/http/httpApi";
 import { TableResult } from "../../../../core/api/tableResult";
 
 export class StudentTestSessionsStore {
-    @observable testSessions: Array<StudentTestSessionDto> = [];
+    @observable testSessions: Array<StudentTestSessionData> = [];
 
     public loadData = async () => {
-        const { testSessions } = await loadData(10, 1);
+        const testSessions = await loadData(10, 1);
 
         runInAction(() => {
             this.testSessions = testSessions.items;
@@ -15,8 +14,12 @@ export class StudentTestSessionsStore {
     };
 }
 
-interface LoadedData {
-    testSessions: TableResult<StudentTestSessionDto>;
+interface StudentTestSessionData {
+    id: string;
+    state: string;
+    name: string;
+    testVariant: string;
+    createdAt: Date;
 }
 
 const query = `
@@ -38,6 +41,11 @@ query q($pageSize: Int!, $pageNumber: Int!) {
 }
 `;
 
-async function loadData(pageSize: number, pageNumber: number): Promise<LoadedData> {
-    return HttpApi.graphQl<LoadedData>(query, { pageSize, pageNumber });
+async function loadData(pageSize: number, pageNumber: number): Promise<TableResult<StudentTestSessionData>> {
+    const { testSessions } = await HttpApi.graphQl<{ testSessions: TableResult<StudentTestSessionData> }>(query, {
+        pageSize,
+        pageNumber,
+    });
+
+    return testSessions;
 }

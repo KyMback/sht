@@ -1,7 +1,6 @@
 using System;
+using System.Linq;
 using SHT.Domain.Common.Core;
-using SHT.Domain.Models.Tests;
-using SHT.Domain.Models.TestSessions;
 using SHT.Domain.Models.TestSessions.Variants;
 
 namespace SHT.Domain.Services
@@ -12,8 +11,21 @@ namespace SHT.Domain.Services
 
         public Guid? TestSessionId { get; set; }
 
+        public Guid? StudentTestSessionId { get; set; }
+
+        public Guid? StudentId { get; set; }
+
+        public Guid? Id { get; set; }
+
         protected override void AddFilters()
         {
+            FilterIfHasValue(
+                StudentTestSessionId,
+                variant => variant.TestSession.StudentTestSessions.Any(e => e.Id == StudentTestSessionId.Value));
+            FilterIfHasValue(
+                StudentId,
+                variant => variant.TestSession.StudentTestSessions.Any(e => e.StudentId == StudentId.Value));
+            FilterIfHasValue(Id, variant => variant.Id == Id.Value);
             FilterIfHasValue(Name, variant => variant.Name == Name);
             FilterIfHasValue(TestSessionId, variant => variant.TestSessionId == TestSessionId.Value);
         }

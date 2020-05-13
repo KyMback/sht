@@ -3,9 +3,9 @@ import { CardSectionsGroup } from "../../../../../../components/layouts/sections
 import { CardSection } from "../../../../../../components/layouts/sections/cardSection";
 import { Local } from "../../../../../../core/localization/local";
 import React, { useContext, useMemo } from "react";
-import { IdParams } from "../../../../../../typings/customTypings";
+import { IdParams, PropsWithStore } from "../../../../../../typings/customTypings";
 import { useParams } from "react-router-dom";
-import { studentQuestionsContext } from "../studentQuestionsModule";
+import { StudentQuestionsContext } from "../studentQuestionsModule";
 import { BaseQuestionStore } from "./baseQuestionStore";
 import { QuestionType } from "../../../../../../typings/dataContracts";
 import { FreeTextQuestion } from "../freeTextQuestion/freeTextQuestion";
@@ -15,23 +15,23 @@ import { FreeTextQuestionStore } from "../freeTextQuestion/freeTextQuestionStore
 import { DisableCopyPasteWrapper } from "../../../../../../components/common/disableCopyPasteWrapper";
 import { GenericButtonProps } from "../../../../../../components/buttons/genericButton/genericButton";
 
+const actions: Array<GenericButtonProps> = [
+    {
+        color: "primary",
+        text: "Submit",
+    },
+];
+
 export const BaseQuestionPage = observer(() => {
     const params = useParams<IdParams>();
-    const context = useContext(studentQuestionsContext)!;
+    const context = useContext(StudentQuestionsContext)!;
     const store = context.getOrCreateStore(params.id!);
-    const component = useMemo(() => getComponent(store), [store]);
 
     const topActions: Array<GenericButtonProps> = [
         {
             color: "primary",
-            text: "BackToQuestionsList",
+            text: "Back",
             onClick: () => routingStore.goto(`/test-session/${context.sessionId}/questions`),
-        },
-    ];
-    const actions: Array<GenericButtonProps> = [
-        {
-            color: "primary",
-            text: "Submit",
         },
     ];
 
@@ -43,18 +43,20 @@ export const BaseQuestionPage = observer(() => {
                 actions={actions}
             >
                 <CardSection title={<Local id="Question_TitleTemplate" values={{ number: store.number }} />}>
-                    <DisableCopyPasteWrapper>{component}</DisableCopyPasteWrapper>
+                    <DisableCopyPasteWrapper>
+                        <QuestionSpecificComponent store={store} />
+                    </DisableCopyPasteWrapper>
                 </CardSection>
             </CardSectionsGroup>
         </Form>
     );
 });
 
-function getComponent(store: BaseQuestionStore) {
+const QuestionSpecificComponent = observer(({ store }: PropsWithStore<BaseQuestionStore>) => {
     switch (store.type) {
         case QuestionType.FreeText:
             return <FreeTextQuestion store={store as FreeTextQuestionStore} />;
         default:
-            throw new Error(`Invalid question type: ${store.type}`);
+            return <Local id="NotImplementedYet" />;
     }
-}
+});

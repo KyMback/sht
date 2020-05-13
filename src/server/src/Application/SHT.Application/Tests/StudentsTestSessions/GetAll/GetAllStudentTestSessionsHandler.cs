@@ -13,7 +13,8 @@ using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.QueryParameter
 namespace SHT.Application.Tests.StudentsTestSessions.GetAll
 {
     [UsedImplicitly]
-    internal class GetAllStudentTestSessionsHandler : IRequestHandler<GetAllStudentTestSessionsRequest, IQueryable<StudentTestSessionDto>>
+    internal class GetAllStudentTestSessionsHandler :
+        IRequestHandler<GetAllStudentTestSessionsRequest, IQueryable<StudentTestSessionDto>>
     {
         private readonly IQueryProvider _queryProvider;
         private readonly IExecutionContextAccessor _executionContextAccessor;
