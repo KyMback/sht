@@ -4,7 +4,7 @@ import { CardSectionsGroup } from "../../../components/layouts/sections/cardSect
 import { CardSection } from "../../../components/layouts/sections/cardSection";
 import { TabConfig, TabsControl } from "../../../components/layouts/tabs/tabsControl";
 import { SignUpStudent } from "./student/signUpStudent";
-import { Local } from "../../../core/localization/local";
+import { SignUpInstructor } from "./instructor/signUpInstructor";
 
 export const SignUpPage = observer(() => {
     return (
@@ -23,6 +23,6 @@ const tabs: Array<TabConfig> = [
     },
     {
         title: "Instructor",
-        content: () => <Local id="NotImplementedYet" />,
+        content: SignUpInstructor,
     },
 ];

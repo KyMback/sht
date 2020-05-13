@@ -58,6 +58,27 @@
     }
   }
 },
+"SignUpInstructorDataDto": {
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "SignUpInstructorDataDto",
+  "title": "SignUpInstructorDataDto",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "email",
+    "password"
+  ],
+  "properties": {
+    "email": {
+      "type": "string",
+      "minLength": 1
+    },
+    "password": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+},
 "SignInResponse": {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "id": "SignInResponse",

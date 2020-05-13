@@ -1,19 +1,15 @@
-import { AccountService } from "../../../../services/accountService";
-import { PasswordRulesDto, SignUpStudentDataDto } from "../../../../typings/dataContracts";
 import { computed, observable, runInAction } from "mobx";
-import { routingStore } from "../../../../stores/routingStore";
-import { notifications } from "../../../../components/notifications/notifications";
-import { apiErrors, isExpected } from "../../../../core/api/http/apiError";
-import { AsyncInitializable } from "../../../../typings/customTypings";
+import { PasswordRulesDto, SignUpInstructorDataDto } from "../../../../typings/dataContracts";
 import { ValidationFunction } from "../../../../components/forms/formControlWrapper";
 import { required } from "../../../../components/forms/validations";
 import { PasswordUtils } from "../../../../core/utils/passwordUtils";
+import { AccountService } from "../../../../services/accountService";
+import { apiErrors, isExpected } from "../../../../core/api/http/apiError";
+import { notifications } from "../../../../components/notifications/notifications";
+import { routingStore } from "../../../../stores/routingStore";
 
-export class SignUpStudentStore implements AsyncInitializable {
+export class SignUpInstructorStore {
     @observable public email?: string;
-    @observable public firstName?: string;
-    @observable public lastName?: string;
-    @observable public group?: string;
     @observable public password?: string;
     @observable public repeatPassword?: string;
 
@@ -32,7 +28,7 @@ export class SignUpStudentStore implements AsyncInitializable {
 
     public signUp = async () => {
         try {
-            await AccountService.signUpStudent(this.getDto());
+            await AccountService.signUpInstructor(this.getDto());
         } catch (e) {
             if (isExpected(e, apiErrors.loginIsNotUniq)) {
                 notifications.errorCode(apiErrors.loginIsNotUniq);
@@ -54,13 +50,10 @@ export class SignUpStudentStore implements AsyncInitializable {
         });
     };
 
-    private getDto = (): SignUpStudentDataDto => {
-        return SignUpStudentDataDto.fromJS({
+    private getDto = (): SignUpInstructorDataDto => {
+        return SignUpInstructorDataDto.fromJS({
             email: this.email,
             password: this.password,
-            firstName: this.firstName,
-            lastName: this.lastName,
-            group: this.group,
         });
     };
 }

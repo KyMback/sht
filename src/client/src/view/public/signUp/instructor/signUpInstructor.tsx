@@ -1,16 +1,16 @@
 import { observer, useLocalStore } from "mobx-react-lite";
-import { SignUpStudentStore } from "./signUpStudentStore";
+import { useStoreLifeCycle } from "../../../../core/hooks/useStoreLifeCycle";
 import { Form } from "../../../../components/forms/form";
+import { Row } from "reactstrap";
+import { SubSection } from "../../../../components/layouts/sections/subSection";
 import { CardSectionBottomActions } from "../../../../components/layouts/sections/cardSectionBottomActions";
 import React from "react";
 import { CardSectionActionProps } from "../../../../components/layouts/sections/cardSection";
 import { routingStore } from "../../../../stores/routingStore";
 import { StoreFormsFactory } from "../../../../components/forms/factories/storeFormsFactory";
 import { emailValidation, required } from "../../../../components/forms/validations";
-import { SubSection } from "../../../../components/layouts/sections/subSection";
-import { Row } from "reactstrap";
-import { useStoreLifeCycle } from "../../../../core/hooks/useStoreLifeCycle";
 import { DefaultCol } from "../../../../components/layouts/defaultCol";
+import { SignUpInstructorStore } from "./signUpInstructorStore";
 
 const actions: Array<CardSectionActionProps> = [
     {
@@ -24,7 +24,7 @@ const actions: Array<CardSectionActionProps> = [
     },
 ];
 
-const AccountInfo = StoreFormsFactory.new<SignUpStudentStore>()
+const AccountInfo = StoreFormsFactory.new<SignUpInstructorStore>()
     .input("Email", "email", undefined, [required, emailValidation], { type: "email" })
     .input("Password", "password", undefined, store => store.passwordValidations, {
         type: "password",
@@ -34,14 +34,8 @@ const AccountInfo = StoreFormsFactory.new<SignUpStudentStore>()
     })
     .build();
 
-const AdditionalInfo = StoreFormsFactory.new<SignUpStudentStore>()
-    .input("FirstName", "firstName", undefined, [required])
-    .input("LastName", "lastName", undefined, [required])
-    .input("Group", "group", undefined, [required])
-    .build();
-
-export const SignUpStudent = observer(() => {
-    const store = useLocalStore(() => new SignUpStudentStore());
+export const SignUpInstructor = observer(() => {
+    const store = useLocalStore(() => new SignUpInstructorStore());
     useStoreLifeCycle(store);
 
     return (
@@ -50,11 +44,6 @@ export const SignUpStudent = observer(() => {
                 <DefaultCol>
                     <SubSection title="AccountInfo">
                         <AccountInfo store={store} />
-                    </SubSection>
-                </DefaultCol>
-                <DefaultCol>
-                    <SubSection title="AdditionalInfo">
-                        <AdditionalInfo store={store} />
                     </SubSection>
                 </DefaultCol>
             </Row>

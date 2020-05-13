@@ -1,5 +1,12 @@
 import { HttpApi } from "../core/api/http/httpApi";
-import { SignInDataDto, SignInResponse, SignUpStudentDataDto, UserContextDto } from "../typings/dataContracts";
+import {
+    PasswordRulesDto,
+    SignInDataDto,
+    SignInResponse,
+    SignUpInstructorDataDto,
+    SignUpStudentDataDto,
+    UserContextDto,
+} from "../typings/dataContracts";
 import { userContextStore } from "../stores/userContextStore";
 
 const queries = {
@@ -25,6 +32,11 @@ mutation($data: SignUpStudentDataDtoInput!) {
   signUpStudent(data: $data)
 }
 `,
+    signUpInstructor: `
+mutation($data: SignUpInstructorDataDtoInput!) {
+  signUpInstructor(data: $data)
+}
+`,
     sightOut: `
 mutation {
   signOut
@@ -43,6 +55,17 @@ mutation {
 mutation($culture: String!) {
   setCulture(culture: $culture)
 }`,
+    getPasswordRules: `
+{
+  passwordRules {
+    requireDigit
+    requiredLength
+    requireLowercase
+    requireNonAlphanumeric
+    requireUppercase
+  }
+}
+`,
 };
 
 export class AccountService {
@@ -69,6 +92,12 @@ export class AccountService {
         });
     };
 
+    public static signUpInstructor = async (data: SignUpInstructorDataDto) => {
+        return HttpApi.graphQl(queries.signUpInstructor, {
+            data,
+        });
+    };
+
     public static sightOut = async () => {
         return HttpApi.graphQl(queries.sightOut);
     };
@@ -80,5 +109,10 @@ export class AccountService {
     public static async updateUserContext() {
         const { userContext } = await HttpApi.graphQl<{ userContext: UserContextDto }>(queries.loadUserContext);
         userContextStore.setContext(userContext);
+    }
+
+    public static async getPasswordRules(): Promise<PasswordRulesDto> {
+        const { passwordRules } = await HttpApi.graphQl<{ passwordRules: PasswordRulesDto }>(queries.getPasswordRules);
+        return passwordRules;
     }
 }

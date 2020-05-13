@@ -21,6 +21,8 @@ using SHT.Application.Users.Accounts.ResendEmailConfirmation;
 using SHT.Application.Users.Accounts.SetCulture;
 using SHT.Application.Users.Accounts.SignIn;
 using SHT.Application.Users.Accounts.SignOut;
+using SHT.Application.Users.Instructors.Contracts;
+using SHT.Application.Users.Instructors.SignUp;
 using SHT.Application.Users.Students.Contracts;
 using SHT.Application.Users.Students.SignUp;
 
@@ -48,6 +50,11 @@ namespace SHT.Api.Web.GraphQl.Mutations
         public Task<Unit> SignUpStudent(SignUpStudentDataDto data)
         {
             return _mediator.Send(new SignUpStudentRequest(data));
+        }
+
+        public Task<Unit> SignUpInstructor(SignUpInstructorDataDto data)
+        {
+            return _mediator.Send(new SignUpInstructorRequest(data));
         }
 
         public Task<Unit> SignOut()

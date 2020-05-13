@@ -34,6 +34,12 @@ namespace SHT.Api.Web.GraphQl.Mutations
                 .Argument("data", argumentDescriptor =>
                     argumentDescriptor.Type<NonNullType<SignUpStudentDataDtoInputGraphType>>());
 
+            descriptor.Field(e => e.SignUpInstructor(default))
+                .Name("signUpInstructor")
+                .Type<VoidType>()
+                .Argument("data", argumentDescriptor =>
+                    argumentDescriptor.Type<NonNullType<SignUpInstructorDataDtoInputGraphType>>());
+
             descriptor.Field(e => e.SignOut())
                 .Name("signOut")
                 .Type<VoidType>();

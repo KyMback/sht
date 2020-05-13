@@ -1,5 +1,6 @@
 using Autofac;
 using SHT.Domain.Users.Accounts;
+using SHT.Domain.Users.Instructors;
 using SHT.Domain.Users.Students;
 using SHT.Infrastructure.Common.Extensions;
 
@@ -14,6 +15,7 @@ namespace SHT.Domain.Users
                 .AddAutoMapperTypes(ThisAssembly)
                 .AddScopedAsImplementedInterfaces<UserEmailService>()
                 .AddScopedAsImplementedInterfaces<UserAccountService>()
+                .AddScopedAsImplementedInterfaces<InstructorAccountService>()
                 .AddScopedAsImplementedInterfaces<StudentAccountService>()
                 .AddScopedAsImplementedInterfaces<RegistrationValidationService>();
         }

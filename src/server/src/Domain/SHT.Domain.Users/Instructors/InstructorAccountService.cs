@@ -4,16 +4,16 @@ using SHT.Domain.Models.Users;
 using SHT.Domain.Users.Accounts;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
-namespace SHT.Domain.Users.Students
+namespace SHT.Domain.Users.Instructors
 {
-    internal class StudentAccountService : IStudentAccountService
+    internal class InstructorAccountService : IInstructorAccountService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserAccountService _userAccountService;
         private readonly IMapper _mapper;
         private readonly IRegistrationValidationService _registrationValidationService;
 
-        public StudentAccountService(
+        public InstructorAccountService(
             IUnitOfWork unitOfWork,
             IUserAccountService userAccountService,
             IMapper mapper,
@@ -25,21 +25,18 @@ namespace SHT.Domain.Users.Students
             _registrationValidationService = registrationValidationService;
         }
 
-        public async Task<Student> Create(StudentCreationData data)
+        public async Task<Instructor> Create(InstructorCreationData data)
         {
             await _registrationValidationService.TrowsIfEmailIsNotUniq(data.Email);
             Account account = await _userAccountService.Create(_mapper.Map<AccountCreationData>(data));
-            var student = await _unitOfWork.Add(new Student
+            var instructor = await _unitOfWork.Add(new Instructor
             {
                 Account = account,
-                FirstName = data.FirstName,
-                LastName = data.LastName,
-                Group = data.Group,
             });
             await _userAccountService.SendEmailConfirmation(account);
             await _unitOfWork.Commit();
 
-            return student;
+            return instructor;
         }
     }
 }
