@@ -6,7 +6,6 @@ using Hangfire.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using SHT.BackgroundProcess.Host.Extensions;
 
 namespace SHT.BackgroundProcess.Host.Services.Hosted
 {
