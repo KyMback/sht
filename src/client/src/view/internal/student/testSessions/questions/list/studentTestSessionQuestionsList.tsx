@@ -6,33 +6,41 @@ import { ListGroup, ListGroupItem, ListGroupItemHeading } from "reactstrap";
 import { routingStore } from "../../../../../../stores/routingStore";
 import { enumeration, EnumLocal, Local } from "../../../../../../core/localization/local";
 import { QuestionType } from "../../../../../../typings/dataContracts";
-import { StudentQuestionsContext } from "../studentQuestionsModule";
-import { GenericButtonProps } from "../../../../../../components/buttons/genericButton/genericButton";
+import {
+    StudentQuestionsContextStore,
+    useStudentQuestionsContext,
+} from "../infrasturcture/studentQuestionsContextStore";
+import { GuardedActions, GuardsApplier } from "../../../../../../core/guarding";
+
+const topActions: GuardedActions<StudentQuestionsContextStore> = [
+    {
+        data: store => [
+            {
+                text: "Back",
+                color: "primary",
+                onClick: () => routingStore.goto(`/test-session/${store.sessionId}`),
+            },
+        ],
+    },
+];
 
 export const StudentTestSessionQuestionsList = observer(() => {
-    const store = useContext(StudentQuestionsContext)!;
-    const actions: Array<GenericButtonProps> = [
-        {
-            text: "Back",
-            color: "primary",
-            onClick: () => routingStore.goto(`/test-session/${store.sessionId}`),
-        },
-    ];
+    const context = useStudentQuestionsContext();
 
     return (
         <CardSectionsGroup
-            title={<Local id="TestVariantTemplate" values={{ variant: store.variant }} />}
-            topActions={actions}
+            title={<Local id="TestVariantTemplate" values={{ variant: context.variant }} />}
+            topActions={GuardsApplier.applyGuardedArrays(context, topActions)}
         >
             <CardSection title="StudentQuestions_Questions">
                 <ListGroup>
-                    {store.questionsList.map((item, index) => (
+                    {context.questionsList.map((item, index) => (
                         <ListGroupItem
                             color={item.isAnswered ? "success" : "secondary"}
                             className="clickable"
                             action
                             key={index}
-                            onClick={() => routingStore.goto(`/test-session/${store.sessionId}/questions/${item.id}`)}
+                            onClick={() => routingStore.goto(`/test-session/${context.sessionId}/questions/${item.id}`)}
                         >
                             <ListGroupItemHeading>{item.order}</ListGroupItemHeading>
                             <EnumLocal enumObject={QuestionType} value={item.type} />

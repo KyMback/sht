@@ -1,6 +1,7 @@
 import { observable, runInAction } from "mobx";
 import { HttpApi } from "../../../../core/api/http/httpApi";
 import { TableResult } from "../../../../core/api/tableResult";
+import { StudentTestSessionStateType } from "./studentTestSessionUtils";
 
 export class StudentTestSessionsStore {
     @observable testSessions: Array<StudentTestSessionData> = [];
@@ -16,7 +17,7 @@ export class StudentTestSessionsStore {
 
 interface StudentTestSessionData {
     id: string;
-    state: string;
+    state: StudentTestSessionStateType;
     name: string;
     testVariant: string;
     createdAt: Date;

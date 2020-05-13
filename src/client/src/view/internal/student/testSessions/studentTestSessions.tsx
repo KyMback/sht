@@ -8,6 +8,7 @@ import useAsyncEffect from "use-async-effect";
 import { routingStore } from "../../../../stores/routingStore";
 import { dateAndTime } from "../../../../core/utils/dateTimeUtil";
 import { StudentTestSessionState } from "../../../../typings/studentTestSessionState";
+import { StudentTestSessionStateLocal } from "./studentTestSessionUtils";
 
 export const StudentTestSessions = observer(() => {
     const store = useLocalStore(() => new StudentTestSessionsStore());
@@ -26,7 +27,7 @@ export const StudentTestSessions = observer(() => {
                             onClick={() => routingStore.goto(`/test-session/${item.id}`)}
                         >
                             <ListGroupItemHeading>{item.name}</ListGroupItemHeading>
-                            <div>{item.state}</div>
+                            <StudentTestSessionStateLocal state={item.state} />
                             <div>{dateAndTime(item.createdAt)}</div>
                         </ListGroupItem>
                     ))}

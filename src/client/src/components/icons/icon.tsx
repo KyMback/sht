@@ -1,7 +1,9 @@
 import React from "react";
+import { Utils } from "../../core/utils/utils";
 
 interface Props {
     icon: IconsType;
+    className?: string;
 }
 
 export type IconsType = typeof icons[keyof typeof icons];
@@ -19,6 +21,6 @@ export const icons = {
     unExpand: "expand_less",
 } as const;
 
-export const Icon = ({ icon }: Props) => {
-    return <i className="material-icons">{icon}</i>;
+export const Icon = ({ icon, className }: Props) => {
+    return <i className={Utils.css("material-icons", className)}>{icon}</i>;
 };

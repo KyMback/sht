@@ -4,6 +4,7 @@ import { UncontrolledTooltip } from "reactstrap";
 import { uniqId } from "../../../core/utils/uniqIdUtil";
 import { KeyOrJSX } from "../../../typings/customTypings";
 import { ensureLocal } from "../../../core/localization/local";
+import { Utils } from "../../../core/utils/utils";
 
 interface Props {
     icon: IconsType;
@@ -20,7 +21,7 @@ export const ActionIcon = ({ icon, onClick, tooltip, className }: Props) => {
     );
 
     return (
-        <div id={id} className={`action-icon ${className || ""}`} onClick={onClick}>
+        <div id={id} className={Utils.css("action-icon", className)} onClick={onClick}>
             <Icon icon={icon} />
             {tooltipComponent}
         </div>

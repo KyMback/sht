@@ -24,7 +24,7 @@ namespace SHT.Application.Tests.StudentQuestions.Contracts
                     ? TestSessionVariantFreeTextQuestionDto.Selector.Invoke(question.Question.FreeTextQuestion)
                     : null,
                 ChoiceQuestion = question.Question.Type == QuestionType.QuestionWithChoice
-                    ? TestSessionVariantChoiceQuestionDto.Selector.Invoke(question.Question.ChoiceQuestion)
+                    ? StudentChoiceQuestionDto.Selector.Invoke(question.Question.ChoiceQuestion)
                     : null,
             });
 
@@ -42,6 +42,6 @@ namespace SHT.Application.Tests.StudentQuestions.Contracts
 
         public TestSessionVariantFreeTextQuestionDto FreeTextQuestion { get; set; }
 
-        public TestSessionVariantChoiceQuestionDto ChoiceQuestion { get; set; }
+        public StudentChoiceQuestionDto ChoiceQuestion { get; set; }
     }
 }

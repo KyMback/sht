@@ -5,6 +5,14 @@ import { QuestionType } from "../../../../../../typings/dataContracts";
 import { FreeTextQuestionStore } from "../freeTextQuestion/freeTextQuestionStore";
 import { HttpApi } from "../../../../../../core/api/http/httpApi";
 import { sortBy } from "lodash";
+import { createContext, useContext } from "react";
+import { ChoiceQuestionStore } from "../choiceQuestions/choiceQuestionStore";
+
+export const StudentQuestionsContext = createContext<StudentQuestionsContextStore | undefined>(undefined);
+
+export const useStudentQuestionsContext = (): StudentQuestionsContextStore => {
+    return useContext(StudentQuestionsContext)!;
+};
 
 export class StudentQuestionsContextStore implements AsyncInitializable {
     @observable public initialized: boolean = false;
@@ -51,6 +59,8 @@ export class StudentQuestionsContextStore implements AsyncInitializable {
         switch (info.type) {
             case QuestionType.FreeText:
                 return new FreeTextQuestionStore(info.id, this.sessionId, info.type);
+            case QuestionType.QuestionWithChoice:
+                return new ChoiceQuestionStore(info.id, this.sessionId, info.type);
             default:
                 throw new Error(`Unsupported question type: ${info.type}`);
         }

@@ -1,13 +1,13 @@
 import { Route, RoutesModule } from "../../../../../core/routing/routesModule";
-import React, { createContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { StudentTestSessionQuestionsList } from "./list/studentTestSessionQuestionsList";
 import { observer, useLocalStore } from "mobx-react-lite";
 import { useParams } from "react-router-dom";
-import { StudentQuestionsContextStore } from "./infrasturcture/studentQuestionsContextStore";
 import { BaseQuestionPage } from "./infrasturcture/baseQuestionPage";
 import { routingStore } from "../../../../../stores/routingStore";
 import { StudentTestSessionState } from "../../../../../typings/studentTestSessionState";
 import { useStoreLifeCycle } from "../../../../../core/hooks/useStoreLifeCycle";
+import { StudentQuestionsContextStore, StudentQuestionsContext } from "./infrasturcture/studentQuestionsContextStore";
 
 const routes: Array<Route> = [
     {
@@ -24,8 +24,6 @@ const routes: Array<Route> = [
         redirectTo: "/test-session/:sessionId/questions/list",
     },
 ];
-
-export const StudentQuestionsContext = createContext<StudentQuestionsContextStore | undefined>(undefined);
 
 interface Params {
     sessionId: string;

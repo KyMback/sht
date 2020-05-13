@@ -1,14 +1,14 @@
 import React from "react";
 import { observer } from "mobx-react-lite";
 import { FreeTextQuestionStore } from "./freeTextQuestionStore";
-import useAsyncEffect from "use-async-effect";
 import { FormTextArea } from "../../../../../../components/forms";
 import { required } from "../../../../../../components/forms/validations";
 import { PropsWithStore } from "../../../../../../typings/customTypings";
 import { Col, Row } from "reactstrap";
+import { useStoreLifeCycle } from "../../../../../../core/hooks/useStoreLifeCycle";
 
 export const FreeTextQuestion = observer(({ store }: PropsWithStore<FreeTextQuestionStore>) => {
-    useAsyncEffect(store.loadData, [store]);
+    useStoreLifeCycle(store);
 
     return (
         <>
