@@ -6,6 +6,7 @@ using MediatR;
 using SHT.Application.Tests.TestSessions.Contracts;
 using SHT.Domain.Services;
 using SHT.Infrastructure.Common;
+using SHT.Infrastructure.Common.ExecutionContext;
 using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.QueryParameters.IQueryProvider;
 
 namespace SHT.Application.Tests.TestSessions.GetAll
@@ -14,19 +15,19 @@ namespace SHT.Application.Tests.TestSessions.GetAll
     internal class GetAllTestSessionsHandler : IRequestHandler<GetAllTestSessionsRequest, IQueryable<TestSessionDto>>
     {
         private readonly IQueryProvider _queryProvider;
-        private readonly IExecutionContextAccessor _executionContextAccessor;
+        private readonly IExecutionContextService _executionContextService;
 
-        public GetAllTestSessionsHandler(IQueryProvider queryProvider, IExecutionContextAccessor executionContextAccessor)
+        public GetAllTestSessionsHandler(IQueryProvider queryProvider, IExecutionContextService executionContextService)
         {
             _queryProvider = queryProvider;
-            _executionContextAccessor = executionContextAccessor;
+            _executionContextService = executionContextService;
         }
 
         public Task<IQueryable<TestSessionDto>> Handle(GetAllTestSessionsRequest request, CancellationToken cancellationToken)
         {
             var queryParameters = new TestSessionQueryParameters
             {
-                InstructorId = _executionContextAccessor.GetCurrentUserId(),
+                InstructorId = _executionContextService.GetCurrentUserId(),
             };
 
             return Task.FromResult(_queryProvider.Queryable(queryParameters).Select(TestSessionDto.Selector));

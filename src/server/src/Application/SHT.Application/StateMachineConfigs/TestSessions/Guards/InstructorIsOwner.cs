@@ -3,21 +3,22 @@ using SHT.Application.StateMachineConfigs.Core;
 using SHT.Domain.Models.Tests;
 using SHT.Domain.Models.TestSessions;
 using SHT.Infrastructure.Common;
+using SHT.Infrastructure.Common.ExecutionContext;
 
 namespace SHT.Application.StateMachineConfigs.TestSessions.Guards
 {
     internal class InstructorIsOwner : IStateTransitionGuard<TestSession>
     {
-        private readonly IExecutionContextAccessor _executionContextAccessor;
+        private readonly IExecutionContextService _executionContextService;
 
-        public InstructorIsOwner(IExecutionContextAccessor executionContextAccessor)
+        public InstructorIsOwner(IExecutionContextService executionContextService)
         {
-            _executionContextAccessor = executionContextAccessor;
+            _executionContextService = executionContextService;
         }
 
         public Task<bool> Check(TestSession entity)
         {
-            return Task.FromResult(entity.InstructorId == _executionContextAccessor.GetCurrentUserId());
+            return Task.FromResult(entity.InstructorId == _executionContextService.GetCurrentUserId());
         }
     }
 }

@@ -6,6 +6,7 @@ using MediatR;
 using SHT.Application.Common;
 using SHT.Domain.Services;
 using SHT.Infrastructure.Common;
+using SHT.Infrastructure.Common.ExecutionContext;
 using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.QueryParameters.IQueryProvider;
 
 namespace SHT.Application.Tests.StudentsTestSessions.GetVariants
@@ -14,14 +15,14 @@ namespace SHT.Application.Tests.StudentsTestSessions.GetVariants
     internal class GetStudentTestSessionVariantsHandler :
         IRequestHandler<GetStudentTestSessionVariantsRequest, IQueryable<Lookup>>
     {
-        private readonly IExecutionContextAccessor _executionContextAccessor;
+        private readonly IExecutionContextService _executionContextService;
         private readonly IQueryProvider _queryProvider;
 
         public GetStudentTestSessionVariantsHandler(
-            IExecutionContextAccessor executionContextAccessor,
+            IExecutionContextService executionContextService,
             IQueryProvider queryProvider)
         {
-            _executionContextAccessor = executionContextAccessor;
+            _executionContextService = executionContextService;
             _queryProvider = queryProvider;
         }
 
@@ -32,7 +33,7 @@ namespace SHT.Application.Tests.StudentsTestSessions.GetVariants
             var queryParameters = new TestSessionVariantsQueryParameters
             {
                 StudentTestSessionId = request.StudentTestSessionId,
-                StudentId = _executionContextAccessor.GetCurrentUserId(),
+                StudentId = _executionContextService.GetCurrentUserId(),
             };
 
             return Task.FromResult(_queryProvider.Queryable(queryParameters)

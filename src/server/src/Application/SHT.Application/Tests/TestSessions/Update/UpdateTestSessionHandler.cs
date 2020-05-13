@@ -8,6 +8,7 @@ using SHT.Domain.Models.Tests;
 using SHT.Domain.Models.TestSessions;
 using SHT.Domain.Services;
 using SHT.Infrastructure.Common;
+using SHT.Infrastructure.Common.ExecutionContext;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Application.Tests.TestSessions.Update
@@ -17,18 +18,18 @@ namespace SHT.Application.Tests.TestSessions.Update
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ITestSessionService _testSessionService;
-        private readonly IExecutionContextAccessor _executionContextAccessor;
+        private readonly IExecutionContextService _executionContextService;
         private readonly IMapper _mapper;
 
         public UpdateTestSessionHandler(
             IUnitOfWork unitOfWork,
             ITestSessionService testSessionService,
-            IExecutionContextAccessor executionContextAccessor,
+            IExecutionContextService executionContextService,
             IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _testSessionService = testSessionService;
-            _executionContextAccessor = executionContextAccessor;
+            _executionContextService = executionContextService;
             _mapper = mapper;
         }
 
@@ -37,7 +38,7 @@ namespace SHT.Application.Tests.TestSessions.Update
             var queryParameters = new TestSessionQueryParameters
             {
                 Id = request.TestSessionId,
-                InstructorId = _executionContextAccessor.GetCurrentUserId(),
+                InstructorId = _executionContextService.GetCurrentUserId(),
                 IsReadOnly = false,
             };
             TestSession testSession = await _unitOfWork.GetSingle(queryParameters);

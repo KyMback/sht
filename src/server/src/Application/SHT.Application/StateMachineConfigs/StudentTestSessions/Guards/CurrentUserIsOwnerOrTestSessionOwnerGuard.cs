@@ -4,26 +4,27 @@ using SHT.Application.StateMachineConfigs.Core;
 using SHT.Domain.Models.TestSessions.Students;
 using SHT.Domain.Services;
 using SHT.Infrastructure.Common;
+using SHT.Infrastructure.Common.ExecutionContext;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Application.StateMachineConfigs.StudentTestSessions.Guards
 {
     internal class CurrentUserIsOwnerOrTestSessionOwnerGuard : IStateTransitionGuard<StudentTestSession>
     {
-        private readonly IExecutionContextAccessor _executionContextAccessor;
+        private readonly IExecutionContextService _executionContextService;
         private readonly IUnitOfWork _unitOfWork;
 
         public CurrentUserIsOwnerOrTestSessionOwnerGuard(
-            IExecutionContextAccessor executionContextAccessor,
+            IExecutionContextService executionContextService,
             IUnitOfWork unitOfWork)
         {
-            _executionContextAccessor = executionContextAccessor;
+            _executionContextService = executionContextService;
             _unitOfWork = unitOfWork;
         }
 
         public Task<bool> Check(StudentTestSession entity)
         {
-            Guid id = _executionContextAccessor.GetCurrentUserId();
+            Guid id = _executionContextService.GetCurrentUserId();
 
             if (entity.StudentId == id)
             {
@@ -33,7 +34,7 @@ namespace SHT.Application.StateMachineConfigs.StudentTestSessions.Guards
             var queryParameters = new TestSessionQueryParameters
             {
                 Id = entity.TestSessionId,
-                InstructorId = _executionContextAccessor.GetCurrentUserId(),
+                InstructorId = _executionContextService.GetCurrentUserId(),
             };
 
             return _unitOfWork.Any(queryParameters);

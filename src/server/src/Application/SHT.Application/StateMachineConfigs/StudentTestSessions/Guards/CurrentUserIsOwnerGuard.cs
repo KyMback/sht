@@ -2,21 +2,22 @@ using System.Threading.Tasks;
 using SHT.Application.StateMachineConfigs.Core;
 using SHT.Domain.Models.TestSessions.Students;
 using SHT.Infrastructure.Common;
+using SHT.Infrastructure.Common.ExecutionContext;
 
 namespace SHT.Application.StateMachineConfigs.StudentTestSessions.Guards
 {
     internal class CurrentUserIsOwnerGuard : IStateTransitionGuard<StudentTestSession>
     {
-        private readonly IExecutionContextAccessor _executionContextAccessor;
+        private readonly IExecutionContextService _executionContextService;
 
-        public CurrentUserIsOwnerGuard(IExecutionContextAccessor executionContextAccessor)
+        public CurrentUserIsOwnerGuard(IExecutionContextService executionContextService)
         {
-            _executionContextAccessor = executionContextAccessor;
+            _executionContextService = executionContextService;
         }
 
         public Task<bool> Check(StudentTestSession entity)
         {
-            return Task.FromResult(entity.StudentId == _executionContextAccessor.GetCurrentUserId());
+            return Task.FromResult(entity.StudentId == _executionContextService.GetCurrentUserId());
         }
     }
 }

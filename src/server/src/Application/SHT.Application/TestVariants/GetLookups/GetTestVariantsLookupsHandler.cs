@@ -6,6 +6,7 @@ using MediatR;
 using SHT.Application.Common;
 using SHT.Domain.Services.Variants;
 using SHT.Infrastructure.Common;
+using SHT.Infrastructure.Common.ExecutionContext;
 using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.QueryParameters.IQueryProvider;
 
 namespace SHT.Application.TestVariants.GetLookups
@@ -14,21 +15,21 @@ namespace SHT.Application.TestVariants.GetLookups
     internal class GetTestVariantsLookupsHandler : IRequestHandler<GetTestVariantsLookupsRequest, IQueryable<Lookup>>
     {
         private readonly IQueryProvider _queryProvider;
-        private readonly IExecutionContextAccessor _executionContextAccessor;
+        private readonly IExecutionContextService _executionContextService;
 
         public GetTestVariantsLookupsHandler(
             IQueryProvider queryProvider,
-            IExecutionContextAccessor executionContextAccessor)
+            IExecutionContextService executionContextService)
         {
             _queryProvider = queryProvider;
-            _executionContextAccessor = executionContextAccessor;
+            _executionContextService = executionContextService;
         }
 
         public Task<IQueryable<Lookup>> Handle(GetTestVariantsLookupsRequest request, CancellationToken cancellationToken)
         {
             var queryParameters = new TestVariantQueryParameters
             {
-                CreatedById = _executionContextAccessor.GetCurrentUserId(),
+                CreatedById = _executionContextService.GetCurrentUserId(),
             };
 
             return Task.FromResult(_queryProvider.Queryable(queryParameters).Select(LookupSelectors.VariantSelector));

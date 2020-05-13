@@ -7,6 +7,7 @@ using SHT.Application.StateMachineConfigs.Core;
 using SHT.Domain.Models.TestSessions.Students;
 using SHT.Domain.Services.Student;
 using SHT.Infrastructure.Common;
+using SHT.Infrastructure.Common.ExecutionContext;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Application.Tests.StudentsTestSessions.GetTriggers
@@ -15,16 +16,16 @@ namespace SHT.Application.Tests.StudentsTestSessions.GetTriggers
     internal class GetStudentTestSessionTriggersHandler :
         IRequestHandler<GetStudentTestSessionTriggersRequest, IReadOnlyCollection<string>>
     {
-        private readonly IExecutionContextAccessor _executionContextAccessor;
+        private readonly IExecutionContextService _executionContextService;
         private readonly IStateManager<StudentTestSession> _stateManager;
         private readonly IUnitOfWork _unitOfWork;
 
         public GetStudentTestSessionTriggersHandler(
-            IExecutionContextAccessor executionContextAccessor,
+            IExecutionContextService executionContextService,
             IStateManager<StudentTestSession> stateManager,
             IUnitOfWork unitOfWork)
         {
-            _executionContextAccessor = executionContextAccessor;
+            _executionContextService = executionContextService;
             _stateManager = stateManager;
             _unitOfWork = unitOfWork;
         }
@@ -35,7 +36,7 @@ namespace SHT.Application.Tests.StudentsTestSessions.GetTriggers
         {
             var queryParameters = new StudentTestSessionQueryParameters(request.TestSessionId)
             {
-                StudentId = _executionContextAccessor.GetCurrentUserId(),
+                StudentId = _executionContextService.GetCurrentUserId(),
             };
             var testSession = await _unitOfWork.GetSingle(queryParameters);
             return await _stateManager.GetAvailableTriggers(testSession);

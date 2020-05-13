@@ -34,7 +34,7 @@ namespace SHT.Database.EF.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DataProtectionKeys");
+                    b.ToTable("DataProtectionKeys","sht");
                 });
 
             modelBuilder.Entity("SHT.Domain.Models.Questions.FreeTextQuestionTemplate", b =>
@@ -56,7 +56,7 @@ namespace SHT.Database.EF.Migrations.Migrations
                     b.HasIndex("QuestionTemplateId")
                         .IsUnique();
 
-                    b.ToTable("FreeTextQuestionTemplate");
+                    b.ToTable("FreeTextQuestionTemplate","sht");
                 });
 
             modelBuilder.Entity("SHT.Domain.Models.Questions.QuestionTemplate", b =>
@@ -80,7 +80,7 @@ namespace SHT.Database.EF.Migrations.Migrations
 
                     b.HasIndex("CreatedById");
 
-                    b.ToTable("QuestionTemplate");
+                    b.ToTable("QuestionTemplate","sht");
                 });
 
             modelBuilder.Entity("SHT.Domain.Models.Questions.WithChoice.ChoiceQuestionTemplate", b =>
@@ -102,7 +102,7 @@ namespace SHT.Database.EF.Migrations.Migrations
                     b.HasIndex("QuestionTemplateId")
                         .IsUnique();
 
-                    b.ToTable("ChoiceQuestionTemplate");
+                    b.ToTable("ChoiceQuestionTemplate","sht");
                 });
 
             modelBuilder.Entity("SHT.Domain.Models.Questions.WithChoice.ChoiceQuestionTemplateOption", b =>
@@ -126,7 +126,7 @@ namespace SHT.Database.EF.Migrations.Migrations
 
                     b.HasIndex("ChoiceQuestionTemplateId");
 
-                    b.ToTable("ChoiceQuestionTemplateOption");
+                    b.ToTable("ChoiceQuestionTemplateOption","sht");
                 });
 
             modelBuilder.Entity("SHT.Domain.Models.TestSessions.Students.Answers.StudentChoiceQuestionAnswer", b =>
@@ -148,7 +148,7 @@ namespace SHT.Database.EF.Migrations.Migrations
                     b.HasIndex("OptionId", "StudentQuestionAnswerId")
                         .IsUnique();
 
-                    b.ToTable("StudentChoiceQuestionAnswer");
+                    b.ToTable("StudentChoiceQuestionAnswer","sht");
                 });
 
             modelBuilder.Entity("SHT.Domain.Models.TestSessions.Students.Answers.StudentFreeTextQuestionAnswer", b =>
@@ -162,7 +162,7 @@ namespace SHT.Database.EF.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("StudentFreeTextQuestionAnswer");
+                    b.ToTable("StudentFreeTextQuestionAnswer","sht");
                 });
 
             modelBuilder.Entity("SHT.Domain.Models.TestSessions.Students.Answers.StudentQuestionAnswer", b =>
@@ -179,7 +179,7 @@ namespace SHT.Database.EF.Migrations.Migrations
                     b.HasIndex("QuestionId")
                         .IsUnique();
 
-                    b.ToTable("StudentQuestionAnswer");
+                    b.ToTable("StudentQuestionAnswer","sht");
                 });
 
             modelBuilder.Entity("SHT.Domain.Models.TestSessions.Students.StudentTestSession", b =>
@@ -210,7 +210,7 @@ namespace SHT.Database.EF.Migrations.Migrations
 
                     b.HasIndex("TestVariantId");
 
-                    b.ToTable("StudentTestSession");
+                    b.ToTable("StudentTestSession","sht");
                 });
 
             modelBuilder.Entity("SHT.Domain.Models.TestSessions.Students.StudentTestSessionQuestion", b =>
@@ -234,7 +234,7 @@ namespace SHT.Database.EF.Migrations.Migrations
 
                     b.HasIndex("StudentTestSessionId");
 
-                    b.ToTable("StudentTestSessionQuestion");
+                    b.ToTable("StudentTestSessionQuestion","sht");
                 });
 
             modelBuilder.Entity("SHT.Domain.Models.TestSessions.TestSession", b =>
@@ -263,7 +263,7 @@ namespace SHT.Database.EF.Migrations.Migrations
 
                     b.HasIndex("InstructorId");
 
-                    b.ToTable("TestSession");
+                    b.ToTable("TestSession","sht");
                 });
 
             modelBuilder.Entity("SHT.Domain.Models.TestSessions.Variants.Questions.TestSessionVariantChoiceQuestion", b =>
@@ -278,7 +278,7 @@ namespace SHT.Database.EF.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TestSessionVariantChoiceQuestion");
+                    b.ToTable("TestSessionVariantChoiceQuestion","sht");
                 });
 
             modelBuilder.Entity("SHT.Domain.Models.TestSessions.Variants.Questions.TestSessionVariantChoiceQuestionOption", b =>
@@ -302,7 +302,7 @@ namespace SHT.Database.EF.Migrations.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("TestSessionVariantChoiceQuestionOption");
+                    b.ToTable("TestSessionVariantChoiceQuestionOption","sht");
                 });
 
             modelBuilder.Entity("SHT.Domain.Models.TestSessions.Variants.Questions.TestSessionVariantFreeTextQuestion", b =>
@@ -317,7 +317,7 @@ namespace SHT.Database.EF.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TestSessionVariantFreeTextQuestion");
+                    b.ToTable("TestSessionVariantFreeTextQuestion","sht");
                 });
 
             modelBuilder.Entity("SHT.Domain.Models.TestSessions.Variants.Questions.TestSessionVariantQuestion", b =>
@@ -349,7 +349,7 @@ namespace SHT.Database.EF.Migrations.Migrations
 
                     b.HasIndex("TestSessionVariantId");
 
-                    b.ToTable("TestSessionVariantQuestion");
+                    b.ToTable("TestSessionVariantQuestion","sht");
                 });
 
             modelBuilder.Entity("SHT.Domain.Models.TestSessions.Variants.TestSessionVariant", b =>
@@ -376,7 +376,7 @@ namespace SHT.Database.EF.Migrations.Migrations
                     b.HasIndex("Name", "TestSessionId")
                         .IsUnique();
 
-                    b.ToTable("TestSessionVariant");
+                    b.ToTable("TestSessionVariant","sht");
                 });
 
             modelBuilder.Entity("SHT.Domain.Models.Tests.TestVariant", b =>
@@ -397,7 +397,7 @@ namespace SHT.Database.EF.Migrations.Migrations
 
                     b.HasIndex("CreatedById");
 
-                    b.ToTable("TestVariant");
+                    b.ToTable("TestVariant","sht");
                 });
 
             modelBuilder.Entity("SHT.Domain.Models.Tests.TestVariantQuestion", b =>
@@ -426,7 +426,7 @@ namespace SHT.Database.EF.Migrations.Migrations
 
                     b.HasIndex("TestVariantId");
 
-                    b.ToTable("TestVariantQuestion");
+                    b.ToTable("TestVariantQuestion","sht");
                 });
 
             modelBuilder.Entity("SHT.Domain.Models.Users.Account", b =>
@@ -461,7 +461,7 @@ namespace SHT.Database.EF.Migrations.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Account");
+                    b.ToTable("Account","sht");
                 });
 
             modelBuilder.Entity("SHT.Domain.Models.Users.Instructor", b =>
@@ -471,7 +471,7 @@ namespace SHT.Database.EF.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Instructor");
+                    b.ToTable("Instructor","sht");
                 });
 
             modelBuilder.Entity("SHT.Domain.Models.Users.Student", b =>
@@ -496,7 +496,7 @@ namespace SHT.Database.EF.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Student");
+                    b.ToTable("Student","sht");
                 });
 
             modelBuilder.Entity("SHT.Domain.Models.Questions.FreeTextQuestionTemplate", b =>

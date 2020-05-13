@@ -6,6 +6,7 @@ using MediatR;
 using SHT.Application.TestVariants.Contracts;
 using SHT.Domain.Services.Variants;
 using SHT.Infrastructure.Common;
+using SHT.Infrastructure.Common.ExecutionContext;
 using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.QueryParameters.IQueryProvider;
 
 namespace SHT.Application.TestVariants.GetAll
@@ -13,14 +14,14 @@ namespace SHT.Application.TestVariants.GetAll
     [UsedImplicitly]
     internal class GetAllTestVariantsHandler : IRequestHandler<GetAllTestVariantsRequest, IQueryable<TestVariantDto>>
     {
-        private readonly IExecutionContextAccessor _executionContextAccessor;
+        private readonly IExecutionContextService _executionContextService;
         private readonly IQueryProvider _queryProvider;
 
         public GetAllTestVariantsHandler(
-            IExecutionContextAccessor executionContextAccessor,
+            IExecutionContextService executionContextService,
             IQueryProvider queryProvider)
         {
-            _executionContextAccessor = executionContextAccessor;
+            _executionContextService = executionContextService;
             _queryProvider = queryProvider;
         }
 
@@ -28,7 +29,7 @@ namespace SHT.Application.TestVariants.GetAll
         {
             var queryParameters = new TestVariantQueryParameters
             {
-                CreatedById = _executionContextAccessor.GetCurrentUserId(),
+                CreatedById = _executionContextService.GetCurrentUserId(),
             };
 
             return Task.FromResult(_queryProvider.Queryable(queryParameters).Select(TestVariantDto.Selector));

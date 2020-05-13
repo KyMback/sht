@@ -1,0 +1,59 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <SolutionDir Condition="'$(SolutionDir)'==''">../../../</SolutionDir>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+    <Import Project="$(SolutionDir)/common/Common.props" />
+    <Import Project="$(SolutionDir)/common/CodeAnalysis/CodeAnalysis.props" />
+
+    <ItemGroup>
+        <None Update="hostsettings.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="appsettings.Development.json">
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </Content>
+        <Content Include="appsettings.json">
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </Content>
+        <Content Include="appsettings.Production.json">
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </Content>
+        <Content Include="appsettings.Personal.json" Condition="Exists('appsettings.Personal.json')">
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Common\SHT.Resources\SHT.Resources.csproj" />
+      <ProjectReference Include="..\..\Infrastructure\SHT.Infrastructure.DataAccess.EF\SHT.Infrastructure.DataAccess.EF.csproj" />
+      <ProjectReference Include="..\..\Infrastructure\SHT.Infrastructure.EF.Configs\SHT.Infrastructure.EF.Configs.csproj" />
+      <ProjectReference Include="..\..\Infrastructure\SHT.Infrastructure.Services\SHT.Infrastructure.Services.csproj" />
+      <ProjectReference Include="..\SHT.BackgroundProcess.Jobs\SHT.BackgroundProcess.Jobs.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.4" />
+        <PackageReference Include="Serilog.Enrichers.Environment" Version="2.1.3" />
+        <PackageReference Include="Serilog.Extensions.Hosting" Version="3.0.0" />
+        <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+        <PackageReference Include="Serilog.Sinks.Debug" Version="1.0.1" />
+    </ItemGroup>
+    
+</Project>

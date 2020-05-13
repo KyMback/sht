@@ -8,8 +8,8 @@ namespace SHT.Infrastructure.EF.Configs
         public static void Configure(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .UseDefaultDeleteBehavior(DeleteBehavior.Restrict)
-                .ApplyConfigurationsFromAssembly(typeof(BaseModelConfig<>).Assembly);
+                .ApplyConfigurationsFromAssembly(typeof(BaseModelConfig<>).Assembly)
+                .UseDefaultSchema("sht");
         }
     }
 }

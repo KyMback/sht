@@ -1,5 +1,7 @@
 using System;
 using CorrelationId;
+using Hangfire;
+using Hangfire.PostgreSql;
 using HotChocolate;
 using HotChocolate.Execution;
 using HotChocolate.Execution.Configuration;
@@ -18,6 +20,7 @@ using SHT.Api.Web.GraphQl.Mutations;
 using SHT.Api.Web.GraphQl.Queries;
 using SHT.Api.Web.Options;
 using SHT.Api.Web.Security;
+using SHT.Infrastructure.BackgroundProcess;
 using SHT.Infrastructure.Common.Localization.Options;
 using SHT.Infrastructure.Common.Options;
 using SHT.Infrastructure.DataAccess.Abstractions.Options;
@@ -63,13 +66,24 @@ namespace SHT.Api.Web.Extensions
                 .AddSingleton<IExecutionStrategyOptionsAccessor>(provider => customOptions);
         }
 
+        public static IServiceCollection AddHangfireClient(
+            this IServiceCollection services,
+            IConfiguration configuration)
+        {
+            var connectionString =
+                configuration.GetValue<string>("DataAccessOptions:ConnectionsOptions:DefaultConnection");
+            return services
+                .AddHangfire(settings => settings.UsePostgreSqlStorage(connectionString));
+        }
+
         public static IServiceCollection AddCustomOptions(
             this IServiceCollection services,
             IConfiguration configuration)
         {
-            services
+            return services
                 .Configure<ApplicationOptions>(configuration)
-                .Configure<DataAccessOptions>(configuration.GetSection(nameof(ApplicationOptions.DataAccessOptions)))
+                .Configure<HangfireDashboardOptions>(configuration.GetSection(nameof(HangfireDashboardOptions)))
+                .Configure<DataAccessOptions>(configuration.GetSection(nameof(DataAccessOptions)))
                 .Configure<IdentityOptions>(configuration.GetSection(nameof(IdentityOptions)))
                 .Configure<RouteOptions>(configuration.GetSection(nameof(RouteOptions)))
                 .Configure<MvcOptions>(configuration.GetSection(nameof(MvcOptions)))
@@ -80,11 +94,8 @@ namespace SHT.Api.Web.Extensions
                 .Configure<EmailConfirmationTokenProviderOptions>(
                     configuration.GetSection($"{nameof(TokensOptions)}:ConfirmEmail"))
                 .Configure<LocalizationOptions>(CreateLocalizationOptions)
-                .AddSingleton(x => x.GetRequiredService<IOptions<ApplicationOptions>>().Value)
                 .AddSingleton(x => CreateRouteOptions(configuration))
                 .AddSingleton(x => x.GetRequiredService<IOptions<LocalizationOptions>>().Value);
-
-            return services;
         }
 
         private static void CreateLocalizationOptions(LocalizationOptions options)
@@ -97,7 +108,7 @@ namespace SHT.Api.Web.Extensions
 
         private static RoutesOptions CreateRouteOptions(IConfiguration configuration)
         {
-            var applicationUri = configuration.GetValue<Uri>(ApplicationOptionsKeys.ApplicationUri);
+            var applicationUri = configuration.GetValue<Uri>(nameof(ApplicationOptions.ApplicationUri));
             return new RoutesOptions
             {
                 EmailConfirmationUri = new Uri(applicationUri, RoutesConstants.EmailConfirmation),

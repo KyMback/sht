@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SHT.Api.Web.Constants;
 using SHT.Api.Web.Extensions;
+using SHT.Api.Web.Extensions.HangfireDashboard;
 using SHT.Api.Web.Middleware;
 using SHT.Api.Web.Security;
 using SHT.Application;
@@ -40,6 +41,7 @@ namespace SHT.Api.Web
                 .AddDataProtection()
                 .PersistKeysToDbContext<DefaultDbContext>()
                 .Services
+                .AddHangfireClient(_configuration)
                 .AddCustomOptions(_configuration)
                 .AddCustomSecurity(_configuration)
                 .AddCorrelationIdFluent()
@@ -75,6 +77,7 @@ namespace SHT.Api.Web
         {
             app
                 .UseCorrelationId()
+                .UseOptionsBasedHangfireDashboard()
                 .UseGraphQlPlayground()
                 .UseRequestLocalization(
                     RequestLocalizationConfigurator.GetRequestLocalizationOptions(app.ApplicationServices))

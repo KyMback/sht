@@ -6,6 +6,7 @@ using MediatR;
 using SHT.Application.Users.Students.Contracts;
 using SHT.Domain.Users;
 using SHT.Infrastructure.Common;
+using SHT.Infrastructure.Common.ExecutionContext;
 using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.QueryParameters.IQueryProvider;
 
 namespace SHT.Application.Users.Students.GetProfile
@@ -14,19 +15,19 @@ namespace SHT.Application.Users.Students.GetProfile
     internal class GetStudentProfileHandler : IRequestHandler<GetStudentProfileRequest, IQueryable<StudentProfileDto>>
     {
         private readonly IQueryProvider _queryProvider;
-        private readonly IExecutionContextAccessor _executionContextAccessor;
+        private readonly IExecutionContextService _executionContextService;
 
         public GetStudentProfileHandler(
             IQueryProvider queryProvider,
-            IExecutionContextAccessor executionContextAccessor)
+            IExecutionContextService executionContextService)
         {
             _queryProvider = queryProvider;
-            _executionContextAccessor = executionContextAccessor;
+            _executionContextService = executionContextService;
         }
 
         public Task<IQueryable<StudentProfileDto>> Handle(GetStudentProfileRequest request, CancellationToken cancellationToken)
         {
-            var queryParameters = new StudentQueryParameters(_executionContextAccessor.GetCurrentUserId());
+            var queryParameters = new StudentQueryParameters(_executionContextService.GetCurrentUserId());
             return Task.FromResult(_queryProvider.Queryable(queryParameters).Select(StudentProfileDto.Selector));
         }
     }

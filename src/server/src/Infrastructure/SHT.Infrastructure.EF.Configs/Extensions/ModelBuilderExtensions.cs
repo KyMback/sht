@@ -1,4 +1,3 @@
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using MoreLinq.Extensions;
 
@@ -6,14 +5,11 @@ namespace SHT.Infrastructure.EF.Configs.Extensions
 {
     internal static class ModelBuilderExtensions
     {
-        public static ModelBuilder UseDefaultDeleteBehavior(
+        public static ModelBuilder UseDefaultSchema(
             this ModelBuilder builder,
-            DeleteBehavior behavior)
+            string schema)
         {
-            builder.Model.GetEntityTypes()
-                .SelectMany(type => type.GetForeignKeys())
-                .Where(fk => !fk.IsOwnership)
-                .ForEach(fk => fk.DeleteBehavior = behavior);
+            builder.Model.GetEntityTypes().ForEach(type => type.SetSchema(schema));
 
             return builder;
         }

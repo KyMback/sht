@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 using SHT.Domain.Models.Common;
 using SHT.Infrastructure.Common;
+using SHT.Infrastructure.Common.ExecutionContext;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Domain.Common.Core
@@ -9,16 +10,16 @@ namespace SHT.Domain.Common.Core
     [UsedImplicitly]
     internal class CreatedByBeforeCommitHandler : IBeforeCommitHandler
     {
-        private readonly IExecutionContextAccessor _executionContextAccessor;
+        private readonly IExecutionContextService _executionContextService;
 
-        public CreatedByBeforeCommitHandler(IExecutionContextAccessor executionContextAccessor)
+        public CreatedByBeforeCommitHandler(IExecutionContextService executionContextService)
         {
-            _executionContextAccessor = executionContextAccessor;
+            _executionContextService = executionContextService;
         }
 
         public Task Handle(IEntitiesTracker entitiesTracker)
         {
-            var currentUserId = _executionContextAccessor.GetCurrentUserId();
+            var currentUserId = _executionContextService.GetCurrentUserId();
             foreach (var entity in entitiesTracker.GetTrackedEntities<IHasCreatedBy>(TrackedEntityStates.Added))
             {
                 entity.CreatedById = currentUserId;

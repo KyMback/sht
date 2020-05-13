@@ -6,6 +6,7 @@ using MediatR;
 using SHT.Application.Tests.StudentQuestions.Contracts;
 using SHT.Domain.Services.Student.Questions;
 using SHT.Infrastructure.Common;
+using SHT.Infrastructure.Common.ExecutionContext;
 using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.QueryParameters.IQueryProvider;
 
 namespace SHT.Application.Tests.StudentQuestions.GetAll
@@ -14,14 +15,14 @@ namespace SHT.Application.Tests.StudentQuestions.GetAll
     internal class GetAllStudentTestQuestionsHandler :
         IRequestHandler<GetAllStudentTestQuestionsRequest, IQueryable<StudentTestQuestionDto>>
     {
-        private readonly IExecutionContextAccessor _executionContextAccessor;
+        private readonly IExecutionContextService _executionContextService;
         private readonly IQueryProvider _queryProvider;
 
         public GetAllStudentTestQuestionsHandler(
-            IExecutionContextAccessor executionContextAccessor,
+            IExecutionContextService executionContextService,
             IQueryProvider queryProvider)
         {
-            _executionContextAccessor = executionContextAccessor;
+            _executionContextService = executionContextService;
             _queryProvider = queryProvider;
         }
 
@@ -31,7 +32,7 @@ namespace SHT.Application.Tests.StudentQuestions.GetAll
         {
             var queryParameters = new StudentTestSessionQuestionQueryParameters
             {
-                StudentId = _executionContextAccessor.GetCurrentUserId(),
+                StudentId = _executionContextService.GetCurrentUserId(),
             };
 
             return Task.FromResult(_queryProvider.Queryable(queryParameters).Select(StudentTestQuestionDto.Selector));

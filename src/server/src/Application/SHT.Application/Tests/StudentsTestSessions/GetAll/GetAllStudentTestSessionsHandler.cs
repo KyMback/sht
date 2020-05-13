@@ -8,6 +8,7 @@ using SHT.Domain.Models.Tests;
 using SHT.Domain.Models.TestSessions;
 using SHT.Domain.Services.Student;
 using SHT.Infrastructure.Common;
+using SHT.Infrastructure.Common.ExecutionContext;
 using IQueryProvider = SHT.Infrastructure.DataAccess.Abstractions.QueryParameters.IQueryProvider;
 
 namespace SHT.Application.Tests.StudentsTestSessions.GetAll
@@ -17,14 +18,14 @@ namespace SHT.Application.Tests.StudentsTestSessions.GetAll
         IRequestHandler<GetAllStudentTestSessionsRequest, IQueryable<StudentTestSessionDto>>
     {
         private readonly IQueryProvider _queryProvider;
-        private readonly IExecutionContextAccessor _executionContextAccessor;
+        private readonly IExecutionContextService _executionContextService;
 
         public GetAllStudentTestSessionsHandler(
             IQueryProvider queryProvider,
-            IExecutionContextAccessor executionContextAccessor)
+            IExecutionContextService executionContextService)
         {
             _queryProvider = queryProvider;
-            _executionContextAccessor = executionContextAccessor;
+            _executionContextService = executionContextService;
         }
 
         public Task<IQueryable<StudentTestSessionDto>> Handle(
@@ -33,7 +34,7 @@ namespace SHT.Application.Tests.StudentsTestSessions.GetAll
         {
             var queryParameters = new StudentTestSessionQueryParameters
             {
-                StudentId = _executionContextAccessor.GetCurrentUserId(),
+                StudentId = _executionContextService.GetCurrentUserId(),
                 ExceptTestSessionState = TestSessionStates.Pending,
             };
 

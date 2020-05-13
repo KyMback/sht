@@ -8,6 +8,7 @@ using SHT.Domain.Models.Tests;
 using SHT.Domain.Models.TestSessions.Students;
 using SHT.Domain.Models.TestSessions.Students.Answers;
 using SHT.Infrastructure.Common;
+using SHT.Infrastructure.Common.ExecutionContext;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Domain.Services.Student.Questions
@@ -15,16 +16,16 @@ namespace SHT.Domain.Services.Student.Questions
     internal class StudentQuestionService : IStudentQuestionService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IExecutionContextAccessor _executionContextAccessor;
+        private readonly IExecutionContextService _executionContextService;
         private readonly IStudentQuestionValidationService _studentQuestionValidationService;
 
         public StudentQuestionService(
             IUnitOfWork unitOfWork,
-            IExecutionContextAccessor executionContextAccessor,
+            IExecutionContextService executionContextService,
             IStudentQuestionValidationService studentQuestionValidationService)
         {
             _unitOfWork = unitOfWork;
-            _executionContextAccessor = executionContextAccessor;
+            _executionContextService = executionContextService;
             _studentQuestionValidationService = studentQuestionValidationService;
         }
 
@@ -33,7 +34,7 @@ namespace SHT.Domain.Services.Student.Questions
             // TODO: add includes to optimize query
             var queryParameters = new StudentTestSessionQuestionQueryParameters
             {
-                StudentId = _executionContextAccessor.GetCurrentUserId(),
+                StudentId = _executionContextService.GetCurrentUserId(),
                 IsReadOnly = false,
                 Id = questionId,
             };
