@@ -25,6 +25,10 @@ const navItemsDictionary: Dictionary<Array<NavItemConfig>> = {
             title: "TestSessions",
             href: "/test-session",
         },
+        {
+            title: "AnswersRatings",
+            href: "/answers-ratings",
+        },
     ],
 };
 

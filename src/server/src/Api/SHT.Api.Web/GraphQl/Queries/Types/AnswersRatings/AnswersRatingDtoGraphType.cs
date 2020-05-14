@@ -8,6 +8,7 @@ namespace SHT.Api.Web.GraphQl.Queries.Types.AnswersRatings
         protected override void Configure(IObjectTypeDescriptor<AnswersRatingDto> descriptor)
         {
             descriptor.Field(e => e.Id);
+            descriptor.Field(e => e.QuestionText).Type<NonNullType<StringType>>();
             descriptor.Field(e => e.RatingItems)
                 .Type<NonNullType<ListType<NonNullType<AnswersRatingItemDtoGraphType>>>>();
         }

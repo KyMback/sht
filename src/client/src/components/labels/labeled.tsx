@@ -5,10 +5,11 @@ import { LabelWrapper } from "./labelWrapper";
 interface Props<TValue> {
     title: string;
     value?: TValue;
+    className?: string;
 }
 
-export function LabeledText(props: Props<string>) {
-    return <LabelWrapper title={props.title}>{props.value || NoneContent}</LabelWrapper>;
+export function LabeledText({ value, ...rest }: Props<string>) {
+    return <LabelWrapper {...rest}>{value || NoneContent}</LabelWrapper>;
 }
 
 export function LabeledEnum<TEnum extends string>({ value, enumObject, title }: Props<TEnum> & { enumObject: any }) {
@@ -19,8 +20,8 @@ export function LabeledEnum<TEnum extends string>({ value, enumObject, title }: 
     );
 }
 
-export const LabeledDateTime = ({ value, title }: Props<string>) => {
-    return <LabelWrapper title={title}>{value || NoneContent}</LabelWrapper>;
+export const LabeledDateTime = ({ value, ...rest }: Props<string>) => {
+    return <LabelWrapper {...rest}>{value || NoneContent}</LabelWrapper>;
 };
 
 const NoneContent = <Local id="None" />;

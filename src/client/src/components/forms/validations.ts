@@ -5,7 +5,7 @@ import { LengthConstants } from "../../typings/lengthConstants";
 const emailRegexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 export const required: ValidationFunction<any> = (value: any) => {
-    return !value || requiredArray(value) ? "required" : undefined;
+    return value == null || value === "" || requiredArray(value) ? "required" : undefined;
 };
 
 export const nameShouldBeUniq = (values: Array<string | undefined>): ValidationFunction<string | undefined> => {
@@ -15,7 +15,7 @@ export const nameShouldBeUniq = (values: Array<string | undefined>): ValidationF
 };
 
 const requiredArray: ValidationFunction<Array<any>> = (value: Array<any>) => {
-    return isEmpty(value) ? "required" : undefined;
+    return Array.isArray(value) && isEmpty(value) ? "required" : undefined;
 };
 
 export const emailValidation: ValidationFunction<string | undefined> = (value: string | undefined) => {

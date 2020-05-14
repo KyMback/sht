@@ -15,12 +15,15 @@ namespace SHT.Application.Tests.AnswersRatings.Contracts
                 new AnswersRatingDto
                 {
                     Id = rating.Id,
+                    QuestionText = rating.AnswersAssessmentQuestion.QuestionText,
                     RatingItems = rating.AnswersRatingItems
                         .Select(e => AnswersRatingItemDto.Selector.Invoke(e))
                         .ToArray(),
                 });
 
         public Guid Id { get; set; }
+
+        public string QuestionText { get; set; }
 
         public IReadOnlyCollection<AnswersRatingItemDto> RatingItems { get; set; }
     }

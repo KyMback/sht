@@ -101,5 +101,9 @@
     "Back": "Back",
     "TestSession_Assessment": "Assessment",
     "QuestionsToAssessment": "Assessment Questions",
-    "TestSession_AssessmentQuestions": "Assessment Questions"
+    "TestSession_AssessmentQuestions": "Assessment Questions",
+    "Answers": "Answers",
+    "AnswersRating": "Answers Rating",
+    "AnswersRatings": "Answers Ratings",
+    "AvailableAnswersRatings": "Available Answers Ratings"
 }
