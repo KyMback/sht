@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using SHT.Application.Common;
+using SHT.Application.Tests.TestSessions.Contracts.Edit.Assessments;
 
 namespace SHT.Application.Tests.TestSessions.Contracts.Edit
 {
@@ -14,5 +15,7 @@ namespace SHT.Application.Tests.TestSessions.Contracts.Edit
         public IReadOnlyCollection<Guid> StudentsIds { get; set; }
 
         public IReadOnlyCollection<TestSessionVariantModificationData> Variants { get; set; }
+
+        public AssessmentEditDto Assessment { get; set; }
     }
 }

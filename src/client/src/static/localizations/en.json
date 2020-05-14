@@ -96,5 +96,8 @@
     "AddNewQuestion": "Add New Question",
     "TestSession_IsRandomOrder": "Random order",
     "ExpandDetails": "Expand Details",
-    "Back": "Back"
+    "Back": "Back",
+    "TestSession_Assessment": "Assessment",
+    "QuestionsToAssessment": "Assessment Questions",
+    "TestSession_AssessmentQuestions": "Assessment Questions"
 }

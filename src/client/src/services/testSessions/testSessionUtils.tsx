@@ -1,13 +1,13 @@
 import { Local, LocalProps } from "../../core/localization/local";
-import { TestSessionStates } from "../../typings/testSessionStates";
 import React from "react";
 import { localStore } from "../../stores/localStore";
+import { TestSessionState } from "../../typings/testSessionState";
 
 interface TestSessionStateLocalProps extends Omit<LocalProps, "id"> {
     state: TestSessionStateType;
 }
 
-export type TestSessionStateType = typeof TestSessionStates[keyof typeof TestSessionStates];
+export type TestSessionStateType = typeof TestSessionState[keyof typeof TestSessionState];
 
 export const TestSessionStateLocal = ({ state, ...rest }: TestSessionStateLocalProps) => {
     return <Local {...rest} id={getTestSessionStateKey(state)} />;

@@ -15,15 +15,15 @@ namespace SHT.Domain.Services.Student.Questions
             _unitOfWork = unitOfWork;
         }
 
-        public async Task ThrowIfTestSessionIsEnded(Guid studentTestSessionId)
+        public async Task ThrowIfCannotAnswer(Guid studentTestSessionId)
         {
             var queryParameters = new StudentTestSessionQueryParameters
             {
                 Id = studentTestSessionId,
-                ExcludedStates = new[] { StudentTestSessionState.Pending, StudentTestSessionState.Started },
+                State = StudentTestSessionState.Started,
             };
 
-            if (await _unitOfWork.Any(queryParameters))
+            if (!await _unitOfWork.Any(queryParameters))
             {
                 throw new CodedException(ErrorCode.StudentTestSessionEnded);
             }

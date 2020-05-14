@@ -22,7 +22,7 @@ namespace SHT.JsonSchemasGenerator
             ConstantsGenerator.Generate(typeof(StudentTestSessionTriggers), destinationPath);
             ConstantsGenerator.Generate(typeof(StudentTestSessionState), destinationPath);
             ConstantsGenerator.Generate(typeof(StudentTestSessionDataKey), destinationPath);
-            ConstantsGenerator.Generate(typeof(TestSessionStates), destinationPath);
+            ConstantsGenerator.Generate(typeof(TestSessionState), destinationPath);
             ConstantsGenerator.Generate(typeof(LengthConstants), destinationPath);
         }
     }

@@ -12,8 +12,11 @@ import { pull, intersection, isEmpty } from "lodash";
 import { HttpApi } from "../../../../../core/api/http/httpApi";
 import { notifications } from "../../../../../components/notifications/notifications";
 import { TestSessionVariantStore } from "./variants/testSessionVariantStore";
+import { AssessmentSectionStore } from "./assessment/assessmentSectionStore";
 
 export class TestSessionDetailsEditStore {
+    public assessmentStore = new AssessmentSectionStore(this);
+
     @observable public id?: string;
     @observable public name?: string;
     @observable public groupedGroups: Dictionary<Array<string>> = {};
@@ -94,6 +97,7 @@ export class TestSessionDetailsEditStore {
             store.setData(e);
             return store;
         });
+        this.assessmentStore.setData(data.assessment);
     };
 
     private getDto = (): TestSessionModificationData => {
@@ -105,6 +109,7 @@ export class TestSessionDetailsEditStore {
                 .map(g => this.groupedGroups[g])
                 .flat(),
             variants: this.testVariants.map(e => e.getDto()),
+            assessment: this.assessmentStore.getDto(),
         });
     };
 }
@@ -119,6 +124,14 @@ interface TestSessionData {
     name: string;
     studentsIds: string[];
     testVariants: TestVariantData[];
+    assessment: {
+        id: string;
+        assessmentQuestions: Array<{
+            id: string;
+            questionText: string;
+            questions: Array<string>;
+        }>;
+    };
 }
 
 interface TestVariantData {
@@ -148,7 +161,7 @@ interface TestVariantData {
 }
 
 const testSessionDetailsQuery = `
-  testSession(where:{ id:$id }) {
+  testSession(where: { id: $id }) {
     id
     name
     studentsIds
@@ -175,6 +188,14 @@ const testSessionDetailsQuery = `
           id
           questionText
         }
+      }
+    }
+    assessment {
+      id
+      assessmentQuestions {
+        id
+        questionText
+        questions
       }
     }
   }

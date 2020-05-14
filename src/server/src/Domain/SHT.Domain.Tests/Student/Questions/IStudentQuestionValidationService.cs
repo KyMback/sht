@@ -5,6 +5,6 @@ namespace SHT.Domain.Services.Student.Questions
 {
     public interface IStudentQuestionValidationService
     {
-        Task ThrowIfTestSessionIsEnded(Guid studentTestSessionId);
+        Task ThrowIfCannotAnswer(Guid studentTestSessionId);
     }
 }

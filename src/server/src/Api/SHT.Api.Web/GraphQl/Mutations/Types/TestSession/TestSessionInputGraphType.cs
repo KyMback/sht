@@ -1,4 +1,5 @@
 using HotChocolate.Types;
+using SHT.Api.Web.GraphQl.Mutations.Types.TestSession.Assessments;
 using SHT.Application.Tests.TestSessions.Contracts.Edit;
 
 namespace SHT.Api.Web.GraphQl.Mutations.Types.TestSession
@@ -12,6 +13,7 @@ namespace SHT.Api.Web.GraphQl.Mutations.Types.TestSession
             descriptor.Field(e => e.StudentsIds).Type<NonNullType<ListType<NonNullType<UuidType>>>>();
             descriptor.Field(e => e.Variants)
                 .Type<NonNullType<ListType<NonNullType<TestSessionVariantInputGraphType>>>>();
+            descriptor.Field(e => e.Assessment).Type<NonNullType<AssessmentEditDtoInputGraphType>>();
         }
     }
 }

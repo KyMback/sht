@@ -14,6 +14,7 @@ import { useParams } from "react-router-dom";
 import { IdParams } from "../../../../../typings/customTypings";
 import { DefaultCol } from "../../../../../components/layouts/defaultCol";
 import { GuardedActions, GuardsApplier } from "../../../../../core/guarding";
+import { AssessmentSection } from "./assessment/assessmentSection";
 
 export const TestSessionEditDetails = observer(() => {
     const params = useParams<IdParams>();
@@ -22,7 +23,7 @@ export const TestSessionEditDetails = observer(() => {
 
     return (
         <Form onValidSubmit={store.save}>
-            <CardSectionsGroup actions={GuardsApplier.applyGuardedArrays(store, guardedActions)}>
+            <CardSectionsGroup actions={GuardsApplier.applyGuardedArrays(store, mainActions)}>
                 <CardSection title="TestSession_Details">
                     <Row>
                         <DefaultCol>
@@ -60,12 +61,13 @@ export const TestSessionEditDetails = observer(() => {
                         ))}
                     </ListGroup>
                 </CardSection>
+                <AssessmentSection store={store.assessmentStore} />
             </CardSectionsGroup>
         </Form>
     );
 });
 
-const guardedActions: GuardedActions<TestSessionDetailsEditStore> = [
+const mainActions: GuardedActions<TestSessionDetailsEditStore> = [
     {
         data: store => [
             {

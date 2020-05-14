@@ -3,7 +3,9 @@ using AutoMapper;
 using JetBrains.Annotations;
 using MoreLinq.Extensions;
 using SHT.Application.Tests.TestSessions.Contracts.Edit;
+using SHT.Application.Tests.TestSessions.Contracts.Edit.Assessments;
 using SHT.Domain.Models.TestSessions;
+using SHT.Domain.Models.TestSessions.Assessments;
 using SHT.Domain.Models.TestSessions.Students;
 using SHT.Domain.Models.TestSessions.Variants;
 using SHT.Domain.Models.TestSessions.Variants.Questions;
@@ -18,6 +20,7 @@ namespace SHT.Application.Tests.TestSessions
         {
             CreateMap<TestSessionModificationData, TestSession>()
                 .Map(d => d.Name, s => s.Name)
+                .Map(d => d.Assessment, s => s.Assessment)
                 .AfterMap((source, destination, ctx) =>
                 {
                     destination.StudentTestSessions = source.StudentsIds.LeftJoin(
@@ -38,6 +41,38 @@ namespace SHT.Application.Tests.TestSessions
                         e => ctx.Mapper.Map<TestSessionVariant>(e),
                         (dto, testVariant) => ctx.Mapper.Map(dto, testVariant))
                         .ToList();
+                })
+                .IgnoreAllOther();
+
+            CreateMap<AssessmentEditDto, Assessment>()
+                .AfterMap((source, target, ctx) =>
+                {
+                    target.AnswersAssessmentQuestions = source.AssessmentQuestions
+                        .LeftJoin(
+                            target.AnswersAssessmentQuestions,
+                            s => s.Id,
+                            t => t.Id,
+                            s => ctx.Mapper.Map<AnswersAssessmentQuestion>(s),
+                            (s, t) => ctx.Mapper.Map(s, t))
+                        .ToArray();
+                })
+                .IgnoreAllOther();
+
+            CreateMap<AnswersAssessmentQuestionEditDto, AnswersAssessmentQuestion>()
+                .Map(d => d.QuestionText, s => s.QuestionText)
+                .AfterMap((source, target, ctx) =>
+                {
+                    target.Questions = source.Questions
+                        .LeftJoin(
+                            target.Questions,
+                            s => s,
+                            d => d.TestSessionVariantQuestionId,
+                            s => new AnswersAssessmentQuestionTestSessionVariantQuestion
+                            {
+                                TestSessionVariantQuestionId = s,
+                            },
+                            (s, d) => d)
+                        .ToArray();
                 })
                 .IgnoreAllOther();
 

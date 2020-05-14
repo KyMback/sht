@@ -13,15 +13,15 @@ namespace SHT.Application.StateMachineConfigs.TestSessions
         public void Configure(IStateConfigurationBuilder<TestSession> builder)
         {
             builder.Configure()
-                .From(TestSessionStates.Pending)
-                .To(TestSessionStates.Started)
+                .From(TestSessionState.Pending)
+                .To(TestSessionState.Started)
                 .WithTrigger(TestSessionTriggers.StartTest)
                 .WithGuard<InstructorIsOwner>()
                 .Use<StartTestSessionHandler>();
 
             builder.Configure()
-                .From(TestSessionStates.Started)
-                .To(TestSessionStates.Ended)
+                .From(TestSessionState.Started)
+                .To(TestSessionState.Assessment)
                 .WithTrigger(TestSessionTriggers.EndTest)
                 .WithGuard<InstructorIsOwner>()
                 .Use<EndTestSessionHandler>();

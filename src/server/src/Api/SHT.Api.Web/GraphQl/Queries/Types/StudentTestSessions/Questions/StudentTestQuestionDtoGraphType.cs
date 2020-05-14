@@ -9,7 +9,7 @@ namespace SHT.Api.Web.GraphQl.Queries.Types.StudentTestSessions.Questions
         protected override void Configure(IObjectTypeDescriptor<StudentTestQuestionDto> descriptor)
         {
             descriptor.Field(e => e.Id);
-            descriptor.Field(e => e.Answer).Type<StudentQuestionAnswerDtoGraphType>();
+            descriptor.Field(e => e.Answer).Type<NonNullType<StudentQuestionAnswerDtoGraphType>>();
             descriptor.Field(e => e.IsAnswered);
             descriptor.Field(e => e.Order);
             descriptor.Field(e => e.StudentTestSessionId);

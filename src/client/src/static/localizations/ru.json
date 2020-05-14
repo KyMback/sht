@@ -96,5 +96,8 @@
     "AddNewQuestion": "Добавить новый вопрос",
     "TestSession_IsRandomOrder": "Случайный порядок",
     "ExpandDetails": "Развернуть детали",
-    "Back": "Назад"
+    "Back": "Назад",
+    "TestSession_Assessment": "Оценивание",
+    "QuestionsToAssessment": "Вопросы для оценивания",
+    "TestSession_AssessmentQuestions": "Вопросы для оценивания"
 }

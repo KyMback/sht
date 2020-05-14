@@ -2,8 +2,8 @@ import { action, computed, observable, runInAction } from "mobx";
 import { TestSessionsService } from "../../../../../services/testSessions/testSessionsService";
 import moment from "moment";
 import { HttpApi } from "../../../../../core/api/http/httpApi";
-import { TestSessionStates } from "../../../../../typings/testSessionStates";
 import { TestSessionStateType } from "../../../../../services/testSessions/testSessionUtils";
+import { TestSessionState } from "../../../../../typings/testSessionState";
 
 export class TestSessionDashboardStore {
     @observable public id: string;
@@ -14,7 +14,7 @@ export class TestSessionDashboardStore {
 
     @computed
     public get canEdit(): boolean {
-        return this.state === TestSessionStates.Pending;
+        return this.state === TestSessionState.Pending;
     }
 
     constructor(id: string) {

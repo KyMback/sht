@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using SHT.Common.Utils;
 using SHT.Domain.Common.Exceptions;
+using SHT.Domain.Models.Tests;
 using SHT.Domain.Models.TestSessions.Students;
+using SHT.Domain.Models.TestSessions.Students.Answers;
 using SHT.Domain.Models.TestSessions.Variants;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
@@ -45,6 +47,10 @@ namespace SHT.Domain.Services.Student
             {
                 QuestionId = e.Id,
                 Order = e.Order ?? default,
+                Answer = new StudentQuestionAnswer
+                {
+                    FreeTextAnswer = e.Type == QuestionType.FreeText ? new StudentFreeTextQuestionAnswer() : null,
+                },
             }).ToList();
 
             if (variant.IsRandomOrder)

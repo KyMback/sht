@@ -21,7 +21,7 @@ namespace SHT.Application.StateMachineConfigs.StudentTestSessions.Guards
         {
             var queryParameters = new TestSessionQueryParameters(entity.TestSessionId)
             {
-                State = TestSessionStates.Started,
+                State = TestSessionState.Started,
             };
 
             return _unitOfWork.Any(queryParameters);

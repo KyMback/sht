@@ -443,6 +443,16 @@
         "$ref": "#/definitions/TestSessionVariantDto"
       }
     },
+    "assessment": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/definitions/AssessmentDto"
+        }
+      ]
+    },
     "createdAt": {
       "type": "string",
       "format": "date-time"
@@ -613,6 +623,55 @@
           "type": "boolean"
         }
       }
+    },
+    "AssessmentDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "guid"
+        },
+        "testSessionId": {
+          "type": "string",
+          "format": "guid"
+        },
+        "assessmentQuestions": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/AnswersAssessmentQuestionDto"
+          }
+        }
+      }
+    },
+    "AnswersAssessmentQuestionDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "guid"
+        },
+        "questionText": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "questions": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string",
+            "format": "guid"
+          }
+        }
+      }
     }
   }
 },
@@ -654,6 +713,16 @@
       "items": {
         "$ref": "#/definitions/TestSessionVariantModificationData"
       }
+    },
+    "assessment": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/definitions/AssessmentEditDto"
+        }
+      ]
     }
   },
   "definitions": {
@@ -808,6 +877,57 @@
         },
         "isCorrect": {
           "type": "boolean"
+        }
+      }
+    },
+    "AssessmentEditDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "format": "guid"
+        },
+        "assessmentQuestions": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/AnswersAssessmentQuestionEditDto"
+          }
+        }
+      }
+    },
+    "AnswersAssessmentQuestionEditDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "format": "guid"
+        },
+        "questionText": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "questions": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string",
+            "format": "guid"
+          }
         }
       }
     }
@@ -1183,6 +1303,94 @@
         },
         "isCorrect": {
           "type": "boolean"
+        }
+      }
+    }
+  }
+},
+"AnswersAssessmentQuestionEditDto": {
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "AnswersAssessmentQuestionEditDto",
+  "title": "AnswersAssessmentQuestionEditDto",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "guid"
+    },
+    "questionText": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "questions": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "format": "guid"
+      }
+    }
+  }
+},
+"AssessmentEditDto": {
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "AssessmentEditDto",
+  "title": "AssessmentEditDto",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "guid"
+    },
+    "assessmentQuestions": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/definitions/AnswersAssessmentQuestionEditDto"
+      }
+    }
+  },
+  "definitions": {
+    "AnswersAssessmentQuestionEditDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "format": "guid"
+        },
+        "questionText": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "questions": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string",
+            "format": "guid"
+          }
         }
       }
     }

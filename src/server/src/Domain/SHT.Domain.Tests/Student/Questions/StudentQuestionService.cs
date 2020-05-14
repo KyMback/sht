@@ -7,7 +7,6 @@ using SHT.Common.Utils;
 using SHT.Domain.Models.Tests;
 using SHT.Domain.Models.TestSessions.Students;
 using SHT.Domain.Models.TestSessions.Students.Answers;
-using SHT.Infrastructure.Common;
 using SHT.Infrastructure.Common.ExecutionContext;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
@@ -39,7 +38,7 @@ namespace SHT.Domain.Services.Student.Questions
                 Id = questionId,
             };
             StudentTestSessionQuestion question = await _unitOfWork.GetSingle(queryParameters);
-            await _studentQuestionValidationService.ThrowIfTestSessionIsEnded(question.StudentTestSessionId);
+            await _studentQuestionValidationService.ThrowIfCannotAnswer(question.StudentTestSessionId);
 
             SetAnswer(question, answer);
 
@@ -68,40 +67,14 @@ namespace SHT.Domain.Services.Student.Questions
         private void SetFreeTextAnswer(StudentTestSessionQuestion question, QuestionFreeTextAnswer answer)
         {
             Assert.NotNull(answer, nameof(answer));
-
-            if (question.Answer == null)
-            {
-                question.Answer = new StudentQuestionAnswer
-                {
-                    FreeTextAnswer = new StudentFreeTextQuestionAnswer
-                    {
-                        Answer = answer.Answer,
-                    },
-                };
-            }
-            else
-            {
-                question.Answer.FreeTextAnswer.Answer = answer.Answer;
-            }
+            question.Answer.FreeTextAnswer.Answer = answer.Answer;
         }
 
         private void SetChoiceQuestionAnswer(StudentTestSessionQuestion question, ChoiceQuestionAnswer answer)
         {
             Assert.NotNull(answer, nameof(answer));
 
-            if (question.Answer == null)
-            {
-                question.Answer = new StudentQuestionAnswer
-                {
-                    ChoiceQuestionAnswers = answer.Answers.Select(e => new StudentChoiceQuestionAnswer
-                    {
-                        OptionId = e,
-                    }).ToList(),
-                };
-            }
-            else
-            {
-                question.Answer.ChoiceQuestionAnswers = answer.Answers.LeftJoin(
+            question.Answer.ChoiceQuestionAnswers = answer.Answers.LeftJoin(
                     question.Answer.ChoiceQuestionAnswers,
                     source => source,
                     destination => destination.OptionId,
@@ -109,8 +82,7 @@ namespace SHT.Domain.Services.Student.Questions
                     {
                         OptionId = source,
                     }, (source, destination) => destination)
-                    .ToList();
-            }
+                .ToList();
         }
     }
 }

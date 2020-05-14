@@ -18,8 +18,8 @@ namespace SHT.Application.Tests.StudentQuestions.Contracts
                 Order = question.Order,
                 Type = question.Question.Type,
                 StudentTestSessionId = question.StudentTestSessionId,
-                IsAnswered = question.Answer != null,
-                Answer = question.Answer != null ? StudentQuestionAnswerDto.Selector.Invoke(question.Answer) : null,
+                IsAnswered = question.Answer.IsAnswered,
+                Answer = StudentQuestionAnswerDto.Selector.Invoke(question.Answer),
                 FreeTextQuestion = question.Question.Type == QuestionType.FreeText
                     ? TestSessionVariantFreeTextQuestionDto.Selector.Invoke(question.Question.FreeTextQuestion)
                     : null,

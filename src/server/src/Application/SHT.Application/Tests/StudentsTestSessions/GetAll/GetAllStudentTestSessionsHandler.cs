@@ -35,7 +35,7 @@ namespace SHT.Application.Tests.StudentsTestSessions.GetAll
             var queryParameters = new StudentTestSessionQueryParameters
             {
                 StudentId = _executionContextService.GetCurrentUserId(),
-                ExceptTestSessionState = TestSessionStates.Pending,
+                ExceptTestSessionState = TestSessionState.Pending,
             };
 
             return Task.FromResult(_queryProvider.Queryable(queryParameters).Select(StudentTestSessionDto.Selector));

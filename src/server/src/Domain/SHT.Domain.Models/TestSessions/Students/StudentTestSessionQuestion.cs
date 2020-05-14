@@ -12,10 +12,10 @@ namespace SHT.Domain.Models.TestSessions.Students
 
         public Guid QuestionId { get; set; }
 
-        public virtual StudentQuestionAnswer Answer { get; set; }
+        public virtual StudentTestSession StudentTestSession { get; set; }
 
         public Guid StudentTestSessionId { get; set; }
 
-        public virtual StudentTestSession StudentTestSession { get; set; }
+        public virtual StudentQuestionAnswer Answer { get; set; }
     }
 }
