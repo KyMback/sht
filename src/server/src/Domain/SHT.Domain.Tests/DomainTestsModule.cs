@@ -18,6 +18,8 @@ namespace SHT.Domain.Services
                 .AddAutoMapperTypes(ThisAssembly)
                 .AddScopedAsImplementedInterfaces<TestSessionService>()
                 .AddScopedAsImplementedInterfaces<TestSessionAssessmentService>()
+                .AddScopedAsImplementedInterfaces<QuestionsAnswersRatingService>()
+                .AddScopedAsImplementedInterfaces<QuestionsAnswersRatingValidationService>()
                 .AddScopedAsImplementedInterfaces<StudentTestSessionService>()
                 .AddScopedAsImplementedInterfaces<StudentQuestionService>()
                 .AddScopedAsImplementedInterfaces<StudentQuestionValidationService>()

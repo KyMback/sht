@@ -31,6 +31,12 @@ namespace SHT.Infrastructure.DataAccess.EF
             _loggerFactory = loggerFactory;
         }
 
+        /// <summary>
+        /// Gets or sets <see cref="DataProtectionKey"/> items
+        /// <remarks>
+        /// Setter required for EF core
+        /// </remarks>
+        /// </summary>
         public DbSet<DataProtectionKey> DataProtectionKeys { get; set; }
 
         public IQueryable<TEntity> Queryable<TEntity>()

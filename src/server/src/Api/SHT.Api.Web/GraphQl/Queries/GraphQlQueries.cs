@@ -1,11 +1,13 @@
 using HotChocolate.Types;
 using SHT.Api.Web.GraphQl.Extensions;
 using SHT.Api.Web.GraphQl.Queries.Types;
+using SHT.Api.Web.GraphQl.Queries.Types.AnswersRatings;
 using SHT.Api.Web.GraphQl.Queries.Types.StudentTestSessions;
 using SHT.Api.Web.GraphQl.Queries.Types.StudentTestSessions.Questions;
 using SHT.Api.Web.GraphQl.Queries.Types.TestSessions;
 using SHT.Api.Web.Security.Constants;
 using SHT.Application.Questions.Contracts;
+using SHT.Application.Tests.AnswersRatings.Contracts;
 using SHT.Application.Tests.StudentQuestions.Contracts;
 using SHT.Application.Tests.StudentsTestSessions.Contracts;
 using SHT.Application.Tests.TestSessions.Contracts;
@@ -193,6 +195,20 @@ namespace SHT.Api.Web.GraphQl.Queries
                 // TODO: currently exists issue with creating expression to nested owned entities
                 // .UseSelection()
                 .UseFiltering<QuestionDto>(filterDescriptor =>
+                    filterDescriptor.Filter(e => e.Id).AllowEquals());
+
+            descriptor.Field(e => e.GetAnswersRatings())
+                .Authorize(AuthorizationPolicyNames.StudentsOnly)
+                .Type<NonNullType<ListType<NonNullType<AnswersRatingDtoGraphType>>>>()
+                .Name("answerRatings")
+                .UseOffsetBasedPaging<AnswersRatingDtoGraphType, AnswersRatingDto>();
+
+            descriptor.Field(e => e.GetAnswersRating())
+                .Authorize(AuthorizationPolicyNames.StudentsOnly)
+                .Type<AnswersRatingDtoGraphType>()
+                .Name("answerRating")
+                .UseSingleOrDefault()
+                .UseFiltering<AnswersRatingDto>(filterDescriptor =>
                     filterDescriptor.Filter(e => e.Id).AllowEquals());
         }
     }

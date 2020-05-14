@@ -24,6 +24,7 @@ yarn-error.log*
 
 src/typings/**
 !src/typings/customTypings.ts
+schema.json
 
 .idea
 react-app-env.d.ts

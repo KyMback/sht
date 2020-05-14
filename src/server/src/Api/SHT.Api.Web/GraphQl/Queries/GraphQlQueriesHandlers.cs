@@ -6,6 +6,8 @@ using MediatR;
 using SHT.Application.Common;
 using SHT.Application.Questions.Contracts;
 using SHT.Application.Questions.GetAll;
+using SHT.Application.Tests.AnswersRatings.Contracts;
+using SHT.Application.Tests.AnswersRatings.GetAll;
 using SHT.Application.Tests.StudentQuestions.Contracts;
 using SHT.Application.Tests.StudentQuestions.GetAll;
 using SHT.Application.Tests.StudentsTestSessions.Contracts;
@@ -135,6 +137,16 @@ namespace SHT.Api.Web.GraphQl.Queries
         public Task<IQueryable<QuestionDto>> GetQuestion()
         {
             return _mediator.Send(new GetAllQuestionsRequest());
+        }
+
+        public Task<IQueryable<AnswersRatingDto>> GetAnswersRatings()
+        {
+            return _mediator.Send(new GetAllAnswersRatingsRequest());
+        }
+
+        public Task<IQueryable<AnswersRatingDto>> GetAnswersRating()
+        {
+            return _mediator.Send(new GetAllAnswersRatingsRequest());
         }
     }
 }

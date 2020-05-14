@@ -2,7 +2,6 @@ using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SHT.Domain.Models.TestSessions.Assessments;
-using SHT.Domain.Models.TestSessions.Students.Answers;
 
 namespace SHT.Infrastructure.EF.Configs.Configs.TestSessions.Assessments
 {
@@ -18,7 +17,7 @@ namespace SHT.Infrastructure.EF.Configs.Configs.TestSessions.Assessments
             }).IsUnique();
 
             builder
-                .HasOne<StudentQuestionAnswer>()
+                .HasOne(e => e.Answer)
                 .WithMany()
                 .HasForeignKey(e => e.StudentQuestionAnswerId)
                 .OnDelete(DeleteBehavior.ClientCascade);

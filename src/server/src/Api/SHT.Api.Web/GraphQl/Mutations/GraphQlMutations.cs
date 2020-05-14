@@ -1,6 +1,7 @@
 using HotChocolate.Types;
 using SHT.Api.Web.GraphQl.Common;
 using SHT.Api.Web.GraphQl.Mutations.Types;
+using SHT.Api.Web.GraphQl.Mutations.Types.AnswersRatings;
 using SHT.Api.Web.GraphQl.Mutations.Types.TestSession;
 using SHT.Api.Web.Security.Constants;
 
@@ -121,6 +122,13 @@ namespace SHT.Api.Web.GraphQl.Mutations
                     argumentDescriptor.Type<NonNullType<UuidType>>())
                 .Argument("data", argumentDescriptor =>
                     argumentDescriptor.Type<NonNullType<QuestionEditDetailsDtoInputGraphType>>());
+
+            descriptor.Field(e => e.RankQuestionsAnswers(default))
+                .Name("rankQuestionsAnswers")
+                .Type<VoidType>()
+                .Authorize(AuthorizationPolicyNames.StudentsOnly)
+                .Argument("data", argumentDescriptor =>
+                    argumentDescriptor.Type<NonNullType<AnswersRatingEditDtoInputGraphType>>());
         }
     }
 }

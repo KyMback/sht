@@ -13,5 +13,7 @@ namespace SHT.Domain.Models.TestSessions.Assessments
         /// Gets or sets id of <see cref="StudentQuestionAnswer"/>
         /// </summary>
         public Guid StudentQuestionAnswerId { get; set; }
+
+        public virtual StudentQuestionAnswer Answer { get; set; }
     }
 }

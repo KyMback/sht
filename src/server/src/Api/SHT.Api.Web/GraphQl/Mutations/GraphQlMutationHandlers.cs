@@ -7,6 +7,8 @@ using SHT.Application.Common;
 using SHT.Application.Questions.Contracts;
 using SHT.Application.Questions.Create;
 using SHT.Application.Questions.Update;
+using SHT.Application.Tests.AnswersRatings.Contracts;
+using SHT.Application.Tests.AnswersRatings.Rank;
 using SHT.Application.Tests.StudentQuestions.Answer;
 using SHT.Application.Tests.StudentQuestions.Contracts;
 using SHT.Application.Tests.StudentsTestSessions.StateTransition;
@@ -111,6 +113,11 @@ namespace SHT.Api.Web.GraphQl.Mutations
         public Task<Unit> UpdateQuestion(Guid id, QuestionEditDetailsDto data)
         {
             return _mediator.Send(new UpdateQuestionRequest(data, id));
+        }
+
+        public Task<Unit> RankQuestionsAnswers(AnswersRatingEditDto data)
+        {
+            return _mediator.Send(new RankQuestionsAnswersRequest(data));
         }
     }
 }
