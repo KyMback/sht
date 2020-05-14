@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using SHT.Application.StateMachineConfigs.StudentTestSessions;
 using SHT.Domain.Models;
 using SHT.Domain.Models.Tests;
 using SHT.Domain.Models.TestSessions;
 using SHT.Domain.Models.TestSessions.Students;
+using SHT.Domain.Services.Student.StateConfigurations;
 
 namespace SHT.JsonSchemasGenerator
 {

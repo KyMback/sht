@@ -13,6 +13,8 @@ namespace SHT.Domain.Models.TestSessions.Variants.Questions
 
         public Guid TestSessionVariantId { get; set; }
 
+        public virtual TestSessionVariant TestSessionVariant { get; set; }
+
         public Guid? SourceQuestionId { get; set; }
 
         public virtual TestSessionVariantFreeTextQuestion FreeTextQuestion { get; set; }

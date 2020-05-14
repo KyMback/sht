@@ -9,5 +9,7 @@ namespace SHT.Domain.Services
         Task<TestSession> Create(TestSession testSession);
 
         Task<TestSession> Update(TestSession testSession);
+
+        Task StartAssessmentPhase(TestSession testSession);
     }
 }

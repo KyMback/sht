@@ -27,8 +27,14 @@ namespace SHT.Domain.Services.Student
 
         public bool OrderDescByTestSessionCreatedAt { get; set; }
 
+        public Guid? VariantId { get; set; }
+
+        public IReadOnlyCollection<Guid> VariantIds { get; set; }
+
         protected override void AddFilters()
         {
+            FilterIfHasValue(VariantIds, session => VariantIds.Contains(session.TestSessionId));
+            FilterIfHasValue(VariantId, session => session.TestVariantId == VariantId.Value);
             FilterIfHasValue(Id, session => session.Id == Id.Value);
             FilterIfHasValue(State, session => session.State == State);
             FilterIfHasValue(StudentId, session => session.StudentId == StudentId.Value);

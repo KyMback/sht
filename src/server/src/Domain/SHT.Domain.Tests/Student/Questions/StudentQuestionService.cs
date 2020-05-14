@@ -67,6 +67,8 @@ namespace SHT.Domain.Services.Student.Questions
         private void SetFreeTextAnswer(StudentTestSessionQuestion question, QuestionFreeTextAnswer answer)
         {
             Assert.NotNull(answer, nameof(answer));
+
+            question.Answer.IsAnswered = true;
             question.Answer.FreeTextAnswer.Answer = answer.Answer;
         }
 
@@ -74,6 +76,7 @@ namespace SHT.Domain.Services.Student.Questions
         {
             Assert.NotNull(answer, nameof(answer));
 
+            question.Answer.IsAnswered = true;
             question.Answer.ChoiceQuestionAnswers = answer.Answers.LeftJoin(
                     question.Answer.ChoiceQuestionAnswers,
                     source => source,

@@ -35,7 +35,7 @@ namespace SHT.Infrastructure.EF.Configs.Configs.TestSessions
                 .OnDelete(DeleteBehavior.ClientCascade);
 
             builder.HasOne(e => e.Assessment)
-                .WithOne()
+                .WithOne(e => e.TestSession)
                 .HasForeignKey<Assessment>(e => e.TestSessionId)
                 .OnDelete(DeleteBehavior.ClientCascade);
         }

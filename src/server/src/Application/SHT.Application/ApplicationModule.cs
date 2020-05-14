@@ -2,8 +2,8 @@ using Autofac;
 using MediatR;
 using MediatR.Pipeline;
 using SHT.Application.Common;
-using SHT.Application.StateMachineConfigs.Core;
 using SHT.Infrastructure.Common.Extensions;
+using SHT.Infrastructure.Common.StateMachine.Core;
 
 namespace SHT.Application
 {
@@ -15,31 +15,6 @@ namespace SHT.Application
                 .AddAutoMapperTypes(ThisAssembly)
                 .RegisterFluentValidators(ThisAssembly);
             RegisterMediator(builder);
-            RegisterStateMachine(builder);
-        }
-
-        private void RegisterStateMachine(ContainerBuilder builder)
-        {
-            builder
-                .RegisterGeneric(typeof(StateManager<>))
-                .AsImplementedInterfaces()
-                .InstancePerLifetimeScope();
-            builder
-                .RegisterAssemblyTypes(ThisAssembly)
-                .AsClosedTypesOf(typeof(IStateConfigurationContainer<>))
-                .AsImplementedInterfaces()
-                .SingleInstance();
-            builder
-                .RegisterAssemblyTypes(ThisAssembly)
-                .AsClosedTypesOf(typeof(IStateTransitionHandler<>))
-                .AsImplementedInterfaces()
-                .InstancePerLifetimeScope();
-
-            builder
-                .RegisterAssemblyTypes(ThisAssembly)
-                .AsClosedTypesOf(typeof(IStateTransitionGuard<>))
-                .AsImplementedInterfaces()
-                .InstancePerLifetimeScope();
         }
 
         private void RegisterMediator(ContainerBuilder builder)

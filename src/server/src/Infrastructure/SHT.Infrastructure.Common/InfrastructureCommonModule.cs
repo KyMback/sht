@@ -2,6 +2,7 @@ using Autofac;
 using Microsoft.Extensions.Localization;
 using SHT.Infrastructure.Common.Extensions;
 using SHT.Infrastructure.Common.Localization;
+using SHT.Infrastructure.Common.StateMachine.Core;
 
 namespace SHT.Infrastructure.Common
 {
@@ -21,6 +22,11 @@ namespace SHT.Infrastructure.Common
             builder
                 .AddAutoMapperTypes(ThisAssembly)
                 .AddSingleAsImplementedInterfaces<DateTimeProvider>();
+
+            builder
+                .RegisterGeneric(typeof(StateManager<>))
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
         }
     }
 }

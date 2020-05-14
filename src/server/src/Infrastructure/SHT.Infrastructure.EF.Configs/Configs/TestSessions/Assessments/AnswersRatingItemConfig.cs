@@ -14,12 +14,6 @@ namespace SHT.Infrastructure.EF.Configs.Configs.TestSessions.Assessments
             builder.HasIndex(e => new
             {
                 e.AnswersRatingId,
-                e.Rating,
-            }).IsUnique();
-
-            builder.HasIndex(e => new
-            {
-                e.AnswersRatingId,
                 e.StudentQuestionAnswerId,
             }).IsUnique();
 

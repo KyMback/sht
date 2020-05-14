@@ -2,9 +2,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using MediatR;
-using SHT.Application.StateMachineConfigs.Core;
 using SHT.Domain.Models.TestSessions.Students;
 using SHT.Domain.Services.Student;
+using SHT.Infrastructure.Common.StateMachine.Core;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Application.Tests.StudentsTestSessions.StateTransition

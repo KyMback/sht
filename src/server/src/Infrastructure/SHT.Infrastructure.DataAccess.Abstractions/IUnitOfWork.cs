@@ -20,6 +20,9 @@ namespace SHT.Infrastructure.DataAccess.Abstractions
         Task<TEntity> Update<TEntity>([NotNull] TEntity entity)
             where TEntity : class;
 
+        Task UpdateRange<TEntity>([NotNull] [ItemNotNull] IEnumerable<TEntity> entities)
+            where TEntity : class;
+
         Task Delete<TEntity>([NotNull] TEntity entity)
             where TEntity : class;
 

@@ -7,7 +7,7 @@ namespace SHT.Domain.Models.TestSessions.Assessments
     {
         public Guid AnswersRatingId { get; set; }
 
-        public int Rating { get; set; }
+        public int? Rating { get; set; }
 
         /// <summary>
         /// Gets or sets id of <see cref="StudentQuestionAnswer"/>

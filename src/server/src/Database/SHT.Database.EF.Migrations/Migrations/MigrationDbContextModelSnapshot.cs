@@ -195,7 +195,7 @@ namespace SHT.Database.EF.Migrations.Migrations
                     b.Property<Guid>("AnswersRatingId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("Rating")
+                    b.Property<int?>("Rating")
                         .HasColumnType("integer");
 
                     b.Property<Guid>("StudentQuestionAnswerId")
@@ -204,9 +204,6 @@ namespace SHT.Database.EF.Migrations.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("StudentQuestionAnswerId");
-
-                    b.HasIndex("AnswersRatingId", "Rating")
-                        .IsUnique();
 
                     b.HasIndex("AnswersRatingId", "StudentQuestionAnswerId")
                         .IsUnique();
@@ -667,7 +664,7 @@ namespace SHT.Database.EF.Migrations.Migrations
 
             modelBuilder.Entity("SHT.Domain.Models.TestSessions.Assessments.AnswersAssessmentQuestion", b =>
                 {
-                    b.HasOne("SHT.Domain.Models.TestSessions.Assessments.Assessment", null)
+                    b.HasOne("SHT.Domain.Models.TestSessions.Assessments.Assessment", "Assessment")
                         .WithMany("AnswersAssessmentQuestions")
                         .HasForeignKey("AssessmentId")
                         .OnDelete(DeleteBehavior.ClientCascade)
@@ -682,7 +679,7 @@ namespace SHT.Database.EF.Migrations.Migrations
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
-                    b.HasOne("SHT.Domain.Models.TestSessions.Variants.Questions.TestSessionVariantQuestion", null)
+                    b.HasOne("SHT.Domain.Models.TestSessions.Variants.Questions.TestSessionVariantQuestion", "TestSessionVariantQuestion")
                         .WithMany()
                         .HasForeignKey("TestSessionVariantQuestionId")
                         .OnDelete(DeleteBehavior.ClientCascade)
@@ -691,7 +688,7 @@ namespace SHT.Database.EF.Migrations.Migrations
 
             modelBuilder.Entity("SHT.Domain.Models.TestSessions.Assessments.AnswersRating", b =>
                 {
-                    b.HasOne("SHT.Domain.Models.TestSessions.Assessments.AnswersAssessmentQuestion", null)
+                    b.HasOne("SHT.Domain.Models.TestSessions.Assessments.AnswersAssessmentQuestion", "AnswersAssessmentQuestion")
                         .WithMany("AnswersRatings")
                         .HasForeignKey("AnswersAssessmentQuestionId")
                         .OnDelete(DeleteBehavior.ClientCascade)
@@ -721,7 +718,7 @@ namespace SHT.Database.EF.Migrations.Migrations
 
             modelBuilder.Entity("SHT.Domain.Models.TestSessions.Assessments.Assessment", b =>
                 {
-                    b.HasOne("SHT.Domain.Models.TestSessions.TestSession", null)
+                    b.HasOne("SHT.Domain.Models.TestSessions.TestSession", "TestSession")
                         .WithOne("Assessment")
                         .HasForeignKey("SHT.Domain.Models.TestSessions.Assessments.Assessment", "TestSessionId")
                         .OnDelete(DeleteBehavior.ClientCascade)
@@ -737,7 +734,7 @@ namespace SHT.Database.EF.Migrations.Migrations
                         .IsRequired();
 
                     b.HasOne("SHT.Domain.Models.TestSessions.Students.Answers.StudentQuestionAnswer", null)
-                        .WithOne()
+                        .WithOne("AnswerAssessment")
                         .HasForeignKey("SHT.Domain.Models.TestSessions.Assessments.QuestionAnswerAssessment", "StudentQuestionAnswerId")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
@@ -769,7 +766,7 @@ namespace SHT.Database.EF.Migrations.Migrations
 
             modelBuilder.Entity("SHT.Domain.Models.TestSessions.Students.Answers.StudentQuestionAnswer", b =>
                 {
-                    b.HasOne("SHT.Domain.Models.TestSessions.Students.StudentTestSessionQuestion", null)
+                    b.HasOne("SHT.Domain.Models.TestSessions.Students.StudentTestSessionQuestion", "Question")
                         .WithOne("Answer")
                         .HasForeignKey("SHT.Domain.Models.TestSessions.Students.Answers.StudentQuestionAnswer", "QuestionId")
                         .OnDelete(DeleteBehavior.ClientCascade)
@@ -854,7 +851,7 @@ namespace SHT.Database.EF.Migrations.Migrations
                         .HasForeignKey("SourceQuestionId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("SHT.Domain.Models.TestSessions.Variants.TestSessionVariant", null)
+                    b.HasOne("SHT.Domain.Models.TestSessions.Variants.TestSessionVariant", "TestSessionVariant")
                         .WithMany("Questions")
                         .HasForeignKey("TestSessionVariantId")
                         .OnDelete(DeleteBehavior.ClientCascade)

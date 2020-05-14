@@ -65,7 +65,19 @@ namespace SHT.Infrastructure.DataAccess.EF
 
         Task<TEntity> IUnitOfWork.Update<TEntity>(TEntity entity)
         {
-            return Task.FromResult(entity);
+            var result = Update(entity);
+            return Task.FromResult(result.Entity);
+        }
+
+        public Task UpdateRange<TEntity>(IEnumerable<TEntity> entities)
+            where TEntity : class
+        {
+            foreach (var entity in entities)
+            {
+                Update(entity);
+            }
+
+            return Task.CompletedTask;
         }
 
         Task IUnitOfWork.Delete<TEntity>(TEntity entity)

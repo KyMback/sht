@@ -18,7 +18,7 @@ namespace SHT.Infrastructure.EF.Configs.Configs.TestSessions.Assessments
 
             builder
                 .HasMany(e => e.AnswersAssessmentQuestions)
-                .WithOne()
+                .WithOne(e => e.Assessment)
                 .HasForeignKey(e => e.AssessmentId)
                 .OnDelete(DeleteBehavior.ClientCascade);
         }

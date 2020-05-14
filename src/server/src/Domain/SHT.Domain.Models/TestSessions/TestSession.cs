@@ -4,6 +4,7 @@ using SHT.Domain.Models.Common;
 using SHT.Domain.Models.TestSessions.Assessments;
 using SHT.Domain.Models.TestSessions.Students;
 using SHT.Domain.Models.TestSessions.Variants;
+using SHT.Infrastructure.Common.StateMachine.Core;
 
 namespace SHT.Domain.Models.TestSessions
 {

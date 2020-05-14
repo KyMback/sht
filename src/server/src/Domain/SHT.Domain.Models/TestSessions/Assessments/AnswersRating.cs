@@ -5,6 +5,8 @@ namespace SHT.Domain.Models.TestSessions.Assessments
 {
     public class AnswersRating : BaseEntity
     {
+        public virtual AnswersAssessmentQuestion AnswersAssessmentQuestion { get; set; }
+
         public Guid AnswersAssessmentQuestionId { get; set; }
 
         /// <summary>
