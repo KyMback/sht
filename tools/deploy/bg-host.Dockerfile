@@ -3,11 +3,12 @@
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-server
 
-WORKDIR /usr/src/web-api
+WORKDIR /usr/src/bg-host
 
 # Copy only packages metadata to use docker cache independent of other source
 
-COPY /server/src/Api/SHT.Api.Web/SHT.Api.Web.csproj ./src/Api/SHT.Api.Web/
+COPY /server/src/BackgroundProcess/SHT.BackgroundProcess.Host/SHT.BackgroundProcess.Host.csproj ./src/BackgroundProcess/SHT.BackgroundProcess.Host/
+COPY /server/src/BackgroundProcess/SHT.BackgroundProcess.Jobs/SHT.BackgroundProcess.Jobs.csproj ./src/BackgroundProcess/SHT.BackgroundProcess.Jobs/
 
 COPY /server/src/Application/SHT.Application/SHT.Application.csproj ./src/Application/SHT.Application/
 
@@ -28,49 +29,19 @@ COPY /server/src/Infrastructure/SHT.Infrastructure.DataAccess.Abstractions/SHT.I
 COPY /server/src/Infrastructure/SHT.Infrastructure.DataAccess.EF/SHT.Infrastructure.DataAccess.EF.csproj ./src/Infrastructure/SHT.Infrastructure.DataAccess.EF/
 COPY /server/src/Infrastructure/SHT.Infrastructure.EF.Configs/SHT.Infrastructure.EF.Configs.csproj ./src/Infrastructure/SHT.Infrastructure.EF.Configs/
 
-WORKDIR /usr/src/web-api/src/Api/SHT.Api.Web/
-RUN dotnet restore "SHT.Api.Web.csproj"
+WORKDIR /usr/src/bg-host/src/BackgroundProcess/SHT.BackgroundProcess.Host/
+RUN dotnet restore "SHT.BackgroundProcess.Host.csproj"
 
-COPY ./server /usr/src/web-api/
+COPY ./server /usr/src/bg-host/
 RUN dotnet publish -c Release -o out
-
-# Build tools
-WORKDIR /usr/src/web-api/tools/SHT.JsonSchemasGenerator
-RUN dotnet build
-
-
-#############################################
-######### BUILD CLIENT
-
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-app
-
-# install nodejs
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash && \
-    apt-get update \
-    && apt-get install -y --allow-unauthenticated \
-    nodejs
-
-WORKDIR /usr/src/web-app
-
-COPY /client/package.json ./client/package.json
-COPY /client/package-lock.json ./client/package-lock.json
-
-WORKDIR /usr/src/web-app/client
-RUN npm install
-
-COPY --from=build-server /usr/src/web-api/tools/SHT.JsonSchemasGenerator/bin/Debug/netcoreapp3.1 /usr/src/web-app/server/tools/SHT.JsonSchemasGenerator/bin/Debug/netcoreapp3.1
-COPY /client .
-
-RUN npm run build:prod
 
 
 #################################################
 ############ RUNTIME
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 as final
+FROM mcr.microsoft.com/dotnet/core/runtime:3.1 as final
 
 WORKDIR /app
 
-COPY --from=build-server /usr/src/web-api/src/Api/SHT.Api.Web/out ./
-COPY --from=build-app /usr/src/web-app/client/build ./wwwroot
+COPY --from=build-server /usr/src/bg-host/src/BackgroundProcess/SHT.BackgroundProcess.Host/out ./
 
-ENTRYPOINT ["dotnet", "SHT.Api.Web.dll"]
+ENTRYPOINT ["dotnet", "SHT.BackgroundProcess.Host.dll"]

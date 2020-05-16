@@ -33,7 +33,7 @@ namespace SHT.BackgroundProcess.Host.Services
         private UserContextData GetSystemUserData()
         {
             var queryParameters =
-                new AccountQueryParameters(email: _executionContextOptions.Value.DefaultSystemEmail);
+                new AccountQueryParameters(email: _executionContextOptions.Value.DefaultSystemUserEmail);
 
             return GetUserData(queryParameters).GetAwaiter().GetResult();
         }

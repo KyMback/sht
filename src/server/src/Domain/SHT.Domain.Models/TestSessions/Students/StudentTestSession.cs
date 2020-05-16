@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using SHT.Domain.Models.Common;
 using SHT.Domain.Models.TestSessions.Variants;
 using SHT.Infrastructure.Common.StateMachine.Core;
 

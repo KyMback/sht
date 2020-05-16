@@ -11,10 +11,10 @@ const navItemsDictionary: Dictionary<Array<NavItemConfig>> = {
             title: "TestSessions",
             href: "/test-session",
         },
-        {
-            title: "TestVariants",
-            href: "/test-variants",
-        },
+        // {
+        //     title: "TestVariants",
+        //     href: "/test-variants",
+        // },
         {
             title: "Questions",
             href: "/questions",

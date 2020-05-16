@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
-using SHT.Infrastructure.Common;
 using SHT.Infrastructure.Common.ExecutionContext;
 
 namespace SHT.Api.Web.Services

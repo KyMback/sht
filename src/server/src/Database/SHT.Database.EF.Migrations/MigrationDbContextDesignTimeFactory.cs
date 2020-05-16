@@ -13,7 +13,9 @@ namespace SHT.Database.EF.Migrations
             ApplicationSettings cfg = AppConfigurationBuilder.Build();
             var optionsBuilder =
                 new DbContextOptionsBuilder<MigrationDbContext>()
-                    .UseNpgsql(cfg.ConnectionOptions.ConnectionString);
+                    .UseNpgsql(
+                        cfg.ConnectionOptions.ConnectionString,
+                        builder => builder.MigrationsHistoryTable("__EFMigrationsHistory", "sht"));
 
             return new MigrationDbContext(optionsBuilder.Options);
         }
