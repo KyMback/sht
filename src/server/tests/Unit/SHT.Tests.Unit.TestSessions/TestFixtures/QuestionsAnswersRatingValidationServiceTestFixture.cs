@@ -73,7 +73,7 @@ namespace SHT.Tests.Unit.TestSessions.TestFixtures
 
         [Theory]
         [AutoMoqData]
-        internal async Task ValidateOnRate_ItemsWithDuplicatedRatings_ThrowsException(
+        internal async Task ValidateOnRate_RatingItemsWithDuplicatedRatings_ThrowsException(
             QuestionsAnswersRatingValidationService questionsAnswersRatingValidationService)
         {
             // Arrange
@@ -111,7 +111,7 @@ namespace SHT.Tests.Unit.TestSessions.TestFixtures
 
         [Theory]
         [AutoMoqData]
-        internal async Task ValidateOnRate_ItemsWithIncorrectRatings_ThrowsException(
+        internal async Task ValidateOnRate_RatingItemsWithIncorrectRatings_ThrowsException(
             QuestionsAnswersRatingValidationService questionsAnswersRatingValidationService)
         {
             // Arrange

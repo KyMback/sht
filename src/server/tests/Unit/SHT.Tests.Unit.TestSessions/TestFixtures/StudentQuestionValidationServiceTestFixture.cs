@@ -17,7 +17,7 @@ namespace SHT.Tests.Unit.TestSessions.TestFixtures
     {
         [Theory]
         [AutoMoqData]
-        internal async Task ThrowIfCannotAnswer_CannotAnswer_ThrowsException(
+        internal async Task ThrowIfCannotAnswer_IncorrectTestSessionState_ThrowsException(
             Guid studentTestSessionId,
             [Frozen] Mock<IUnitOfWork> unitOfWorkMock,
             StudentQuestionValidationService studentQuestionValidationService)
@@ -34,7 +34,7 @@ namespace SHT.Tests.Unit.TestSessions.TestFixtures
 
         [Theory]
         [AutoMoqData]
-        internal async Task ThrowIfCannotAnswer_CanAnswer_Success(
+        internal async Task ThrowIfCannotAnswer_CorrectTestSessionState_Success(
             Guid studentTestSessionId,
             [Frozen] Mock<IUnitOfWork> unitOfWorkMock,
             StudentQuestionValidationService studentQuestionValidationService)

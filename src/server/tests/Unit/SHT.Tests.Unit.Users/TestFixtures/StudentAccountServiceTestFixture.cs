@@ -37,7 +37,7 @@ namespace SHT.Tests.Unit.Users.TestFixtures
 
         [Theory]
         [AutoMoqData]
-        internal async Task Create_GeneralFlow_InstructorShouldBeCreatedWithCorrectAccount(
+        internal async Task Create_GeneralFlow_StudentShouldBeCreatedWithCorrectAccount(
             [Frozen] Mock<IUserAccountService> userAccountServiceMock,
             [Frozen] Mock<IUnitOfWork> unitOfWorkMock,
             StudentAccountService studentAccountService)
@@ -56,7 +56,7 @@ namespace SHT.Tests.Unit.Users.TestFixtures
 
         [Theory]
         [AutoMoqData]
-        internal async Task Create_GeneralFlow_EmailShouldBeSentIntoCorrectAccount(
+        internal async Task Create_GeneralFlow_ConfirmationMailShouldBeSentToCorrectAccount(
             [Frozen] Mock<IUserAccountService> userAccountServiceMock,
             StudentAccountService studentAccountService)
         {
