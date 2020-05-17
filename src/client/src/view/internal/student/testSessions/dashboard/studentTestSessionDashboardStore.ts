@@ -6,11 +6,12 @@ import { StudentTestSessionState } from "../../../../../typings/studentTestSessi
 import { StudentTestSessionTriggers } from "../../../../../typings/studentTestSessionTriggers";
 import { StudentTestSessionsConfirmationsService } from "../../../../../services/studentTestSessions/studentTestSessionsConfirmationsService";
 import { StudentTestSessionDataKey } from "../../../../../typings/studentTestSessionDataKey";
+import { StudentTestSessionStateType } from "../studentTestSessionUtils";
 
 export class StudentTestSessionDashboardStore {
     @observable public id: string;
     @observable public name: string = "";
-    @observable public state: string = "";
+    @observable public state: StudentTestSessionStateType = "Pending";
     @observable public testVariant?: string;
     @observable public stateTransitions: Array<string> = [];
     @observable public startStudentTestModalStore?: StartStudentTestConfirmationStore;

@@ -72,9 +72,6 @@ namespace SHT.Api.Web.Middleware
 
             switch (exception)
             {
-                case CodedException businessException:
-                    SetBusinessExceptionError(context, StatusCodes.Status400BadRequest, businessException);
-                    break;
                 case GraphQlException graphQlException:
                     ProcessException(context, graphQlException.InnerException ?? graphQlException);
                     break;
@@ -86,6 +83,12 @@ namespace SHT.Api.Web.Middleware
 
         private void ProcessException(HttpContext context, Exception exception)
         {
+            if (exception is CodedException businessException)
+            {
+                SetBusinessExceptionError(context, StatusCodes.Status400BadRequest, businessException);
+                return;
+            }
+
             if (ExceptionsDataMap.TryGetValue(exception.GetType(), out var codes))
             {
                 SetError(context, codes.statusCode, codes.errorCode);

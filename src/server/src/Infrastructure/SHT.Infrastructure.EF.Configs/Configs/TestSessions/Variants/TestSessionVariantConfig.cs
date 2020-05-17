@@ -23,7 +23,7 @@ namespace SHT.Infrastructure.EF.Configs.Configs.TestSessions.Variants
                 .HasMany(e => e.Questions)
                 .WithOne(e => e.TestSessionVariant)
                 .HasForeignKey(e => e.TestSessionVariantId)
-                .OnDelete(DeleteBehavior.ClientCascade);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder
                 .HasOne(e => e.TestSession)

@@ -20,24 +20,24 @@ namespace SHT.Infrastructure.EF.Configs.Configs.TestSessions
                 .HasOne<Instructor>()
                 .WithMany()
                 .HasForeignKey(e => e.InstructorId)
-                .OnDelete(DeleteBehavior.ClientCascade);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder
                 .HasMany(e => e.Variants)
                 .WithOne(e => e.TestSession)
                 .HasForeignKey(e => e.TestSessionId)
-                .OnDelete(DeleteBehavior.ClientCascade);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder
                 .HasMany(e => e.StudentTestSessions)
                 .WithOne(e => e.TestSession)
                 .HasForeignKey(e => e.TestSessionId)
-                .OnDelete(DeleteBehavior.ClientCascade);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(e => e.Assessment)
                 .WithOne(e => e.TestSession)
                 .HasForeignKey<Assessment>(e => e.TestSessionId)
-                .OnDelete(DeleteBehavior.ClientCascade);
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

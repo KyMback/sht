@@ -11,6 +11,7 @@ import { Local } from "../../../../../core/localization/local";
 import { LabeledText } from "../../../../../components/labels/labeled";
 import { GenericButtonProps } from "../../../../../components/buttons/genericButton/genericButton";
 import { GuardedActions, GuardsApplier } from "../../../../../core/guarding";
+import { localizeStudentTestSessionState } from "../studentTestSessionUtils";
 
 const actions: Array<GenericButtonProps> = [
     {
@@ -32,7 +33,7 @@ export const StudentTestSessionDashboard = observer(() => {
             topActions={GuardsApplier.applyGuardedArrays(store, guardedActions)}
         >
             <CardSection>
-                <LabeledText title="StudentTestSession_State" value={store.state} />
+                <LabeledText title="StudentTestSession_State" value={localizeStudentTestSessionState(store.state)} />
                 <LabeledText title="StudentTestSession_Variant" value={store.testVariant} />
             </CardSection>
         </CardSectionsGroup>
