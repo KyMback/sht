@@ -1,0 +1,19 @@
+version: "3.2"
+services:
+  bg-host:
+    restart: unless-stopped
+    container_name: sht-bg-host
+    build:
+      context: ./../../src
+      dockerfile: ./../tools/deploy/bg-host.Dockerfile
+    env_file:
+      - bg-host.env
+    volumes:
+      - sht-bg-host-logs:/app/Logs
+    networks:
+      - database
+networks:
+  database:
+volumes:
+  sht-bg-host-logs:
+  

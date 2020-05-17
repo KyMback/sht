@@ -1,0 +1,21 @@
+version: "3.2"
+services:
+  web-api:
+    restart: unless-stopped
+    container_name: sht-web-api
+    build:
+      context: ./../../src
+      dockerfile: ./../tools/deploy/api.web.Dockerfile
+    env_file:
+      - api.env
+    ports:
+      - "${HOST_API_PORT:?err}:${CONTAINER_API_PORT:?err}"
+    volumes:
+      - sht-web-api-logs:/app/Logs
+    networks:
+      - database
+networks:
+  database:
+volumes:
+  sht-web-api-logs:
+  
