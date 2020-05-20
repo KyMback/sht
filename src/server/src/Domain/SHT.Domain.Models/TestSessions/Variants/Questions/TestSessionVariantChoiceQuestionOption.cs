@@ -9,5 +9,7 @@ namespace SHT.Domain.Models.TestSessions.Variants.Questions
         public Guid QuestionId { get; set; }
 
         public bool IsCorrect { get; set;  }
+
+        public bool IsRequired { get; set;  }
     }
 }

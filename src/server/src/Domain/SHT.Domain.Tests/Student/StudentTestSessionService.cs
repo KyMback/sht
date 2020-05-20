@@ -71,10 +71,16 @@ namespace SHT.Domain.Services.Student
 
         private IList<StudentTestSessionQuestion> GenerateQuestions(TestSessionVariant variant)
         {
-            var questions = variant.Questions.Select(e => new StudentTestSessionQuestion
+            IReadOnlyList<int> orderNumbers = new List<int>(0);
+            if (variant.IsRandomOrder)
+            {
+                orderNumbers = RandomUtils.GenerateRandomSequence(1, variant.Questions.Count);
+            }
+
+            var questions = variant.Questions.Select((e, index) => new StudentTestSessionQuestion
             {
                 QuestionId = e.Id,
-                Order = e.Order ?? default,
+                Order = variant.IsRandomOrder ? orderNumbers[index] : e.Order.Value,
                 Answer = new StudentQuestionAnswer
                 {
                     FreeTextAnswer = e.Type == QuestionType.FreeText ? new StudentFreeTextQuestionAnswer() : null,
@@ -85,15 +91,6 @@ namespace SHT.Domain.Services.Student
                     },
                 },
             }).ToList();
-
-            if (variant.IsRandomOrder)
-            {
-                var orderNumbers = RandomUtils.GenerateRandomSequence(1, questions.Count);
-                for (int i = 0; i < orderNumbers.Count; i++)
-                {
-                    questions[i].Order = orderNumbers[i];
-                }
-            }
 
             return questions;
         }

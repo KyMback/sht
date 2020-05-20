@@ -14,5 +14,7 @@ namespace SHT.Domain.Models.TestSessions.Assessments
 
         public virtual IList<AnswersAssessmentQuestion> AnswersAssessmentQuestions { get; set; } =
             new List<AnswersAssessmentQuestion>();
+
+        public bool VerifyImmediately { get; set; }
     }
 }

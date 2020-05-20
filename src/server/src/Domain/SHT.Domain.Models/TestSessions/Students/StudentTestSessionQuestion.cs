@@ -8,6 +8,8 @@ namespace SHT.Domain.Models.TestSessions.Students
     {
         public int Order { get; set; }
 
+        public string Name { get; set; }
+
         public virtual TestSessionVariantQuestion Question { get; set; }
 
         public Guid QuestionId { get; set; }

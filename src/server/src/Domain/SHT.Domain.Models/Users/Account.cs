@@ -1,6 +1,9 @@
+using System;
+using SHT.Domain.Models.Common;
+
 namespace SHT.Domain.Models.Users
 {
-    public class Account : BaseEntity
+    public class Account : BaseEntity, IHasCreatedAt, IHasOrganization
     {
         public string Email { get; set; }
 
@@ -14,5 +17,13 @@ namespace SHT.Domain.Models.Users
         public UserType UserType { get; set; }
 
         public bool IsEmailConfirmed { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+
+        public DateTime? ActivatedAt { get; set; }
+
+        public Guid OrganizationId { get; set; }
+
+        public virtual Organization Organization { get; set; }
     }
 }

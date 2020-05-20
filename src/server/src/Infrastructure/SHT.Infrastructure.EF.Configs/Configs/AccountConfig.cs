@@ -10,6 +10,8 @@ namespace SHT.Infrastructure.EF.Configs.Configs
     {
         protected override void ConfigureEntity(EntityTypeBuilder<Account> builder)
         {
+            builder.HasOrganization();
+
             builder.Property(e => e.Email).HasMediumMaxLength().IsRequired();
             builder.Property(e => e.Password).HasMediumMaxLength().IsRequired();
             builder.Property(e => e.SecurityStamp).HasSmallMaxLength().IsRequired();

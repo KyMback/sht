@@ -9,6 +9,7 @@ namespace SHT.Database.EF.Migrations.Seeds
     {
         private static readonly IReadOnlyCollection<ISeedsInitializer> Initializers = new ISeedsInitializer[]
         {
+            new OrganizationsSeedsInitializer(),
             new UsersSeedsInitializer(),
         };
 

@@ -29,6 +29,11 @@ namespace SHT.Infrastructure.EF.Configs.Configs.Questions
                 .WithMany()
                 .HasForeignKey(e => e.CreatedById)
                 .OnDelete(DeleteBehavior.ClientCascade);
+
+            builder.HasMany(e => e.Tags)
+                .WithOne()
+                .HasForeignKey(e => e.QuestionTemplateId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

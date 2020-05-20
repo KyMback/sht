@@ -121,6 +121,7 @@ namespace SHT.Application.Tests.TestSessions
             CreateMap<TestSessionVariantChoiceQuestionOptionModificationData, TestSessionVariantChoiceQuestionOption>()
                 .Map(d => d.Text, s => s.Text)
                 .Map(d => d.IsCorrect, s => s.IsCorrect)
+                .Map(d => d.IsRequired, s => s.IsCorrect)
                 .IgnoreAllOther();
         }
     }

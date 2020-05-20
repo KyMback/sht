@@ -9,7 +9,7 @@ namespace SHT.Common.Utils
         public static IReadOnlyList<int> GenerateRandomSequence(int from, int count)
         {
             var random = new Random((int)(DateTime.Now.Ticks % int.MaxValue));
-            return Enumerable.Range(from, count).OrderBy(x => random.Next()).ToArray();
+            return Enumerable.Range(from, count).OrderBy(_ => random.Next()).ToArray();
         }
     }
 }

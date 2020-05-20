@@ -30,6 +30,8 @@ namespace SHT.Domain.Users.Accounts
         public async Task<Account> Create(AccountCreationData data)
         {
             var account = _mapper.Map<Account>(data);
+            // TODO: currently set default organization
+            account.OrganizationId = new Guid("D9A36195-6571-47A8-89EB-912E02C5512B");
             CommonResult result = await _userManagementService.Create(account, data.Password);
             if (!result.Succeeded)
             {

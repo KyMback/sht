@@ -11,6 +11,7 @@ namespace SHT.Infrastructure.EF.Configs.Configs.TestSessions.Variants
         protected override void ConfigureEntity(EntityTypeBuilder<TestSessionVariantFreeTextQuestion> builder)
         {
             builder.Property(e => e.QuestionText).HasLargeMaxLength().IsRequired();
+            builder.Property(e => e.KeyWords).HasLargeMaxLength();
         }
     }
 }

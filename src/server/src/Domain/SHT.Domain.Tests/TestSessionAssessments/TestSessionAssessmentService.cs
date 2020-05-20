@@ -34,15 +34,19 @@ namespace SHT.Domain.Services.TestSessionAssessments
                     answer.Id,
                     answer.Question.StudentTestSession.StudentId,
                 });
-                answersAssessmentQuestion.AnswersRatings = answers.Select(e => new AnswersRating
-                {
-                    StudentId = e.StudentId,
-                    // TODO: currently we add all answers (except current student answer) for rating
-                    AnswersRatingItems = answers.Where(d => d.StudentId != e.StudentId).Select(a => new AnswersRatingItem
+
+                answersAssessmentQuestion.AnswersRatings = answers
+                    .Select(e => new AnswersRating
                     {
-                        StudentQuestionAnswerId = a.Id,
-                    }).ToList(),
-                }).ToList();
+                        StudentId = e.StudentId,
+                        // TODO: currently we add all answers (except current student answer) for rating
+                        AnswersRatingItems = answers
+                            .Where(d => d.StudentId != e.StudentId)
+                            .Select(a => new AnswersRatingItem
+                            {
+                                StudentQuestionAnswerId = a.Id,
+                            }).ToList(),
+                    }).ToList();
             }
 
             await _unitOfWork.UpdateRange(questions);

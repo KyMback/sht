@@ -42,6 +42,7 @@ namespace SHT.Application.Questions
             CreateMap<ChoiceQuestionOptionDto, ChoiceQuestionTemplateOption>()
                 .Map(d => d.Text, s => s.Text)
                 .Map(d => d.IsCorrect, s => s.IsCorrect)
+                .Map(d => d.IsRequired, s => s.IsCorrect)
                 .IgnoreAllOther();
         }
     }

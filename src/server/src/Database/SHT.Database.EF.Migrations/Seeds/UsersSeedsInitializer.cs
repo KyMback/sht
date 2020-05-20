@@ -22,7 +22,8 @@ namespace SHT.Database.EF.Migrations.Seeds
                     Password = UsersDefaults.DefaultPasswordHash,
                     IsEmailConfirmed = true,
                     UserType = UserType.Instructor,
-                    SecurityStamp = Guid.NewGuid().ToString()
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    OrganizationId = OrganizationDefaults.DefaultOrganizationId,
                 },
             },
         };
@@ -42,7 +43,8 @@ namespace SHT.Database.EF.Migrations.Seeds
                     Password = UsersDefaults.DefaultPasswordHash,
                     IsEmailConfirmed = true,
                     UserType = UserType.Student,
-                    SecurityStamp = Guid.NewGuid().ToString()
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    OrganizationId = OrganizationDefaults.DefaultOrganizationId,
                 }
             },
         };

@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using SHT.Domain.Models.Common;
 using SHT.Domain.Models.TestSessions.Assessments;
 
 namespace SHT.Domain.Models.TestSessions.Students.Answers
 {
-    public class StudentQuestionAnswer : BaseEntity
+    public class StudentQuestionAnswer : BaseEntity, IHasModifiedAt
     {
         public virtual StudentTestSessionQuestion Question { get; set; }
 
@@ -18,5 +19,7 @@ namespace SHT.Domain.Models.TestSessions.Students.Answers
             new List<StudentChoiceQuestionAnswer>();
 
         public virtual QuestionAnswerAssessment AnswerAssessment { get; set; }
+
+        public DateTime ModifiedAt { get; set; }
     }
 }
