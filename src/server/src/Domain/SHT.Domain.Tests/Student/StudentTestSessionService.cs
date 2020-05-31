@@ -77,7 +77,7 @@ namespace SHT.Domain.Services.Student
                 orderNumbers = RandomUtils.GenerateRandomSequence(1, variant.Questions.Count);
             }
 
-            var questions = variant.Questions.Select((e, index) => new StudentTestSessionQuestion
+            return variant.Questions.Select((e, index) => new StudentTestSessionQuestion
             {
                 QuestionId = e.Id,
                 Order = variant.IsRandomOrder ? orderNumbers[index] : e.Order.Value,
@@ -91,8 +91,6 @@ namespace SHT.Domain.Services.Student
                     },
                 },
             }).ToList();
-
-            return questions;
         }
     }
 }

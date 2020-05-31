@@ -48,7 +48,7 @@ namespace SHT.Infrastructure.DataAccess.EF
             return Query(queryParameters);
         }
 
-        public async Task Commit()
+        async Task IUnitOfWork.Commit()
         {
             foreach (var beforeCommitHandler in _beforeCommitHandlers.Value)
             {
@@ -75,7 +75,7 @@ namespace SHT.Infrastructure.DataAccess.EF
             return Task.FromResult(result.Entity);
         }
 
-        public Task UpdateRange<TEntity>(IEnumerable<TEntity> entities)
+        Task IUnitOfWork.UpdateRange<TEntity>(IEnumerable<TEntity> entities)
             where TEntity : class
         {
             foreach (var entity in entities)
@@ -130,7 +130,7 @@ namespace SHT.Infrastructure.DataAccess.EF
             return await Query(queryParameters).ToArrayAsync();
         }
 
-        public async Task<SearchResult<TEntity>> GetSearchResult<TEntity>(IQueryParameters<TEntity> queryParameters)
+        async Task<SearchResult<TEntity>> IUnitOfWork.GetSearchResult<TEntity>(IQueryParameters<TEntity> queryParameters)
             where TEntity : class
         {
             var queryable = Query(queryParameters);
@@ -139,7 +139,7 @@ namespace SHT.Infrastructure.DataAccess.EF
                 await queryable.LongCountAsync());
         }
 
-        public async Task<IReadOnlyCollection<TData>> GetAll<TEntity, TData>(
+        async Task<IReadOnlyCollection<TData>> IUnitOfWork.GetAll<TEntity, TData>(
             IQueryParameters<TEntity> queryParameters,
             Expression<Func<TEntity, TData>> selector)
             where TEntity : class
@@ -147,7 +147,7 @@ namespace SHT.Infrastructure.DataAccess.EF
             return await Query(queryParameters, selector).ToArrayAsync();
         }
 
-        public async Task<SearchResult<TData>> GetSearchResult<TEntity, TData>(
+        async Task<SearchResult<TData>> IUnitOfWork.GetSearchResult<TEntity, TData>(
             IQueryParameters<TEntity> queryParameters,
             Expression<Func<TEntity, TData>> selector)
             where TEntity : class

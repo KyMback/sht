@@ -4,6 +4,7 @@ using AutoMapper;
 using SHT.Common;
 using SHT.Domain.Common.Exceptions;
 using SHT.Domain.Models.Users;
+using SHT.Infrastructure.Common;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
 namespace SHT.Domain.Users.Accounts
@@ -14,17 +15,20 @@ namespace SHT.Domain.Users.Accounts
         private readonly IUserManagementService<Account> _userManagementService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IDateTimeProvider _dateTimeProvider;
 
         public UserAccountService(
             IUserEmailService userEmailService,
             IUserManagementService<Account> userManagementService,
             IUnitOfWork unitOfWork,
-            IMapper mapper)
+            IMapper mapper,
+            IDateTimeProvider dateTimeProvider)
         {
             _userEmailService = userEmailService;
             _userManagementService = userManagementService;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _dateTimeProvider = dateTimeProvider;
         }
 
         public async Task<Account> Create(AccountCreationData data)
@@ -55,6 +59,7 @@ namespace SHT.Domain.Users.Accounts
             };
             Account account = await _unitOfWork.GetSingle(queryParameters);
             var result = await _userManagementService.ConfirmEmail(account, token);
+            account.ActivatedAt = _dateTimeProvider.UtcNow;
 
             if (!result.Succeeded)
             {

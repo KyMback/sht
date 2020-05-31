@@ -12,6 +12,8 @@ namespace SHT.Domain.Models.TestSessions.Assessments
         /// </summary>
         public Guid StudentQuestionAnswerId { get; set; }
 
+        public virtual StudentQuestionAnswer StudentQuestionAnswer { get; set; }
+
         /// <remarks>
         /// Null if answer isn't rated
         /// </remarks>
