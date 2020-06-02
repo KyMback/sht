@@ -1,5 +1,5 @@
 import { Icon, IconsType } from "../../icons/icon";
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, MouseEvent } from "react";
 import { UncontrolledTooltip } from "reactstrap";
 import { uniqId } from "../../../core/utils/uniqIdUtil";
 import { KeyOrJSX } from "../../../typings/customTypings";
@@ -8,7 +8,7 @@ import { Utils } from "../../../core/utils/utils";
 
 interface Props {
     icon: IconsType;
-    onClick: () => void;
+    onClick: (e: MouseEvent) => void;
     tooltip?: KeyOrJSX;
     className?: string;
 }

@@ -1,4 +1,5 @@
 using Autofac;
+using SHT.Domain.Common.Files;
 using SHT.Infrastructure.Common.Extensions;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
@@ -10,7 +11,8 @@ namespace SHT.Domain.Common
         {
             builder
                 .RegisterFluentValidators(ThisAssembly)
-                .AddAutoMapperTypes(ThisAssembly);
+                .AddAutoMapperTypes(ThisAssembly)
+                .AddScopedAsImplementedInterfaces<FileService>();
 
             builder
                 .RegisterAssemblyTypes(ThisAssembly)

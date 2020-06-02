@@ -105,5 +105,9 @@
     "Answers": "Answers",
     "AnswersRating": "Answers Rating",
     "AnswersRatings": "Answers Ratings",
-    "AvailableAnswersRatings": "Available Answers Ratings"
+    "AvailableAnswersRatings": "Available Answers Ratings",
+    "DragAndDropOrClickToSelectFile": "Drag and Drop or click to select files",
+    "QuestionTemplatesFile": "Questions templates file",
+    "ChoiceQuestionTemplateOptionsFile": "Choice question template options file",
+    "QuestionTemplatesImport": "Question Templates Import"
 }

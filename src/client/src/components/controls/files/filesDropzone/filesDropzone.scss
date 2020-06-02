@@ -1,0 +1,23 @@
+@import "../../../../styles/variables";
+
+.files-dropzone {
+    display: flex;
+    flex-direction: column;
+    border: 1px dashed color("border");
+    cursor: pointer;
+    padding: 30px 10px;
+
+    &.disabled {
+        cursor: unset;
+        opacity: 0.5;
+    }
+
+    .dropzone-text {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    &:focus {
+        outline: none;
+    }
+}

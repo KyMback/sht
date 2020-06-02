@@ -9,12 +9,18 @@ import { icons } from "../../../../components/icons/icon";
 import { QuestionType } from "../../../../typings/dataContracts";
 import { EnumLocal } from "../../../../core/localization/local";
 import { QuestionListItem, QuestionsActionsService } from "../../../../services/questions/questionsActionsService";
+import { QuestionsImportActions } from "./import/questionsImportActions";
 
 const actions: Array<GenericButtonProps> = [
     {
         icon: icons.add,
         onClick: () => routingStore.goto("/questions/add"),
         color: "primary",
+    },
+    {
+        icon: icons.upload,
+        color: "primary",
+        onClick: QuestionsImportActions.openImportModal,
     },
 ];
 

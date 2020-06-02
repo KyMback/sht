@@ -68,10 +68,7 @@ export class HttpApi {
                 method: options.method,
                 body: HttpApi.getBody(options),
                 credentials: "same-origin",
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                },
+                headers: HttpApi.getHeaders(options),
             });
         } finally {
             HttpApi.toggleLoading(false);
@@ -80,7 +77,23 @@ export class HttpApi {
         return await HttpApi.parseResponse<TData>(response);
     };
 
+    private static getHeaders(options: Options): HeadersInit | undefined {
+        const headers: Record<string, string> = {
+            Accept: "application/json",
+        };
+
+        if (!(options.body instanceof FormData)) {
+            headers["Content-Type"] = "application/json";
+        }
+
+        return headers;
+    }
+
     private static getBody = (options: Options) => {
+        if (options.body && options.body instanceof FormData) {
+            return options.body;
+        }
+
         return options.body && JSON.stringify(options.body);
     };
 

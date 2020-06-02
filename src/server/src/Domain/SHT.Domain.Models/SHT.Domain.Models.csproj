@@ -7,6 +7,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Infrastructure\SHT.Infrastructure.Common\SHT.Infrastructure.Common.csproj" />
+      <ProjectReference Include="..\..\Infrastructure\SHT.Infrastructure.FileStorage\SHT.Infrastructure.FileStorage.csproj" />
     </ItemGroup>
     <Import Project="$(SolutionDir)/common/Common.props" />
     <Import Project="$(SolutionDir)/common/CodeAnalysis/CodeAnalysis.props" />

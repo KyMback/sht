@@ -20,6 +20,7 @@ using SHT.Infrastructure.BackgroundProcess;
 using SHT.Infrastructure.Common;
 using SHT.Infrastructure.Common.Extensions;
 using SHT.Infrastructure.DataAccess.EF;
+using SHT.Infrastructure.FileStorage;
 using SHT.Infrastructure.Services;
 
 namespace SHT.BackgroundProcess.Host
@@ -84,7 +85,7 @@ namespace SHT.BackgroundProcess.Host
                 .AddTypeAssembly<DomainCommonModule>()
                 .AddTypeAssembly<InfrastructureServicesModule>()
                 .AddTypeAssembly<InfrastructureCommonModule>()
-                .AddTypeAssembly<InfrastructureCommonModule>()
+                .AddTypeAssembly<FIleStorageModule>()
                 .AddTypeAssembly<InfrastructureBackgroundProcessModule>()
                 .AddTypeAssembly<InfrastructureServicesModule>();
         }

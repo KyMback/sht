@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using SHT.Api.Web.Middleware;
 using SHT.Api.Web.Security.Services;
 using SHT.Api.Web.Services;
+using SHT.Api.Web.Services.Files;
 using SHT.Infrastructure.Common.Extensions;
 
 namespace SHT.Api.Web
@@ -15,6 +16,7 @@ namespace SHT.Api.Web
 
             builder
                 .AddAutoMapperTypes(ThisAssembly)
+                .AddScopedAsImplementedInterfaces<WebFilesService>()
                 .AddSingleAsImplementedInterfaces<WebSafeInjectionResolver>()
                 .AddScopedAsImplementedInterfaces<WebLocalizationManagementService>()
                 .AddScopedAsImplementedInterfaces<WebExecutionContextService>()

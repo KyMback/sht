@@ -7,6 +7,8 @@ namespace SHT.Api.Web.Constants
         /// </summary>
         public const string Api = "/api";
 
+        public const string Files = "/files";
+
         /// <summary>
         ///     Swagger JSON documentation route.
         /// </summary>

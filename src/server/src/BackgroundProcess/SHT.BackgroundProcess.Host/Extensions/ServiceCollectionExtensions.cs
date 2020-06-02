@@ -1,4 +1,3 @@
-using System;
 using System.Globalization;
 using Hangfire;
 using Hangfire.PostgreSql;
@@ -7,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using SHT.Infrastructure.Common.Localization.Options;
 using SHT.Infrastructure.DataAccess.Abstractions.Options;
+using SHT.Infrastructure.FileStorage.Options;
 using SHT.Resources;
 
 namespace SHT.BackgroundProcess.Host.Extensions
@@ -34,6 +34,8 @@ namespace SHT.BackgroundProcess.Host.Extensions
                 .Configure<DataAccessOptions>(configuration.GetSection(nameof(DataAccessOptions)))
                 .Configure<LocalizationOptions>(configuration.GetSection(nameof(LocalizationOptions)))
                 .Configure<LocalizationOptions>(CreateLocalizationOptions)
+                .Configure<FileStorageOptions>(configuration.GetSection(nameof(FileStorageOptions)))
+                .Configure<FileSystemStorageOptions>(configuration.GetSection($"{nameof(FileStorageOptions)}:{nameof(FileSystemStorageOptions)}"))
                 .AddSingleton(x => x.GetRequiredService<IOptions<LocalizationOptions>>().Value);
 
             return services;

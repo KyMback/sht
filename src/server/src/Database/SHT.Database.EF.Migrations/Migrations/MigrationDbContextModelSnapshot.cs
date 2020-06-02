@@ -37,6 +37,49 @@ namespace SHT.Database.EF.Migrations.Migrations
                     b.ToTable("DataProtectionKeys","sht");
                 });
 
+            modelBuilder.Entity("SHT.Domain.Models.Files.File", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("ContentType")
+                        .IsRequired()
+                        .HasColumnType("character varying(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("OriginalName")
+                        .IsRequired()
+                        .HasColumnType("character varying(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("Reference")
+                        .IsRequired()
+                        .HasColumnType("character varying(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<long>("SizeBytes")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte>("StorageType")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("Reference")
+                        .IsUnique();
+
+                    b.ToTable("File","sht");
+                });
+
             modelBuilder.Entity("SHT.Domain.Models.Organization", b =>
                 {
                     b.Property<Guid>("Id")
@@ -308,12 +351,17 @@ namespace SHT.Database.EF.Migrations.Migrations
                     b.Property<Guid>("StudentQuestionAnswerId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid?>("StudentQuestionAnswerId1")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AssessmentId");
 
                     b.HasIndex("StudentQuestionAnswerId")
                         .IsUnique();
+
+                    b.HasIndex("StudentQuestionAnswerId1");
 
                     b.ToTable("QuestionAnswerAssessment","sht");
                 });
@@ -716,6 +764,15 @@ namespace SHT.Database.EF.Migrations.Migrations
                     b.ToTable("Student","sht");
                 });
 
+            modelBuilder.Entity("SHT.Domain.Models.Files.File", b =>
+                {
+                    b.HasOne("SHT.Domain.Models.Users.Account", null)
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("SHT.Domain.Models.Questions.FreeTextQuestionTemplate", b =>
                 {
                     b.HasOne("SHT.Domain.Models.Questions.QuestionTemplate", null)
@@ -843,6 +900,11 @@ namespace SHT.Database.EF.Migrations.Migrations
                         .HasForeignKey("SHT.Domain.Models.TestSessions.Assessments.QuestionAnswerAssessment", "StudentQuestionAnswerId")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
+
+                    b.HasOne("SHT.Domain.Models.TestSessions.Students.Answers.StudentQuestionAnswer", "StudentQuestionAnswer")
+                        .WithMany()
+                        .HasForeignKey("StudentQuestionAnswerId1")
+                        .HasConstraintName("FK_QuestionAnswerAssessment_StudentQuestionAnswer_StudentQues~1");
                 });
 
             modelBuilder.Entity("SHT.Domain.Models.TestSessions.Students.Answers.StudentChoiceQuestionAnswer", b =>

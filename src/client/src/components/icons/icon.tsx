@@ -19,6 +19,7 @@ export const icons = {
     unchecked: "check_box_outline_blank",
     expand: "expand_more",
     unExpand: "expand_less",
+    upload: "cloud_upload"
 } as const;
 
 export const Icon = ({ icon, className }: Props) => {

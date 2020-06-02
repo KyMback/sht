@@ -14,6 +14,7 @@ namespace SHT.Api.Web.Extensions
             return request.Method == HttpMethods.Get
                    && request.IsAcceptingHtml()
                    && !request.IsApiRequest()
+                   && !request.IsFilesRequest()
                    && !request.IsSwaggerRequest();
         }
 
@@ -32,6 +33,11 @@ namespace SHT.Api.Web.Extensions
         private static bool IsApiRequest(this HttpRequest request)
         {
             return request.Path.StartsWithSegments(RoutesConstants.Api, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        private static bool IsFilesRequest(this HttpRequest request)
+        {
+            return request.Path.StartsWithSegments(RoutesConstants.Files, StringComparison.InvariantCultureIgnoreCase);
         }
     }
 }

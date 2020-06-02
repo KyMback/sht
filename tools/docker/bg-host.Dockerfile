@@ -22,6 +22,7 @@ COPY /server/src/Domain/SHT.Domain.Tests/SHT.Domain.Tests.csproj ./src/Domain/SH
 COPY /server/src/Domain/SHT.Domain.Users/SHT.Domain.Users.csproj ./src/Domain/SHT.Domain.Users/
 
 COPY /server/src/Infrastructure/SHT.Infrastructure.Common/SHT.Infrastructure.Common.csproj ./src/Infrastructure/SHT.Infrastructure.Common/
+COPY /server/src/Infrastructure/SHT.Infrastructure.FileStorage/SHT.Infrastructure.FileStorage.csproj ./src/Infrastructure/SHT.Infrastructure.FileStorage/
 COPY /server/src/Infrastructure/SHT.Infrastructure.BackgroundProcess/SHT.Infrastructure.BackgroundProcess.csproj ./src/Infrastructure/SHT.Infrastructure.BackgroundProcess/
 COPY /server/src/Infrastructure/SHT.Infrastructure.Services/SHT.Infrastructure.Services.csproj ./src/Infrastructure/SHT.Infrastructure.Services/
 COPY /server/src/Infrastructure/SHT.Infrastructure.Services.Abstractions/SHT.Infrastructure.Services.Abstractions.csproj ./src/Infrastructure/SHT.Infrastructure.Services.Abstractions/

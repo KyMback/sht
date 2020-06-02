@@ -24,6 +24,7 @@ using SHT.Infrastructure.BackgroundProcess;
 using SHT.Infrastructure.Common.Localization.Options;
 using SHT.Infrastructure.Common.Options;
 using SHT.Infrastructure.DataAccess.Abstractions.Options;
+using SHT.Infrastructure.FileStorage.Options;
 using SHT.Infrastructure.Services.Abstractions;
 using SHT.Resources;
 
@@ -89,6 +90,8 @@ namespace SHT.Api.Web.Extensions
                 .Configure<MvcOptions>(configuration.GetSection(nameof(MvcOptions)))
                 .Configure<JsonOptions>(configuration.GetSection(nameof(JsonOptions)))
                 .Configure<EmailOptions>(configuration.GetSection(nameof(EmailOptions)))
+                .Configure<FileStorageOptions>(configuration.GetSection(nameof(FileStorageOptions)))
+                .Configure<FileSystemStorageOptions>(configuration.GetSection($"{nameof(FileStorageOptions)}:{nameof(FileSystemStorageOptions)}"))
                 .Configure<LocalizationOptions>(configuration.GetSection(nameof(LocalizationOptions)))
                 .Configure<TokensOptions>(configuration.GetSection(nameof(TokensOptions)))
                 .Configure<EmailConfirmationTokenProviderOptions>(

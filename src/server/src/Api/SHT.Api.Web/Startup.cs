@@ -20,6 +20,7 @@ using SHT.Domain.Users;
 using SHT.Infrastructure.Common;
 using SHT.Infrastructure.Common.Extensions;
 using SHT.Infrastructure.DataAccess.EF;
+using SHT.Infrastructure.FileStorage;
 using SHT.Infrastructure.Services;
 
 namespace SHT.Api.Web
@@ -69,6 +70,7 @@ namespace SHT.Api.Web
                 .AddTypeAssembly<DomainUsersModule>()
                 .AddTypeAssembly<DomainCommonModule>()
                 .AddTypeAssembly<InfrastructureServicesModule>()
+                .AddTypeAssembly<FIleStorageModule>()
                 .AddTypeAssembly<InfrastructureCommonModule>()
                 .AddTypeAssembly<DataAccessModule>();
         }

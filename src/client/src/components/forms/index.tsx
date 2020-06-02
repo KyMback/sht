@@ -11,6 +11,12 @@ import {
     NumericInputControlProps,
     NumericInputValue,
 } from "../controls/numericInput/numericInput";
+import { SimpleFilesUpload, SimpleFilesUploadProps, SimpleFilesUploadValue } from "../controls/files/simpleFilesUpload";
+import {
+    SimpleSingleFileUpload,
+    SimpleSingleFileUploadProps,
+    SimpleSingleFileUploadValue,
+} from "../controls/files/simpleSingleFileUpload";
 
 export const FormInput = makeFormControl<InputControlProps, TextInputValue>(InputControl, FormInputView);
 export const FormNumericInput = makeFormControl<NumericInputControlProps, NumericInputValue>(NumericInputControl);
@@ -19,3 +25,7 @@ export const FormMultiSelect = makeFormControl<MultiSelectProps, Array<any> | un
 export const FormSingleSelect = makeFormControl<SingleSelectProps, SingleSelectValue<any>>(SingleSelect);
 export const FormEnumSelect = makeFormControl<EnumSelectProps, EnumSelectValue>(EnumSelect);
 export const FormCheckbox = makeFormControl<CheckboxProps, CheckboxValue>(Checkbox);
+export const FormSimpleFilesUpload = makeFormControl<SimpleFilesUploadProps, SimpleFilesUploadValue>(SimpleFilesUpload);
+export const FormSimpleSingleFileUpload = makeFormControl<SimpleSingleFileUploadProps, SimpleSingleFileUploadValue>(
+    SimpleSingleFileUpload,
+);
