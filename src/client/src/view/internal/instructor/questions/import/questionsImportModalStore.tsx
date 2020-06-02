@@ -3,6 +3,8 @@ import { FormActions } from "../../../../../components/forms/form";
 import { MouseEvent } from "react";
 import { action, observable } from "mobx";
 import { FileInfo } from "../../../../../components/controls/files/simpleFilesUpload";
+import { QuestionsActionsService } from "../../../../../services/questions/questionsActionsService";
+import { notifications } from "../../../../../components/notifications/notifications";
 
 export class QuestionsImportModalStore {
     public formRef?: RefObject<FormActions>;
@@ -24,11 +26,17 @@ export class QuestionsImportModalStore {
         this.formRef = formRef;
     };
 
-    public submit = async (e: MouseEvent, resolve: () => void) => {
+    public submit = async (e: MouseEvent, resolve: (result: boolean) => void) => {
         if (!this.formRef!.current!.isValid()) {
             e.preventDefault();
         }
 
-        resolve();
+        await QuestionsActionsService.import(
+            this.questionsFile!.id,
+            this.questionsOptionsFile && this.questionsOptionsFile.id,
+        );
+        notifications.successfullySaved();
+
+        resolve(true);
     };
 }

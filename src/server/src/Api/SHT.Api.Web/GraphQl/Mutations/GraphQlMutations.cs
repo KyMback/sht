@@ -114,6 +114,15 @@ namespace SHT.Api.Web.GraphQl.Mutations
                 .Argument("data", argumentDescriptor =>
                     argumentDescriptor.Type<NonNullType<QuestionEditDetailsDtoInputGraphType>>());
 
+            descriptor.Field(e => e.ImportQuestionsTemplates(default, default))
+                .Name("importQuestions")
+                .Type<VoidType>()
+                .Authorize(AuthorizationPolicyNames.InstructorsOnly)
+                .Argument("questionTemplatesFileId", argumentDescriptor =>
+                    argumentDescriptor.Type<NonNullType<UuidType>>())
+                .Argument("choiceQuestionsOptionsFileId", argumentDescriptor =>
+                    argumentDescriptor.Type<UuidType>());
+
             descriptor.Field(e => e.UpdateQuestion(default, default))
                 .Name("updateQuestion")
                 .Type<VoidType>()

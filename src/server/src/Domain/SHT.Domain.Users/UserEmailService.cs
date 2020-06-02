@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Localization;
 using SHT.Infrastructure.Common.Options;
 using SHT.Infrastructure.Common.Utils;
-using SHT.Infrastructure.Services.Abstractions;
+using SHT.Infrastructure.Services;
 
 namespace SHT.Domain.Users
 {

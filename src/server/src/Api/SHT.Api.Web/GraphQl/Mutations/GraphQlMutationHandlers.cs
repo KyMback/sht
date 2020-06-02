@@ -6,13 +6,13 @@ using MediatR;
 using SHT.Application.Common;
 using SHT.Application.Questions.Contracts;
 using SHT.Application.Questions.Create;
+using SHT.Application.Questions.Import;
 using SHT.Application.Questions.Update;
 using SHT.Application.Tests.AnswersRatings.Contracts;
 using SHT.Application.Tests.AnswersRatings.Rank;
 using SHT.Application.Tests.StudentQuestions.Answer;
 using SHT.Application.Tests.StudentQuestions.Contracts;
 using SHT.Application.Tests.StudentsTestSessions.StateTransition;
-using SHT.Application.Tests.TestSessions.Contracts;
 using SHT.Application.Tests.TestSessions.Contracts.Edit;
 using SHT.Application.Tests.TestSessions.Create;
 using SHT.Application.Tests.TestSessions.StateTransition;
@@ -118,6 +118,12 @@ namespace SHT.Api.Web.GraphQl.Mutations
         public Task<Unit> RankQuestionsAnswers(AnswersRatingEditDto data)
         {
             return _mediator.Send(new RankQuestionsAnswersRequest(data));
+        }
+
+        public Task<Unit> ImportQuestionsTemplates(Guid questionTemplatesFileId, Guid? choiceQuestionsOptionsFileId)
+        {
+            var request = new ImportQuestionsTemplatesRequest(questionTemplatesFileId, choiceQuestionsOptionsFileId);
+            return _mediator.Send(request);
         }
     }
 }

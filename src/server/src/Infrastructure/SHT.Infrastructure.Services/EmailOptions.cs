@@ -1,4 +1,4 @@
-namespace SHT.Infrastructure.Services.Abstractions
+namespace SHT.Infrastructure.Services
 {
     public class EmailOptions
     {

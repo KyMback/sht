@@ -28,6 +28,9 @@ namespace SHT.Domain.Common.Core
 
         public void ApplyRules()
         {
+            QueryParameters.Filters.Clear();
+            QueryParameters.Sorts.Clear();
+            QueryParameters.Included.Clear();
             AddFilters();
             AddSorting();
             AddIncluded();

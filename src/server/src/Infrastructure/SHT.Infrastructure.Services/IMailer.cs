@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace SHT.Infrastructure.Services.Abstractions
+namespace SHT.Infrastructure.Services
 {
     public interface IMailer
     {

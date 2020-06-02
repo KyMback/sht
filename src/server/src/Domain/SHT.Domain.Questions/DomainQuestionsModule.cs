@@ -1,4 +1,5 @@
 using Autofac;
+using SHT.Domain.Questions.Import;
 using SHT.Infrastructure.Common.Extensions;
 
 namespace SHT.Domain.Questions
@@ -9,7 +10,8 @@ namespace SHT.Domain.Questions
         {
             builder
                 .RegisterFluentValidators(ThisAssembly)
-                .AddAutoMapperTypes(ThisAssembly);
+                .AddAutoMapperTypes(ThisAssembly)
+                .AddScopedAsImplementedInterfaces<QuestionTemplateImportService>();
         }
     }
 }

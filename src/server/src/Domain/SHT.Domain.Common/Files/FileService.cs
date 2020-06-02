@@ -1,9 +1,11 @@
+using System;
+using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
-using SHT.Domain.Models.Files;
 using SHT.Infrastructure.DataAccess.Abstractions;
 using SHT.Infrastructure.FileStorage;
 using SHT.Infrastructure.FileStorage.StorageStrategies;
+using File = SHT.Domain.Models.Files.File;
 
 namespace SHT.Domain.Common.Files
 {
@@ -37,6 +39,12 @@ namespace SHT.Domain.Common.Files
         {
             await _unitOfWork.Delete(file);
             await _filesStorage.Delete(file.Reference);
+        }
+
+        public async Task<Func<Task<Stream>>> GetFileStreamAccessor(FileQueryParameters queryParameters)
+        {
+            var reference = await _unitOfWork.GetSingle(queryParameters, f => f.Reference);
+            return _filesStorage.Get(reference);
         }
     }
 }

@@ -118,6 +118,14 @@ query($pageNumber: Int!, $pageSize: Int!) {
 }
 `;
 
+const importMutation = `
+mutation($questionTemplatesFileId: Uuid!, $choiceQuestionsOptionsFileId: Uuid) {
+  importQuestions(
+    questionTemplatesFileId: $questionTemplatesFileId
+    choiceQuestionsOptionsFileId: $choiceQuestionsOptionsFileId
+  )
+}`;
+
 export class QuestionsActionsService {
     public static getExtendedDetails = async (id: string): Promise<QuestionsExtendedDetails> => {
         const { question } = await HttpApi.graphQl<{ question: QuestionsExtendedDetails }>(
@@ -156,4 +164,8 @@ export class QuestionsActionsService {
     public static update = async (id: string, data: QuestionEditDetailsDto) => {
         await HttpApi.graphQl(updateMutation, { data, id });
     };
+
+    public static async import(questionTemplatesFileId: string, choiceQuestionsOptionsFileId?: string) {
+        await HttpApi.graphQl(importMutation, { questionTemplatesFileId, choiceQuestionsOptionsFileId });
+    }
 }

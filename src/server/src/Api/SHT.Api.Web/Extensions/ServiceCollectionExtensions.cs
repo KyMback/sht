@@ -25,7 +25,7 @@ using SHT.Infrastructure.Common.Localization.Options;
 using SHT.Infrastructure.Common.Options;
 using SHT.Infrastructure.DataAccess.Abstractions.Options;
 using SHT.Infrastructure.FileStorage.Options;
-using SHT.Infrastructure.Services.Abstractions;
+using SHT.Infrastructure.Services;
 using SHT.Resources;
 
 namespace SHT.Api.Web.Extensions

@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Options;
 using MimeKit;
-using SHT.Infrastructure.Services.Abstractions;
 using SmtpClient = MailKit.Net.Smtp.SmtpClient;
 
 namespace SHT.Infrastructure.Services.Emails

@@ -4,17 +4,17 @@ import { QuestionsImportModal } from "./questionsImportModal";
 import { QuestionsImportModalStore } from "./questionsImportModalStore";
 
 export class QuestionsImportActions {
-    public static openImportModal = async () => {
+    public static openImportModal = async (): Promise<boolean> => {
         const store = new QuestionsImportModalStore();
 
-        return ConfirmationsService.show({
+        return ConfirmationsService.show<boolean>({
             title: "QuestionTemplatesImport",
             body: <QuestionsImportModal store={store} />,
             actions: [
                 {
                     color: "secondary",
                     title: "Cancel",
-                    onClick: (_, resolve) => resolve(),
+                    onClick: (_, resolve) => resolve(false),
                 },
                 {
                     color: "primary",
