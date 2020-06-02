@@ -3,11 +3,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using JetBrains.Annotations;
 using MediatR;
-using SHT.Application.Tests.TestSessions.Contracts.Edit;
-using SHT.Domain.Models.Tests;
 using SHT.Domain.Models.TestSessions;
 using SHT.Domain.Services;
-using SHT.Infrastructure.Common;
 using SHT.Infrastructure.Common.ExecutionContext;
 using SHT.Infrastructure.DataAccess.Abstractions;
 
@@ -40,6 +37,11 @@ namespace SHT.Application.Tests.TestSessions.Update
                 Id = request.TestSessionId,
                 InstructorId = _executionContextService.GetCurrentUserId(),
                 IsReadOnly = false,
+                IncludeStudentTestSessions = true,
+                IncludeAssessment = true,
+                IncludeVariants = true,
+                IncludeVariantsQuestions = true,
+                IncludeAnswersAssessmentQuestions = true,
             };
             TestSession testSession = await _unitOfWork.GetSingle(queryParameters);
             _mapper.Map(request.Data, testSession);

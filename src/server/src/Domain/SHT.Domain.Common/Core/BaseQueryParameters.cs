@@ -24,6 +24,8 @@ namespace SHT.Domain.Common.Core
 
         IList<SortOptions<TEntity>> IQueryParameters<TEntity>.Sorts { get; set; } = new List<SortOptions<TEntity>>();
 
+        IList<Includable<TEntity>> IQueryParameters<TEntity>.Includables { get; set; } = new List<Includable<TEntity>>();
+
         private IQueryParameters<TEntity> QueryParameters => this;
 
         public void ApplyRules()
@@ -81,12 +83,27 @@ namespace SHT.Domain.Common.Core
             }
         }
 
+        protected void If(bool predicate, Action action)
+        {
+            if (predicate)
+            {
+                action();
+            }
+        }
+
         protected void IncludeIf(bool predicate, Expression<Func<TEntity, object>> expression)
         {
             if (predicate)
             {
-                QueryParameters.Included.Add(expression);
+                Include(expression);
             }
+        }
+
+        protected IIncludable Include(Expression<Func<TEntity, object>> expression)
+        {
+            var incl = new Includable<TEntity>(expression);
+            QueryParameters.Includables.Add(incl);
+            return incl;
         }
 
         protected virtual void AddFilters()

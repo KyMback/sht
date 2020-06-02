@@ -19,6 +19,8 @@ namespace SHT.Infrastructure.DataAccess.Abstractions.QueryParameters
 
         IList<SortOptions<TEntity>> Sorts { get; set; }
 
+        IList<Includable<TEntity>> Includables { get; set; }
+
         void ApplyRules();
     }
 }

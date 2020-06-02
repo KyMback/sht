@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using SHT.Infrastructure.DataAccess.Abstractions.QueryParameters;
 
 namespace SHT.Infrastructure.DataAccess.EF
@@ -63,12 +64,31 @@ namespace SHT.Infrastructure.DataAccess.EF
                 queryable = queryable.Include(expression);
             }
 
+            foreach (var queryParametersIncludable in queryParameters.Includables)
+            {
+                queryable = Include(
+                    queryable.Include(queryParametersIncludable.Expression),
+                    queryParametersIncludable.ThenIncludable);
+            }
+
             if (queryParameters.IsReadOnly)
             {
                 queryable = queryable.AsNoTracking();
             }
 
             return queryable;
+        }
+
+        private static IQueryable<TEntity> Include<TEntity>(IIncludableQueryable<TEntity, object> queryable, ThenIncludable includable)
+            where TEntity : class
+        {
+            if (includable == null)
+            {
+                return queryable;
+            }
+
+            queryable = queryable.ThenInclude(includable.Expression);
+            return Include(queryable, includable.NestedThenIncludable);
         }
     }
 }
