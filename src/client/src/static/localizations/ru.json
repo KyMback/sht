@@ -109,5 +109,6 @@
     "DragAndDropOrClickToSelectFile": "Перетащите файл или нажмите, чтобы выбрать",
     "QuestionTemplatesFile": "Файл с шаблонами вопросов",
     "ChoiceQuestionTemplateOptionsFile": "Файл с опциями для вопросов с выбором",
-    "QuestionTemplatesImport": "Импорт шаблонов вопросов"
+    "QuestionTemplatesImport": "Импорт шаблонов вопросов",
+    "Images": "Изображения"
 }

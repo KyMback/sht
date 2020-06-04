@@ -1,0 +1,35 @@
+@import "src/styles/variables";
+
+.file-image {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px;
+    border: 1px solid color("border-color");
+    border-radius: 3px;
+    background-color: color("background");
+    margin-bottom: 10px;
+
+    &:not(:last-child) {
+        margin-right: 15px;
+    }
+
+    .image-container {
+        @media (min-width: media-min("lg")) {
+            height: 150px;
+        }
+
+        @media (min-width: media-min("md")) {
+            height: 100px;
+        }
+
+        @media (max-width: media-max("md")) {
+            height: 50px;
+        }
+    }
+
+    img {
+        width: auto;
+        max-height: 100%;
+    }
+}

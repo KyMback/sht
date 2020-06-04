@@ -13,7 +13,7 @@ namespace SHT.Api.Web.GraphQl.Queries.Types
             descriptor.Field(e => e.ChoiceQuestion).Type<ChoiceQuestionDtoGraphType>();
             descriptor.Field(e => e.Type).Type<QuestionTypeGraphType>();
             descriptor.Field(e => e.CreatedBy).Type<NonNullType<InstructorDtoGraphType>>();
-            descriptor.Field(e => e.Images).Type<ListType<NonNullType<UuidType>>>();
+            descriptor.Field(e => e.Images).Type<NonNullType<ListType<NonNullType<FileInfoDtoGraphType>>>>();
         }
     }
 }

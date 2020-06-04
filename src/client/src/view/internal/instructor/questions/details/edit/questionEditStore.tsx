@@ -6,11 +6,13 @@ import { FreeTextQuestionEditSectionStore } from "./sections/freeText/freeTextQu
 import { QuestionsActionsService } from "../../../../../../services/questions/questionsActionsService";
 import { notifications } from "../../../../../../components/notifications/notifications";
 import { QuestionWithChoiceEditSectionStore } from "./sections/withChoice/questionWithChoiceEditSectionStore";
+import { FileInfo } from "../../../../../../components/controls/files/simpleFilesUpload";
 
 export class QuestionEditStore implements AsyncInitializable {
     @observable public id?: string;
     @observable public name?: string;
     @observable public type?: QuestionType;
+    @observable public images: Array<FileInfo> = [];
 
     @observable public freeTextStore?: FreeTextQuestionEditSectionStore;
     @observable public choiceQuestionStore?: QuestionWithChoiceEditSectionStore;
@@ -23,6 +25,11 @@ export class QuestionEditStore implements AsyncInitializable {
     @action
     public setName = (value?: string) => {
         this.name = value;
+    };
+
+    @action
+    public setImages = (value: Array<FileInfo>) => {
+        this.images = value;
     };
 
     @action
@@ -77,6 +84,7 @@ export class QuestionEditStore implements AsyncInitializable {
         runInAction(() => {
             this.name = data.name;
             this.type = data.type;
+            this.images = data.images;
             this.buildSpecialQuestionStoreByType(data.type);
             switch (data.type) {
                 case QuestionType.FreeText:
@@ -93,6 +101,7 @@ export class QuestionEditStore implements AsyncInitializable {
         return QuestionEditDetailsDto.fromJS({
             type: this.type,
             name: this.name,
+            images: this.images.map(d => d.id),
             freeTextQuestionData: this.freeTextStore && this.freeTextStore.getDto(),
             choiceQuestionData: this.choiceQuestionStore && this.choiceQuestionStore.getDto(),
         });

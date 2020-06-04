@@ -1,4 +1,4 @@
-import { CreatedEntityResponse, QuestionEditDetailsDto, QuestionType } from "../../typings/dataContracts";
+import { CreatedEntityResponse, FileInfoDto, QuestionEditDetailsDto, QuestionType } from "../../typings/dataContracts";
 import { HttpApi } from "../../core/api/http/httpApi";
 import { TableResult } from "../../core/api/tableResult";
 
@@ -19,6 +19,7 @@ mutation($data: QuestionEditDetailsDtoInput!, $id: Uuid!) {
 interface QuestionsDetails {
     name: string;
     type: QuestionType;
+    images: Array<FileInfoDto>;
     freeTextQuestion: {
         question: string;
     };
@@ -37,6 +38,10 @@ query($id: Uuid!) {
   question(where: { id: $id }) {
     name
     type
+    images {
+      id
+      name
+    }
     freeTextQuestion {
       question
     }

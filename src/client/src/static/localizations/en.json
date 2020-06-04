@@ -109,5 +109,6 @@
     "DragAndDropOrClickToSelectFile": "Drag and Drop or click to select files",
     "QuestionTemplatesFile": "Questions templates file",
     "ChoiceQuestionTemplateOptionsFile": "Choice question template options file",
-    "QuestionTemplatesImport": "Question Templates Import"
+    "QuestionTemplatesImport": "Question Templates Import",
+    "Images": "Images"
 }

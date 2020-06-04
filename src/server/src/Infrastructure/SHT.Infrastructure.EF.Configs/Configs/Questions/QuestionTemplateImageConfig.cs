@@ -1,7 +1,6 @@
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SHT.Domain.Models.Files;
 using SHT.Domain.Models.Questions;
 
 namespace SHT.Infrastructure.EF.Configs.Configs.Questions
@@ -17,7 +16,7 @@ namespace SHT.Infrastructure.EF.Configs.Configs.Questions
                 e.QuestionTemplateId,
             });
 
-            builder.HasOne<File>()
+            builder.HasOne(e => e.File)
                 .WithMany()
                 .HasForeignKey(e => e.FileId)
                 .OnDelete(DeleteBehavior.Cascade);

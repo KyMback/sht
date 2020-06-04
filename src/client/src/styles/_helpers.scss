@@ -1,5 +1,11 @@
+@import "mixins";
+
 .clickable {
     cursor: pointer;
+}
+
+.truncate {
+    @include truncate
 }
 
 .text-bold {

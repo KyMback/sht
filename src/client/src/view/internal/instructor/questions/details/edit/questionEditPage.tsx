@@ -11,9 +11,14 @@ import { CardSection } from "../../../../../../components/layouts/sections/cardS
 import { FreeTextQuestionEditSection } from "./sections/freeText/freeTextQuestionEditSection";
 import { maxMediumLength, required } from "../../../../../../components/forms/validations";
 import { QuestionType } from "../../../../../../typings/dataContracts";
-import { Row } from "reactstrap";
+import { Col, Row } from "reactstrap";
 import { DefaultCol } from "../../../../../../components/layouts/defaultCol";
-import { FormEnumSelect, FormInput } from "../../../../../../components/forms";
+import {
+    FormEnumSelect,
+    FormImagesFilesUpload,
+    FormInput,
+    FormSimpleFilesUpload,
+} from "../../../../../../components/forms";
 import { QuestionWithChoiceEditSection } from "./sections/withChoice/questionWithChoiceEditSection";
 
 const actions: GuardedActions<QuestionEditStore> = [
@@ -65,6 +70,16 @@ export const QuestionEditPage = observer(() => {
                                 validations={[required]}
                             />
                         </DefaultCol>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <FormImagesFilesUpload
+                                label="Images"
+                                multiple
+                                value={store.images}
+                                onChange={store.setImages}
+                            />
+                        </Col>
                     </Row>
                 </CardSection>
                 <QuestionSpecialSection store={store} />

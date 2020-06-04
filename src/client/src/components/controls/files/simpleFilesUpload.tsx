@@ -1,4 +1,4 @@
-import React, { useCallback, MouseEvent } from "react";
+import React, { useCallback, MouseEvent, useMemo } from "react";
 import { FilesDropzone, FilesDropzoneProps } from "./filesDropzone/filesDropzone";
 import { ControlProps } from "../index";
 import { FilesApi } from "../../../core/api/http/filesApi";
@@ -9,18 +9,20 @@ import { Local } from "../../../core/localization/local";
 import { isEmpty } from "lodash";
 
 export type SimpleFilesUploadValue = Array<FileInfo>;
+export type FilesRenderer = React.FC<ControlProps<SimpleFilesUploadValue>>;
 
 export interface SimpleFilesUploadProps
     extends Omit<FilesDropzoneProps, "onUploaded" | "className" | "text">,
-        ControlProps<SimpleFilesUploadValue> {}
+        ControlProps<SimpleFilesUploadValue> {
+    filesRenderer?: FilesRenderer;
+}
 
 export interface FileInfo {
     id: string;
     name: string;
-    reference: string;
 }
 
-export const SimpleFilesUpload = ({ value, onChange, ...rest }: SimpleFilesUploadProps) => {
+export const SimpleFilesUpload = ({ value, onChange, filesRenderer, ...rest }: SimpleFilesUploadProps) => {
     const onUploaded = useCallback(
         async (files: Array<File>) => {
             const uploadedFiles = await Promise.all(files.map(FilesApi.upload));
@@ -29,17 +31,18 @@ export const SimpleFilesUpload = ({ value, onChange, ...rest }: SimpleFilesUploa
         },
         [onChange, rest.multiple, value],
     );
+    const Renderer = useMemo(() => filesRenderer || DefaultFilesRenderer, [filesRenderer]);
 
     return (
         <FilesDropzone
             {...rest}
             onUploaded={onUploaded}
-            text={<FilesRenderer value={value} onChange={onChange} {...rest} />}
+            text={<Renderer value={value} onChange={onChange} {...rest} />}
         />
     );
 };
 
-const FilesRenderer = ({ value, onChange }: ControlProps<SimpleFilesUploadValue>) => {
+const DefaultFilesRenderer = ({ value, onChange }: ControlProps<SimpleFilesUploadValue>) => {
     const remove = useCallback(
         (e: MouseEvent, toRemove: FileInfo) => {
             e.stopPropagation();
