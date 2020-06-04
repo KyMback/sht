@@ -15,6 +15,7 @@ namespace SHT.Api.Web.GraphQl.Queries.Types.TestSessions
             descriptor.Field(e => e.SourceQuestionId);
             descriptor.Field(e => e.FreeTextQuestion).Type<TestSessionVariantFreeTextQuestionDtoGraphType>();
             descriptor.Field(e => e.ChoiceQuestion).Type<TestSessionVariantChoiceQuestionDtoGraphType>();
+            descriptor.Field(e => e.Images).Type<NonNullType<ListType<NonNullType<FileInfoDtoGraphType>>>>();
         }
     }
 }

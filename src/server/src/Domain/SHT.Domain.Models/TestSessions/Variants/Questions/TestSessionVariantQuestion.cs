@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using SHT.Domain.Models.Tests;
 
 namespace SHT.Domain.Models.TestSessions.Variants.Questions
@@ -16,6 +17,9 @@ namespace SHT.Domain.Models.TestSessions.Variants.Questions
         public virtual TestSessionVariant TestSessionVariant { get; set; }
 
         public Guid? SourceQuestionId { get; set; }
+
+        public virtual IList<TestSessionVariantQuestionImage> Images { get; set; } =
+            new List<TestSessionVariantQuestionImage>();
 
         public virtual TestSessionVariantFreeTextQuestion FreeTextQuestion { get; set; }
 

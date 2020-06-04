@@ -30,6 +30,11 @@ namespace SHT.Infrastructure.EF.Configs.Configs.TestSessions.Variants
                 .WithOne()
                 .HasForeignKey<TestSessionVariantChoiceQuestion>(e => e.Id)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(e => e.Images)
+                .WithOne()
+                .HasForeignKey(e => e.TestSessionVariantQuestionId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

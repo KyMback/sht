@@ -98,6 +98,18 @@ namespace SHT.Application.Tests.TestSessions
                 .Map(d => d.ChoiceQuestion, s => s.ChoiceQuestion)
                 .Map(d => d.FreeTextQuestion, s => s.FreeTextQuestion)
                 .Map(d => d.SourceQuestionId, s => s.SourceQuestionId)
+                .AfterMap((source, destination, ctx) =>
+                {
+                    destination.Images = source.Images?.LeftJoin(
+                        destination.Images,
+                        s => s,
+                        d => d.FileId,
+                        s => new TestSessionVariantQuestionImage
+                        {
+                            FileId = s,
+                        },
+                        (optionDto, option) => option).ToList();
+                })
                 .IgnoreAllOther();
 
             CreateMap<TestSessionVariantFreeTextQuestionModificationData, TestSessionVariantFreeTextQuestion>()

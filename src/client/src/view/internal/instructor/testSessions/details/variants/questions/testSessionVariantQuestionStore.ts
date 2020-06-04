@@ -17,6 +17,7 @@ import {
     TestSessionVariantChoiceQuestionStore,
 } from "./testSessionVariantChoiceQuestionStore";
 import { MouseEvent } from "react";
+import { FileInfo } from "../../../../../../../components/controls/files/simpleFilesUpload";
 
 export interface TestSessionVariantQuestionRequiredData {
     id: string;
@@ -24,6 +25,7 @@ export interface TestSessionVariantQuestionRequiredData {
     type: QuestionType;
     order?: number;
     sourceQuestionId: string;
+    images: Array<FileInfo>;
     freeTextQuestion?: TestSessionVariantFreeTextQuestionRequiredData;
     choiceQuestion?: TestSessionVariantChoiceQuestionRequiredData;
 }
@@ -33,6 +35,7 @@ export class TestSessionVariantQuestionStore implements AsyncInitializable {
     @observable public name?: string;
     @observable public type?: QuestionType;
     @observable public order?: number;
+    @observable public images: Array<FileInfo> = [];
     @observable public sourceQuestionId?: string;
     @observable public freeTextQuestion?: TestSessionVariantFreeTextQuestionStore;
     @observable public choiceQuestion?: TestSessionVariantChoiceQuestionStore;
@@ -75,6 +78,7 @@ export class TestSessionVariantQuestionStore implements AsyncInitializable {
         this.type = data.type;
         this.order = data.order;
         this.sourceQuestionId = data.sourceQuestionId;
+        this.images = data.images;
         switch (data.type) {
             case QuestionType.FreeText:
                 this.freeTextQuestion = new TestSessionVariantFreeTextQuestionStore();
@@ -102,6 +106,7 @@ export class TestSessionVariantQuestionStore implements AsyncInitializable {
     public getDto = (): TestSessionVariantQuestionModificationData => {
         return TestSessionVariantQuestionModificationData.fromJS({
             ...this,
+            images: this.images.map(e => e.id),
             freeTextQuestion: this.freeTextQuestion && this.freeTextQuestion.getDto(),
             choiceQuestion: this.choiceQuestion && this.choiceQuestion.getDto(),
         });
@@ -127,6 +132,7 @@ export class TestSessionVariantQuestionStore implements AsyncInitializable {
         runInAction(() => {
             this.name = details.name;
             this.type = details.type;
+            this.images = details.images;
             switch (details.type) {
                 case QuestionType.FreeText:
                     this.freeTextQuestion = new TestSessionVariantFreeTextQuestionStore();

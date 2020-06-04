@@ -53,9 +53,7 @@ const NavBar = ({ navItems }: NavBarProps) => {
             {navItems &&
                 navItems.map((item, index) => (
                     <NavItem key={index} active={location.pathname.startsWith(item.href)}>
-                        <NavLink className="clickable" onClick={_ => routingStore.goto(item.href)}>
-                            {ensureLocal(item.title)}
-                        </NavLink>
+                        <NavLink href={item.href}>{ensureLocal(item.title)}</NavLink>
                     </NavItem>
                 ))}
         </Nav>

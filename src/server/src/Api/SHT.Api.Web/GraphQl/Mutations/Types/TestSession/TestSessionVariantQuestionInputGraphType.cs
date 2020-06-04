@@ -15,6 +15,7 @@ namespace SHT.Api.Web.GraphQl.Mutations.Types.TestSession
             descriptor.Field(e => e.SourceQuestionId);
             descriptor.Field(e => e.FreeTextQuestion).Type<TestSessionVariantFreeTextQuestionInputGraphType>();
             descriptor.Field(e => e.ChoiceQuestion).Type<TestSessionVariantChoiceQuestionInputGraphType>();
+            descriptor.Field(e => e.Images).Type<ListType<NonNullType<UuidType>>>();
         }
     }
 }

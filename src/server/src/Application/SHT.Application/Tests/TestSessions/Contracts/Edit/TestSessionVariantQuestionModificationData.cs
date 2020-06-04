@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using SHT.Application.Common;
 using SHT.Domain.Models.Tests;
 
@@ -16,6 +18,8 @@ namespace SHT.Application.Tests.TestSessions.Contracts.Edit
         public QuestionType Type { get; set; }
 
         public Guid? SourceQuestionId { get; set; }
+
+        public IReadOnlyCollection<Guid> Images { get; set; }
 
         public TestSessionVariantFreeTextQuestionModificationData FreeTextQuestion { get; set; }
 

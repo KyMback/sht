@@ -13,6 +13,7 @@ import { HttpApi } from "../../../../../core/api/http/httpApi";
 import { notifications } from "../../../../../components/notifications/notifications";
 import { TestSessionVariantStore } from "./variants/testSessionVariantStore";
 import { AssessmentSectionStore } from "./assessment/assessmentSectionStore";
+import { FileInfo } from "../../../../../components/controls/files/simpleFilesUpload";
 
 export class TestSessionDetailsEditStore {
     public assessmentStore = new AssessmentSectionStore(this);
@@ -144,6 +145,7 @@ interface TestVariantData {
         order?: number;
         type: QuestionType;
         sourceQuestionId: string;
+        images: Array<FileInfo>;
         choiceQuestion: {
             id: string;
             questionText: string;
@@ -174,6 +176,10 @@ const testSessionDetailsQuery = `
         name
         order
         type
+        images {
+          id
+          name
+        }
         sourceQuestionId
         choiceQuestion {
           id

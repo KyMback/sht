@@ -39,7 +39,7 @@ namespace SHT.Infrastructure.EF.Configs.Configs.Questions
                 .HasMany(e => e.Images)
                 .WithOne()
                 .HasForeignKey(e => e.QuestionTemplateId)
-                .OnDelete(DeleteBehavior.ClientCascade);
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
