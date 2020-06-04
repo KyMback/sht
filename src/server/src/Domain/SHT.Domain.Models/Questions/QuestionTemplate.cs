@@ -23,6 +23,8 @@ namespace SHT.Domain.Models.Questions
 
         public virtual IList<QuestionTemplateTag> Tags { get; set; } = new List<QuestionTemplateTag>();
 
+        public virtual IList<QuestionTemplateImage> Images { get; set; } = new List<QuestionTemplateImage>();
+
         public bool IsShareable { get; set; }
 
         public DateTime CreatedAt { get; set; }

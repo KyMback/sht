@@ -12,6 +12,7 @@ namespace SHT.Api.Web.GraphQl.Mutations.Types
             descriptor.Field(e => e.Type).Type<QuestionTypeGraphType>();
             descriptor.Field(e => e.FreeTextQuestionData).Type<FreeTextQuestionDtoInputGraphType>();
             descriptor.Field(e => e.ChoiceQuestionData).Type<ChoiceQuestionDtoInputGraphType>();
+            descriptor.Field(e => e.Images).Type<ListType<NonNullType<UuidType>>>();
         }
     }
 }

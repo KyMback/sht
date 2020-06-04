@@ -18,8 +18,20 @@ namespace SHT.Application.Questions
             CreateMap<QuestionEditDetailsDto, QuestionTemplate>()
                 .Map(d => d.Name, s => s.Name)
                 .Map(d => d.Type, s => s.Type)
-                .ForMember(d => d.FreeTextQuestionTemplate,  o => o.MapFrom(s => s.FreeTextQuestionData))
-                .ForMember(d => d.ChoiceQuestionTemplate, o => o.MapFrom(s => s.ChoiceQuestionData))
+                .Map(d => d.FreeTextQuestionTemplate,  s => s.FreeTextQuestionData)
+                .Map(d => d.ChoiceQuestionTemplate, s => s.ChoiceQuestionData)
+                .AfterMap((source, destination, ctx) =>
+                {
+                    destination.Images = source.Images?.LeftJoin(
+                        destination.Images,
+                        s => s,
+                        d => d.FileId,
+                        s => new QuestionTemplateImage
+                        {
+                            FileId = s,
+                        },
+                        (optionDto, option) => option).ToList();
+                })
                 .IgnoreAllOther();
 
             CreateMap<FreeTextQuestionDto, FreeTextQuestionTemplate>()

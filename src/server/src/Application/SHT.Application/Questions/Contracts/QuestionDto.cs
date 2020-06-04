@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using LinqKit;
 using SHT.Application.Users.Instructors.Contracts;
@@ -24,11 +26,14 @@ namespace SHT.Application.Questions.Contracts
                         ? ChoiceQuestionDto.Selector.Invoke(question.ChoiceQuestionTemplate)
                         : null,
                     CreatedBy = InstructorDto.Selector.Invoke(question.CreatedBy),
+                    Images = question.Images.Select(e => e.FileId).ToArray(),
                 });
 
         public Guid Id { get; set; }
 
         public string Name { get; set; }
+
+        public IReadOnlyCollection<Guid> Images { get; set; }
 
         public FreeTextQuestionDto FreeTextQuestion { get; set; }
 
