@@ -6,12 +6,12 @@ export type CheckboxValue = boolean;
 
 export type CheckboxProps = ControlProps<boolean>;
 
-export const Checkbox = ({ value, onChange }: CheckboxProps) => {
+export const Checkbox = ({ value, onChange, disabled }: CheckboxProps) => {
     const icon = value ? icons.checked : icons.unchecked;
 
     return (
         <label className="custom-checkbox-container clickable d-block mb-0">
-            <input type="checkbox" checked={value} onChange={() => onChange && onChange(!value)} />
+            <input type="checkbox" checked={value} disabled={disabled} onChange={() => onChange && onChange(!value)} />
             <Icon className="text-primary" icon={icon} />
         </label>
     );

@@ -2,6 +2,7 @@ import { action, observable, runInAction } from "mobx";
 import { BaseQuestionStore } from "../infrasturcture/baseQuestionStore";
 import { AnswerStudentQuestionDto, FreeTextQuestionAnswerDto } from "../../../../../../typings/dataContracts";
 import { HttpApi } from "../../../../../../core/api/http/httpApi";
+import { FileInfo } from "../../../../../../components/controls/files/simpleFilesUpload";
 
 export class FreeTextQuestionStore extends BaseQuestionStore {
     @observable public question?: string;
@@ -18,6 +19,7 @@ export class FreeTextQuestionStore extends BaseQuestionStore {
 
         runInAction(() => {
             this.isInitialized = true;
+            this.images = question.images;
             this.answer = question.answer?.freeTextAnswer.answer;
             this.question = question.freeTextQuestion.questionText;
         });
@@ -34,6 +36,7 @@ export class FreeTextQuestionStore extends BaseQuestionStore {
 }
 
 interface QuestionData {
+    images: Array<FileInfo>;
     freeTextQuestion: {
         questionText: string;
     };
@@ -47,6 +50,10 @@ interface QuestionData {
 const query = `
 query q($id: Uuid!) {
   question: studentTestQuestion(where: { id: $id }) {
+    images {
+      id
+      name
+    }
     freeTextQuestion {
       questionText
     }

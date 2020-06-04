@@ -1,6 +1,10 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Linq.Expressions;
 using LinqKit;
+using SHT.Application.Files.Contracts;
 using SHT.Application.Tests.TestSessions.Contracts;
 using SHT.Common.Utils;
 using SHT.Domain.Models.Tests;
@@ -26,6 +30,7 @@ namespace SHT.Application.Tests.StudentQuestions.Contracts
                 ChoiceQuestion = question.Question.Type == QuestionType.QuestionWithChoice
                     ? StudentChoiceQuestionDto.Selector.Invoke(question.Question.ChoiceQuestion)
                     : null,
+                Images = question.Question.Images.Select(e => FileInfoDto.Selector.Invoke(e.File)).ToArray(),
             });
 
         public Guid Id { get; set; }
@@ -37,6 +42,8 @@ namespace SHT.Application.Tests.StudentQuestions.Contracts
         public QuestionType Type { get; set; }
 
         public Guid StudentTestSessionId { get; set; }
+
+        public IReadOnlyCollection<FileInfoDto> Images { get; set; }
 
         public StudentQuestionAnswerDto Answer { get; set; }
 

@@ -3,4 +3,5 @@ export interface ControlProps<TValue> {
     onChange?: (value: TValue) => void;
     valid?: boolean;
     isRequired?: boolean;
+    disabled?: boolean;
 }

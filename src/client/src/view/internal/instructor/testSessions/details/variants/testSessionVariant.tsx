@@ -57,6 +57,7 @@ const TestSessionVariantEditDetails = observer(({ store }: PropsWithStore<TestSe
                         label="TestSession_IsRandomOrder"
                         value={store.isRandomOrder}
                         onChange={store.setIsRandomOrder}
+                        disabled
                     />
                 </DefaultCol>
             </Row>

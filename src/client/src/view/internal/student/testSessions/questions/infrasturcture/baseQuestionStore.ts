@@ -5,12 +5,14 @@ import { StudentQuestionsService } from "../../../../../../services/studentQuest
 import { notifications } from "../../../../../../components/notifications/notifications";
 import { apiErrors, isExpected } from "../../../../../../core/api/http/apiError";
 import { routingStore } from "../../../../../../stores/routingStore";
+import { FileInfo } from "../../../../../../components/controls/files/simpleFilesUpload";
 
 export abstract class BaseQuestionStore implements AsyncInitializable {
     @observable public id: string;
     @observable public sessionId: string;
     @observable public number?: string;
     @observable public type?: QuestionType;
+    @observable public images: Array<FileInfo> = [];
     @observable public isInitialized: boolean;
 
     constructor(id: string, sessionId: string, type: QuestionType) {

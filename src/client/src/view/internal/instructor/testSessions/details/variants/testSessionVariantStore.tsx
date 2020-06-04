@@ -22,7 +22,7 @@ export class TestSessionVariantStore {
 
     @observable public id?: string;
     @observable public name?: string = "Test Variant Name";
-    @observable public isRandomOrder: boolean = false;
+    @observable public isRandomOrder: boolean = true;
     @observable public questions: Array<TestSessionVariantQuestionStore> = [];
 
     @computed

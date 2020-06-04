@@ -3,6 +3,7 @@ import { observable, runInAction } from "mobx";
 import { HttpApi } from "../../../../../../core/api/http/httpApi";
 import { AnswerStudentQuestionDto, ChoiceQuestionAnswerDto } from "../../../../../../typings/dataContracts";
 import { isEmpty } from "lodash";
+import { FileInfo } from "../../../../../../components/controls/files/simpleFilesUpload";
 
 export class ChoiceQuestionStore extends BaseQuestionStore {
     @observable public question?: string;
@@ -17,6 +18,7 @@ export class ChoiceQuestionStore extends BaseQuestionStore {
 
         runInAction(() => {
             this.question = question.choiceQuestion.questionText;
+            this.images = question.images;
             this.options = question.choiceQuestion.options.map(e => ({
                 ...e,
                 isChecked: false,
@@ -50,6 +52,7 @@ interface SelectOption {
 }
 
 interface QuestionData {
+    images: Array<FileInfo>;
     choiceQuestion: {
         questionText: string;
         options: Array<{
@@ -67,6 +70,10 @@ interface QuestionData {
 const query = `
 query q($id: Uuid!) {
   question: studentTestQuestion(where: { id: $id }) {
+    images {
+      id
+      name
+    }
     choiceQuestion {
       questionText
       options {
