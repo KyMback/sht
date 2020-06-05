@@ -11,14 +11,14 @@ namespace SHT.Infrastructure.Common.StateMachine.Core
         where TEntity : class, IHasState
     {
         private readonly StateMachine<string, string> _stateMachine;
-        private readonly ISafeInjectionResolver _safeInjectionResolver;
+        private readonly IServiceProvider _serviceProvider;
         private TEntity _entity;
 
         public StateManager(
             IStateConfigurationContainer<TEntity> stateConfigurationContainer,
-            ISafeInjectionResolver safeInjectionResolver)
+            IServiceProvider serviceProvider)
         {
-            _safeInjectionResolver = safeInjectionResolver;
+            _serviceProvider = serviceProvider;
 
             // TODO: optimize creation + configuration of state machines
             _stateMachine = new StateMachine<string, string>(
@@ -65,7 +65,7 @@ namespace SHT.Infrastructure.Common.StateMachine.Core
         {
             foreach (Type guard in guards)
             {
-                if (!await ((IStateTransitionGuard<TEntity>)_safeInjectionResolver.Resolve(guard)).Check(_entity))
+                if (!await ((IStateTransitionGuard<TEntity>)_serviceProvider.GetService(guard)).Check(_entity))
                 {
                     return false;
                 }
@@ -83,7 +83,7 @@ namespace SHT.Infrastructure.Common.StateMachine.Core
             context.TargetState = transition.Destination;
             context.Trigger = transition.Trigger;
             var handlers = configuration.Handlers
-                .Select(t => _safeInjectionResolver.Resolve(t))
+                .Select(t => _serviceProvider.GetService(t))
                 .Cast<IStateTransitionHandler<TEntity>>();
 
             using var transaction = TransactionsFactory.Create();

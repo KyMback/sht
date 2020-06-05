@@ -6,6 +6,8 @@ using Hangfire.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using SHT.BackgroundProcess.Host.Extensions;
+using SHT.BackgroundProcess.Jobs.RecurringJobs;
 
 namespace SHT.BackgroundProcess.Host.Services.Hosted
 {
@@ -61,7 +63,7 @@ namespace SHT.BackgroundProcess.Host.Services.Hosted
 
         private void RegisterJobs()
         {
-            // add jobs here
+            _recurringJobManager.AddOrUpdate<FinalizeStudentsTestSessionsJob>(nameof(FinalizeStudentsTestSessionsJob), _configuration);
         }
     }
 }

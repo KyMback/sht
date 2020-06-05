@@ -15,6 +15,8 @@ namespace SHT.Domain.Services.Student
 
         public Guid? Id { get; set; }
 
+        public IReadOnlyCollection<Guid> Ids { get; set; }
+
         public Guid? StudentId { get; set; }
 
         public Guid? TestSessionId { get; set; }
@@ -31,8 +33,11 @@ namespace SHT.Domain.Services.Student
 
         public IReadOnlyCollection<Guid> VariantIds { get; set; }
 
+        public DateTime? MoreOrGreaterThanShouldEndAt { get; set; }
+
         protected override void AddFilters()
         {
+            FilterIfHasValue(Ids, session => Ids.Contains(session.Id));
             FilterIfHasValue(VariantIds, session => VariantIds.Contains(session.TestSessionId));
             FilterIfHasValue(VariantId, session => session.TestVariantId == VariantId.Value);
             FilterIfHasValue(Id, session => session.Id == Id.Value);
@@ -41,6 +46,7 @@ namespace SHT.Domain.Services.Student
             FilterIfHasValue(ExceptTestSessionState, session => session.TestSession.State != ExceptTestSessionState);
             FilterIfHasValue(ExcludedStates, session => !ExcludedStates.Contains(session.State));
             FilterIfHasValue(TestSessionId, session => session.TestSessionId == TestSessionId.Value);
+            FilterIfHasValue(MoreOrGreaterThanShouldEndAt, session => session.ShouldEndAt <= MoreOrGreaterThanShouldEndAt);
         }
 
         protected override void AddSorting()

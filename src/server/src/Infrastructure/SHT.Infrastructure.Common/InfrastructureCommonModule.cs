@@ -26,7 +26,7 @@ namespace SHT.Infrastructure.Common
             builder
                 .RegisterGeneric(typeof(StateManager<>))
                 .AsImplementedInterfaces()
-                .InstancePerLifetimeScope();
+                .InstancePerDependency();
         }
     }
 }

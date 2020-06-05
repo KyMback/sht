@@ -4,6 +4,7 @@ using Hangfire.PostgreSql;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using SHT.BackgroundProcess.Host.Options;
 using SHT.Infrastructure.Common.Localization.Options;
 using SHT.Infrastructure.DataAccess.Abstractions.Options;
 using SHT.Infrastructure.FileStorage.Options;
@@ -19,6 +20,7 @@ namespace SHT.BackgroundProcess.Host.Extensions
         {
             var connectionString =
                 configuration.GetValue<string>("DataAccessOptions:ConnectionsOptions:DefaultConnection");
+
             GlobalConfiguration.Configuration
                 .UseRecommendedSerializerSettings()
                 .UseSimpleAssemblyNameTypeSerializer()
@@ -33,6 +35,7 @@ namespace SHT.BackgroundProcess.Host.Extensions
             services
                 .Configure<DataAccessOptions>(configuration.GetSection(nameof(DataAccessOptions)))
                 .Configure<LocalizationOptions>(configuration.GetSection(nameof(LocalizationOptions)))
+                .Configure<ExecutionContextOptions>(configuration.GetSection(nameof(ExecutionContextOptions)))
                 .Configure<LocalizationOptions>(CreateLocalizationOptions)
                 .Configure<FileStorageOptions>(configuration.GetSection(nameof(FileStorageOptions)))
                 .Configure<FileSystemStorageOptions>(configuration.GetSection($"{nameof(FileStorageOptions)}:{nameof(FileSystemStorageOptions)}"))

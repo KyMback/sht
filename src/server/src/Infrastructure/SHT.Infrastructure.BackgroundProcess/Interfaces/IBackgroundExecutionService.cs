@@ -1,4 +1,5 @@
 using System;
+using SHT.Infrastructure.Common.ExecutionContext;
 
 namespace SHT.Infrastructure.BackgroundProcess.Interfaces
 {
@@ -14,6 +15,8 @@ namespace SHT.Infrastructure.BackgroundProcess.Interfaces
         /// <param name="name">The job name.</param>
         /// <param name="param">The job parameter.</param>
         void Execute<TParam>(string name, TParam param);
+
+        void Execute<TParam>(string name, TParam param, IExecutionContext context);
 
         /// <summary>
         /// Schedules the job for execution at specified time.

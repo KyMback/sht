@@ -17,7 +17,6 @@ namespace SHT.Api.Web
             builder
                 .AddAutoMapperTypes(ThisAssembly)
                 .AddScopedAsImplementedInterfaces<WebFilesService>()
-                .AddSingleAsImplementedInterfaces<WebSafeInjectionResolver>()
                 .AddScopedAsImplementedInterfaces<WebLocalizationManagementService>()
                 .AddScopedAsImplementedInterfaces<WebExecutionContextService>()
                 .AddScopedAsImplementedInterfaces<WebAuthenticationService>();

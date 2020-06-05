@@ -18,7 +18,6 @@ namespace SHT.BackgroundProcess.Host
 
             builder
                 .AddSingle<IRecurringJobManager, RecurringJobManager>()
-                .AddSingleAsImplementedInterfaces<BackgroundHostInjectionResolver>()
                 .AddScopedAsImplementedInterfaces<BackgroundHostExecutionContextService>();
 
             base.Load(builder);

@@ -5,7 +5,7 @@ import momentDurationFormatSetup from "moment-duration-format";
 
 momentDurationFormatSetup(moment);
 
-export const dateTimeRangeMask = /^(\d+d)?((\s|^)(\d+h))?((\s|^)(\d+m))?$/;
+export const dateTimeRangeMask = /^(?<days>\d+d)?((\s|^)(?<hours>\d+h))?((\s|^)(?<minutes>\d+m))?$/;
 export const zeroDateTimeRangeUnitMask = /^0+[dhm]$/;
 
 export function convertToFormattedDuration(duration?: Duration | string): string | undefined {
@@ -38,14 +38,14 @@ export function convertToTimeSpan(duration?: string): Duration | undefined {
         return;
     }
 
-    const matches = dateTimeRangeMask.exec(duration);
+    const match = dateTimeRangeMask.exec(duration);
 
-    if (!matches) {
+    if (!match || !match.groups) {
         return;
     }
-    const minutes = matches[3].trim();
-    const hours = matches[2].trim();
-    const days = matches[1].trim();
+    const minutes = match.groups["minutes"]?.trim();
+    const hours = match.groups["hours"]?.trim();
+    const days = match.groups["days"]?.trim();
 
     return moment.duration({
         minutes: minutes ? parseInt(minutes) : undefined,
