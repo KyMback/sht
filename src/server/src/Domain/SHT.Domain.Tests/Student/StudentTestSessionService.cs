@@ -10,6 +10,7 @@ using SHT.Domain.Models.TestSessions.Students;
 using SHT.Domain.Models.TestSessions.Students.Answers;
 using SHT.Domain.Models.TestSessions.Variants;
 using SHT.Domain.Services.Student.StateConfigurations;
+using SHT.Infrastructure.Common;
 using SHT.Infrastructure.Common.StateMachine.Core;
 using SHT.Infrastructure.Common.Transactions;
 using SHT.Infrastructure.DataAccess.Abstractions;
@@ -20,13 +21,16 @@ namespace SHT.Domain.Services.Student
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IStateManager<StudentTestSession> _stateManager;
+        private readonly IDateTimeProvider _dateTimeProvider;
 
         public StudentTestSessionService(
             IUnitOfWork unitOfWork,
-            IStateManager<StudentTestSession> stateManager)
+            IStateManager<StudentTestSession> stateManager,
+            IDateTimeProvider dateTimeProvider)
         {
             _unitOfWork = unitOfWork;
             _stateManager = stateManager;
+            _dateTimeProvider = dateTimeProvider;
         }
 
         public async Task Start(StudentTestSession studentTestSession, Guid variantId)
@@ -42,6 +46,12 @@ namespace SHT.Domain.Services.Student
             if (testVariant == null)
             {
                 throw new CodedException(ErrorCode.InvalidVariantName);
+            }
+
+            if (studentTestSession.TestSession.StudentTestDuration.HasValue)
+            {
+                studentTestSession.ShouldEndAt =
+                    _dateTimeProvider.UtcNow.Add(studentTestSession.TestSession.StudentTestDuration.Value);
             }
 
             studentTestSession.TestVariantId = variantId;

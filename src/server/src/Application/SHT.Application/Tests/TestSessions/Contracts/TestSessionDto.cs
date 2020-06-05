@@ -20,6 +20,7 @@ namespace SHT.Application.Tests.TestSessions.Contracts
                     Id = session.Id,
                     Name = session.Name,
                     State = session.State,
+                    StudentTestDuration = session.StudentTestDuration,
                     StudentsIds = session.StudentTestSessions.Select(e => e.StudentId).ToArray(),
                     TestVariants = session.Variants
                         .Select(e => TestSessionVariantDto.Selector.Invoke(e))
@@ -34,6 +35,8 @@ namespace SHT.Application.Tests.TestSessions.Contracts
         public string Name { get; set; }
 
         public string State { get; set; }
+
+        public TimeSpan? StudentTestDuration { get; set; }
 
         public IReadOnlyCollection<Guid> StudentsIds { get; set; } = new List<Guid>();
 

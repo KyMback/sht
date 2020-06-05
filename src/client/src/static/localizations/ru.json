@@ -9,6 +9,7 @@
     "validation_passwordRequireLowercase": "Требуется хотя бы одна строчная буква.",
     "validation_passwordRequireUppercase": "Требуется хотя бы одна заглавная буква.",
     "validation_passwordRequireNonAlphanumeric": "Требуется хотя бы один не буквенно-цифровой символ.",
+    "validation_invalidDurationFormat": "Неверный формат",
     "SuccessfullySaved": "Успешно сохранено",
     "Login": "Логин",
     "Add": "Добавить",
@@ -110,5 +111,10 @@
     "QuestionTemplatesFile": "Файл с шаблонами вопросов",
     "ChoiceQuestionTemplateOptionsFile": "Файл с опциями для вопросов с выбором",
     "QuestionTemplatesImport": "Импорт шаблонов вопросов",
-    "Images": "Изображения"
+    "Images": "Изображения",
+    "TestSession_StudentTestDuration": "Продолжительность теста студента",
+    "DurationDays_Template": "{days}d",
+    "DurationHours_Template": "{hours}h",
+    "DurationMinutes_Template": "{minutes}m",
+    "TimeSpanTemplate": "1d 12h 30m"
 }

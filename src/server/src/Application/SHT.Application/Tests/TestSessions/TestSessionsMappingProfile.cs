@@ -21,6 +21,7 @@ namespace SHT.Application.Tests.TestSessions
             CreateMap<TestSessionModificationData, TestSession>()
                 .Map(d => d.Name, s => s.Name)
                 .Map(d => d.Assessment, s => s.Assessment)
+                .Map(d => d.StudentTestDuration, s => s.StudentTestDuration)
                 .AfterMap((source, destination, ctx) =>
                 {
                     destination.StudentTestSessions = source.StudentsIds.LeftJoin(

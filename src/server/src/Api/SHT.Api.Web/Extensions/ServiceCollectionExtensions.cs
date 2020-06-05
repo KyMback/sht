@@ -57,6 +57,7 @@ namespace SHT.Api.Web.Extensions
                             e.UseXmlDocumentation = true;
                         })
                         .BindClrType<Unit, VoidType>()
+                        .BindClrType<TimeSpan, TimeSpanType>()
                         .AddMutationType<GraphQlMutations>()
                         .AddQueryType<GraphQlQueries>()
                         .AddServices(provider)

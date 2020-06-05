@@ -14,6 +14,8 @@ import { notifications } from "../../../../../components/notifications/notificat
 import { TestSessionVariantStore } from "./variants/testSessionVariantStore";
 import { AssessmentSectionStore } from "./assessment/assessmentSectionStore";
 import { FileInfo } from "../../../../../components/controls/files/simpleFilesUpload";
+import { Duration } from "moment";
+import { convertToFormattedDuration, convertToTimeSpan } from "../../../../../core/utils/durationUtils";
 
 export class TestSessionDetailsEditStore {
     public assessmentStore = new AssessmentSectionStore(this);
@@ -24,14 +26,19 @@ export class TestSessionDetailsEditStore {
     @observable public groups: Array<SelectItem<string>> = [];
     @observable public selectedGroups: Array<SelectItem<string>> = [];
     @observable public testVariants: Array<TestSessionVariantStore> = [];
+    @observable public studentTestDuration?: string;
 
     constructor(id?: string) {
         this.id = id;
     }
 
-    @action setName = (value?: string) => (this.name = value);
-    @action setSelectedGroups = (value?: Array<SelectItem<string>>) => {
+    @action public setName = (value?: string) => (this.name = value);
+    @action public setSelectedGroups = (value?: Array<SelectItem<string>>) => {
         this.selectedGroups = value || [];
+    };
+
+    @action public setStudentTestDuration = (value?: string) => {
+        this.studentTestDuration = value;
     };
 
     @action
@@ -86,6 +93,7 @@ export class TestSessionDetailsEditStore {
     @action
     private setData = (data: TestSessionData) => {
         this.name = data.name;
+        this.studentTestDuration = convertToFormattedDuration(data.studentTestDuration);
         const groups: Array<string> = [];
         Object.entries(this.groupedGroups).forEach(([key, values]) => {
             if (!isEmpty(intersection(values, data.studentsIds!))) {
@@ -105,6 +113,7 @@ export class TestSessionDetailsEditStore {
         return TestSessionModificationData.fromJS({
             id: this.id,
             name: this.name,
+            studentTestDuration: convertToTimeSpan(this.studentTestDuration),
             studentsIds: this.selectedGroups
                 .map(g => g.value)
                 .map(g => this.groupedGroups[g])
@@ -125,6 +134,7 @@ interface TestSessionData {
     name: string;
     studentsIds: string[];
     testVariants: TestVariantData[];
+    studentTestDuration: Duration;
     assessment: {
         id: string;
         assessmentQuestions: Array<{
@@ -167,6 +177,7 @@ const testSessionDetailsQuery = `
     id
     name
     studentsIds
+    studentTestDuration
     testVariants {
       name
       id

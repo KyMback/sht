@@ -4,7 +4,7 @@ import React from "react";
 import { observer, useLocalStore } from "mobx-react-lite";
 import { TestSessionDetailsEditStore } from "./testSessionDetailsEditStore";
 import { Form } from "../../../../../components/forms/form";
-import { FormInput, FormMultiSelect } from "../../../../../components/forms";
+import { FormDurationPicker, FormInput, FormMultiSelect } from "../../../../../components/forms";
 import { required } from "../../../../../components/forms/validations";
 import useAsyncEffect from "use-async-effect";
 import { ListGroup, Row } from "reactstrap";
@@ -41,6 +41,15 @@ export const TestSessionEditDetails = observer(() => {
                                 options={store.groups}
                                 onChange={store.setSelectedGroups}
                                 validations={[required]}
+                            />
+                        </DefaultCol>
+                    </Row>
+                    <Row>
+                        <DefaultCol>
+                            <FormDurationPicker
+                                label="TestSession_StudentTestDuration"
+                                value={store.studentTestDuration}
+                                onChange={store.setStudentTestDuration}
                             />
                         </DefaultCol>
                     </Row>

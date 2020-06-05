@@ -1,3 +1,4 @@
+using System;
 using FluentValidation;
 using SHT.Application.Tests.TestSessions.Contracts.Edit;
 using SHT.Domain.Models;
@@ -9,6 +10,7 @@ namespace SHT.Application.Tests.TestSessions.Common
     {
         public TestSessionModificationDataValidator()
         {
+            RuleFor(e => e.StudentTestDuration).GreaterThan(TimeSpan.Zero);
             RuleFor(e => e.Name).NotEmpty().MaximumLength(LengthConstants.Medium);
             RuleFor(e => e.StudentsIds).NotNull();
             RuleFor(e => e.Variants).NotNull().SetValidator(new UniquenessValidator<TestSessionVariantModificationData, string>(data => data.Name));

@@ -1,11 +1,24 @@
 import { isEmpty } from "lodash";
 import { ValidationFunction } from "./formControlWrapper";
 import { LengthConstants } from "../../typings/lengthConstants";
+import { DurationValue } from "../controls/durationPicker/durationPicker";
+import { dateTimeRangeMask, zeroDateTimeRangeUnitMask } from "../../core/utils/durationUtils";
 
 const emailRegexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+
 export const required: ValidationFunction<any> = (value: any) => {
     return value == null || value === "" || requiredArray(value) ? "required" : undefined;
+};
+
+export const durationValidation: ValidationFunction<DurationValue> = (value: DurationValue) => {
+    if (value == null) {
+        return undefined;
+    }
+
+    return value && dateTimeRangeMask.test(value) && !value.split(" ").every(p => zeroDateTimeRangeUnitMask.test(p))
+        ? undefined
+        : "invalidDurationFormat";
 };
 
 export const nameShouldBeUniq = (values: Array<string | undefined>): ValidationFunction<string | undefined> => {

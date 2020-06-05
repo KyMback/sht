@@ -8,9 +8,10 @@ export interface InputControlProps extends ControlProps<TextInputValue> {
     className?: string;
     type?: "password" | "text" | "email";
     valid?: boolean;
+    placeholder?: string;
 }
 
-export const InputControl = ({ onChange, value, className, type, valid }: InputControlProps) => {
+export const InputControl = ({ onChange, value, className, placeholder, type, valid }: InputControlProps) => {
     const onChangeCallback = useCallback(
         e => {
             onChange && onChange(e.target.value);
@@ -26,6 +27,7 @@ export const InputControl = ({ onChange, value, className, type, valid }: InputC
             className={className}
             value={value || ""}
             onChange={onChangeCallback}
+            placeholder={placeholder}
         />
     );
 };

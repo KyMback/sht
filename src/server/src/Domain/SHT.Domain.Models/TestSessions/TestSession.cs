@@ -12,6 +12,8 @@ namespace SHT.Domain.Models.TestSessions
     {
         public string Name { get; set; }
 
+        public TimeSpan? StudentTestDuration { get; set; }
+
         public Guid InstructorId { get; set; }
 
         /// <summary>

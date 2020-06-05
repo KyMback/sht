@@ -9,6 +9,7 @@
     "validation_passwordRequireLowercase": "Require at least one lowercase letter.",
     "validation_passwordRequireUppercase": "Require at least one uppercase letter.",
     "validation_passwordRequireNonAlphanumeric": "Require at least one non alphanumeric symbol.",
+    "validation_invalidDurationFormat": "Invalid duration format",
     "SuccessfullySaved": "Successfully Saved",
     "Login": "Login",
     "Add": "Add",
@@ -110,5 +111,10 @@
     "QuestionTemplatesFile": "Questions templates file",
     "ChoiceQuestionTemplateOptionsFile": "Choice question template options file",
     "QuestionTemplatesImport": "Question Templates Import",
-    "Images": "Images"
+    "Images": "Images",
+    "TestSession_StudentTestDuration": "Student test duration",
+    "DurationDays_Template": "{days}d",
+    "DurationHours_Template": "{hours}h",
+    "DurationMinutes_Template": "{minutes}m",
+    "TimeSpanTemplate": "1d 12h 30m"
 }

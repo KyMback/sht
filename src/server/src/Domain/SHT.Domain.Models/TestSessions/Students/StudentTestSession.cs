@@ -23,6 +23,8 @@ namespace SHT.Domain.Models.TestSessions.Students
         /// </summary>
         public string State { get; set; }
 
+        public DateTime? ShouldEndAt { get; set; }
+
         public virtual IList<StudentTestSessionQuestion> Questions { get; set; } =
             new List<StudentTestSessionQuestion>();
     }

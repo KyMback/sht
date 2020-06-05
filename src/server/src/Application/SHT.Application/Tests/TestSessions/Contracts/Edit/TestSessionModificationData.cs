@@ -12,6 +12,8 @@ namespace SHT.Application.Tests.TestSessions.Contracts.Edit
 
         public string Name { get; set; }
 
+        public TimeSpan? StudentTestDuration { get; set; }
+
         public IReadOnlyCollection<Guid> StudentsIds { get; set; }
 
         public IReadOnlyCollection<TestSessionVariantModificationData> Variants { get; set; }

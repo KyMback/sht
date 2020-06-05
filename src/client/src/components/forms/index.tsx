@@ -18,8 +18,17 @@ import {
     SimpleSingleFileUploadValue,
 } from "../controls/files/simpleSingleFileUpload";
 import { ImagesFilesUpload, ImagesFilesUploadProps } from "../controls/files/images/imagesFilesUpload";
+import { DurationValue, DurationPicker, DurationPickerProps } from "../controls/durationPicker/durationPicker";
+import React from "react";
+import { durationValidation } from "./validations";
 
 export const FormInput = makeFormControl<InputControlProps, TextInputValue>(InputControl, FormInputView);
+
+const FormDurationPickerControl = makeFormControl<DurationPickerProps, DurationValue>(DurationPicker);
+export const FormDurationPicker: typeof FormDurationPickerControl = props => (
+    <FormDurationPickerControl {...props} validations={[durationValidation, ...(props.validations || [])]} />
+);
+
 export const FormNumericInput = makeFormControl<NumericInputControlProps, NumericInputValue>(NumericInputControl);
 export const FormTextArea = makeFormControl<TextAreaProps, TextInputValue>(TextArea);
 export const FormMultiSelect = makeFormControl<MultiSelectProps, Array<any> | undefined>(MultiSelect);
