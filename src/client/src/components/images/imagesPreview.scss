@@ -1,0 +1,50 @@
+@import "src/styles/variables";
+
+@mixin items-in-row($number, $margin) {
+    flex-basis: calc((100% - ((#{$number} - 1) * #{$margin})) / #{$number});
+    &:not(:nth-child(#{$number}n)) {
+        margin-right: $margin;
+    }
+}
+
+.images-preview-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .image-container {
+        border: 1px solid color("border-color");
+        border-radius: 3px;
+        background-color: color("background");
+        padding: 5px;
+        display: flex;
+        align-items: center;
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+
+        @media (min-width: media-min("xl")) {
+            @include items-in-row(12, 15px);
+            margin-bottom: 15px;
+        }
+
+        @media (min-width: media-min("lg")) and (max-width: media-min("xl")) {
+            @include items-in-row(7, 15px);
+            margin-bottom: 15px;
+        }
+
+        @media (min-width: media-min("sm")) and (max-width: media-min("lg")) {
+            @include items-in-row(4, 10px);
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: media-min("sm")) {
+            @include items-in-row(3, 5px);
+            margin-bottom: 5px;
+        }
+    }
+}
+
+

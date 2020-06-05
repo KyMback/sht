@@ -31,9 +31,8 @@ namespace SHT.Application.Files.Download
 
         public async Task<DownloadFileDto> Handle(DownloadFileRequest request, CancellationToken cancellationToken)
         {
-            var queryParams = new FileQueryParameters(
-                id: request.FileId,
-                createdById: _executionContextService.GetCurrentUserId());
+            // TODO: add security check
+            var queryParams = new FileQueryParameters(id: request.FileId);
 
             var fileInfo = await _unitOfWork.GetSingle(
                 queryParams,

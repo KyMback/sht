@@ -6,6 +6,7 @@ import { required } from "../../../../../../components/forms/validations";
 import { PropsWithStore } from "../../../../../../typings/customTypings";
 import { Col, Row } from "reactstrap";
 import { useStoreLifeCycle } from "../../../../../../core/hooks/useStoreLifeCycle";
+import { ImagesPreview } from "../../../../../../components/images/imagesPreview";
 
 export const FreeTextQuestion = observer(({ store }: PropsWithStore<FreeTextQuestionStore>) => {
     useStoreLifeCycle(store);
@@ -15,6 +16,11 @@ export const FreeTextQuestion = observer(({ store }: PropsWithStore<FreeTextQues
             <Row>
                 <Col>
                     <span>{store.question}</span>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <ImagesPreview images={store.images} />
                 </Col>
             </Row>
             <br />

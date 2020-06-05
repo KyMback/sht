@@ -13,12 +13,7 @@ import { maxMediumLength, required } from "../../../../../../components/forms/va
 import { QuestionType } from "../../../../../../typings/dataContracts";
 import { Col, Row } from "reactstrap";
 import { DefaultCol } from "../../../../../../components/layouts/defaultCol";
-import {
-    FormEnumSelect,
-    FormImagesFilesUpload,
-    FormInput,
-    FormSimpleFilesUpload,
-} from "../../../../../../components/forms";
+import { FormEnumSelect, FormImagesFilesUpload, FormInput } from "../../../../../../components/forms";
 import { QuestionWithChoiceEditSection } from "./sections/withChoice/questionWithChoiceEditSection";
 
 const actions: GuardedActions<QuestionEditStore> = [
