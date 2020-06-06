@@ -14,6 +14,7 @@ namespace SHT.Api.Web.GraphQl.Mutations
             ConfigureAccount(descriptor);
             ConfigureTestSessions(descriptor);
             ConfigureQuestions(descriptor);
+            ConfigureStudents(descriptor);
         }
 
         private void ConfigureAccount(IObjectTypeDescriptor<GraphQlMutationHandlers> descriptor)
@@ -138,6 +139,16 @@ namespace SHT.Api.Web.GraphQl.Mutations
                 .Authorize(AuthorizationPolicyNames.StudentsOnly)
                 .Argument("data", argumentDescriptor =>
                     argumentDescriptor.Type<NonNullType<AnswersRatingEditDtoInputGraphType>>());
+        }
+
+        private void ConfigureStudents(IObjectTypeDescriptor<GraphQlMutationHandlers> descriptor)
+        {
+            descriptor.Field(e => e.UpdateStudentProfile(default))
+                .Name("updateStudentProfile")
+                .Type<VoidType>()
+                .Authorize(AuthorizationPolicyNames.StudentsOnly)
+                .Argument("data", argumentDescriptor =>
+                    argumentDescriptor.Type<NonNullType<StudentProfileModificationDtoInputGraphType>>());
         }
     }
 }

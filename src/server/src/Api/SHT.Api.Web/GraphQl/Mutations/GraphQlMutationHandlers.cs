@@ -27,6 +27,7 @@ using SHT.Application.Users.Instructors.Contracts;
 using SHT.Application.Users.Instructors.SignUp;
 using SHT.Application.Users.Students.Contracts;
 using SHT.Application.Users.Students.SignUp;
+using SHT.Application.Users.Students.UpdateProfile;
 
 namespace SHT.Api.Web.GraphQl.Mutations
 {
@@ -52,6 +53,11 @@ namespace SHT.Api.Web.GraphQl.Mutations
         public Task<Unit> SignUpStudent(SignUpStudentDataDto data)
         {
             return _mediator.Send(new SignUpStudentRequest(data));
+        }
+
+        public Task<Unit> UpdateStudentProfile(StudentProfileModificationDto data)
+        {
+            return _mediator.Send(new UpdateStudentProfileRequest(data));
         }
 
         public Task<Unit> SignUpInstructor(SignUpInstructorDataDto data)

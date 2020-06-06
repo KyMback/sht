@@ -8,6 +8,8 @@ import { useStoreLifeCycle } from "../../../../core/hooks/useStoreLifeCycle";
 import { Row } from "reactstrap";
 import { DefaultCol } from "../../../../components/layouts/defaultCol";
 import { ViewContextWrapper } from "../../../../components/forms/view/core/viewContextWrapper";
+import { ViewModeType } from "../../../../components/forms/view/core/viewContextStore";
+import { StudentProfileAdditionalInfo } from "./studentProfileAdditionalInfo";
 
 export const StudentProfilePage = observer(() => {
     const store = useLocalStore(() => new StudentProfileStore());
@@ -15,7 +17,7 @@ export const StudentProfilePage = observer(() => {
 
     return (
         <CardSectionsGroup title="Profile">
-            <ViewContextWrapper mode={store.viewModeType}>
+            <ViewContextWrapper mode={ViewModeType.View}>
                 <CardSection title="AccountInfo">
                     <Row>
                         <DefaultCol>
@@ -23,24 +25,8 @@ export const StudentProfilePage = observer(() => {
                         </DefaultCol>
                     </Row>
                 </CardSection>
-                <CardSection title="AdditionalInfo">
-                    <Row>
-                        <DefaultCol>
-                            <FormInput value={store.firstName} label="FirstName" />
-                        </DefaultCol>
-                    </Row>
-                    <Row>
-                        <DefaultCol>
-                            <FormInput value={store.lastName} label="LastName" />
-                        </DefaultCol>
-                    </Row>
-                    <Row>
-                        <DefaultCol>
-                            <FormInput value={store.group} label="Group" />
-                        </DefaultCol>
-                    </Row>
-                </CardSection>
             </ViewContextWrapper>
+            <StudentProfileAdditionalInfo store={store} />
         </CardSectionsGroup>
     );
 });
